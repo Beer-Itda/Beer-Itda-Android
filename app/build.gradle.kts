@@ -4,7 +4,7 @@ plugins {
     kotlin("android")
     kotlin("android.extensions")
     kotlin("kapt")
-
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -64,6 +64,8 @@ dependencies {
     implementation(Libs.FRAGMENT_KTX)
     implementation(Libs.LIFECYCLE_VIEW_MODEL_KTX)
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
+    implementation(Libs.NAVIGATION_FRAGMENT)
+    implementation(Libs.NAVIGATION_UI_KTX)
 
     // Libraries
     implementation(Libs.RETROFIT)
