@@ -14,6 +14,9 @@ object Versions {
     const val ACTIVITY_KTX = "1.1.0"
     const val FRAGMENT_KTX = "1.2.4"
     const val LIFECYCLE = "2.2.0"
+    const val NAVIGATION_FRAGMENT = "2.3.0"
+    const val NAVIGATION_UI_KTX = "2.3.0"
+    const val NAVIGATION_SAFE_ARGS = "2.3.0"
 
     // ThirdParty Libraries
     const val RETROFIT = "2.8.2"
@@ -47,6 +50,10 @@ object Libs {
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.LIFECYCLE}"
     const val LIFECYCLE_LIVE_DATA_KTX =
         "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.LIFECYCLE}"
+    const val NAVIGATION_FRAGMENT =
+        "androidx.navigation:navigation-fragment-ktx:${Versions.NAVIGATION_FRAGMENT}"
+    const val NAVIGATION_UI_KTX =
+        "androidx.navigation:navigation-ui-ktx:${Versions.NAVIGATION_UI_KTX}"
 
     // Third Party Libraries
     const val RETROFIT = "com.squareup.retrofit2:retrofit:${Versions.RETROFIT}"
