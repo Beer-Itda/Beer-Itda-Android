@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_navigation"
+    app:startDestination="@id/homeScreen"
+    >
+
+    <fragment
+        android:id="@+id/homeScreen"
+        android:name="com.ddd4.synesthesia.beer.presentation.home.view.HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/home_to_detail"
+            app:destination="@id/detailScreen"
+            />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailScreen"
+        android:name="com.ddd4.synesthesia.beer.presentation.detail.view.DetailFragment"
+        tools:layout="@layout/fragment_detail"/>
+
+
+</navigation>
