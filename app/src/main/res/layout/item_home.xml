@@ -90,32 +90,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:scrollbars="none"
-            android:overScrollMode="never"
             app:layout_constraintBottom_toBottomOf="@id/iv_beer_thumbnail"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_beer_style"
-            app:layout_constraintTop_toBottomOf="@id/tv_beer_country"
-            >
+            app:layout_constraintTop_toBottomOf="@id/tv_beer_country">
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chip_group"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
-                app:singleLine="true"
-                >
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Flavor"
-                    android:textColor="@color/color_white"
-                    app:chipBackgroundColor="@color/color_black"
-                    app:chipMinHeight="26dp"
-                    app:chipMinTouchTargetSize="0dp"
-                    />
-
-            </com.google.android.material.chip.ChipGroup>
-
+                app:addChip="@{item.aroma}"
+                app:singleLine="true" />
         </HorizontalScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

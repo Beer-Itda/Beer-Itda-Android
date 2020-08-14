@@ -11,7 +11,7 @@ class BeerRepository () {
             list.add(
                 Beer(
                     4.0,
-                    arrayListOf(),
+                    arrayListOf("Grape", "Tropical", "Orange", "Lime", "Lemon"),
                     "스타일",
                     "브루어리",
                     arrayListOf(),
