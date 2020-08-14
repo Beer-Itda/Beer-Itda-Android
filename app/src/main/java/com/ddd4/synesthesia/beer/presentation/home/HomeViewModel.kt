@@ -1,6 +1,5 @@
 package com.ddd4.synesthesia.beer.presentation.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -13,7 +12,7 @@ import timber.log.Timber
 
 class HomeViewModel(
     private val repository: BeerRepository = BeerRepository()
-): BaseViewModel() {
+) : BaseViewModel() {
 
     private val _beerList = MutableLiveData<List<Beer>>()
     val beerList: LiveData<List<Beer>>
