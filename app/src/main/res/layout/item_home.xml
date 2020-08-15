@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.ddd4.synesthesia.beer.data.model.Beer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="18dp">
+
+        <ImageView
+            android:id="@+id/iv_beer_thumbnail"
+            android:layout_width="81dp"
+            android:layout_height="100dp"
+            android:background="#dadada"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tv_beer_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:fontFamily="@font/notosans_kr_bold"
+            android:text="@{item.beerStyle}"
+            android:textColor="@color/color_black"
+            app:layout_constraintStart_toEndOf="@id/iv_beer_thumbnail"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="맥주스타일" />
+
+        <TextView
+            android:id="@+id/tv_beer_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_kr_bold"
+            android:text="@{item.rateAvgToString}"
+            android:textColor="@color/color_butterscotch"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_beer_style"
+            tools:text="5.0" />
+
+        <TextView
+            android:id="@+id/tv_beer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:text="@{item.name}"
+            android:textColor="@color/color_black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/tv_beer_style"
+            app:layout_constraintTop_toBottomOf="@id/tv_beer_style"
+            tools:text="맥주 이름" />
+
+        <TextView
+            android:id="@+id/tv_beer_country"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:text="@{item.country}"
+            android:textColor="@color/color_black"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/tv_beer_style"
+            app:layout_constraintTop_toBottomOf="@id/tv_beer_name"
+            tools:text="대한민국" />
+
+        <TextView
+            android:id="@+id/tv_beer_abv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_kr_bold"
+            android:text="@{item.abvToString}"
+            android:textColor="@color/color_black"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_beer_country"
+            tools:text="4.9%" />
+
+        <HorizontalScrollView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toBottomOf="@id/iv_beer_thumbnail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_beer_style"
+            app:layout_constraintTop_toBottomOf="@id/tv_beer_country">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                app:addChip="@{item.aroma}"
+                app:singleLine="true" />
+        </HorizontalScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
