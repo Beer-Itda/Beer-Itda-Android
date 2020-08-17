@@ -7,4 +7,7 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="butterscotch">#fdbd39</color>
+    <color name="very_light_pink">#f0f0f0</color>
+    <color name="silver_alpha_80">#CCC4C4C4</color>
+    <color name="shark">#2D2E2F</color>
 </resources>

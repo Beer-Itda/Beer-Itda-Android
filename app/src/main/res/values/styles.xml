@@ -13,10 +13,26 @@
     <style name="DarkTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/butterscotch</item>
         <item name="android:textColorPrimary">@color/butterscotch</item>
-        <item name="android:textColor">@color/butterscotch</item>
+        <item name="android:textColor">@color/white</item>
         <item name="colorPrimaryDark">@color/black</item>
         <item name="android:windowBackground">@color/black</item>
         <item name="android:navigationBarColor">@color/black</item>
-        <item name="android:foreground">?attr/selectableItemBackground</item>
     </style>
+
+
+    <style name="TextBoldButterscotch12">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/butterscotch</item>
+    </style>
+
+    <style name="TextBoldButterscotch14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/butterscotch</item>
+    </style>
+
+    <style name="RatingBar" parent="Theme.MaterialComponents">
+        <item name="colorControlActivated">@color/butterscotch</item>
+        <item name="colorControlNormal">@android:color/holo_green_light</item>
+    </style>
+
 </resources>
