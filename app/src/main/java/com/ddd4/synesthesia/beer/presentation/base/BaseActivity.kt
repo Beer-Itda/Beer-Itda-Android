@@ -13,6 +13,7 @@ import javax.inject.Inject
 abstract class BaseActivity<B : ViewDataBinding>(private val layoutId : Int) : AppCompatActivity() {
 
     @Inject lateinit var preference : SharedPreferenceProvider
+    private var backKeyPressedTime = 0L
     lateinit var binding : B
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +24,23 @@ abstract class BaseActivity<B : ViewDataBinding>(private val layoutId : Int) : A
 
         initBind()
         initObserving()
+    }
+
+    override fun onBackPressed() {
+        if (!supportFragmentManager.popBackStackImmediate()) {
+            if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+                backKeyPressedTime = System.currentTimeMillis()
+                binding.root.showSnackBar(getString(R.string.back_press))
+                return
+            }
+        }
+
+        // 마지막으로 뒤로가기 버튼을 눌렀던 시간에 2초를 더해 현재시간과 비교 후
+        // 마지막으로 뒤로가기 버튼을 눌렀던 시간이 2초가 지나지 않았으면 종료
+        // 현재 표시된 Toast 취소
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            finish()
+        }
     }
 
     fun showRecentlyVisitTime() {

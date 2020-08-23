@@ -8,6 +8,14 @@
         <variable
             name="vm"
             type="com.ddd4.synesthesia.beer.presentation.ui.detail.viewmodel.DetailViewModel" />
+
+        <variable
+            name="reviewAdapter"
+            type="com.ddd4.synesthesia.beer.presentation.base.BaseItemsApdater" />
+
+        <variable
+            name="aromaAdapter"
+            type="com.ddd4.synesthesia.beer.presentation.base.BaseItemsApdater" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -116,18 +124,18 @@
                     tools:text="5.0점" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_scent"
+                    android:id="@+id/rv_aroma"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
                     android:minHeight="20dp"
                     android:orientation="horizontal"
-                    app:adapter="@{vm.scentAdatper}"
+                    app:adapter="@{aromaAdapter}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="@+id/tv_beer_rate"
                     app:layout_constraintStart_toStartOf="@+id/tv_beer_style"
                     app:layout_constraintTop_toBottomOf="@+id/tv_beer_style"
-                    tools:listitem="@layout/layout_scent" />
+                    tools:listitem="@layout/layout_aroma" />
 
                 <View
                     android:id="@+id/divider"
@@ -135,7 +143,7 @@
                     android:layout_height="5dp"
                     android:layout_marginTop="24dp"
                     android:background="@color/shark"
-                    app:layout_constraintTop_toBottomOf="@+id/rv_scent" />
+                    app:layout_constraintTop_toBottomOf="@+id/rv_aroma" />
 
                 <RatingBar
                     android:id="@+id/rb_beer_rate"
@@ -204,7 +212,7 @@
                     android:clipToPadding="true"
                     android:paddingHorizontal="28dp"
                     android:paddingBottom="10dp"
-                    app:adapter="@{vm.reviewAdapter}"
+                    app:adapter="@{reviewAdapter}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintTop_toBottomOf="@+id/tv_review"
                     tools:listitem="@layout/layout_review" />

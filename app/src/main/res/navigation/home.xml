@@ -20,15 +20,6 @@
 
     <!-- Global Action -->
     <action
-        android:id="@+id/action_to_home"
-        app:destination="@id/homeScreen"
-        app:enterAnim="@anim/fade_in"
-        app:exitAnim="@anim/fade_out"
-        app:popEnterAnim="@anim/fade_in"
-        app:popExitAnim="@anim/fade_out"
-        />
-
-    <action
         android:id="@+id/action_to_detail"
         app:destination="@id/detailScreen"
         app:enterAnim="@anim/fade_in"
