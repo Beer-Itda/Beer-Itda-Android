@@ -9,4 +9,7 @@
     <string name="success_logout">로그아웃에 성공하였습니다</string>
     <string name="fail_login">로그인에 실패하였습니다</string>
     <string name="login_kakao">카카오톡으로 로그인</string>
+
+    <string name="rate">%.0f점</string>
+    <string name="back_press">\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다</string>
 </resources>

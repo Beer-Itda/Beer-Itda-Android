@@ -34,7 +34,6 @@
             android:textColor="@color/white"
             app:layout_constraintStart_toEndOf="@id/iv_beer_thumbnail"
             app:layout_constraintTop_toTopOf="parent"
-            tools:textColor="@color/black"
             tools:text="맥주스타일" />
 
         <TextView
@@ -45,9 +44,10 @@
             android:text="@{item.rateAvgToString}"
             android:textColor="@color/butterscotch"
             android:textSize="13sp"
+            android:drawableStart="@drawable/ic_star"
+            android:drawablePadding="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_beer_style"
-            tools:textColor="@color/black"
             tools:text="5.0" />
 
         <TextView
@@ -61,7 +61,6 @@
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/tv_beer_style"
             app:layout_constraintTop_toBottomOf="@id/tv_beer_style"
-            tools:textColor="@color/black"
             tools:text="맥주 이름" />
 
         <TextView
@@ -75,7 +74,6 @@
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@id/tv_beer_style"
             app:layout_constraintTop_toBottomOf="@id/tv_beer_name"
-            tools:textColor="@color/black"
             tools:text="대한민국" />
 
         <TextView
@@ -88,7 +86,6 @@
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_beer_country"
-            tools:textColor="@color/black"
             tools:text="4.9%" />
 
         <HorizontalScrollView
@@ -105,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
-                app:addChip="@{item.aroma}"
+                app:addChip="@{item.aromas}"
                 app:singleLine="true" />
         </HorizontalScrollView>
 

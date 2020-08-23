@@ -7,7 +7,7 @@ data class Beer(
     @SerializedName("abv")
     val abv: Double,
     @SerializedName("aroma")
-    val aroma: List<String>,
+    val aromas: List<String>,
     @SerializedName("beer_style")
     val beerStyle: String,
     @SerializedName("brewery")
@@ -25,7 +25,9 @@ data class Beer(
     @SerializedName("rate_avg")
     val rateAvg: Double,
     @SerializedName("rate_owner")
-    val rateOwner: RateOwner
+    val rateOwner: RateOwner,
+    @SerializedName("reviews")
+    val reviews: List<Review>? = null
 ) {
     val rateAvgToString: String
         get() = rateAvg.toString()

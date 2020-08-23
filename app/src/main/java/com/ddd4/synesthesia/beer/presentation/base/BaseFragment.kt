@@ -18,8 +18,6 @@ abstract class BaseFragment<B : ViewDataBinding>(private val layoutId : Int) : F
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initBind()
-        initObserving()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

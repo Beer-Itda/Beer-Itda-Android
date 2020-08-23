@@ -2,8 +2,8 @@ package com.ddd4.synesthesia.beer.presentation.ui.main.view
 
 import android.os.Bundle
 import com.ddd4.synesthesia.beer.R
-import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.databinding.ActivityMainBinding
+import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -15,7 +15,7 @@ class LoginRepositoryImpl(val preference : SharedPreferenceProvider) : LoginRepo
                 tokenInfo.invoke(null)
                 preference.remove("token")
             } else if (token != null) {
-                preference.setPreference("token",token)
+//                preference.setPreference("token",token)
                 tokenInfo.invoke(token)
             }
         }
