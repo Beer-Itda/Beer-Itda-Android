@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.ddd4.synesthesia.beer.ext.ImageTransformType" />
+
+        <variable
+            name="userAdapter"
+            type="com.ddd4.synesthesia.beer.presentation.base.BaseItemsApdater" />
+
+        <variable
+            name="user"
+            type="com.kakao.sdk.user.model.User" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                android:id="@+id/inclide_toolbar"
+                layout="@layout/layout_global_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inclide_toolbar"
+                app:loadUrl="@{user.kakaoAccount.profile.thumbnailImageUrl}"
+                app:tranformType="@{ImageTransformType.CIRCLE}"
+                tools:background="@color/silver_alpha_80" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="@{@string/profile_name(user.kakaoAccount.profile.nickname)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_profile"
+                tools:text="공감각님" />
+
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@{user.kakaoAccount.email}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                tools:text="android@google.com" />
+
+            <TextView
+                android:id="@+id/tv_kakao_connect_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/connect_kakao"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_email"
+                tools:text="카카오톡 계정 연결" />
+
+            <View
+                android:id="@+id/view_divider"
+                android:layout_width="wrap_content"
+                android:layout_height="5dp"
+                android:layout_marginTop="24dp"
+                android:background="@color/shark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_kakao_connect_title" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_page"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:clipToPadding="true"
+                android:paddingHorizontal="28dp"
+                app:adapter="@{userAdapter}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_divider"
+                tools:itemCount="5"
+                tools:listitem="@layout/layout_my_page" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>
