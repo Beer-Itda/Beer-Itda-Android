@@ -41,7 +41,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/inclide_toolbar"
                 app:loadUrl="@{user.kakaoAccount.profile.thumbnailImageUrl}"
                 app:tranformType="@{ImageTransformType.CIRCLE}"
-                tools:background="@color/silver_alpha_80" />
+                android:background="@color/silver_alpha_80"
+                tools:background="@color/silver_alpha_80"/>
 
             <TextView
                 android:id="@+id/tv_name"
@@ -91,8 +92,8 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:clipToPadding="true"
-                android:paddingHorizontal="28dp"
                 app:adapter="@{userAdapter}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

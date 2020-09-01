@@ -4,28 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
+        <import type="com.ddd4.synesthesia.beer.data.source.local.InfomationsType"/>
 
+        <variable
+            name="my"
+            type="com.ddd4.synesthesia.beer.data.source.local.MyInfo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="28dp"
+        app:forgroundSelected="@{my.type}">
 
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             tools:text="내 활동"
+            android:text="@{my.title}"
+            android:textSize="13sp"
             android:paddingVertical="14dp"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:textColor="@{my.type == InfomationsType.LOGOUT ? @color/manatee : @color/white}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_arrow"/>
 
         <ImageView
+            android:id="@+id/iv_arrow"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:src="@drawable/arrow_right_baseline"
+            android:visibility="@{my.type == InfomationsType.ITEM ? View.VISIBLE : View.GONE}"
             app:layout_constraintTop_toTopOf="@+id/tv_title"
             app:layout_constraintBottom_toBottomOf="@+id/tv_title"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/tv_title"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

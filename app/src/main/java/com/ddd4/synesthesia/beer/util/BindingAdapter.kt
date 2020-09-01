@@ -4,6 +4,7 @@ import android.util.TypedValue
 import android.view.View
 import androidx.databinding.BindingAdapter
 import com.ddd4.synesthesia.beer.R
+import com.ddd4.synesthesia.beer.data.source.local.InfomationsType
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 
@@ -19,4 +20,13 @@ fun makeChips(view: View, flavor: List<String>) {
         }
         (view as ChipGroup).addView(chip)
     }
+}
+
+@BindingAdapter(value = ["forgroundSelected"])
+fun forgroundSelected(view : View, type : InfomationsType) = if(type == InfomationsType.HEADER) {
+    view.foreground = null
+} else {
+    val typeValue = TypedValue()
+    view.context.theme.resolveAttribute(android.R.attr.selectableItemBackground,typeValue,true)
+    view.foreground = view.context.getDrawable(typeValue.resourceId)
 }
