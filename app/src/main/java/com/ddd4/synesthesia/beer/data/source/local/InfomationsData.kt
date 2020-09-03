@@ -11,5 +11,6 @@ enum class InfomationsData(val title : String) {
     TERMS_OF_USE("이용약관"),
     SETTING("설정"),
     PUSH("알림설정"),
-    LOGOUT("로그아웃")
+    LOGOUT("로그아웃"),
+    UNLINK("연결끊기")
 }

@@ -8,12 +8,13 @@
         <import type="com.ddd4.synesthesia.beer.ext.ImageTransformType" />
 
         <variable
+            name="myPageVm"
+            type="com.ddd4.synesthesia.beer.presentation.ui.mypage.viewmodel.MyPageViewModel" />
+
+        <variable
             name="userAdapter"
             type="com.ddd4.synesthesia.beer.presentation.base.BaseItemsApdater" />
 
-        <variable
-            name="user"
-            type="com.kakao.sdk.user.model.User" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -33,15 +34,15 @@
 
             <ImageView
                 android:id="@+id/iv_profile"
-                android:layout_width="54dp"
-                android:layout_height="54dp"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
                 android:layout_marginTop="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inclide_toolbar"
-                app:loadUrl="@{user.kakaoAccount.profile.thumbnailImageUrl}"
+                app:loadUrl="@{myPageVm.userInfo.kakaoAccount.profile.profileImageUrl}"
                 app:tranformType="@{ImageTransformType.CIRCLE}"
-                android:background="@color/silver_alpha_80"
+                android:background="@android:color/transparent"
                 tools:background="@color/silver_alpha_80"/>
 
             <TextView
@@ -49,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:text="@{@string/profile_name(user.kakaoAccount.profile.nickname)}"
+                android:text="@{@string/profile_name(myPageVm.userInfo.kakaoAccount.profile.nickname)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_profile"
@@ -60,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="@{user.kakaoAccount.email}"
+                android:text="@{myPageVm.userInfo.kakaoAccount.email}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_name"

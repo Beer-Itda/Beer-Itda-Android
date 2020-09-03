@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.data.source.local.InfomationsData
 import com.ddd4.synesthesia.beer.data.source.local.InfomationsType
@@ -32,7 +33,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             override fun <T> onItemClick(item: T) {
                 when ((item as? MyInfo)?.type) {
                     InfomationsType.ITEM -> { infomationsEvent(item.title) }
-                    InfomationsType.LOGOUT -> { logoutEvent() }
+                    InfomationsType.LOGOUT -> { unConnected(getString(R.string.logout_message)) }
+                    InfomationsType.UNLINK -> { unConnected(getString(R.string.unlink_message)) }
                     else -> { /*Nothing*/ }
                 }
             }
@@ -46,11 +48,18 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+            myPageVm = myPageViewModel
             userAdapter = BaseItemsApdater(R.layout.layout_my_page, BR.my, itemClickListener).apply { updateItems(myPageViewModel.generateInfoList()) }
             inclideToolbar.toolbar.setNavigationOnClickListener {
                 parentFragmentManager.popBackStack()
             }
         }
+        myPageViewModel.isUnConnected.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                preference.clear()
+                start<LoginActivity>(true, bundleOf(Pair(getString(R.string.is_show_snackbar), getString(R.string.success_logout))))
+            }
+        })
     }
 
     private fun infomationsEvent(section: String) {
@@ -92,12 +101,14 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         }
     }
 
-    private fun logoutEvent() {
-        context?.showSimpleDialog(message = getString(R.string.logout_message)) {
-            myPageViewModel.logout {
-                if (it) {
-                    preference.clear()
-                    start<LoginActivity>(true, bundleOf(Pair(getString(R.string.is_show_snackbar), getString(R.string.success_logout))))
+    private fun unConnected(message : String) {
+        context?.showSimpleDialog(message = message) {
+            when(message) {
+                getString(R.string.logout_message) -> {
+                    myPageViewModel.logout()
+                }
+                getString(R.string.unlink_message) -> {
+                    myPageViewModel.unlink()
                 }
             }
         }

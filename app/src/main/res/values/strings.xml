@@ -14,6 +14,7 @@
     <string name="connect_kakao">카카오톡 계정 연결</string>
 
     <string name="logout_message">로그아웃 하시겠습니까?</string>
+    <string name="unlink_message">카카오 계정연결을 끊으시겠습니까?</string>
     <string name="rate">%.0f점</string>
     <string name="back_press">\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다</string>
     <string name="profile_name">%s님</string>

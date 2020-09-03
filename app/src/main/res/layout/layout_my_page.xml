@@ -26,9 +26,10 @@
             android:text="@{my.title}"
             android:textSize="13sp"
             android:paddingVertical="14dp"
-            android:textColor="@{my.type == InfomationsType.LOGOUT ? @color/manatee : @color/white}"
+            android:textColor="@{my.type == InfomationsType.LOGOUT || my.type == InfomationsType.UNLINK ? @color/manatee : @color/white}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/iv_arrow"/>
+            app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageView
             android:id="@+id/iv_arrow"

@@ -6,6 +6,8 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import com.ddd4.synesthesia.beer.R
 
 fun Context.versionName() : String =
     packageManager.getPackageInfo(packageName,0).versionName
@@ -49,4 +51,20 @@ fun Context.permissonsCheck(
 
 fun Context.showToast(message : String, duration: Int? = null) {
     Toast.makeText(this,message, duration ?: Toast.LENGTH_SHORT).show()
+}
+
+fun Context.showSimpleDialog(
+    title : String? = getString(R.string.app_name),
+    message: String,
+    result: (() -> Unit)? = null
+) {
+    AlertDialog.Builder(this, R.style.Dialog).apply {
+        setTitle(title)
+        setMessage("$message")
+        setPositiveButton(getString(R.string.ok)) { _, _ ->
+            result?.invoke()
+        }
+        setNegativeButton(getString(R.string.cancel)) { _, _ ->
+        }
+    }.show()
 }

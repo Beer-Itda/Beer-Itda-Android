@@ -17,6 +17,11 @@
         android:name="com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailFragment"
         tools:layout="@layout/fragment_detail"/>
 
+    <fragment
+        android:id="@+id/myPageScreen"
+        android:name="com.ddd4.synesthesia.beer.presentation.ui.mypage.view.MyPageFragment"
+        tools:layout="@layout/fragment_my_page"/>
+
 
     <!-- Global Action -->
     <action
@@ -30,6 +35,7 @@
 
     <action
         android:id="@+id/action_to_mypage"
+        app:destination="@id/myPageScreen"
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out"
         app:popEnterAnim="@anim/fade_in"
