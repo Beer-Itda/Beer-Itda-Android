@@ -53,4 +53,10 @@ class LoginRepositoryImpl(val preference : SharedPreferenceProvider) : LoginRepo
             }
         }
     }
+
+    override fun me(userInfo: (User?) -> Unit) {
+        UserApiClient.instance.me { user, error ->
+            userInfo.invoke(user)
+        }
+    }
 }

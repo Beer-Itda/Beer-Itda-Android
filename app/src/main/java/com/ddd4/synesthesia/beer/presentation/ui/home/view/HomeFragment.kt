@@ -39,9 +39,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.contents.set()
-
-
+        binding.apply {
+            contents.set()
+            header.btnMyPage.setOnClickListener {
+                findNavController().navigate(NavigationDirections.actionToMyPage())
+            }
+        }
     }
 
     private fun LayoutHomeContentsBinding.set() {

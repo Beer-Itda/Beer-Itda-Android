@@ -9,4 +9,5 @@ interface LoginRepository {
     fun login(userInfo : (User?) -> Unit)
     fun logout(isSuccess : (Boolean) -> Unit)
     fun unlink(isSuccess: (Boolean) -> Unit)
+    fun me(userInfo: (User?) -> Unit)
 }
