@@ -4,6 +4,7 @@
     <string name="key_token">token</string>
     <string name="key_recently_visit">visit</string>
     <string name="key_user">user</string>
+    <string name="key_sort_type">sort_type</string>
     <string name="is_show_snackbar">snackbar</string>
     <string name="ok">확인</string>
     <string name="cancel">취소</string>
@@ -18,4 +19,8 @@
     <string name="rate">%.0f점</string>
     <string name="back_press">\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다</string>
     <string name="profile_name">%s님</string>
+
+    <string name="sort_default">기본 정렬</string>
+    <string name="sort_comment">후기 정렬</string>
+    <string name="sort_review">리뷰 정렬</string>
 </resources>
