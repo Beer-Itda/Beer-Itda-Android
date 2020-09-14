@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View"/>
+        <import type="android.text.TextUtils"/>
         <import type="com.ddd4.synesthesia.beer.ext.ImageTransformType" />
 
         <variable
@@ -17,91 +19,92 @@
 
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/motion_base"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        app:layoutDescription="@xml/secen_my_page">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <include
+            android:id="@+id/include_toolbar"
+            layout="@layout/layout_global_toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-            <include
-                android:id="@+id/inclide_toolbar"
-                layout="@layout/layout_global_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_marginTop="24dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_toolbar"
+            app:loadUrl="@{myPageVm.userInfo.kakaoAccount.profile.profileImageUrl}"
+            app:tranformType="@{ImageTransformType.CIRCLE}"
+            tools:background="@color/silver_alpha_80" />
 
-            <ImageView
-                android:id="@+id/iv_profile"
-                android:layout_width="180dp"
-                android:layout_height="180dp"
-                android:layout_marginTop="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/inclide_toolbar"
-                app:loadUrl="@{myPageVm.userInfo.kakaoAccount.profile.profileImageUrl}"
-                app:tranformType="@{ImageTransformType.CIRCLE}"
-                android:background="@android:color/transparent"
-                tools:background="@color/silver_alpha_80"/>
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:visibility="@{TextUtils.isEmpty(myPageVm.userInfo.kakaoAccount.profile.nickname) ? View.GONE : View.VISIBLE}"
+            android:text="@{@string/profile_name(myPageVm.userInfo.kakaoAccount.profile.nickname)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_profile"
+            tools:text="공감각님" />
 
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:text="@{@string/profile_name(myPageVm.userInfo.kakaoAccount.profile.nickname)}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_profile"
-                tools:text="공감각님" />
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:visibility="@{TextUtils.isEmpty(myPageVm.userInfo.kakaoAccount.email) ? View.GONE : View.VISIBLE}"
+            android:text="@{myPageVm.userInfo.kakaoAccount.email}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name"
+            tools:text="android@google.com" />
 
-            <TextView
-                android:id="@+id/tv_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="@{myPageVm.userInfo.kakaoAccount.email}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_name"
-                tools:text="android@google.com" />
+        <TextView
+            android:id="@+id/tv_kakao_connect_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:visibility="@{TextUtils.isEmpty(myPageVm.userInfo.kakaoAccount.profile.nickname) ? View.GONE : View.VISIBLE}"
+            android:text="@string/connect_kakao"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_email"
+            tools:text="카카오톡 계정 연결" />
 
-            <TextView
-                android:id="@+id/tv_kakao_connect_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/connect_kakao"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_email"
-                tools:text="카카오톡 계정 연결" />
+        <View
+            android:id="@+id/view_divider"
+            android:layout_width="wrap_content"
+            android:layout_height="5dp"
+            android:layout_marginTop="24dp"
+            android:background="@color/shark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_kakao_connect_title" />
 
-            <View
-                android:id="@+id/view_divider"
-                android:layout_width="wrap_content"
-                android:layout_height="5dp"
-                android:layout_marginTop="24dp"
-                android:background="@color/shark"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_kakao_connect_title" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_page"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="true"
+            app:adapter="@{userAdapter}"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_divider"
+            tools:itemCount="5"
+            tools:listitem="@layout/layout_my_page" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_page"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:clipToPadding="true"
-                app:adapter="@{userAdapter}"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view_divider"
-                tools:itemCount="5"
-                tools:listitem="@layout/layout_my_page" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>

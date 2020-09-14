@@ -50,7 +50,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         binding.apply {
             myPageVm = myPageViewModel
             userAdapter = BaseItemsApdater(R.layout.layout_my_page, BR.my, itemClickListener).apply { updateItems(myPageViewModel.generateInfoList()) }
-            inclideToolbar.toolbar.setNavigationOnClickListener {
+            includeToolbar.toolbar.setNavigationOnClickListener {
                 parentFragmentManager.popBackStack()
             }
         }
