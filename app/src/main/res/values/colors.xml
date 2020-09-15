@@ -11,4 +11,7 @@
     <color name="silver_alpha_80">#CCC4C4C4</color>
     <color name="shark">#2D2E2F</color>
     <color name="manatee">#8E8F93</color>
+    <color name="color_f2f3f5">#f2f3f5</color>
+    <color name="color_8e8f93">#8e8f93</color>
+    <color name="color_dadada">#dadada</color>
 </resources>
