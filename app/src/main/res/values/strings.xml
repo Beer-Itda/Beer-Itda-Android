@@ -8,6 +8,7 @@
     <string name="is_show_snackbar">snackbar</string>
     <string name="ok">확인</string>
     <string name="cancel">취소</string>
+    <string name="register">등록하기</string>
 
     <string name="success_logout">로그아웃에 성공하였습니다</string>
     <string name="fail_login">로그인에 실패하였습니다</string>
@@ -16,11 +17,15 @@
 
     <string name="logout_message">로그아웃 하시겠습니까?</string>
     <string name="unlink_message">카카오 계정연결을 끊으시겠습니까?</string>
-    <string name="rate">%.0f점</string>
+    <string name="rate">%.1f점</string>
     <string name="back_press">\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다</string>
     <string name="profile_name">%s님</string>
 
     <string name="sort_default">기본 정렬</string>
     <string name="sort_comment">후기 정렬</string>
     <string name="sort_review">리뷰 정렬</string>
+    <string name="review">리뷰</string>
+    <string name="star_rating">별점</string>
+    <string name="message_review">맥주이름에 대한 자세한 후기를 작성해주세요</string>
+    <string name="message_star_rating">맥주이름에 대한 별점을 남겨주세요</string>
 </resources>
