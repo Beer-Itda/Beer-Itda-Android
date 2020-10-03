@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.data.source.local.InfomationsType
 import com.ddd4.synesthesia.beer.ext.toPx
+import com.ddd4.synesthesia.beer.util.filter.BeerFilter
 import com.ddd4.synesthesia.beer.util.sort.SortType
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -60,4 +61,35 @@ fun decoration(recyclerview : RecyclerView, space : Int?, verticalSpace : Int?, 
                 recyclerview.addItemDecoration(this)
             }
     }
+}
+
+@BindingAdapter("app:updateCountText")
+fun updateCountText(countView: TextView, selectedItemList: MutableLiveDataList<String>) {
+    if (selectedItemList.isNotEmpty()) {
+        val suffix = "${selectedItemList.count().minus(1)}개"
+        countView.text =
+            if (selectedItemList.count() > 1) "${selectedItemList[0]} 외 $suffix" else selectedItemList[0]
+    } else {
+        countView.text = ""
+    }
+}
+
+@BindingAdapter("app:updateAbvRange")
+fun updateAbvRange(abvTextView: TextView, abvRange: Pair<Int, Int>) {
+    val text = "${abvRange.first} - ${abvRange.second}"
+    abvTextView.text = text
+}
+
+@BindingAdapter("app:filterVisibility")
+fun homeFilterVisibility(view: View, filter: BeerFilter?) {
+    filter ?: return
+
+    with(filter) {
+        view.visibility = if (styleFilter != null || aromaFilter != null || abvFilter != null || countryFilter != null) {
+             View.VISIBLE
+        } else {
+            View.GONE
+        }
+    }
+
 }
