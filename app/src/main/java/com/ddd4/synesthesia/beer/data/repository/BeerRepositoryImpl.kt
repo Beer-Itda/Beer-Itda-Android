@@ -11,6 +11,10 @@ class BeerRepositoryImpl @Inject constructor(
     private val beerApi: BeerApi
 ) : BeerRepository {
 
+    override suspend fun getAppConfig(): Result<AppConfig> {
+        return beerApi.getAppConfig()
+    }
+
     override suspend fun getBeerList(sortType: String?, filter: BeerFilter?, cursor : Int?): Response? {
         return beerApi.getBeerList(
             sortType,
