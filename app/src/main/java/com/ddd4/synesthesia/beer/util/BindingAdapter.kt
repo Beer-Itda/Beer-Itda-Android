@@ -1,9 +1,7 @@
 package com.ddd4.synesthesia.beer.util
 
-import android.content.res.Resources
 import android.util.TypedValue
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
@@ -25,6 +23,8 @@ fun makeChips(chipGroup: ChipGroup, flavor: List<String>) {
     flavor.asSequence().forEach {
         val chip = Chip(chipGroup.context).apply {
             setChipDrawable(ChipDrawable.createFromResource(this.context, R.xml.chip_home_item))
+            setTextColor(resources.getColor(R.color.black, null))
+            textSize = 12f
             typeface = ResourcesCompat.getFont(chipGroup.context, R.font.notosans_kr_bold)
             text = it
         }
@@ -33,7 +33,7 @@ fun makeChips(chipGroup: ChipGroup, flavor: List<String>) {
 }
 
 @BindingAdapter(value = ["forgroundSelected"])
-fun forgroundSelected(view: View, type: InfomationsType) = if(type == InfomationsType.HEADER) {
+fun forgroundSelected(view: View, type: InfomationsType) = if (type == InfomationsType.HEADER) {
     view.foreground = null
 } else {
     val typeValue = TypedValue()
@@ -44,7 +44,7 @@ fun forgroundSelected(view: View, type: InfomationsType) = if(type == Infomation
 @BindingAdapter("app:sortTypeText")
 fun sortTypeText(textView: TextView, type: SortType?) {
     type ?: return
-    textView.text = when(type) {
+    textView.text = when (type) {
         SortType.Default -> textView.resources.getString(R.string.sort_default)
         SortType.Rating -> textView.resources.getString(R.string.sort_rating)
         SortType.Review -> textView.resources.getString(R.string.sort_review)
@@ -53,7 +53,12 @@ fun sortTypeText(textView: TextView, type: SortType?) {
 }
 
 @BindingAdapter(value = ["space", "vertical_space", "horizontal_space"], requireAll = false)
-fun decoration(recyclerview: RecyclerView, space: Int?, verticalSpace: Int?, horizontalSpace: Int?) {
+fun decoration(
+    recyclerview: RecyclerView,
+    space: Int?,
+    verticalSpace: Int?,
+    horizontalSpace: Int?
+) {
     verticalSpace?.let {
         RecyclerItemDecoration(
             space = space?.toFloat()?.toPx(recyclerview.context) ?: 0,
@@ -91,7 +96,10 @@ fun updateCountText(countView: TextView, selectedItemList: MutableLiveDataList<S
 
 @BindingAdapter("app:updateAbvRange")
 fun updateAbvRange(abvTextView: TextView, abvRange: Pair<Int, Int>?) {
-    abvRange ?: return
+    if (abvRange == null) {
+        abvTextView.text = ""
+        return
+    }
     val text = "${abvRange.first} - ${abvRange.second}"
     abvTextView.text = text
 }
@@ -101,19 +109,34 @@ fun homeFilterVisibility(view: View, filter: BeerFilter?) {
     filter ?: return
 
     with(filter) {
-        view.visibility = if (styleFilter != null || aromaFilter != null || abvFilter != null || countryFilter != null) {
-             View.VISIBLE
-        } else {
-            View.GONE
-        }
+        view.visibility =
+            if (styleFilter != null || aromaFilter != null || abvFilter != null || countryFilter != null) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
     }
 
 }
 
-@BindingAdapter(value = ["layout_margin_top", "layout_margin_bottom", "layout_margin_start", "layout_margin_end"], requireAll = false)
-fun margin(view: ConstraintLayout, marginTop: Int?, marginBottom: Int?, marginStart: Int?, marginEnd: Int?) {
+@BindingAdapter(
+    value = ["layout_margin_top", "layout_margin_bottom", "layout_margin_start", "layout_margin_end"],
+    requireAll = false
+)
+fun margin(
+    view: ConstraintLayout,
+    marginTop: Int?,
+    marginBottom: Int?,
+    marginStart: Int?,
+    marginEnd: Int?
+) {
     val params = ConstraintLayout.LayoutParams(view.layoutParams)
-    params.setMargins(marginStart?.dp ?: 0, marginTop?.dp ?: 0, marginEnd?.dp ?: 0, marginBottom?.dp ?: 0)
+    params.setMargins(
+        marginStart?.dp ?: 0,
+        marginTop?.dp ?: 0,
+        marginEnd?.dp ?: 0,
+        marginBottom?.dp ?: 0
+    )
 
 //    val px = TypedValue.applyDimension(
 //        TypedValue.COMPLEX_UNIT_DIP,
