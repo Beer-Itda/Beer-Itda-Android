@@ -1,5 +1,6 @@
 package com.ddd4.synesthesia.beer.presentation.ui.home.view
 
+import android.app.AlertDialog
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.View
@@ -56,14 +57,15 @@ class FilterDialog
 
 
     private fun ChipGroup.setChips(
+        layout: Int,
         items: List<String>,
         selectedItemList: MutableLiveDataList<String>,
         shapeModel: ShapeAppearanceModel
     ) {
         for (item in items) {
             val chip: Chip = layoutInflater.inflate(
-                R.layout.layout_filter_chip,
-                binding.aromaChipGroup,
+                layout,
+                this,
                 false
             ) as Chip
 
@@ -98,12 +100,14 @@ class FilterDialog
             countryListAdapter.items = viewModel.countryList
 
             styleChipGroup.setChips(
+                R.layout.layout_filter_style_chip,
                 viewModel.styleList,
                 viewModel.styleSelectedList,
                 ShapeAppearanceModel().toBuilder().setAllCorners(CornerFamily.ROUNDED, 8f).build()
             )
 
             aromaChipGroup.setChips(
+                R.layout.layout_filter_aroma_chip,
                 viewModel.aromaList,
                 viewModel.aromaSelectedList,
                 ShapeAppearanceModel().toBuilder().setAllCorners(CornerFamily.ROUNDED, 50f).build()
@@ -136,16 +140,30 @@ class FilterDialog
             }
 
             btnReset.setOnClickListener {
-                abvSeekbar.setProgress(viewModel.minAbv.toFloat(), viewModel.maxAbv.toFloat())
-                with(viewModel) {
-                    styleSelectedList.clear()
-                    aromaSelectedList.clear()
-                    abvSelectedRange.postValue(null)
-                    countrySelectedList.postValue(mutableListOf())
-                }
-                styleChipGroup.clearCheck()
-                aromaChipGroup.clearCheck()
-                countryListAdapter.notifyDataSetChanged()
+                // TODO 디자인 버튼 위치 등 확인 후 커스텀 진행 예정
+                AlertDialog.Builder(requireContext())
+                    .setTitle("초기화 하시겠습니까?")
+                    .setMessage("적용한 필터 내용이 사라집니다!")
+                    .setPositiveButton(
+                        "네"
+                    ) { _, _ ->
+
+                        abvSeekbar.setProgress(
+                            viewModel.minAbv.toFloat(),
+                            viewModel.maxAbv.toFloat()
+                        )
+                        with(viewModel) {
+                            styleSelectedList.clear()
+                            aromaSelectedList.clear()
+                            abvSelectedRange.postValue(null)
+                            countrySelectedList.postValue(mutableListOf())
+                        }
+                        styleChipGroup.clearCheck()
+                        aromaChipGroup.clearCheck()
+                        countryListAdapter.notifyDataSetChanged()
+                    }.setNegativeButton("아니오") { _, _ ->
+                        dismiss()
+                    }.create().show()
             }
 
             btnDone.setOnClickListener {
