@@ -29,7 +29,8 @@ android {
 
         resValue("string", KAKAO, getKakaoKey())
         resValue("string", BASE_URL, getBaseUrl())
-        manifestPlaceholders = mapOf<String,String>(KAKAO to getKakaoKey())
+
+        manifestPlaceholders[PropertiesExt.KAKAO] = getKakaoKey()
     }
 
     buildTypes {
