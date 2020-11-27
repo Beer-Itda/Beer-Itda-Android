@@ -91,7 +91,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     }
                 })
                 .load(R.raw.home_motion)
-                .into(header.ivBack)
+                .into(header.ivMainGif)
 
 
 
