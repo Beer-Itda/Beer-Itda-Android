@@ -30,8 +30,11 @@ import com.google.android.material.chip.ChipGroup
 
 @BindingAdapter("app:addChip")
 fun makeChips(chipGroup: ChipGroup, flavor: List<String>?) {
+    if (flavor == null) return
     chipGroup.removeAllViews()
-    flavor?.asSequence()?.forEach {
+    if (flavor.first().isEmpty()) chipGroup.visibility = View.GONE else chipGroup.visibility = View.VISIBLE
+
+    flavor.asSequence().forEach {
         val chip = Chip(chipGroup.context).apply {
             setChipDrawable(ChipDrawable.createFromResource(this.context, R.xml.chip_home_item))
             setTextColor(resources.getColor(R.color.black, null))
