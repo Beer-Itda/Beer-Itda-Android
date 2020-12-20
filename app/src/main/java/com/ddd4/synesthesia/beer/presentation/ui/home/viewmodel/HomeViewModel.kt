@@ -58,11 +58,13 @@ class HomeViewModel @ViewModelInject constructor(
     }
 
     fun loadMore() {
-        cursor.value?.let {
-            if(_isLoadMore.value == false) {
-                _beerList.value = _beerList.value?.toMutableList()?.apply { addAll(listOf(Beer(id = -1))) }
-                _isLoadMore.value = true
-                load()
+        viewModelScope.launch(Dispatchers.IO) {
+            cursor.value?.let {
+                if(_isLoadMore.value == false) {
+                    _beerList.postValue(_beerList.value?.toMutableList()?.apply { addAll(listOf(Beer(id = -1))) })
+                    _isLoadMore.postValue(true)
+                    load()
+                }
             }
         }
     }
@@ -70,6 +72,11 @@ class HomeViewModel @ViewModelInject constructor(
     fun load() {
         viewModelScope.launch {
             val response = beerRepository.getBeerList(_sortType.value?.value, _beerFilter.value,cursor.value)
+
+            if (response?.beers.isNullOrEmpty() && cursor.value == 0)  {
+                _beerList.value = response?.beers
+            }
+
             cursor.value = response?.nextCursor
             if(_isLoadMore.value == true) {
                 _beerList.value = (_beerList.value?.toMutableList()?.apply { _beerList.value?.let { removeAt(it.size-1) } })
