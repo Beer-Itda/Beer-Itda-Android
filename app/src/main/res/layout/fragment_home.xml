@@ -30,7 +30,7 @@
                 android:id="@+id/clt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layoutScrolFlagMode="@{vm.beerList == null}"
+                app:layoutScrolFlagMode="@{vm.beerList == null || vm.beerList.size() == 0}"
                 >
 
 

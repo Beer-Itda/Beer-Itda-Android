@@ -30,6 +30,11 @@
         tools:layout="@layout/fragment_my_page"/>
 
     <fragment
+        android:id="@+id/search"
+        android:name="com.ddd4.synesthesia.beer.presentation.ui.search.view.SearchFragment"
+        tools:layout="@layout/fragment_search"/>
+
+    <fragment
         android:id="@+id/review"
         android:name="com.ddd4.synesthesia.beer.presentation.ui.review.view.ReviewAllFragment"
         tools:layout="@layout/fragment_review">
@@ -58,6 +63,15 @@
     <action
         android:id="@+id/action_to_mypage"
         app:destination="@id/myPageScreen"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out"
+        />
+
+    <action
+        android:id="@+id/action_to_search"
+        app:destination="@id/search"
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out"
         app:popEnterAnim="@anim/fade_in"
