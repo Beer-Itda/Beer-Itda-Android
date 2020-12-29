@@ -9,6 +9,7 @@ interface BeerRepository {
     suspend fun getUserInfo(): User?
     suspend fun postUserInfo(nickName: String?)
     suspend fun getBeer(id: Int): Response?
+    suspend fun getSearch(name : String, cursor : Int?) : Result<Response>?
     suspend fun getReview() : Results<Review>
     suspend fun postReview(id: Int, rating: Float, review: String?)
 

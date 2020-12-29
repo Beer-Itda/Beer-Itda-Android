@@ -9,12 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.load.resource.gif.GifDrawable
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import com.ddd4.synesthesia.beer.BR
 import com.ddd4.synesthesia.beer.HomeNavigationDirections
 import com.ddd4.synesthesia.beer.R
@@ -22,8 +16,8 @@ import com.ddd4.synesthesia.beer.data.model.Beer
 import com.ddd4.synesthesia.beer.databinding.FragmentHomeBinding
 import com.ddd4.synesthesia.beer.databinding.LayoutHomeContentsBinding
 import com.ddd4.synesthesia.beer.presentation.base.BaseFragment
+import com.ddd4.synesthesia.beer.presentation.base.LoadingItemsApdater
 import com.ddd4.synesthesia.beer.presentation.ui.home.NavigationDirections
-import com.ddd4.synesthesia.beer.presentation.ui.home.adapter.HomeItemsApdater
 import com.ddd4.synesthesia.beer.presentation.ui.home.viewmodel.HomeViewModel
 import com.ddd4.synesthesia.beer.util.EndlessRecyclerViewScrollListener
 import com.ddd4.synesthesia.beer.util.ItemClickListener
@@ -43,7 +37,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private val homeViewModel by viewModels<HomeViewModel>()
     private val listAdapter by lazy {
-        HomeItemsApdater(R.layout.item_home, BR.item, itemClickListener)
+        LoadingItemsApdater(R.layout.item_home, BR.item, itemClickListener)
     }
 
     private lateinit var endlessRecyclerViewScrollListener : EndlessRecyclerViewScrollListener
@@ -64,30 +58,33 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
             contents.set()
             adapter = listAdapter
+            header.btnSearch.setOnClickListener {
+                findNavController().navigate(NavigationDirections.actionToSearch())
+            }
             header.btnMyPage.setOnClickListener {
                 findNavController().navigate(NavigationDirections.actionToMyPage())
             }
 
-            header.btnBeerRecommend.setOnClickListener {
+            header.tvBeerRecommend.setOnClickListener {
                 FilterDialog().run {
                     show(this@HomeFragment.parentFragmentManager, tag)
                 }
             }
 
-            Glide.with(this@HomeFragment)
-                .asGif()
-                .listener(object : RequestListener<GifDrawable> {
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<GifDrawable>?, isFirstResource: Boolean): Boolean {
-                        return false
-                    }
-
-                    override fun onResourceReady(resource: GifDrawable?, model: Any?, target: Target<GifDrawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        resource?.setLoopCount(1)
-                        return false
-                    }
-                })
-                .load(R.raw.home_motion)
-                .into(header.ivMainGif)
+//            Glide.with(this@HomeFragment)
+//                .asGif()
+//                .listener(object : RequestListener<GifDrawable> {
+//                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<GifDrawable>?, isFirstResource: Boolean): Boolean {
+//                        return false
+//                    }
+//
+//                    override fun onResourceReady(resource: GifDrawable?, model: Any?, target: Target<GifDrawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+//                        resource?.setLoopCount(1)
+//                        return false
+//                    }
+//                })
+//                .load(R.raw.home_motion)
+//                .into(header.ivMainGif)
 
 
 

@@ -12,3 +12,5 @@ fun Float.toPx(context : Context): Int = TypedValue.applyDimension(
 
 val Float.dp: Int
     get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
+
+fun Float?.orZero() : Float = this ?: 0f

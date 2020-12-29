@@ -27,6 +27,15 @@ interface BeerApi {
     ): Result<Response>?
 
     /**
+     * 맥주 검색
+     */
+    @GET("api/beers")
+    suspend fun getSearchBeer(
+        @Query("name") name : String,
+        @Query("cursor") nextCursor : Int?
+    ) : Result<Response>?
+
+    /**
      * 맥주 상세
      */
     @GET("api/beer")

@@ -28,11 +28,12 @@ class BeerRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getBeer(id: Int): Response? {
-
         return beerApi.getBeer(id)?.result?.let {
             it
         }
     }
+
+    override suspend fun getSearch(name: String, cursor: Int?): Result<Response>? = beerApi.getSearchBeer(name,cursor)
 
     override suspend fun getUserInfo(): User? {
         return beerApi.getUserInfo()?.result?.let {

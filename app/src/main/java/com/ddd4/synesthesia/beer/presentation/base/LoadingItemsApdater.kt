@@ -1,4 +1,4 @@
-package com.ddd4.synesthesia.beer.presentation.ui.home.adapter
+package com.ddd4.synesthesia.beer.presentation.base
 
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
@@ -9,7 +9,7 @@ import com.ddd4.synesthesia.beer.presentation.base.BaseViewType
 import com.ddd4.synesthesia.beer.util.ItemClickListener
 import com.ddd4.synesthesia.beer.util.ItemLongClickListener
 
-class HomeItemsApdater(
+class LoadingItemsApdater(
     private val layoutId: Int,
     private val bindingVariableId: Int? = -1,
     private val clickItemEvent: ItemClickListener? = null,
