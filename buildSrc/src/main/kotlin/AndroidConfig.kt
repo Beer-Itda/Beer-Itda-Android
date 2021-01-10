@@ -4,7 +4,7 @@ object AndroidConfig {
     const val TARGET_SDK_VERSION = 29
 
     const val VERSION_CODE = 6
-    const val VERSION_NAME = "1.0.4-dev01"
+    const val VERSION_NAME = "1.1.0"
 
     const val BUILD_TOOLS_VERSION = "29.0.3"
     const val APPLICATION_ID = "com.ddd4.synesthesia.beer"
