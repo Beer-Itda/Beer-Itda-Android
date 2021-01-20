@@ -8,6 +8,8 @@ import com.ddd4.synesthesia.beer.data.model.AppConfig
 import com.ddd4.synesthesia.beer.data.model.Beer
 import com.ddd4.synesthesia.beer.domain.repository.BeerRepository
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
+import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.ddd4.synesthesia.beer.presentation.ui.home.entity.HomeSelectEntity
 import com.ddd4.synesthesia.beer.util.filter.BeerFilter
 import com.ddd4.synesthesia.beer.util.filter.FilterSetting
 import com.ddd4.synesthesia.beer.util.sort.SortSetting
@@ -139,6 +141,26 @@ class HomeViewModel @ViewModelInject constructor(
             )
 
         }
+    }
+
+    fun clickFavorite(id : Int, flag : Boolean) {
+//        notifySelectEvent(HomeSelectEntity.Favorite(id,flag))
+    }
+
+    fun clickSearch() {
+        notifySelectEvent(HomeSelectEntity.Search)
+    }
+
+    fun clickMyPage() {
+        notifySelectEvent(HomeSelectEntity.MyPage)
+    }
+
+    fun clickFilter() {
+        notifySelectEvent(HomeSelectEntity.Filter)
+    }
+
+    fun clickSort() {
+        notifySelectEvent(HomeSelectEntity.Sort)
     }
 
     private fun removeContainsItem(removeItem: String, items: MutableList<String>?) {

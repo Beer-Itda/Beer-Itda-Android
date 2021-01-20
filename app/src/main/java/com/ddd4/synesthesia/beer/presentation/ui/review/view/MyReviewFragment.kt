@@ -42,11 +42,11 @@ class MyReviewFragment : BaseFragment<FragmentMyReviewBinding>(R.layout.fragment
                 findNavController().popBackStack()
             }
         }
-        initObserving()
+        initObserver()
     }
 
-    override fun initObserving() {
-        super.initObserving()
+    override fun initObserver() {
+        super.initObserver()
         viewModel.myReviews.observe(viewLifecycleOwner, Observer {
             it?.let { list ->
                 binding.reviewAdatper?.updateItems(list)

@@ -22,16 +22,13 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:elevation="0dp"
-
-            >
+            app:elevation="0dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/clt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layoutScrolFlagMode="@{vm.beerList == null || vm.beerList.size() == 0}"
-                >
+                app:layoutScrolFlagMode="@{vm.beerList == null || vm.beerList.size() == 0}">
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,7 +37,8 @@
 
                     <include
                         android:id="@+id/header"
-                        layout="@layout/layout_home_header" />
+                        layout="@layout/layout_home_header"
+                        app:vm="@{vm}" />
 
                     <HorizontalScrollView
                         android:id="@+id/filter_scroll"
@@ -83,14 +81,13 @@
                             android:drawableEnd="@drawable/ic_btn_dropdown"
                             android:fontFamily="@font/notosans_kr_regular"
                             android:gravity="center"
+                            android:onClick="@{() -> vm.clickSort()}"
                             android:textColor="@color/white"
                             android:textSize="12sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:sortTypeText="@{vm.sortType}"
-
-                            />
+                            app:sortTypeText="@{vm.sortType}" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -101,24 +98,22 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-            >
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
             <include
                 android:id="@+id/contents"
                 layout="@layout/layout_home_contents"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:adapter="@{adapter}"
-                />
+                app:adapter="@{adapter}" />
 
             <include
                 android:id="@+id/empty_list"
                 layout="@layout/layout_empty_list"
-                android:layout_gravity="bottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                />
+                android:layout_gravity="bottom"
+                android:visibility="gone" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

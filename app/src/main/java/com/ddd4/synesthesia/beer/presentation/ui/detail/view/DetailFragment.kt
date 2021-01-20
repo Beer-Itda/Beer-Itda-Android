@@ -84,11 +84,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         }
 
         detailViewModel.fetchBeer(args.beerId)
-        initObserving()
+        initObserver()
     }
 
-    override fun initObserving() {
-        super.initObserving()
+    override fun initObserver() {
+        super.initObserver()
         detailViewModel.response.observe(viewLifecycleOwner, Observer { result ->
             result.beer?.reviews?.let { binding.reviewAdapter?.updateItems(it) }
             result.beer?.aromas?.let { binding.aromaAdapter?.updateItems(it) }

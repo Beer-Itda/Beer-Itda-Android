@@ -40,7 +40,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initBind()
-        initObserving()
+        initObserver()
     }
 
     override fun initBind() {
@@ -72,8 +72,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         }
     }
 
-    override fun initObserving() {
-        super.initObserving()
+    override fun initObserver() {
+        super.initObserver()
         with(viewModel) {
             beerList.observe(viewLifecycleOwner, Observer {
                 imageAdapter.updateItems(it.orEmpty())

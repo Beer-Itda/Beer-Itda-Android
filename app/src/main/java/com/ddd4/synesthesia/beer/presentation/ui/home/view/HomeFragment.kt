@@ -15,9 +15,15 @@ import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.data.model.Beer
 import com.ddd4.synesthesia.beer.databinding.FragmentHomeBinding
 import com.ddd4.synesthesia.beer.databinding.LayoutHomeContentsBinding
+import com.ddd4.synesthesia.beer.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.presentation.base.BaseFragment
 import com.ddd4.synesthesia.beer.presentation.base.LoadingItemsApdater
+import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.home.NavigationDirections
+import com.ddd4.synesthesia.beer.presentation.ui.home.entity.HomeSelectEntity.Search
+import com.ddd4.synesthesia.beer.presentation.ui.home.entity.HomeSelectEntity.Filter
+import com.ddd4.synesthesia.beer.presentation.ui.home.entity.HomeSelectEntity.MyPage
+import com.ddd4.synesthesia.beer.presentation.ui.home.entity.HomeSelectEntity.Sort
 import com.ddd4.synesthesia.beer.presentation.ui.home.viewmodel.HomeViewModel
 import com.ddd4.synesthesia.beer.util.EndlessRecyclerViewScrollListener
 import com.ddd4.synesthesia.beer.util.ItemClickListener
@@ -53,47 +59,39 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initObserver()
+
         binding.apply {
             vm = homeViewModel
-
             contents.set()
             adapter = listAdapter
-            header.btnSearch.setOnClickListener {
+        }
+
+    }
+
+    override fun initObserver() {
+        observeHandledEvent(homeViewModel.event.select) {
+            handleSelectEvent(it)
+        }
+    }
+
+    override fun handleSelectEvent(entity: ItemClickEntity) {
+        when(entity) {
+            is Search -> {
                 findNavController().navigate(NavigationDirections.actionToSearch())
             }
-            header.btnMyPage.setOnClickListener {
+            is MyPage -> {
                 findNavController().navigate(NavigationDirections.actionToMyPage())
             }
-
-            header.tvBeerRecommend.setOnClickListener {
+            is Filter -> {
                 FilterDialog().run {
                     show(this@HomeFragment.parentFragmentManager, tag)
                 }
             }
-
-//            Glide.with(this@HomeFragment)
-//                .asGif()
-//                .listener(object : RequestListener<GifDrawable> {
-//                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<GifDrawable>?, isFirstResource: Boolean): Boolean {
-//                        return false
-//                    }
-//
-//                    override fun onResourceReady(resource: GifDrawable?, model: Any?, target: Target<GifDrawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-//                        resource?.setLoopCount(1)
-//                        return false
-//                    }
-//                })
-//                .load(R.raw.home_motion)
-//                .into(header.ivMainGif)
-
-
-
-
-            sort.setOnClickListener {
+            is Sort -> {
                 val bottom = HomeSortDialog()
                 bottom.show(this@HomeFragment.parentFragmentManager, bottom.tag)
             }
-
         }
     }
 

@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="com.ddd4.synesthesia.beer.presentation.ui.home.viewmodel.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,6 +55,7 @@
             android:text="@string/home_filter"
             android:textSize="14sp"
             android:textStyle="bold"
+            android:onClick="@{() -> vm.clickFilter()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tb_home_title"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -66,6 +70,7 @@
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:layout_margin="10dp"
             android:src="@drawable/ic_btn_search"
+            android:onClick="@{() -> vm.clickSearch()}"
             app:layout_constraintEnd_toStartOf="@+id/btn_my_page"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
@@ -78,6 +83,7 @@
             android:foreground="?attr/selectableItemBackground"
             android:layout_margin="10dp"
             android:src="@drawable/ic_btn_mypage"
+            android:onClick="@{() -> vm.clickMyPage()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription" />
