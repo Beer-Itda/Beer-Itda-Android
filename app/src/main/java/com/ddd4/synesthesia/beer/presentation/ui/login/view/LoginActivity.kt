@@ -34,6 +34,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initObserver()
+
         intent.getStringExtra(getString(R.string.is_show_snackbar))?.let {
             binding.root.showSnackBar(it)
         }
@@ -73,7 +75,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    override fun initObserving() {
+    override fun initObserver() {
         loginViewModel.isLoginSuccess.observe(this@LoginActivity, Observer {
             it.first?.let {
                 start<MainActivity>(true)

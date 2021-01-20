@@ -7,11 +7,14 @@ import androidx.databinding.ViewDataBinding
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.ext.dateFormat
 import com.ddd4.synesthesia.beer.ext.showSnackBar
+import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
+import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.ddd4.synesthesia.beer.presentation.commom.HandleEvent
 import com.ddd4.synesthesia.beer.util.AppConfig
 import com.ddd4.synesthesia.beer.util.SharedPreferenceProvider
 import javax.inject.Inject
 
-abstract class BaseActivity<B : ViewDataBinding>(private val layoutId : Int) : AppCompatActivity() {
+abstract class BaseActivity<B : ViewDataBinding>(private val layoutId : Int) : AppCompatActivity(), HandleEvent {
 
     @Inject lateinit var preference : SharedPreferenceProvider
     @Inject lateinit var appConfig : AppConfig
@@ -23,9 +26,6 @@ abstract class BaseActivity<B : ViewDataBinding>(private val layoutId : Int) : A
         binding = DataBindingUtil.inflate(layoutInflater, layoutId, null, false)
         binding.lifecycleOwner = this
         setContentView(binding.root)
-
-        initBind()
-        initObserving()
     }
 
     override fun onBackPressed() {
@@ -66,5 +66,8 @@ abstract class BaseActivity<B : ViewDataBinding>(private val layoutId : Int) : A
     }
 
     open fun initBind() { }
-    open fun initObserving() { }
+    open fun initObserver() { }
+
+    override fun handleSelectEvent(entity: ItemClickEntity) { }
+    override fun handleActionEvent(entity: ActionEntity) { }
 }
