@@ -16,7 +16,7 @@ import com.ddd4.synesthesia.beer.data.model.Review
 import com.ddd4.synesthesia.beer.databinding.FragmentDetailBinding
 import com.ddd4.synesthesia.beer.ext.showToast
 import com.ddd4.synesthesia.beer.presentation.base.BaseFragment
-import com.ddd4.synesthesia.beer.presentation.base.BaseItemsApdater
+import com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsApdater
 import com.ddd4.synesthesia.beer.presentation.ui.detail.viewmodel.DetailViewModel
 import com.ddd4.synesthesia.beer.util.ItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,11 +53,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             vm = detailViewModel
-            aromaAdapter = BaseItemsApdater(R.layout.layout_aroma, BR.scent ,itemClickListener)
-            reviewAdapter = BaseItemsApdater(R.layout.layout_review, BR.review ,itemClickListener)
-            aromaRelatedAdapter = BaseItemsApdater(R.layout.layout_beer_card, BR.related, itemClickListener)
-            styleRelatedAdapter = BaseItemsApdater(R.layout.layout_beer_card, BR.related, itemClickListener)
-            randomRelatedAdapter = BaseItemsApdater(R.layout.layout_beer_card, BR.related, itemClickListener)
+            aromaAdapter = ItemsApdater(R.layout.layout_aroma, BR.scent ,itemClickListener)
+            reviewAdapter = ItemsApdater(R.layout.layout_review, BR.review ,itemClickListener)
+            aromaRelatedAdapter = ItemsApdater(R.layout.layout_beer_card, BR.related, itemClickListener)
+            styleRelatedAdapter = ItemsApdater(R.layout.layout_beer_card, BR.related, itemClickListener)
+            randomRelatedAdapter = ItemsApdater(R.layout.layout_beer_card, BR.related, itemClickListener)
 
             includeToolbar.toolbar.setNavigationOnClickListener {
                 findNavController().popBackStack()

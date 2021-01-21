@@ -1,4 +1,4 @@
-package com.ddd4.synesthesia.beer.presentation.base
+package com.ddd4.synesthesia.beer.presentation.base.recyclerview
 
 import android.os.SystemClock
 import android.view.LayoutInflater
@@ -77,7 +77,7 @@ class BaseRecyclerView {
     class LoadingViewHolder<B : ViewDataBinding>(
         private val layoutId: Int,
         private val parent: ViewGroup
-    ) : ViewHolder<B> (layoutId,parent,null) {
+    ) : ViewHolder<B>(layoutId,parent,null) {
 
     }
 

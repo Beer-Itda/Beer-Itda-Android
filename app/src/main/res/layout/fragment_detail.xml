@@ -13,23 +13,23 @@
 
         <variable
             name="reviewAdapter"
-            type="com.ddd4.synesthesia.beer.presentation.base.BaseItemsApdater" />
+            type="com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsApdater" />
 
         <variable
             name="aromaAdapter"
-            type="com.ddd4.synesthesia.beer.presentation.base.BaseItemsApdater" />
+            type="com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsApdater" />
 
         <variable
             name="aromaRelatedAdapter"
-            type="com.ddd4.synesthesia.beer.presentation.base.BaseItemsApdater" />
+            type="com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsApdater" />
 
         <variable
             name="styleRelatedAdapter"
-            type="com.ddd4.synesthesia.beer.presentation.base.BaseItemsApdater" />
+            type="com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsApdater" />
 
         <variable
             name="randomRelatedAdapter"
-            type="com.ddd4.synesthesia.beer.presentation.base.BaseItemsApdater" />
+            type="com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsApdater" />
 
     </data>
 

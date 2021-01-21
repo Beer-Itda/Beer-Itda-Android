@@ -11,7 +11,7 @@ import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.data.model.Review
 import com.ddd4.synesthesia.beer.databinding.FragmentMyReviewBinding
 import com.ddd4.synesthesia.beer.presentation.base.BaseFragment
-import com.ddd4.synesthesia.beer.presentation.base.BaseItemsApdater
+import com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsApdater
 import com.ddd4.synesthesia.beer.presentation.ui.review.viewmodel.MyReviewViewModel
 import com.ddd4.synesthesia.beer.util.ItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,7 +34,7 @@ class MyReviewFragment : BaseFragment<FragmentMyReviewBinding>(R.layout.fragment
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            reviewAdatper = BaseItemsApdater(R.layout.layout_my_review,BR.review,itemClickListener)
+            reviewAdatper = ItemsApdater(R.layout.layout_my_review,BR.review,itemClickListener)
             srvReview.setOnRefreshListener {
                 viewModel.review()
             }

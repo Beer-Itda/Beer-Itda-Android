@@ -17,7 +17,7 @@ import com.ddd4.synesthesia.beer.databinding.FragmentHomeBinding
 import com.ddd4.synesthesia.beer.databinding.LayoutHomeContentsBinding
 import com.ddd4.synesthesia.beer.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.presentation.base.BaseFragment
-import com.ddd4.synesthesia.beer.presentation.base.LoadingItemsApdater
+import com.ddd4.synesthesia.beer.presentation.commom.adapter.LoadingItemsApdater
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.home.NavigationDirections
 import com.ddd4.synesthesia.beer.presentation.ui.home.entity.HomeSelectEntity.Search

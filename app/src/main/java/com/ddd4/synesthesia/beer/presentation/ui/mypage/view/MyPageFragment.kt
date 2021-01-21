@@ -1,6 +1,5 @@
 package com.ddd4.synesthesia.beer.presentation.ui.mypage.view
 
-import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.DialogInterface
 import android.content.Intent
@@ -21,7 +20,7 @@ import com.ddd4.synesthesia.beer.data.source.local.MyInfo
 import com.ddd4.synesthesia.beer.databinding.FragmentMyPageBinding
 import com.ddd4.synesthesia.beer.ext.showToast
 import com.ddd4.synesthesia.beer.presentation.base.BaseFragment
-import com.ddd4.synesthesia.beer.presentation.base.BaseItemsApdater
+import com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsApdater
 import com.ddd4.synesthesia.beer.presentation.ui.login.view.LoginActivity
 import com.ddd4.synesthesia.beer.presentation.ui.mypage.viewmodel.MyPageViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.webview.WebViewActivity
@@ -79,7 +78,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         binding.apply {
             myPageVm = myPageViewModel
             itemClickListener = this@MyPageFragment.itemClickListener
-            userAdapter = BaseItemsApdater(R.layout.layout_my_page, BR.my, itemClickListener).apply { updateItems(myPageViewModel.generateInfoList()) }
+            userAdapter = ItemsApdater(R.layout.layout_my_page, BR.my, itemClickListener).apply { updateItems(myPageViewModel.generateInfoList()) }
             includeToolbar.toolbar.setNavigationOnClickListener {
                 findNavController().popBackStack()
             }

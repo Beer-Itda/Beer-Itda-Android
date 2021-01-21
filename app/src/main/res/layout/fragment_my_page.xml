@@ -22,7 +22,7 @@
 
         <variable
             name="userAdapter"
-            type="com.ddd4.synesthesia.beer.presentation.base.BaseItemsApdater" />
+            type="com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsApdater" />
 
     </data>
 

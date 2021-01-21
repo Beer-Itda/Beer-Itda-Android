@@ -13,7 +13,7 @@ import com.ddd4.synesthesia.beer.data.model.Beer
 import com.ddd4.synesthesia.beer.databinding.FragmentSearchBinding
 import com.ddd4.synesthesia.beer.ext.showKeyboard
 import com.ddd4.synesthesia.beer.presentation.base.BaseFragment
-import com.ddd4.synesthesia.beer.presentation.base.LoadingItemsApdater
+import com.ddd4.synesthesia.beer.presentation.commom.adapter.LoadingItemsApdater
 import com.ddd4.synesthesia.beer.presentation.ui.search.viewmodel.SearchViewModel
 import com.ddd4.synesthesia.beer.util.EndlessRecyclerViewScrollListener
 import com.ddd4.synesthesia.beer.util.ItemClickListener

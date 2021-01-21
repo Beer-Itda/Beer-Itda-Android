@@ -1,11 +1,11 @@
-package com.ddd4.synesthesia.beer.presentation.base
+package com.ddd4.synesthesia.beer.presentation.commom.adapter
 
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.data.model.Beer
-import com.ddd4.synesthesia.beer.presentation.base.BaseRecyclerView
-import com.ddd4.synesthesia.beer.presentation.base.BaseViewType
+import com.ddd4.synesthesia.beer.presentation.base.recyclerview.BaseRecyclerView
+import com.ddd4.synesthesia.beer.presentation.base.recyclerview.BaseViewType
 import com.ddd4.synesthesia.beer.util.ItemClickListener
 import com.ddd4.synesthesia.beer.util.ItemLongClickListener
 
