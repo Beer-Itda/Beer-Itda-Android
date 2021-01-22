@@ -57,6 +57,17 @@ android {
     buildFeatures {
         dataBinding = true
     }
+
+    flavorDimensions("mode")
+    productFlavors {
+        create("playStore") {
+            dimension = "mode"
+        }
+        create("dev") {
+            dimension = "mode"
+        }
+    }
+
     androidExtensions {
         isExperimental = true
     }
