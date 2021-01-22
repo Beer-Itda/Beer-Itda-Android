@@ -40,6 +40,8 @@
             android:windowSoftInputMode="adjustResize"/>
 
         <activity android:name=".presentation.ui.webview.WebViewActivity"/>
+        <activity android:name=".presentation.ui.detail.view.DetailActivity"/>
+        <activity android:name=".presentation.ui.review.view.ReviewAllActivity"/>
 
     </application>
 
