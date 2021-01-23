@@ -1,4 +1,4 @@
-package com.ddd4.synesthesia.beer.presentation.ui.webview
+package com.ddd4.synesthesia.beer.presentation.ui.webview.view
 
 import android.os.Bundle
 import android.webkit.WebSettings

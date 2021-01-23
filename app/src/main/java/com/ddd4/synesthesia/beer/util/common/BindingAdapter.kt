@@ -1,5 +1,6 @@
-package com.ddd4.synesthesia.beer.util
+package com.ddd4.synesthesia.beer.util.common
 
+import android.app.Activity
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Typeface
@@ -17,8 +18,11 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.data.source.local.InfomationsType
-import com.ddd4.synesthesia.beer.ext.dp
-import com.ddd4.synesthesia.beer.ext.toPx
+import com.ddd4.synesthesia.beer.ext.*
+import com.ddd4.synesthesia.beer.presentation.commom.ThrowEntity
+import com.ddd4.synesthesia.beer.util.CustomTypefaceSpan
+import com.ddd4.synesthesia.beer.util.MutableLiveDataList
+import com.ddd4.synesthesia.beer.util.RecyclerItemDecoration
 import com.ddd4.synesthesia.beer.util.filter.BeerFilter
 import com.ddd4.synesthesia.beer.util.sort.SortType
 import com.google.android.material.appbar.AppBarLayout
@@ -220,5 +224,25 @@ fun setLayoutScrollFlagMode(view: CollapsingToolbarLayout, isEmpty : Boolean) {
     } else {
         params?.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
         view.layoutParams = appBarLayoutParams
+    }
+}
+
+@BindingAdapter(value = ["throwable"])
+fun View.bindThrowable(entity : ThrowEntity?) {
+    entity?.run {
+        postDelayed({
+            context?.showNoticeDialog(message = message, result = {
+                if(isFinish.orFalse()) {
+                    (context as? Activity)?.finish()
+                }
+            })
+        },300)
+    }
+}
+
+@BindingAdapter(value = ["visibility"])
+fun View.setVisibility(value: Boolean?) {
+    value?.let {
+        setVisible(value)
     }
 }

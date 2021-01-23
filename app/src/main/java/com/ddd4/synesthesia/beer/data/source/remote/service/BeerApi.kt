@@ -75,4 +75,20 @@ interface BeerApi {
     @GET("api/review")
     suspend fun getReview() : Results<Review>
 
+    /**
+     * 즐겨찾기 등록/삭제
+     */
+    @FormUrlEncoded
+    @POST("api/favorite")
+    suspend fun postFavorite(
+        @Field("beer_id") id : Int,
+        @Field("flag") flag : Boolean
+    )
+
+    /**
+     * 내가 즐겨찾기한 맥주 리스트
+     */
+    @GET("api/favorite")
+    suspend fun getFavorite() : Results<Response>
+
 }

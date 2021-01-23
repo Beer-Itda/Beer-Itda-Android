@@ -1,16 +1,20 @@
 package com.ddd4.synesthesia.beer.presentation.ui.mypage.view
 
+import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityWriteNicknameBinding
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
+import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailActivity
 import com.ddd4.synesthesia.beer.util.CustomAlertDialog
+import com.ddd4.synesthesia.beer.util.KeyStringConst
 import com.ddd4.synesthesia.beer.util.SimpleCallback
 
 class WriteNickNameActivity : BaseActivity<ActivityWriteNicknameBinding>(R.layout.activity_write_nickname) {
 
-    private val nickName by lazy { intent.extras?.get(getString(R.string.key_nickname)) as? String }
+    private val nickName by lazy { intent.extras?.getString(KEY_NICKNAME) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +54,16 @@ class WriteNickNameActivity : BaseActivity<ActivityWriteNicknameBinding>(R.layou
                 negative = getString(R.string.no),
                 result = DialogInterface.OnClickListener { dialog, which -> finish() }
             ).show(supportFragmentManager,null)
+        }
+    }
+
+    companion object {
+        const val KEY_NICKNAME = "nickname"
+        @JvmStatic
+        fun start(context: Context, nickname: String) {
+            context.startActivity(Intent(context, WriteNickNameActivity::class.java).apply {
+                putExtra(KEY_NICKNAME, nickname)
+            })
         }
     }
 }

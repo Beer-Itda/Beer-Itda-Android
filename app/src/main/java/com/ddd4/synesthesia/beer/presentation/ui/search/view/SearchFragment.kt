@@ -5,31 +5,27 @@ import android.view.View
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.ddd4.synesthesia.beer.HomeNavigationDirections
 import com.ddd4.synesthesia.beer.R
-import com.ddd4.synesthesia.beer.data.model.Beer
 import com.ddd4.synesthesia.beer.databinding.FragmentSearchBinding
+import com.ddd4.synesthesia.beer.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.ext.showKeyboard
 import com.ddd4.synesthesia.beer.presentation.base.BaseFragment
+import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.ddd4.synesthesia.beer.presentation.commom.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.adapter.LoadingItemsApdater
+import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailActivity
 import com.ddd4.synesthesia.beer.presentation.ui.search.viewmodel.SearchViewModel
 import com.ddd4.synesthesia.beer.util.EndlessRecyclerViewScrollListener
-import com.ddd4.synesthesia.beer.util.ItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_search) {
 
     private val viewModel by viewModels<SearchViewModel>()
-    private val clickListener by lazy { object : ItemClickListener {
-        override fun <T> onItemClick(item: T?) {
-            findNavController().navigate(HomeNavigationDirections.actionToDetail((item as Beer).id))
-        }
-    }}
-    private val titleAdapter by lazy { LoadingItemsApdater(R.layout.item_auto_completation, BR.item,clickListener) }
-    private val imageAdapter by lazy { LoadingItemsApdater(R.layout.item_home, BR.item,clickListener) }
+
+    private val titleAdapter by lazy { LoadingItemsApdater(R.layout.item_auto_completation, BR.item) }
+    private val imageAdapter by lazy { LoadingItemsApdater(R.layout.item_home, BR.item) }
     private lateinit var titleEndlessScroll : EndlessRecyclerViewScrollListener
     private lateinit var imageEndlessScroll : EndlessRecyclerViewScrollListener
 
@@ -73,7 +69,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     }
 
     override fun initObserver() {
-        super.initObserver()
         with(viewModel) {
             beerList.observe(viewLifecycleOwner, Observer {
                 imageAdapter.updateItems(it.orEmpty())
@@ -81,6 +76,17 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                 binding.srvSearchTitle.isRefreshing = false
                 binding.srvSearchImage.isRefreshing = false
             })
+        }
+        observeHandledEvent(viewModel.event.select) {
+            handleSelectEvent(it)
+        }
+    }
+
+    override fun handleSelectEvent(entity: ItemClickEntity) {
+        when(entity) {
+            is BeerClickEntity.SelectItem -> {
+                DetailActivity.start(requireContext(),entity.beer.id)
+            }
         }
     }
 }

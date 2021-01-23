@@ -3,62 +3,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_navigation"
-    app:startDestination="@id/homeScreen"
-    >
+    app:startDestination="@id/homeScreen">
 
     <fragment
         android:id="@+id/homeScreen"
         android:name="com.ddd4.synesthesia.beer.presentation.ui.home.view.HomeFragment"
-        tools:layout="@layout/fragment_home">
-    </fragment>
-
-    <fragment
-        android:id="@+id/detailScreen"
-        android:name="com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailFragment"
-        tools:layout="@layout/fragment_detail">
-        <argument
-            android:name="beerId"
-            app:argType="integer"
-            app:nullable="false" />
-    </fragment>
-
+        tools:layout="@layout/fragment_home"/>
 
 
     <fragment
         android:id="@+id/myPageScreen"
         android:name="com.ddd4.synesthesia.beer.presentation.ui.mypage.view.MyPageFragment"
-        tools:layout="@layout/fragment_my_page"/>
+        tools:layout="@layout/fragment_my_page" />
 
     <fragment
         android:id="@+id/search"
         android:name="com.ddd4.synesthesia.beer.presentation.ui.search.view.SearchFragment"
-        tools:layout="@layout/fragment_search"/>
+        tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/review"
-        android:name="com.ddd4.synesthesia.beer.presentation.ui.review.view.ReviewAllFragment"
-        tools:layout="@layout/fragment_review">
+        android:name="com.ddd4.synesthesia.beer.presentation.ui.review.view.ReviewAllActivity"
+        tools:layout="@layout/activity_review_all">
         <argument
             android:name="review"
             app:argType="com.ddd4.synesthesia.beer.data.model.Review[]"
-            app:nullable="true"/>
+            app:nullable="true" />
     </fragment>
 
     <fragment
         android:id="@+id/myReview"
-        android:name="com.ddd4.synesthesia.beer.presentation.ui.review.view.MyReviewFragment"
-        tools:layout="@layout/fragment_my_review"/>
+        android:name="com.ddd4.synesthesia.beer.presentation.ui.mypage.view.review.MyReviewFragment"
+        tools:layout="@layout/fragment_my_review" />
+
+    <fragment
+        android:id="@+id/myFavorite"
+        android:name="com.ddd4.synesthesia.beer.presentation.ui.mypage.view.favorite.MyFavoriteFragment"
+        tools:layout="@layout/fragment_my_favorite" />
 
 
     <!-- Global Action -->
-    <action
-        android:id="@+id/action_to_detail"
-        app:destination="@id/detailScreen"
-        app:enterAnim="@anim/fade_in"
-        app:exitAnim="@anim/fade_out"
-        app:popEnterAnim="@anim/fade_in"
-        app:popExitAnim="@anim/fade_out"
-        />
 
     <action
         android:id="@+id/action_to_mypage"
@@ -66,8 +50,7 @@
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out"
         app:popEnterAnim="@anim/fade_in"
-        app:popExitAnim="@anim/fade_out"
-        />
+        app:popExitAnim="@anim/fade_out" />
 
     <action
         android:id="@+id/action_to_search"
@@ -75,8 +58,7 @@
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out"
         app:popEnterAnim="@anim/fade_in"
-        app:popExitAnim="@anim/fade_out"
-        />
+        app:popExitAnim="@anim/fade_out" />
 
     <action
         android:id="@+id/action_to_review_all"
@@ -84,8 +66,7 @@
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out"
         app:popEnterAnim="@anim/fade_in"
-        app:popExitAnim="@anim/fade_out"
-        />
+        app:popExitAnim="@anim/fade_out" />
 
     <action
         android:id="@+id/action_to_my_review"
@@ -93,10 +74,15 @@
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out"
         app:popEnterAnim="@anim/fade_in"
-        app:popExitAnim="@anim/fade_out"
-        />
+        app:popExitAnim="@anim/fade_out" />
 
-
+    <action
+        android:id="@+id/action_to_my_favorite"
+        app:destination="@id/myFavorite"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out" />
 
 
 </navigation>

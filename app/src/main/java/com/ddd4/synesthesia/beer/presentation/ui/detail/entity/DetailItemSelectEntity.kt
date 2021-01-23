@@ -1,5 +1,12 @@
 package com.ddd4.synesthesia.beer.presentation.ui.detail.entity
 
-sealed class DetailItemSelectEntity {
-    class Favorite(id : Int) : DetailItemSelectEntity()
+import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+
+sealed class DetailItemSelectEntity : ItemClickEntity() {
+    /** 즐겨찾기 */
+    object Favorite : DetailItemSelectEntity()
+    /** 리뷰 전체보기 */
+    object ReviewAll : DetailItemSelectEntity()
+    /** 별점 남기기 */
+    object StarRate : DetailItemSelectEntity()
 }

@@ -1,4 +1,4 @@
-package com.ddd4.synesthesia.beer.util
+package com.ddd4.synesthesia.beer.util.provider
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE

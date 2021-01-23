@@ -6,6 +6,7 @@
     <data>
 
         <import type="android.view.View" />
+        <import type="com.ddd4.synesthesia.beer.util.NetworkStatus"/>
 
         <variable
             name="vm"
@@ -13,29 +14,31 @@
 
         <variable
             name="reviewAdapter"
-            type="com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsApdater" />
+            type="com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsAdapter" />
 
         <variable
             name="aromaAdapter"
-            type="com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsApdater" />
+            type="com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsAdapter" />
 
         <variable
             name="aromaRelatedAdapter"
-            type="com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsApdater" />
+            type="com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsAdapter" />
 
         <variable
             name="styleRelatedAdapter"
-            type="com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsApdater" />
+            type="com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsAdapter" />
 
         <variable
             name="randomRelatedAdapter"
-            type="com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsApdater" />
+            type="com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsAdapter" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:throwable="@{vm.throwable}"
+        app:visibility="@{vm.networkStatus == NetworkStatus.SUCCESS}">
 
         <include
             android:id="@+id/include_toolbar"
@@ -46,11 +49,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/iv_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:onClick="@{() -> vm.clickFavorite()}"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:src="@{vm.beer.isFavorite() ? @drawable/ic_favorite : @drawable/ic_favorite_unactive}"
+            app:layout_constraintBottom_toBottomOf="@+id/include_toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/include_toolbar"
+            tools:src="@drawable/ic_favorite" />
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:fillViewport="true"
-            android:visibility="@{vm.response == null ? View.GONE : View.VISIBLE}"
+            android:visibility="@{vm == null ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -67,12 +83,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="260dp"
                     android:background="@android:color/transparent"
+                    app:errorDrawable="@{@drawable/beer}"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:errorDrawable="@{@drawable/beer}"
-                    app:loadUrl="@{vm.response.beer.imageUrl.size() > 0 ? vm.response.beer.imageUrl.get(0) : null}"
+                    app:loadUrl="@{vm.beer.imageUrl.size() > 0 ? vm.beer.imageUrl.get(0) : null}"
                     tools:src="@drawable/beer" />
 
                 <TextView
@@ -81,13 +97,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="28dp"
                     android:layout_marginTop="24dp"
-                    android:textSize="13sp"
-                    android:text="@string/manufacturer"
                     android:fontFamily="@font/notosans_kr_regular"
+                    android:text="@string/manufacturer"
+                    android:textColor="@color/color_c8c8c8"
+                    android:textSize="13sp"
+                    app:layout_constraintEnd_toStartOf="@+id/view_line"
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintHorizontal_chainStyle="packed"
-                    android:textColor="@color/color_c8c8c8"
-                    app:layout_constraintEnd_toStartOf="@+id/view_line"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/iv_beer"
                     tools:text="@string/manufacturer" />
@@ -96,25 +112,25 @@
                     android:id="@+id/view_line"
                     android:layout_width="1dp"
                     android:layout_height="0dp"
-                    android:background="@color/color_d3d3d3"
                     android:layout_marginHorizontal="8dp"
+                    android:background="@color/color_d3d3d3"
                     android:scaleY="0.6"
-                    app:layout_constraintStart_toEndOf="@+id/tv_beer_manufacturer_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_beer_manufacturer_title"
                     app:layout_constraintEnd_toStartOf="@+id/tv_beer_manufacturer_name"
-                    app:layout_constraintTop_toTopOf="@+id/tv_beer_manufacturer_title"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_beer_manufacturer_title"/>
+                    app:layout_constraintStart_toEndOf="@+id/tv_beer_manufacturer_title"
+                    app:layout_constraintTop_toTopOf="@+id/tv_beer_manufacturer_title" />
 
                 <TextView
                     android:id="@+id/tv_beer_manufacturer_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
                     android:fontFamily="@font/notosans_kr_regular"
+                    android:text="@{vm.beer.country}"
                     android:textColor="@color/color_c8c8c8"
-                    android:text="@{vm.response.beer.country}"
+                    android:textSize="13sp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_beer_manufacturer_title"
-                    app:layout_constraintStart_toEndOf="@+id/view_line"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/view_line"
                     app:layout_constraintTop_toTopOf="@+id/tv_beer_manufacturer_title"
                     tools:text="대한민국" />
 
@@ -122,10 +138,10 @@
                     android:id="@+id/tv_beer_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{vm.response.beer.name}"
                     android:layout_marginTop="4dp"
-                    android:textSize="17sp"
                     android:fontFamily="@font/notosans_kr_regular"
+                    android:text="@{vm.beer.name}"
+                    android:textSize="17sp"
                     app:layout_constraintStart_toStartOf="@+id/tv_beer_manufacturer_title"
                     app:layout_constraintTop_toBottomOf="@+id/tv_beer_manufacturer_title"
                     tools:text="화이트" />
@@ -135,14 +151,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="28dp"
-                    android:singleLine="true"
                     android:ellipsize="end"
                     android:fontFamily="@font/notosans_kr_regular"
-                    android:text="@{vm.response.beer.beerStyle}"
+                    android:singleLine="true"
+                    android:text="@{vm.beer.beerStyle}"
                     android:textColor="@color/butterscotch"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintEnd_toStartOf="@+id/tv_beer_alcohol"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="@+id/tv_beer_manufacturer_title"
                     app:layout_constraintTop_toBottomOf="@+id/tv_beer_name"
                     tools:text="맥주 스타일" />
@@ -153,10 +169,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:fontFamily="@font/notosans_kr_regular"
-                    android:text="@{@string/abv(vm.response.beer.abv)}"
+                    android:text="@{@string/abv(vm.beer.abv)}"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_beer_style"
-                    app:layout_constraintStart_toEndOf="@+id/tv_beer_style"
                     app:layout_constraintEnd_toStartOf="@+id/tv_beer_rate"
+                    app:layout_constraintStart_toEndOf="@+id/tv_beer_style"
                     app:layout_constraintTop_toTopOf="@+id/tv_beer_style"
                     tools:text="5.0%" />
 
@@ -167,10 +183,10 @@
                     android:layout_marginEnd="28dp"
                     android:drawableStart="@drawable/ic_rating_star"
                     android:drawablePadding="4dp"
-                    android:text="@{@string/rate_unit(vm.response.beer.rateAvg)}"
+                    android:fontFamily="@font/notosans_kr_medium"
+                    android:text="@{@string/rate_unit(vm.beer.rateAvg)}"
                     android:textColor="@color/butterscotch"
                     android:textSize="19sp"
-                    android:fontFamily="@font/notosans_kr_medium"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_beer_style"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_beer_style"
@@ -183,14 +199,14 @@
                     android:layout_marginTop="10dp"
                     android:minHeight="20dp"
                     android:orientation="horizontal"
-                    app:adapter="@{aromaAdapter}"
-                    app:space="@{@integer/space_8}"
-                    app:horizontal_space="@{@integer/space_0}"
                     android:paddingHorizontal="28dp"
+                    app:adapter="@{aromaAdapter}"
+                    app:horizontal_space="@{@integer/space_0}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="@+id/tv_beer_rate"
                     app:layout_constraintStart_toStartOf="@+id/tv_beer_style"
                     app:layout_constraintTop_toBottomOf="@+id/tv_beer_style"
+                    app:space="@{@integer/space_8}"
                     tools:listitem="@layout/layout_aroma" />
 
                 <View
@@ -211,9 +227,9 @@
                     android:paddingTop="24dp"
                     android:progressBackgroundTint="@color/shark"
                     android:progressTint="@color/butterscotch"
+                    android:rating="@{vm.beer.reviewOwner.ratio}"
                     android:secondaryProgressTint="@color/butterscotch"
                     android:stepSize="0.5"
-                    android:rating="@{vm.response.beer.reviewOwner.ratio}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/divider" />
@@ -223,9 +239,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/notosans_kr_bold"
-                    android:visibility="@{vm.response.beer.reviewOwner.ratio == null ? View.GONE : View.VISIBLE}"
-                    android:text="@{@string/rate_unit(vm.response.beer.reviewOwner.ratio)}"
+                    android:text="@{@string/rate_unit(vm.beer.reviewOwner.ratio)}"
                     android:textSize="16sp"
+                    android:visibility="@{vm.beer.reviewOwner.ratio == null ? View.GONE : View.VISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rb_beer_rate"
@@ -236,11 +252,12 @@
                     style="@style/TextBoldButterscotch14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="14sp"
-                    android:paddingTop="16dp"
                     android:fontFamily="@font/notosans_kr_regular"
-                    android:text="@{vm.response.beer.reviewOwner.ratio == null ? @string/register_review : @string/modify_review}"
+                    android:onClick="@{() -> vm.clickStarRate()}"
+                    android:paddingTop="16dp"
+                    android:text="@{vm.beer.reviewOwner.ratio == null ? @string/register_review : @string/modify_review}"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_score"
@@ -254,21 +271,21 @@
                     android:layout_marginHorizontal="28dp"
                     android:layout_marginTop="24dp"
                     android:background="@color/shark"
-                    android:visibility="@{vm.response.beer.reviews == null ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{vm.beer.reviews == null ? View.GONE : View.VISIBLE}"
                     app:layout_constraintTop_toBottomOf="@+id/tv_beer_review_title" />
 
                 <TextView
                     android:id="@+id/tv_review"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingTop="20dp"
-                    android:textSize="15sp"
-                    android:text="@string/review"
-                    android:textStyle="bold"
                     android:fontFamily="@font/notosans_kr_regular"
-                    android:visibility="@{vm.response.beer.reviews == null ? View.GONE : View.VISIBLE}"
-                    app:layout_constraintStart_toStartOf="@+id/tv_beer_manufacturer_title"
+                    android:paddingTop="20dp"
+                    android:text="@string/review"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:visibility="@{vm.beer.reviews == null ? View.GONE : View.VISIBLE}"
                     app:layout_constraintEnd_toStartOf="@+id/tv_review_all"
+                    app:layout_constraintStart_toStartOf="@+id/tv_beer_manufacturer_title"
                     app:layout_constraintTop_toBottomOf="@+id/divider2"
                     tools:text="@string/review" />
 
@@ -276,13 +293,14 @@
                     android:id="@+id/tv_review_all"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
+                    android:fontFamily="@font/notosans_kr_regular"
                     android:gravity="center"
+                    android:onClick="@{() -> vm.clickReviewAll()}"
+                    android:paddingTop="20dp"
+                    android:text="@string/show_all"
                     android:textSize="13sp"
                     android:textStyle="bold"
-                    android:text="@string/show_all"
-                    android:paddingTop="20dp"
-                    android:fontFamily="@font/notosans_kr_regular"
-                    android:visibility="@{vm.response.beer.reviews == null ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{vm.beer.reviews == null ? View.GONE : View.VISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_review"
                     app:layout_constraintEnd_toEndOf="@+id/tv_beer_rate"
                     app:layout_constraintVertical_bias="0.0"
@@ -294,7 +312,7 @@
                     android:layout_height="wrap_content"
                     android:clipToPadding="true"
                     android:paddingHorizontal="4dp"
-                    android:visibility="@{vm.response.beer.reviews == null ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{vm.beer.reviews == null ? View.GONE : View.VISIBLE}"
                     app:adapter="@{reviewAdapter}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintTop_toBottomOf="@+id/tv_review"
@@ -309,38 +327,38 @@
                 <!--과일향 관련 맥주-->
                 <include
                     android:id="@+id/include_aroma_related"
+                    layout="@layout/layout_detail_contents"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="@{vm.relatedBeers.aromaRelated == null ? View.GONE : View.VISIBLE}"
                     app:adapter="@{aromaRelatedAdapter}"
-                    app:isVisible="@{vm.response.relatedBeers.aromaRelated == null ? true : false}"
-                    app:title="@{@string/title_aroma}"
-                    android:visibility="@{vm.response.relatedBeers.aromaRelated == null ? View.GONE : View.VISIBLE}"
-                    layout="@layout/layout_detail_contents"
-                    app:layout_constraintTop_toBottomOf="@+id/rv_review"/>
+                    app:isVisible="@{vm.relatedBeers.aromaRelated == null ? true : false}"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_review"
+                    app:title="@{@string/title_aroma}" />
 
                 <!--같은 스타일 관련 맥주-->
                 <include
                     android:id="@+id/include_style_related"
+                    layout="@layout/layout_detail_contents"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="@{vm.relatedBeers.styleRelated == null ? View.GONE : View.VISIBLE}"
                     app:adapter="@{styleRelatedAdapter}"
-                    app:isVisible="@{vm.response.relatedBeers.styleRelated == null ? true : false}"
-                    app:title="@{@string/title_style}"
-                    android:visibility="@{vm.response.relatedBeers.styleRelated == null ? View.GONE : View.VISIBLE}"
-                    layout="@layout/layout_detail_contents"
-                    app:layout_constraintTop_toBottomOf="@+id/include_aroma_related"/>
+                    app:isVisible="@{vm.relatedBeers.styleRelated == null ? true : false}"
+                    app:layout_constraintTop_toBottomOf="@+id/include_aroma_related"
+                    app:title="@{@string/title_style}" />
 
                 <!--랜덤 추천 맥주-->
                 <include
                     android:id="@+id/include_random_related"
+                    layout="@layout/layout_detail_contents"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="@{vm.relatedBeers.randomlyRelated == null ? View.GONE : View.VISIBLE}"
                     app:adapter="@{randomRelatedAdapter}"
-                    app:isVisible="@{vm.response.relatedBeers.randomlyRelated == null ? true : false}"
-                    app:title="@{@string/title_random}"
-                    android:visibility="@{vm.response.relatedBeers.randomlyRelated == null ? View.GONE : View.VISIBLE}"
-                    layout="@layout/layout_detail_contents"
-                    app:layout_constraintTop_toBottomOf="@+id/include_style_related"/>
+                    app:isVisible="@{vm.relatedBeers.randomlyRelated == null ? true : false}"
+                    app:layout_constraintTop_toBottomOf="@+id/include_style_related"
+                    app:title="@{@string/title_random}" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

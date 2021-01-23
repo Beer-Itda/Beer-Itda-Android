@@ -10,6 +10,8 @@ import com.ddd4.synesthesia.beer.data.model.Beer
 import com.ddd4.synesthesia.beer.domain.repository.BeerRepository
 import com.ddd4.synesthesia.beer.ext.ObservableExt.ObservableString
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
+import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.ddd4.synesthesia.beer.presentation.commom.BeerClickEntity
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -70,7 +72,6 @@ class SearchViewModel @ViewModelInject constructor(
             return
         }
         debounceJob = viewModelScope.launch {
-            delay(300L)
             beerRepository.getSearch(searchText.get().orEmpty(),cursor.value)?.result?.let { response ->
                 cursor.value = response.nextCursor
                 // 데이터 추가
@@ -84,13 +85,22 @@ class SearchViewModel @ViewModelInject constructor(
                     _beerList.value = (_beerList.value?.let { beers ->
                         beers.toMutableList().apply {
                             response.beers?.let { data ->
-                                addAll(data)
+                                val beers = data.map { beer ->
+                                    beer.setFavorite()
+                                    beer.eventNotifier = this@SearchViewModel
+                                    beer
+                                }
+                                addAll(beers)
                             }
                         }
                     })
                     isLoadMore.set(false)
                 } else {
-                    _beerList.value = response.beers
+                    _beerList.value = response.beers?.map { beer ->
+                        beer.setFavorite()
+                        beer.eventNotifier = this@SearchViewModel
+                        beer
+                    }
                 }
             }
 
@@ -102,6 +112,20 @@ class SearchViewModel @ViewModelInject constructor(
         cursor.value = null
     }
 
+    private fun fetchFavorite(beer : Beer) {
+        viewModelScope.launch {
+            beer.updateFavorite()
+            beerRepository.postFavorite(beer.id, beer.isFavorite.get())
+        }
+    }
+
+    override fun handleSelectEvent(entity: ItemClickEntity) {
+        when(entity) {
+            is BeerClickEntity.SelectFavorite -> {
+                fetchFavorite(entity.beer)
+            }
+        }
+    }
 
     override fun onCleared() {
         super.onCleared()

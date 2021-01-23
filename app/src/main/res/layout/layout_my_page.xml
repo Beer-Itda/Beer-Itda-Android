@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="28dp"
         android:paddingVertical="8dp"
+        android:onClick="@{() -> my.clickItem()}"
         app:layout_margin_top="@{my.type == InfomationsType.ITEM || my.type == InfomationsType.TEXT? @integer/space_4 : @integer/space_16}"
         app:forgroundSelected="@{my.type}">
 

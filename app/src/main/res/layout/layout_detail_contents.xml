@@ -9,7 +9,7 @@
 
         <variable
             name="adapter"
-            type="com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsApdater" />
+            type="com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsAdapter" />
 
         <variable
             name="isVisible"

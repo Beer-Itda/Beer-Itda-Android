@@ -2,6 +2,11 @@ package com.ddd4.synesthesia.beer.data.model
 
 
 import android.os.Parcelable
+import androidx.databinding.ObservableBoolean
+import com.ddd4.synesthesia.beer.ext.orFalse
+import com.ddd4.synesthesia.beer.ext.toggle
+import com.ddd4.synesthesia.beer.presentation.base.event.SelectEventNotifier
+import com.ddd4.synesthesia.beer.presentation.commom.BeerClickEntity
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -32,5 +37,27 @@ data class Beer(
     @SerializedName("thumbnail_image")
     val thumbnailImage : String? = null,
     @SerializedName("review_owner")
-    val reviewOwner : ReviewOwner? = null
-) : Parcelable
+    val reviewOwner : ReviewOwner? = null,
+    @SerializedName("favorite_flag")
+    private var favoriteFlag : Boolean? = false
+) : Parcelable {
+    var isFavorite : ObservableBoolean = ObservableBoolean(false)
+    var eventNotifier: SelectEventNotifier? = null
+
+    fun setFavorite() {
+        isFavorite = ObservableBoolean(favoriteFlag.orFalse())
+    }
+
+    fun updateFavorite() {
+        favoriteFlag = favoriteFlag?.toggle()
+        isFavorite.set(isFavorite.get().toggle())
+    }
+
+    fun clickItem() {
+        eventNotifier?.notifySelectEvent(BeerClickEntity.SelectItem(this))
+    }
+
+    fun clickFavorite() {
+        eventNotifier?.notifySelectEvent(BeerClickEntity.SelectFavorite(this))
+    }
+}

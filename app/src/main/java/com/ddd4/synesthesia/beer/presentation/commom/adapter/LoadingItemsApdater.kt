@@ -6,19 +6,13 @@ import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.data.model.Beer
 import com.ddd4.synesthesia.beer.presentation.base.recyclerview.BaseRecyclerView
 import com.ddd4.synesthesia.beer.presentation.base.recyclerview.BaseViewType
-import com.ddd4.synesthesia.beer.util.ItemClickListener
-import com.ddd4.synesthesia.beer.util.ItemLongClickListener
 
 class LoadingItemsApdater(
     private val layoutId: Int,
-    private val bindingVariableId: Int? = -1,
-    private val clickItemEvent: ItemClickListener? = null,
-    private val longClickItemEvent: ItemLongClickListener? = null
+    private val bindingVariableId: Int? = -1
 ) : BaseRecyclerView.Adapter<Any, ViewDataBinding>(
     layoutId = layoutId,
-    bindingVariableId = bindingVariableId,
-    clickItemEvent = clickItemEvent,
-    longClickItemEvent = longClickItemEvent
+    bindingVariableId = bindingVariableId
 ) {
 
     override fun onCreateViewHolder(

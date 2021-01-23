@@ -7,7 +7,7 @@
 
         <variable
             name="reviewAdatper"
-            type="com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsApdater" />
+            type="com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,7 +43,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/include_toolbar"
                 app:space="@{@integer/space_24}"
                 app:vertical_space="@{@integer/space_16}"
-                tools:listitem="@layout/layout_my_review" />
+                tools:listitem="@layout/item_my_review" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

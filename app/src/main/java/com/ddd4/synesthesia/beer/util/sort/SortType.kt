@@ -2,7 +2,7 @@ package com.ddd4.synesthesia.beer.util.sort
 
 import android.content.Context
 import com.ddd4.synesthesia.beer.R
-import com.ddd4.synesthesia.beer.util.SharedPreferenceProvider
+import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow

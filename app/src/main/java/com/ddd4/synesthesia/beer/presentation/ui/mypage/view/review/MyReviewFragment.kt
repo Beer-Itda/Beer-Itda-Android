@@ -1,4 +1,4 @@
-package com.ddd4.synesthesia.beer.presentation.ui.review.view
+package com.ddd4.synesthesia.beer.presentation.ui.mypage.view.review
 
 import android.os.Bundle
 import android.view.View
@@ -6,35 +6,26 @@ import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.ddd4.synesthesia.beer.HomeNavigationDirections
 import com.ddd4.synesthesia.beer.R
-import com.ddd4.synesthesia.beer.data.model.Review
 import com.ddd4.synesthesia.beer.databinding.FragmentMyReviewBinding
+import com.ddd4.synesthesia.beer.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.presentation.base.BaseFragment
-import com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsApdater
-import com.ddd4.synesthesia.beer.presentation.ui.review.viewmodel.MyReviewViewModel
-import com.ddd4.synesthesia.beer.util.ItemClickListener
+import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.ddd4.synesthesia.beer.presentation.commom.BeerClickEntity
+import com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsAdapter
+import com.ddd4.synesthesia.beer.presentation.ui.mypage.viewmodel.review.MyReviewViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MyReviewFragment : BaseFragment<FragmentMyReviewBinding>(R.layout.fragment_my_review) {
 
     private val viewModel by viewModels<MyReviewViewModel>()
-    private val itemClickListener by lazy {
-        object : ItemClickListener {
-            override fun <T> onItemClick(item: T?) {
-                (item as? Review)?.beer?.id?.let {
-                    findNavController().navigate(HomeNavigationDirections.actionToDetail(it))
-                }
-            }
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            reviewAdatper = ItemsApdater(R.layout.layout_my_review,BR.review,itemClickListener)
+            reviewAdatper = ItemsAdapter(R.layout.item_my_review,BR.review)
             srvReview.setOnRefreshListener {
                 viewModel.review()
             }
@@ -53,5 +44,16 @@ class MyReviewFragment : BaseFragment<FragmentMyReviewBinding>(R.layout.fragment
                 binding.srvReview.isRefreshing = false
             }
         })
+        observeHandledEvent(viewModel.event.select) {
+            handleSelectEvent(it)
+        }
+    }
+
+    override fun handleSelectEvent(entity: ItemClickEntity) {
+        when(entity) {
+            is BeerClickEntity.SelectItem -> {
+
+            }
+        }
     }
 }

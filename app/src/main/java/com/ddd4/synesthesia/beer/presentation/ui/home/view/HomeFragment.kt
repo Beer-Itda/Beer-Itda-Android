@@ -10,23 +10,19 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd4.synesthesia.beer.BR
-import com.ddd4.synesthesia.beer.HomeNavigationDirections
 import com.ddd4.synesthesia.beer.R
-import com.ddd4.synesthesia.beer.data.model.Beer
 import com.ddd4.synesthesia.beer.databinding.FragmentHomeBinding
 import com.ddd4.synesthesia.beer.databinding.LayoutHomeContentsBinding
 import com.ddd4.synesthesia.beer.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.presentation.base.BaseFragment
-import com.ddd4.synesthesia.beer.presentation.commom.adapter.LoadingItemsApdater
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.ddd4.synesthesia.beer.presentation.commom.BeerClickEntity
+import com.ddd4.synesthesia.beer.presentation.commom.adapter.LoadingItemsApdater
+import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailActivity
 import com.ddd4.synesthesia.beer.presentation.ui.home.NavigationDirections
-import com.ddd4.synesthesia.beer.presentation.ui.home.entity.HomeSelectEntity.Search
-import com.ddd4.synesthesia.beer.presentation.ui.home.entity.HomeSelectEntity.Filter
-import com.ddd4.synesthesia.beer.presentation.ui.home.entity.HomeSelectEntity.MyPage
-import com.ddd4.synesthesia.beer.presentation.ui.home.entity.HomeSelectEntity.Sort
+import com.ddd4.synesthesia.beer.presentation.ui.home.entity.HomeSelectEntity.*
 import com.ddd4.synesthesia.beer.presentation.ui.home.viewmodel.HomeViewModel
 import com.ddd4.synesthesia.beer.util.EndlessRecyclerViewScrollListener
-import com.ddd4.synesthesia.beer.util.ItemClickListener
 import com.ddd4.synesthesia.beer.util.filter.BeerFilter
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -35,27 +31,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private val homeViewModel by viewModels<HomeViewModel>()
-    private val listAdapter by lazy {
-        LoadingItemsApdater(R.layout.item_home, BR.item, itemClickListener)
-    }
+    private val listAdapter by lazy { LoadingItemsApdater(R.layout.item_home, BR.item) }
 
     private lateinit var endlessRecyclerViewScrollListener : EndlessRecyclerViewScrollListener
-
-    private val itemClickListener by lazy {
-        object : ItemClickListener {
-            override fun <T> onItemClick(item: T?) {
-                Timber.d("onItemClick ${item.toString()}")
-                findNavController().navigate(HomeNavigationDirections.actionToDetail((item as Beer).id))
-            }
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -91,6 +75,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             is Sort -> {
                 val bottom = HomeSortDialog()
                 bottom.show(this@HomeFragment.parentFragmentManager, bottom.tag)
+            }
+            is  BeerClickEntity.SelectItem -> {
+                DetailActivity.start(requireContext(),entity.beer.id)
             }
         }
     }

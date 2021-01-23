@@ -1,14 +1,19 @@
 package com.ddd4.synesthesia.beer.presentation.ui.home.viewmodel
 
+import androidx.databinding.ObservableBoolean
+import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.data.model.AppConfig
 import com.ddd4.synesthesia.beer.data.model.Beer
 import com.ddd4.synesthesia.beer.domain.repository.BeerRepository
+import com.ddd4.synesthesia.beer.ext.orFalse
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.ddd4.synesthesia.beer.presentation.commom.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.home.entity.HomeSelectEntity
 import com.ddd4.synesthesia.beer.util.filter.BeerFilter
 import com.ddd4.synesthesia.beer.util.filter.FilterSetting
@@ -27,7 +32,8 @@ import timber.log.Timber
 class HomeViewModel @ViewModelInject constructor(
     private val beerRepository: BeerRepository,
     private val sortSetting: SortSetting,
-    private val filterSetting: FilterSetting
+    private val filterSetting: FilterSetting,
+    @Assisted val savedState : SavedStateHandle
 ) : BaseViewModel() {
 
     private val _beerList = MutableLiveData<List<Beer>?>()
@@ -76,7 +82,11 @@ class HomeViewModel @ViewModelInject constructor(
             val response = beerRepository.getBeerList(_sortType.value?.value, _beerFilter.value,cursor.value)
 
             if (response?.beers.isNullOrEmpty() && cursor.value == 0)  {
-                _beerList.value = response?.beers
+                _beerList.value = response?.beers?.map { beer ->
+                    beer.setFavorite()
+                    beer.eventNotifier = this@HomeViewModel
+                    beer
+                }
             }
 
             cursor.value = response?.nextCursor
@@ -85,13 +95,22 @@ class HomeViewModel @ViewModelInject constructor(
                 _beerList.value = (_beerList.value?.let { beers ->
                     beers.toMutableList().apply {
                         response?.beers?.let { data ->
-                            addAll(data)
+                            val beers = data.map { beer ->
+                                beer.setFavorite()
+                                beer.eventNotifier = this@HomeViewModel
+                                beer
+                            }
+                            addAll(beers)
                         }
                     }
                 })
             } else {
                 response?.beers?.let {
-                    _beerList.value = it
+                    _beerList.value = it.map { beer ->
+                        beer.setFavorite()
+                        beer.eventNotifier = this@HomeViewModel
+                        beer
+                    }
                 }
             }
             _isLoadMore.value = false
@@ -143,8 +162,19 @@ class HomeViewModel @ViewModelInject constructor(
         }
     }
 
-    fun clickFavorite(id : Int, flag : Boolean) {
-//        notifySelectEvent(HomeSelectEntity.Favorite(id,flag))
+    private fun fetchFavorite(beer : Beer) {
+        viewModelScope.launch {
+            beer.updateFavorite()
+            beerRepository.postFavorite(beer.id, beer.isFavorite.get())
+        }
+    }
+
+    override fun handleSelectEvent(entity: ItemClickEntity) {
+        when(entity) {
+            is BeerClickEntity.SelectFavorite -> {
+                fetchFavorite(entity.beer)
+            }
+        }
     }
 
     fun clickSearch() {

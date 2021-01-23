@@ -1,5 +1,6 @@
 package com.ddd4.synesthesia.beer.presentation.ui.login.view
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -11,8 +12,10 @@ import com.ddd4.synesthesia.beer.ext.showSnackBar
 import com.ddd4.synesthesia.beer.ext.showToast
 import com.ddd4.synesthesia.beer.ext.start
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
+import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailActivity
 import com.ddd4.synesthesia.beer.presentation.ui.login.viewmodel.LoginViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.view.MainActivity
+import com.ddd4.synesthesia.beer.util.KeyStringConst
 import com.kakao.sdk.auth.LoginClient
 import com.kakao.sdk.auth.model.OAuthToken
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,6 +25,7 @@ import timber.log.Timber
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
 
     private val loginViewModel by viewModels<LoginViewModel>()
+    private val message by lazy { intent.getStringExtra(KEY_LOGIN) }
     private val callback : (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
             Timber.tag("tokenInfo").e(error)
@@ -36,7 +40,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         super.onCreate(savedInstanceState)
         initObserver()
 
-        intent.getStringExtra(getString(R.string.is_show_snackbar))?.let {
+        message?.let {
             binding.root.showSnackBar(it)
         }
         intent.data?.let {
@@ -84,6 +88,16 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                 preference.remove(getString(R.string.key_token))
             }
         })
+    }
 
+    companion object {
+        const val KEY_LOGIN = "login"
+
+        @JvmStatic
+        fun start(context: Context, message : String) {
+            context.startActivity(Intent(context, LoginActivity::class.java).apply {
+                putExtra(KEY_LOGIN, message)
+            })
+        }
     }
 }

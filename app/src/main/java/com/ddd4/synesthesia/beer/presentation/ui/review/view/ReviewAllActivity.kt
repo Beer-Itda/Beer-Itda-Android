@@ -8,7 +8,7 @@ import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.data.model.Review
 import com.ddd4.synesthesia.beer.databinding.ActivityReviewAllBinding
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
-import com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsApdater
+import com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,7 +22,7 @@ class ReviewAllActivity : BaseActivity<ActivityReviewAllBinding>(R.layout.activi
 
     override fun initBind() {
         binding.apply {
-            reviewAdatper = ItemsApdater(R.layout.layout_review,BR.review)
+            reviewAdatper = ItemsAdapter(R.layout.layout_review,BR.review)
             includeToolbar.toolbar.setNavigationOnClickListener {
                 finish()
             }

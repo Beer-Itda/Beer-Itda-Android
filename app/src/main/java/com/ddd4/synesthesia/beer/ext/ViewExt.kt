@@ -3,6 +3,7 @@ package com.ddd4.synesthesia.beer.ext
 import android.graphics.Typeface
 import android.view.View
 import android.widget.TextView
+import androidx.databinding.BindingAdapter
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -21,3 +22,10 @@ fun TextView.updateTypeface(options: Pair<Typeface?, Int>) =
         typeface = options.first
         setTextColor(options.second)
     }
+
+fun View.isVisible() = visibility == View.VISIBLE
+fun View.setVisible(show: Boolean) {
+    if (isVisible() != show) {
+        visibility = if (show) View.VISIBLE else View.GONE
+    }
+}

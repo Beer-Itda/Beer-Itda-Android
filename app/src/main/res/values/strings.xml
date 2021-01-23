@@ -17,8 +17,6 @@
     <string name="key_data">data_of</string>
     <string name="key_callback">calback</string>
     <string name="key_review">review</string>
-    <string name="key_nickname">nickname</string>
-    <string name="is_show_snackbar">snackbar</string>
     <string name="ok">확인</string>
     <string name="cancel">취소</string>
     <string name="complete">완료</string>
@@ -47,6 +45,7 @@
     <string name="sort_rating">별점 정렬</string>
     <string name="sort_review">리뷰 정렬</string>
     <string name="my_review">내가 남긴 별점과 리뷰</string>
+    <string name="my_favorite">찜한 맥주</string>
     <string name="review">리뷰</string>
     <string name="star_rating">별점</string>
     <string name="message_review">맥주이름에 대한 자세한 후기를 작성해주세요</string>
@@ -80,4 +79,5 @@
     <string name="home_title">오늘 당신의\n 비어있는 잔을 채워줄</string>
     <string name="home_filter">맥주 찾아보기</string>
     <string name="search_hint">검색어를 입력해주세요.</string>
+    <string name="error_message">잠시후 다시 시도해 주세요.</string>
 </resources>

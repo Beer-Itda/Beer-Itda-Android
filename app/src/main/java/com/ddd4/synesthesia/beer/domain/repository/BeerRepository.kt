@@ -12,5 +12,7 @@ interface BeerRepository {
     suspend fun getSearch(name : String, cursor : Int?) : Result<Response>?
     suspend fun getReview() : Results<Review>
     suspend fun postReview(id: Int, rating: Float, review: String?)
+    suspend fun postFavorite(beerId : Int, isFavorite : Boolean)
+    suspend fun getFavorite() : Results<Response>
 
 }

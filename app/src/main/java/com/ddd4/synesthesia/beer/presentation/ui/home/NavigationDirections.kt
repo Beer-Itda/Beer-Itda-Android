@@ -8,7 +8,6 @@ import com.ddd4.synesthesia.beer.data.model.Beer
 class NavigationDirections private constructor() {
 
     companion object {
-        fun actionToDetail(beer: Beer): NavDirections = ActionOnlyNavDirections(R.id.action_to_detail)
         fun actionToMyPage(): NavDirections = ActionOnlyNavDirections(R.id.action_to_mypage)
         fun actionToSearch(): NavDirections = ActionOnlyNavDirections(R.id.action_to_search)
     }

@@ -1,6 +1,9 @@
 package com.ddd4.synesthesia.beer.data.model
 
 import android.os.Parcelable
+import com.ddd4.synesthesia.beer.presentation.base.event.SelectEventNotifier
+import com.ddd4.synesthesia.beer.presentation.commom.BeerClickEntity
+import com.ddd4.synesthesia.beer.presentation.commom.RelatedClickEntity
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -24,5 +27,11 @@ data class Related(
     val rateAvg: Double,
     @SerializedName("thumbnail_image")
     val thumbnailImage: String
+) : Parcelable {
+    var eventNotifier: SelectEventNotifier? = null
 
-) : Parcelable
+    fun clickItem() {
+        eventNotifier?.notifySelectEvent(RelatedClickEntity.SelectItem(this))
+    }
+
+}

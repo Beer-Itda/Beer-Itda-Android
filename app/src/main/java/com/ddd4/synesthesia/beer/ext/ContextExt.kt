@@ -68,3 +68,17 @@ fun Context.showSimpleDialog(
         }
     }.show()
 }
+
+fun Context.showNoticeDialog(
+    title : String? = null,
+    message: String,
+    result: (() -> Unit)? = null
+) {
+    AlertDialog.Builder(this, R.style.Dialog).apply {
+        setTitle(title)
+        setMessage("$message")
+        setPositiveButton(getString(R.string.ok)) { _, _ ->
+            result?.invoke()
+        }
+    }.show()
+}

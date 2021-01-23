@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.HandleEvent
-import com.ddd4.synesthesia.beer.util.SharedPreferenceProvider
+import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
 import javax.inject.Inject
 
 abstract class BaseFragment<B : ViewDataBinding>(private val layoutId : Int) : Fragment(), HandleEvent {

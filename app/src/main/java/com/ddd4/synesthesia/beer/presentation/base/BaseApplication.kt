@@ -3,6 +3,7 @@ package com.ddd4.synesthesia.beer.presentation.base
 import android.app.Application
 import com.ddd4.synesthesia.beer.BuildConfig
 import com.ddd4.synesthesia.beer.R
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.kakao.sdk.common.KakaoSdk
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
@@ -15,6 +16,7 @@ class BaseApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG)
         // SDK 초기화 V2
         KakaoSdk.init(this@BaseApplication,getString(R.string.kakao))
 

@@ -4,7 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.domain.repository.LoginRepository
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
-import com.ddd4.synesthesia.beer.util.SharedPreferenceProvider
+import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
 import com.ddd4.synesthesia.beer.util.SingleLiveEvent
 import com.kakao.sdk.auth.TokenManagerProvider
 import com.kakao.sdk.auth.model.OAuthToken

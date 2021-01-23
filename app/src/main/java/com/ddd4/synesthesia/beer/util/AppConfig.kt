@@ -3,11 +3,13 @@ package com.ddd4.synesthesia.beer.util
 import android.content.Context
 import android.content.pm.PackageManager
 import com.ddd4.synesthesia.beer.R
+import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
 import javax.inject.Inject
 
 class AppConfig @Inject constructor(
     private val context: Context,
-    private val sharedPreference : SharedPreferenceProvider) {
+    private val sharedPreference : SharedPreferenceProvider
+) {
 
 
     val version

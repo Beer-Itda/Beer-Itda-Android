@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="android.text.TextUtils"/>
+        <import type="android.view.View"/>
         <variable
             name="scent"
             type="String" />
@@ -12,7 +15,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:padding="4dp"
-        android:background="@android:color/transparent">
+        android:background="@android:color/transparent"
+        android:visibility="@{TextUtils.isEmpty(scent) ? View.GONE : View.VISIBLE}">
 
         <TextView
             android:layout_width="wrap_content"

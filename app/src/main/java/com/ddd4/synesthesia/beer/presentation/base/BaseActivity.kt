@@ -10,8 +10,9 @@ import com.ddd4.synesthesia.beer.ext.showSnackBar
 import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.HandleEvent
+import com.ddd4.synesthesia.beer.presentation.ui.main.view.MainActivity
 import com.ddd4.synesthesia.beer.util.AppConfig
-import com.ddd4.synesthesia.beer.util.SharedPreferenceProvider
+import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
 import javax.inject.Inject
 
 abstract class BaseActivity<B : ViewDataBinding>(private val layoutId : Int) : AppCompatActivity(), HandleEvent {
@@ -30,6 +31,10 @@ abstract class BaseActivity<B : ViewDataBinding>(private val layoutId : Int) : A
 
     override fun onBackPressed() {
         if (!supportFragmentManager.popBackStackImmediate()) {
+            if(this !is MainActivity) {
+                finish()
+                return
+            }
             if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
                 backKeyPressedTime = System.currentTimeMillis()
                 binding.root.showSnackBar(getString(R.string.back_press))

@@ -5,12 +5,14 @@
 
     <data>
 
-        <import type="android.view.View"/>
-        <import type="android.text.TextUtils"/>
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
         <variable
             name="item"
             type="com.ddd4.synesthesia.beer.data.model.Beer" />
-        
+
         <variable
             name="createAt"
             type="String" />
@@ -19,8 +21,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:foreground="?attr/selectableItemBackground"
         android:layout_marginTop="16dp"
+        android:foreground="?attr/selectableItemBackground"
+        android:onClick="@{() -> item.clickItem()}"
         android:paddingHorizontal="28dp">
 
         <ImageView
@@ -29,27 +32,38 @@
             android:layout_height="110dp"
             android:background="@android:color/transparent"
             android:scaleType="centerCrop"
-            app:loadUrl="@{item.thumbnailImage}"
             app:errorDrawable="@{@drawable/beer}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:loadUrl="@{item.thumbnailImage}"
             tools:src="@drawable/beer" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp"
+            android:onClick="@{() -> item.clickFavorite()}"
+            android:src="@{item.isFavorite() ? @drawable/ic_favorite : @drawable/ic_favorite_unactive}"
+            app:layout_constraintStart_toStartOf="@+id/iv_beer_thumbnail"
+            app:layout_constraintTop_toTopOf="@+id/iv_beer_thumbnail"
+            tools:src="@drawable/ic_favorite_unactive" />
 
         <TextView
             android:id="@+id/tv_beer_style"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:fontFamily="@font/notosans_kr_regular"
-            android:text="@{item.beerStyle}"
-            android:textSize="13sp"
-            android:textColor="@color/butterscotch"
-            android:singleLine="true"
             android:ellipsize="end"
+            android:fontFamily="@font/notosans_kr_regular"
             android:gravity="center_vertical"
             android:includeFontPadding="false"
-            app:layout_constraintStart_toEndOf="@id/iv_beer_thumbnail"
+            android:singleLine="true"
+            android:text="@{item.beerStyle}"
+            android:textColor="@color/butterscotch"
+            android:textSize="13sp"
             app:layout_constraintEnd_toStartOf="@+id/tv_beer_rate"
+            app:layout_constraintStart_toEndOf="@id/iv_beer_thumbnail"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="맥주스타일" />
 
@@ -57,14 +71,14 @@
             android:id="@+id/tv_beer_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_rating_star"
+            android:drawablePadding="4dp"
             android:fontFamily="@font/notosans_kr_bold"
+            android:gravity="center"
+            android:includeFontPadding="false"
             android:text="@{@string/rate_unit(item.rateAvg)}"
             android:textColor="@color/butterscotch"
             android:textSize="13sp"
-            android:drawableStart="@drawable/ic_rating_star"
-            android:drawablePadding="4dp"
-            android:includeFontPadding="false"
-            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_beer_style"
             tools:text="5.0" />
@@ -74,12 +88,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:ellipsize="end"
             android:fontFamily="@font/notosans_kr_regular"
+            android:singleLine="true"
             android:text="@{item.name}"
             android:textColor="@color/white"
             android:textSize="15sp"
-            android:singleLine="true"
-            android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_beer_style"
             app:layout_constraintTop_toBottomOf="@id/tv_beer_style"
@@ -88,32 +102,32 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{createAt}"
-            android:textSize="12sp"
             android:fontFamily="@font/notosans_kr_medium"
+            android:text="@{createAt}"
             android:textColor="@color/color_c8c8c8"
-            tools:text="2020. 10. 10"
+            android:textSize="12sp"
             android:visibility="@{TextUtils.isEmpty(createAt) ? View.GONE : View.VISIBLE }"
             app:layout_constraintStart_toStartOf="@+id/tv_beer_country"
-            app:layout_constraintTop_toTopOf="@+id/tv_beer_country"/>
+            app:layout_constraintTop_toTopOf="@+id/tv_beer_country"
+            tools:text="2020. 10. 10" />
 
         <androidx.constraintlayout.widget.Group
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="@{TextUtils.isEmpty(createAt) ? View.VISIBLE : View.INVISIBLE }"
-            app:constraint_referenced_ids="tv_beer_country,tv_beer_abv"/>
+            app:constraint_referenced_ids="tv_beer_country,tv_beer_abv" />
 
         <TextView
             android:id="@+id/tv_beer_country"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:ellipsize="end"
             android:fontFamily="@font/notosans_kr_regular"
+            android:singleLine="true"
             android:text="@{item.country}"
             android:textColor="@color/color_c8c8c8"
             android:textSize="12sp"
-            android:singleLine="true"
-            android:ellipsize="end"
             app:layout_constraintEnd_toStartOf="@+id/tv_beer_abv"
             app:layout_constraintStart_toStartOf="@id/tv_beer_style"
             app:layout_constraintTop_toBottomOf="@id/tv_beer_name"

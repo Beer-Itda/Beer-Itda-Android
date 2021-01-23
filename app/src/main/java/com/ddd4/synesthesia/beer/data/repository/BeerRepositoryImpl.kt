@@ -52,4 +52,12 @@ class BeerRepositoryImpl @Inject constructor(
     override suspend fun getReview() : Results<Review> {
         return beerApi.getReview()
     }
+
+    override suspend fun getFavorite(): Results<Response> {
+        return beerApi.getFavorite()
+    }
+
+    override suspend fun postFavorite(beerId: Int, isFavorite : Boolean) {
+        return beerApi.postFavorite(beerId,isFavorite)
+    }
 }

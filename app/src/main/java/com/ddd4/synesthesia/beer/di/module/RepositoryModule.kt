@@ -7,7 +7,7 @@ import com.ddd4.synesthesia.beer.data.source.remote.service.KakaoApi
 import com.ddd4.synesthesia.beer.data.source.remote.service.KakaoAuthApi
 import com.ddd4.synesthesia.beer.domain.repository.BeerRepository
 import com.ddd4.synesthesia.beer.domain.repository.LoginRepository
-import com.ddd4.synesthesia.beer.util.SharedPreferenceProvider
+import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

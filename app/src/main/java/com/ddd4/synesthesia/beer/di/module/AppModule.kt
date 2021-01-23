@@ -3,9 +3,10 @@ package com.ddd4.synesthesia.beer.di.module
 import android.app.Application
 import android.content.Context
 import com.ddd4.synesthesia.beer.util.AppConfig
-import com.ddd4.synesthesia.beer.util.SharedPreferenceProvider
+import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
 import com.ddd4.synesthesia.beer.util.filter.FilterImpl
 import com.ddd4.synesthesia.beer.util.filter.FilterSetting
+import com.ddd4.synesthesia.beer.util.provider.StringProvider
 import com.ddd4.synesthesia.beer.util.sort.SortImpl
 import com.ddd4.synesthesia.beer.util.sort.SortSetting
 import dagger.Module
@@ -24,6 +25,12 @@ object AppModule {
     @Singleton
     fun provideSharedPreference(application: Application): SharedPreferenceProvider {
         return SharedPreferenceProvider(application)
+    }
+
+    @Provides
+    @Singleton
+    fun provideStringResource(application: Application): StringProvider {
+        return StringProvider(application)
     }
 
     @Provides

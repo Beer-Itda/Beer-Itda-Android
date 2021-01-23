@@ -2,7 +2,7 @@ package com.ddd4.synesthesia.beer.util.filter
 
 import android.content.Context
 import com.ddd4.synesthesia.beer.R
-import com.ddd4.synesthesia.beer.util.SharedPreferenceProvider
+import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
 import com.google.gson.Gson
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
