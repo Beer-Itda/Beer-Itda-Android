@@ -1,5 +1,6 @@
 package com.ddd4.synesthesia.beer.presentation.ui.detail.viewmodel
 
+import android.provider.Contacts
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -9,13 +10,19 @@ import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.data.model.Beer
 import com.ddd4.synesthesia.beer.data.model.RelatedBeers
 import com.ddd4.synesthesia.beer.domain.repository.BeerRepository
+import com.ddd4.synesthesia.beer.ext.ChannelType
+import com.ddd4.synesthesia.beer.ext.CoroutinesEvent
 import com.ddd4.synesthesia.beer.ext.orFalse
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.detail.entity.DetailItemSelectEntity
 import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailStringProvider
 import com.ddd4.synesthesia.beer.util.KeyStringConst.Companion.KEY_BEER_ID
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.launch
+import okhttp3.Dispatcher
 import timber.log.Timber
 
 class DetailViewModel @ViewModelInject constructor(
@@ -70,9 +77,14 @@ class DetailViewModel @ViewModelInject constructor(
         }
     }
 
+    @ExperimentalCoroutinesApi
     fun clickFavorite() {
         fetchFavorite()
-        notifySelectEvent(DetailItemSelectEntity.Favorite)
+        _beer.value?.let {
+            viewModelScope.launch(Dispatchers.Main) {
+                CoroutinesEvent.publish(ChannelType.Favorite(it))
+            }
+        }
     }
 
     fun clickReviewAll() {

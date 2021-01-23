@@ -1,14 +1,21 @@
 package com.ddd4.synesthesia.beer.presentation.ui.detail.view
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
 import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.library.baseAdapters.BR
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.ddd4.synesthesia.beer.R
+import com.ddd4.synesthesia.beer.data.model.Beer
 import com.ddd4.synesthesia.beer.databinding.ActivityDetailBinding
+import com.ddd4.synesthesia.beer.ext.ChannelType
+import com.ddd4.synesthesia.beer.ext.CoroutinesEvent
 import com.ddd4.synesthesia.beer.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.ext.showToast
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
@@ -20,6 +27,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.detail.viewmodel.DetailViewMode
 import com.ddd4.synesthesia.beer.presentation.ui.review.view.ReviewAllActivity
 import com.ddd4.synesthesia.beer.util.KeyStringConst.Companion.KEY_BEER_ID
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.internal.managers.ViewComponentManager
 
 @AndroidEntryPoint
 class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_detail) {
@@ -99,12 +107,29 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
     }
 
     companion object {
+        const val REQ_CODE_DETAIL = 10
 
         @JvmStatic
-        fun start(context: Context, beerId: Int) {
-            context.startActivity(Intent(context, DetailActivity::class.java).apply {
+        fun start(context : Context, beerId: Int, requestCode : Int = REQ_CODE_DETAIL) {
+            when(context) {
+                is Activity -> {
+                    context.startActivityForResult(Intent(context, DetailActivity::class.java).apply {
+                        putExtra(KEY_BEER_ID, beerId)
+                    }, requestCode)
+                }
+                else -> {
+                    context.startActivity(Intent(context, DetailActivity::class.java).apply {
+                        putExtra(KEY_BEER_ID, beerId)
+                    })
+                }
+            }
+        }
+
+        @JvmStatic
+        fun start(fragment : Fragment, beerId: Int, requestCode : Int = REQ_CODE_DETAIL) {
+            fragment.startActivityForResult(Intent(fragment.context, DetailActivity::class.java).apply {
                 putExtra(KEY_BEER_ID, beerId)
-            })
+            }, requestCode)
         }
     }
 }

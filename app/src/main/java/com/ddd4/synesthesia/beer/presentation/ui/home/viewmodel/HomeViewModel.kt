@@ -10,6 +10,8 @@ import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.data.model.AppConfig
 import com.ddd4.synesthesia.beer.data.model.Beer
 import com.ddd4.synesthesia.beer.domain.repository.BeerRepository
+import com.ddd4.synesthesia.beer.ext.ChannelType
+import com.ddd4.synesthesia.beer.ext.CoroutinesEvent
 import com.ddd4.synesthesia.beer.ext.orFalse
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
@@ -21,6 +23,7 @@ import com.ddd4.synesthesia.beer.util.sort.SortSetting
 import com.ddd4.synesthesia.beer.util.sort.SortType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
@@ -54,9 +57,25 @@ class HomeViewModel @ViewModelInject constructor(
     private val _appConfig = MutableLiveData<AppConfig>()
     val appConfig: LiveData<AppConfig> get() = _appConfig
 
+    val coroutineEvent = CoroutinesEvent.listen(ChannelType.Favorite::class.java)
+
     init {
         loadAppConfig()
         filterSort()
+        eventListen()
+    }
+
+    private fun eventListen() {
+        viewModelScope.launch {
+            coroutineEvent.consumeEach { favorite ->
+                beerList.value?.filter {
+                    it.id == favorite.beer?.id
+                }?.map {
+                    it.updateFavorite()
+                    it
+                }
+            }
+        }
     }
 
     private fun loadAppConfig() {

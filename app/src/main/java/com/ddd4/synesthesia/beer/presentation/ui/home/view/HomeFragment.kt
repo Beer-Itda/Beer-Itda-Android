@@ -28,6 +28,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
@@ -77,7 +78,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 bottom.show(this@HomeFragment.parentFragmentManager, bottom.tag)
             }
             is  BeerClickEntity.SelectItem -> {
-                DetailActivity.start(requireContext(),entity.beer.id)
+                DetailActivity.start(this@HomeFragment,entity.beer.id)
             }
         }
     }
@@ -153,5 +154,4 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             chipGroup.addView(chip)
         }
     }
-
 }
