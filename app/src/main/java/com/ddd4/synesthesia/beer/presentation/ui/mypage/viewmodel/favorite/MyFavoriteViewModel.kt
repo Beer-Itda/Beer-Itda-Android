@@ -1,5 +1,6 @@
 package com.ddd4.synesthesia.beer.presentation.ui.mypage.viewmodel.favorite
 
+import androidx.databinding.ObservableBoolean
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,6 +19,9 @@ class MyFavoriteViewModel @ViewModelInject constructor(
     private val _myFavorites = MutableLiveData<List<Beer?>>()
     val myFavorites : LiveData<List<Beer?>> get() = _myFavorites
 
+    private val _isRefresh = MutableLiveData<Boolean>(false)
+    val isRefresh : LiveData<Boolean> get() = _isRefresh
+
     init {
         load()
     }
@@ -30,7 +34,13 @@ class MyFavoriteViewModel @ViewModelInject constructor(
                         eventNotifier = this@MyFavoriteViewModel
                     }
                 }?.toList().orEmpty()
+            setRefresh(false)
         }
+    }
+
+    fun refresh() {
+        setRefresh(true)
+        load()
     }
 
     private fun fetchFavorite(beer : Beer) {
@@ -44,9 +54,12 @@ class MyFavoriteViewModel @ViewModelInject constructor(
         when(entity) {
             is BeerClickEntity.SelectFavorite -> {
                 fetchFavorite(entity.beer)
-                load()
             }
         }
+    }
+
+    private fun setRefresh(status : Boolean) {
+        _isRefresh.value = status
     }
 
     override fun onCleared() {

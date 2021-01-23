@@ -6,6 +6,9 @@
     <data>
 
         <variable
+            name="vm"
+            type="com.ddd4.synesthesia.beer.presentation.ui.mypage.viewmodel.favorite.MyFavoriteViewModel" />
+        <variable
             name="adapter"
             type="com.ddd4.synesthesia.beer.presentation.base.recyclerview.BaseRecyclerView.Adapter" />
     </data>
@@ -27,6 +30,8 @@
             android:id="@+id/srv_review"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:onRefreshListener="@{() -> vm.refresh()}"
+            app:refreshing="@{vm.isRefresh}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
