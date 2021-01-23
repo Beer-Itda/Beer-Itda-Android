@@ -72,6 +72,7 @@ class SearchViewModel @ViewModelInject constructor(
             return
         }
         debounceJob = viewModelScope.launch {
+            delay(400L)
             beerRepository.getSearch(searchText.get().orEmpty(),cursor.value)?.result?.let { response ->
                 cursor.value = response.nextCursor
                 // 데이터 추가
