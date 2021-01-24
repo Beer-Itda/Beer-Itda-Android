@@ -80,11 +80,13 @@
 
                 <ImageView
                     android:id="@+id/iv_beer"
-                    android:layout_width="match_parent"
-                    android:layout_height="260dp"
+                    android:layout_width="0dp"
+                    android:layout_height="300dp"
                     android:background="@android:color/transparent"
                     app:errorDrawable="@{@drawable/beer}"
-                    app:layout_constraintDimensionRatio="1:1"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintDimensionRatio="8:11"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
