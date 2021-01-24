@@ -2,6 +2,10 @@ import PropertiesExt.BASE_URL
 import PropertiesExt.KAKAO
 import PropertiesExt.getBaseUrl
 import PropertiesExt.getKakaoKey
+import PropertiesExt.getKeyAlias
+import PropertiesExt.getKeyPassword
+import PropertiesExt.getStoreFile
+import PropertiesExt.getStorePassword
 
 plugins {
     id("com.android.application")
@@ -18,6 +22,15 @@ plugins {
 android {
     compileSdkVersion(AndroidConfig.COMPILE_SDK_VERSION)
     buildToolsVersion(AndroidConfig.BUILD_TOOLS_VERSION)
+
+    signingConfigs {
+        create("develop") {
+            storeFile = getStoreFile()
+            storePassword = getStorePassword()
+            keyAlias = getKeyAlias()
+            keyPassword = getKeyPassword()
+        }
+    }
 
     defaultConfig {
         applicationId = AndroidConfig.APPLICATION_ID
@@ -37,11 +50,13 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
+            isDebuggable = false
             proguardFiles("proguard-android-optimize.txt", "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("develop")
         }
 
         getByName("debug") {
-
+            signingConfig = signingConfigs.getByName("develop")
         }
     }
 
