@@ -62,9 +62,11 @@ android {
     productFlavors {
         create("playStore") {
             dimension = "mode"
+            resValue("string", "app_name", "비어있다")
         }
         create("dev") {
             dimension = "mode"
+            resValue("string", "app_name", "beer dev")
         }
     }
 

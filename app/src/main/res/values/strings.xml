@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">비어있다</string>
     <string name="developer_email_subject">[비어있다] 앱 문의사항</string>
     <string name="play_store_market">market://details?id=com.ddd4.synesthesia.beer</string>
     <string name="development_notice">https://www.notion.so/hjiee/b405112691e144989009ba8e7f122e21</string>
