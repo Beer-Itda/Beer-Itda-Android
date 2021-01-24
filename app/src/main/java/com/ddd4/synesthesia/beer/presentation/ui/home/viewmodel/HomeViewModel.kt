@@ -85,11 +85,11 @@ class HomeViewModel @ViewModelInject constructor(
     }
 
     fun loadMore() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             cursor.value?.let {
                 if(_isLoadMore.value == false) {
-                    _beerList.postValue(_beerList.value?.toMutableList()?.apply { addAll(listOf(Beer(id = -1))) })
-                    _isLoadMore.postValue(true)
+                    _beerList.value = _beerList.value?.toMutableList()?.apply { addAll(listOf(Beer(id = -1))) }
+                    _isLoadMore.value = true
                     load()
                 }
             }
@@ -97,6 +97,9 @@ class HomeViewModel @ViewModelInject constructor(
     }
 
     fun load() {
+        if(_isLoadMore.value == false) {
+            statusLoading()
+        }
         viewModelScope.launch {
             val response = beerRepository.getBeerList(_sortType.value?.value, _beerFilter.value,cursor.value)
 
@@ -133,6 +136,7 @@ class HomeViewModel @ViewModelInject constructor(
                 }
             }
             _isLoadMore.value = false
+            statusSuccess()
         }
     }
 

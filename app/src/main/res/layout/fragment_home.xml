@@ -104,18 +104,25 @@
                 android:id="@+id/contents"
                 layout="@layout/layout_home_contents"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 app:adapter="@{adapter}" />
 
             <include
                 android:id="@+id/empty_list"
                 layout="@layout/layout_empty_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="bottom"
                 android:visibility="gone" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <include
+                android:id="@+id/include_progress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:networkStatus="@{vm.networkStatus}"
+                layout="@layout/layout_progress" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
