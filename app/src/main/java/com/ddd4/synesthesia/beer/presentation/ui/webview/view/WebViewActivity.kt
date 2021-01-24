@@ -16,6 +16,7 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_w
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initBind()
     }
 
     override fun initBind() {
