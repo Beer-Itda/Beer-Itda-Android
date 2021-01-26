@@ -159,12 +159,12 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
                     context?.showToast(resources.getString(R.string.not_installed_play_store))
                 }
             }
-            // 이용약관
+            // 개인정보처리방침
+            InfomationsData.PRIVACY_POLICY.title -> {
+                start<WebViewActivity>(false, bundleOf(WEBVIEW_URL to resources.getString(R.string.development_privacy_policy)))
+            }
             InfomationsData.TERMS_OF_USE.title -> {
-                start<WebViewActivity>(
-                    false,
-                    bundleOf(WEBVIEW_URL to resources.getString(R.string.development_terms_of_use))
-                )
+                start<WebViewActivity>(false, bundleOf(WEBVIEW_URL to resources.getString(R.string.development_terms_of_use)))
             }
             // 로그아웃
             InfomationsData.LOGOUT.title -> {

@@ -10,6 +10,7 @@ enum class InfomationsData(val title : String,val type : InfomationsType) {
     CONTACT("문의하기",InfomationsType.ITEM),
     SERVICE_INFO("서비스 정보",InfomationsType.HEADER),
     TERMS_OF_USE("이용약관",InfomationsType.ITEM),
+    PRIVACY_POLICY("개인정보처리방침",InfomationsType.ITEM),
     RELEASE_NOTE("릴리즈 노트",InfomationsType.ITEM),
     OPEN_SOURCE_LIB("오픈소스 라이브러리",InfomationsType.ITEM),
     PLAY_STORE("플레이 스토어 평가",InfomationsType.ITEM),

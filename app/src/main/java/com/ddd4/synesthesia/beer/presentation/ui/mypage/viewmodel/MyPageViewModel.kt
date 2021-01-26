@@ -50,6 +50,7 @@ class MyPageViewModel @ViewModelInject constructor(
         // 서비스 정보
         MyInfo(InfomationsData.SERVICE_INFO.title, InfomationsData.SERVICE_INFO.type,eventNotifier = this@MyPageViewModel),
         MyInfo(InfomationsData.TERMS_OF_USE.title, InfomationsData.TERMS_OF_USE.type,eventNotifier = this@MyPageViewModel),
+        MyInfo(InfomationsData.PRIVACY_POLICY.title, InfomationsData.PRIVACY_POLICY.type,eventNotifier = this@MyPageViewModel),
         MyInfo(InfomationsData.RELEASE_NOTE.title, InfomationsData.RELEASE_NOTE.type,eventNotifier = this@MyPageViewModel),
         MyInfo(InfomationsData.OPEN_SOURCE_LIB.title, InfomationsData.OPEN_SOURCE_LIB.type,eventNotifier = this@MyPageViewModel),
         MyInfo(InfomationsData.PLAY_STORE.title, InfomationsData.PLAY_STORE.type,eventNotifier = this@MyPageViewModel),
