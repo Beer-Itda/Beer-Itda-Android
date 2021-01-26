@@ -127,6 +127,7 @@ dependencies {
     implementation(Libs.KAKAO)
     implementation(Libs.RANGE_SEEK_BAR)
     implementation(platform(Libs.FIREBASE))
+    implementation(Libs.FIREBASE_REMOTE_CONFIG)
     implementation(Libs.FIREBASE_ANALYTICS)
     implementation(Libs.FIREBASE_CRASHLYTICS)
     implementation(Libs.LICENSES)

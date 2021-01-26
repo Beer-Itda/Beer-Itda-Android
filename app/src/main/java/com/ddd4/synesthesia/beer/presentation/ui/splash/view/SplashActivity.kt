@@ -7,25 +7,23 @@ import com.ddd4.synesthesia.beer.databinding.ActivitySplashBinding
 import com.ddd4.synesthesia.beer.ext.start
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.ui.login.view.LoginActivity
-import com.ddd4.synesthesia.beer.presentation.ui.login.viewmodel.LoginViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.view.MainActivity
+import com.ddd4.synesthesia.beer.presentation.ui.splash.viewmodel.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {
 
-    private val loginViewModel by viewModels<LoginViewModel>()
+    private val viewModel by viewModels<SplashViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loginViewModel.tokenInfo {
-//            Timber.tag("tokenInfo").w("splash token : ${it?.accessToken}")
-//            Timber.tag("tokenInfo").w("prefs token : ${preference.getPreferenceString(getString(R.string.key_token))}")
+        viewModel.getRemoteConfig()
+        viewModel.tokenInfo {
             startLogin()
         }
     }

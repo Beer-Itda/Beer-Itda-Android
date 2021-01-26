@@ -108,10 +108,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             }
             // 공지사항
             InfomationsData.NOTICE.title -> {
-                start<WebViewActivity>(
-                    false,
-                    bundleOf(WEBVIEW_URL to resources.getString(R.string.development_notice))
-                )
+                start<WebViewActivity>(false, bundleOf(WEBVIEW_URL to preference.getPreferenceString(getString(R.string.notice))))
             }
             // 문의하기
             InfomationsData.CONTACT.title -> {
@@ -143,7 +140,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             }
             // 릴리즈 노트
             InfomationsData.RELEASE_NOTE.title -> {
-                start<WebViewActivity>(false, bundleOf(WEBVIEW_URL to resources.getString(R.string.development_release_note)))
+                start<WebViewActivity>(false, bundleOf(WEBVIEW_URL to preference.getPreferenceString(getString(R.string.release_note))))
             }
             // 오픈소스 라이브러리
             InfomationsData.OPEN_SOURCE_LIB.title -> {
@@ -161,10 +158,10 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             }
             // 개인정보처리방침
             InfomationsData.PRIVACY_POLICY.title -> {
-                start<WebViewActivity>(false, bundleOf(WEBVIEW_URL to resources.getString(R.string.development_privacy_policy)))
+                start<WebViewActivity>(false, bundleOf(WEBVIEW_URL to preference.getPreferenceString(getString(R.string.privacy_policy))))
             }
             InfomationsData.TERMS_OF_USE.title -> {
-                start<WebViewActivity>(false, bundleOf(WEBVIEW_URL to resources.getString(R.string.development_terms_of_use)))
+                start<WebViewActivity>(false, bundleOf(WEBVIEW_URL to preference.getPreferenceString(getString(R.string.terms_of_use))))
             }
             // 로그아웃
             InfomationsData.LOGOUT.title -> {

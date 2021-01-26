@@ -30,7 +30,7 @@ object Versions {
     const val TIMBER = "4.7.1"
     const val KAKAO = "2.0.3"
     const val RANGE_SEEK_BAR = "3.0.0"
-    const val GOOGLE_BOM = "25.12.0"
+    const val GOOGLE_BOM = "26.3.0"
     const val GOOGLE_CRASHLYTICS = "2.3.0"
     const val FIREBASE_ANALYTICS = "17.5.0"
     const val FIREBASE_CRASHLYTICS = "17.2.1"
@@ -84,6 +84,7 @@ object Libs {
     const val RANGE_SEEK_BAR = "com.github.Jay-Goo:RangeSeekBar:${Versions.RANGE_SEEK_BAR}"
 
     const val FIREBASE = "com.google.firebase:firebase-bom:${Versions.GOOGLE_BOM}"
+    const val FIREBASE_REMOTE_CONFIG = "com.google.firebase:firebase-config"
     const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
     const val FIREBASE_CRASHLYTICS = "com.google.firebase:firebase-crashlytics-ktx"
 
