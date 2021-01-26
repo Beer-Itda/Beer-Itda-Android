@@ -4,8 +4,9 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.domain.repository.LoginRepository
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
-import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
 import com.ddd4.synesthesia.beer.util.SingleLiveEvent
+import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.kakao.sdk.auth.TokenManagerProvider
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.model.User
@@ -24,11 +25,6 @@ class LoginViewModel @ViewModelInject constructor(
 
     private val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
         Timber.e(throwable)
-    }
-
-    fun tokenInfo(tokenInfo : ((OAuthToken?) -> Unit)? = null) = loginRepository.tokenInfo {
-        Timber.tag("tokenInfo").d("kakao token info : ${it?.accessToken}")
-        tokenInfo?.invoke(it)
     }
 
     fun accessToken(code : String?) {
@@ -50,6 +46,7 @@ class LoginViewModel @ViewModelInject constructor(
 
     fun login() = loginRepository.login { user, error ->
         user?.let {
+            FirebaseCrashlytics.getInstance().setUserId(user.id.toString())
             isLoginSuccess.call(Pair(user,null))
         } ?: kotlin.run { isLoginSuccess.call(Pair(null,error)) }
     }
