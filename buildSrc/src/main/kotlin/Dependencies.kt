@@ -1,6 +1,7 @@
 object Versions {
     // Kotlin
-    const val KOTLIN = "1.3.72"
+    const val GRADLE = "4.1.2"
+    const val KOTLIN = "1.4.10"
     const val COROUTINES = "1.3.7"
 
     // Android Framework
