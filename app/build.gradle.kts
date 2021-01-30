@@ -110,6 +110,7 @@ dependencies {
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
     implementation(Libs.NAVIGATION_FRAGMENT)
     implementation(Libs.NAVIGATION_UI_KTX)
+    implementation(Libs.BILLING)
 
     // Libraries
     implementation(Libs.RETROFIT)
