@@ -18,6 +18,7 @@ abstract class BaseFragment<B : ViewDataBinding>(private val layoutId : Int) : F
     lateinit var binding : B
     @Inject
     lateinit var preference : SharedPreferenceProvider
+    private var isCreated = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +29,14 @@ abstract class BaseFragment<B : ViewDataBinding>(private val layoutId : Int) : F
         binding = DataBindingUtil.inflate(inflater,layoutId,container,false)
         binding.lifecycleOwner = this
         return binding.root
+    }
+
+    fun firstLoad(action : () -> Unit) {
+        if(isCreated) {
+            return
+        }
+        action.invoke()
+        isCreated = true
     }
 
     protected open fun initBind() { }

@@ -3,41 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_navigation"
-    app:startDestination="@id/homeScreen">
+    app:startDestination="@id/nav_home">
 
     <fragment
-        android:id="@+id/homeScreen"
+        android:id="@+id/nav_home"
         android:name="com.ddd4.synesthesia.beer.presentation.ui.home.view.HomeFragment"
         tools:layout="@layout/fragment_home"/>
 
 
     <fragment
-        android:id="@+id/myPageScreen"
+        android:id="@+id/nav_mypage"
         android:name="com.ddd4.synesthesia.beer.presentation.ui.mypage.view.MyPageFragment"
         tools:layout="@layout/fragment_my_page" />
 
     <fragment
-        android:id="@+id/search"
+        android:id="@+id/nav_search"
         android:name="com.ddd4.synesthesia.beer.presentation.ui.search.view.SearchFragment"
         tools:layout="@layout/fragment_search" />
 
     <fragment
-        android:id="@+id/review"
+        android:id="@+id/nav_review"
         android:name="com.ddd4.synesthesia.beer.presentation.ui.review.view.ReviewAllActivity"
         tools:layout="@layout/activity_review_all">
         <argument
-            android:name="review"
+            android:name="arg_review"
             app:argType="com.ddd4.synesthesia.beer.data.model.Review[]"
             app:nullable="true" />
     </fragment>
 
     <fragment
-        android:id="@+id/myReview"
+        android:id="@+id/nav_my_review"
         android:name="com.ddd4.synesthesia.beer.presentation.ui.mypage.view.review.MyReviewFragment"
         tools:layout="@layout/fragment_my_review" />
 
     <fragment
-        android:id="@+id/myFavorite"
+        android:id="@+id/nav_my_favorite"
         android:name="com.ddd4.synesthesia.beer.presentation.ui.mypage.view.favorite.MyFavoriteFragment"
         tools:layout="@layout/fragment_my_favorite" />
 
@@ -46,7 +46,7 @@
 
     <action
         android:id="@+id/action_to_mypage"
-        app:destination="@id/myPageScreen"
+        app:destination="@id/nav_mypage"
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out"
         app:popEnterAnim="@anim/fade_in"
@@ -54,7 +54,7 @@
 
     <action
         android:id="@+id/action_to_search"
-        app:destination="@id/search"
+        app:destination="@id/nav_search"
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out"
         app:popEnterAnim="@anim/fade_in"
@@ -62,7 +62,7 @@
 
     <action
         android:id="@+id/action_to_review_all"
-        app:destination="@id/review"
+        app:destination="@id/nav_review"
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out"
         app:popEnterAnim="@anim/fade_in"
@@ -70,7 +70,7 @@
 
     <action
         android:id="@+id/action_to_my_review"
-        app:destination="@id/myReview"
+        app:destination="@id/nav_my_review"
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out"
         app:popEnterAnim="@anim/fade_in"
@@ -78,7 +78,7 @@
 
     <action
         android:id="@+id/action_to_my_favorite"
-        app:destination="@id/myFavorite"
+        app:destination="@id/nav_my_favorite"
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out"
         app:popEnterAnim="@anim/fade_in"

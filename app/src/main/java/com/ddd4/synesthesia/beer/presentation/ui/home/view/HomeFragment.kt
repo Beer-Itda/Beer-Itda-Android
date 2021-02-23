@@ -108,7 +108,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             binding.filterChipGroup.setFilterChips(it)
             endlessRecyclerViewScrollListener.resetState()
             homeViewModel.cursor.value = 0
-            homeViewModel.load()
+            firstLoad { homeViewModel.load() }
         })
     }
 

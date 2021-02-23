@@ -7,6 +7,7 @@ import androidx.databinding.ViewDataBinding
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.ext.dateFormat
 import com.ddd4.synesthesia.beer.ext.showSnackBar
+import com.ddd4.synesthesia.beer.ext.showToast
 import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.HandleEvent
@@ -35,19 +36,28 @@ abstract class BaseActivity<B : ViewDataBinding>(private val layoutId : Int) : A
                 finish()
                 return
             }
-            if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
-                backKeyPressedTime = System.currentTimeMillis()
-                binding.root.showSnackBar(getString(R.string.back_press))
-                return
+            if(isInTimeInput()) {
+                finishAffinity()
             }
+        }
+
+    }
+
+    fun isInTimeInput(finish : (() -> Unit)? = null) : Boolean {
+        if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            backKeyPressedTime = System.currentTimeMillis()
+            showToast(getString(R.string.back_press))
+            return false
         }
 
         // 마지막으로 뒤로가기 버튼을 눌렀던 시간에 2초를 더해 현재시간과 비교 후
         // 마지막으로 뒤로가기 버튼을 눌렀던 시간이 2초가 지나지 않았으면 종료
-        // 현재 표시된 Toast 취소
         if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
-            finish()
+            finish?.invoke()
+            return true
         }
+
+        return false
     }
 
     fun showRecentlyVisitTime() {

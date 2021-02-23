@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ddd4.synesthesia.beer">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name="com.ddd4.synesthesia.beer.presentation.base.BaseApplication"
@@ -12,36 +12,54 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/DarkTheme">
-        <activity android:name="com.ddd4.synesthesia.beer.presentation.ui.splash.view.SplashActivity">
+        android:theme="@style/DarkTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name="com.ddd4.synesthesia.beer.presentation.ui.splash.view.SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.ddd4.synesthesia.beer.presentation.ui.main.view.MainActivity"/>
+        <activity
+            android:name="com.ddd4.synesthesia.beer.presentation.ui.main.view.MainActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
-        <activity android:name="com.ddd4.synesthesia.beer.presentation.ui.login.view.LoginActivity">
+        <activity
+            android:name="com.ddd4.synesthesia.beer.presentation.ui.login.view.LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="oauth"
                     android:scheme="kakao${kakao}" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.ui.detail.view.WriteReviewActivity"
-            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".presentation.ui.detail.view.WriteReviewActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
 
-        <activity android:name=".presentation.ui.mypage.view.WriteNickNameActivity"
-            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".presentation.ui.mypage.view.WriteNickNameActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
 
-        <activity android:name=".presentation.ui.webview.view.WebViewActivity"/>
-        <activity android:name=".presentation.ui.detail.view.DetailActivity"/>
-        <activity android:name=".presentation.ui.review.view.ReviewAllActivity"/>
+        <activity
+            android:name=".presentation.ui.webview.view.WebViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.detail.view.DetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.review.view.ReviewAllActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 
