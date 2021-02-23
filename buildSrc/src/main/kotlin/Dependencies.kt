@@ -5,7 +5,7 @@ object Versions {
     const val COROUTINES = "1.3.7"
 
     // Android Framework
-    const val APP_COMPAT = "1.1.0"
+    const val APP_COMPAT = "1.3.0-beta01"
     const val CONSTRAINT_LAYOUT = "2.0.0-rc1"
     const val COORDINATOR_LAYOUT = "1.1.0"
     const val RECYCLER_VIEW = "1.1.0"
