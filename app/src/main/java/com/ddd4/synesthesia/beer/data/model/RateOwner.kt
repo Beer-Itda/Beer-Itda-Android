@@ -8,9 +8,9 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class RateOwner(
     @SerializedName("beer_id")
-    val beerID: Int,
+    val beerId: Int,
     @SerializedName("ratio")
-    val ratio: Double,
+    val ratio: Float,
     @SerializedName("user_id")
-    val userID: Int
+    val userId: Int
 ) : Parcelable

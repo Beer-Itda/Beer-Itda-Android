@@ -58,6 +58,8 @@
     <string name="title_aroma">비슷한향이 나는 맥주입니다 🍒</string>
     <string name="title_style">같은 스타일의 맥주입니다 🍺</string>
     <string name="title_random">추천하는 맥주입니다 🏆</string>
+    <string name="title_like_style">회원님이 좋아하는 스타일 🍺</string>
+    <string name="title_like_aroma">회원님이 좋아하는 향 🍒</string>
     <string name="show_all">전체보기</string>
     <string name="register_review">별점과 리뷰 남기기</string>
     <string name="modify_review">별점과 리뷰 수정하기</string>

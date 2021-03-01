@@ -1,4 +1,4 @@
-package com.ddd4.synesthesia.beer.util.filter
+package com.ddd4.synesthesia.beer.presentation.ui.common.filter
 
 data class BeerFilter(
     val styleFilter: List<String>? = null,

@@ -4,8 +4,8 @@ import android.app.Application
 import android.content.Context
 import com.ddd4.synesthesia.beer.util.AppConfig
 import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
-import com.ddd4.synesthesia.beer.util.filter.FilterImpl
-import com.ddd4.synesthesia.beer.util.filter.FilterSetting
+import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FilterImpl
+import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FilterSetting
 import com.ddd4.synesthesia.beer.util.provider.StringProvider
 import com.ddd4.synesthesia.beer.util.sort.SortImpl
 import com.ddd4.synesthesia.beer.util.sort.SortSetting

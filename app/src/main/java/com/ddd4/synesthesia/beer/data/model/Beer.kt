@@ -6,14 +6,14 @@ import androidx.databinding.ObservableBoolean
 import com.ddd4.synesthesia.beer.ext.orFalse
 import com.ddd4.synesthesia.beer.ext.toggle
 import com.ddd4.synesthesia.beer.presentation.base.event.SelectEventNotifier
-import com.ddd4.synesthesia.beer.presentation.commom.BeerClickEntity
+import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Beer(
     @SerializedName("abv")
-    val abv: Double? = null,
+    val abv: Float? = null,
     @SerializedName("aroma")
     val aromas: List<String>? = null,
     @SerializedName("beer_style")
@@ -29,7 +29,7 @@ data class Beer(
     @SerializedName("name")
     val name: String? = null,
     @SerializedName("rate_avg")
-    val rateAvg: Double? = null,
+    val rateAvg: Float? = null,
     @SerializedName("rate_owner")
     val rateOwner: RateOwner? = null,
     @SerializedName("reviews")
@@ -39,7 +39,7 @@ data class Beer(
     @SerializedName("review_owner")
     val reviewOwner : ReviewOwner? = null,
     @SerializedName("favorite_flag")
-    private var favoriteFlag : Boolean? = false
+    var favoriteFlag : Boolean? = false
 ) : Parcelable {
     var isFavorite : ObservableBoolean = ObservableBoolean(false)
     var eventNotifier: SelectEventNotifier? = null

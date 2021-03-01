@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.util.MutableLiveDataList
-import com.ddd4.synesthesia.beer.util.filter.BeerFilter
-import com.ddd4.synesthesia.beer.util.filter.FilterSetting
+import com.ddd4.synesthesia.beer.presentation.ui.common.filter.BeerFilter
+import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FilterSetting
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 

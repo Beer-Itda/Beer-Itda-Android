@@ -1,7 +1,5 @@
 package com.ddd4.synesthesia.beer.presentation.ui.search.view
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.library.baseAdapters.BR
@@ -9,13 +7,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd4.synesthesia.beer.R
-import com.ddd4.synesthesia.beer.data.model.Beer
 import com.ddd4.synesthesia.beer.databinding.FragmentSearchBinding
 import com.ddd4.synesthesia.beer.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.ext.showKeyboard
 import com.ddd4.synesthesia.beer.presentation.base.BaseFragment
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
-import com.ddd4.synesthesia.beer.presentation.commom.BeerClickEntity
+import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.adapter.LoadingItemsApdater
 import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailActivity
 import com.ddd4.synesthesia.beer.presentation.ui.search.viewmodel.SearchViewModel

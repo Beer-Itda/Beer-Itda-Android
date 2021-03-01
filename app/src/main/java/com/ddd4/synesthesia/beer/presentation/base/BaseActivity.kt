@@ -10,13 +10,14 @@ import com.ddd4.synesthesia.beer.ext.showSnackBar
 import com.ddd4.synesthesia.beer.ext.showToast
 import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
-import com.ddd4.synesthesia.beer.presentation.commom.HandleEvent
+import com.ddd4.synesthesia.beer.presentation.commom.entity.HandleEvent
 import com.ddd4.synesthesia.beer.presentation.ui.main.view.MainActivity
 import com.ddd4.synesthesia.beer.util.AppConfig
 import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
 import javax.inject.Inject
 
-abstract class BaseActivity<B : ViewDataBinding>(private val layoutId : Int) : AppCompatActivity(), HandleEvent {
+abstract class BaseActivity<B : ViewDataBinding>(private val layoutId : Int) : AppCompatActivity(),
+    HandleEvent {
 
     @Inject lateinit var preference : SharedPreferenceProvider
     @Inject lateinit var appConfig : AppConfig

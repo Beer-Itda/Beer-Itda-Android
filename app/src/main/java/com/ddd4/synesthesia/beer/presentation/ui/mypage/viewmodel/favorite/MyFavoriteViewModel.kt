@@ -1,6 +1,5 @@
 package com.ddd4.synesthesia.beer.presentation.ui.mypage.viewmodel.favorite
 
-import androidx.databinding.ObservableBoolean
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,7 +8,7 @@ import com.ddd4.synesthesia.beer.data.model.Beer
 import com.ddd4.synesthesia.beer.domain.repository.BeerRepository
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
-import com.ddd4.synesthesia.beer.presentation.commom.BeerClickEntity
+import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import kotlinx.coroutines.launch
 
 class MyFavoriteViewModel @ViewModelInject constructor(

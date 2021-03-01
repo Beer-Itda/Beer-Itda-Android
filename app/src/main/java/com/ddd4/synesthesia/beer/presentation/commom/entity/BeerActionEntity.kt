@@ -1,4 +1,4 @@
-package com.ddd4.synesthesia.beer.presentation.commom
+package com.ddd4.synesthesia.beer.presentation.commom.entity
 
 import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
 

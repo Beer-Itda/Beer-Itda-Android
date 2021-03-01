@@ -1,4 +1,4 @@
-package com.ddd4.synesthesia.beer.presentation.commom
+package com.ddd4.synesthesia.beer.presentation.commom.entity
 
 data class ThrowEntity(
     val message: String,

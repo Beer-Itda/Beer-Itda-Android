@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.ddd4.synesthesia.beer.presentation.ui.home.item.parent.list.BeerListItemViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:paddingHorizontal="18dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.clickTitle()}"
+            android:text="@{viewModel.title}"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="회원님이 좋아하는 스타일" />
+
+        <ImageView
+            android:id="@+id/iv_arrow"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:onClick="@{() -> viewModel.clickTitle()}"
+            android:src="@drawable/ic_arrow_right"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_title"
+            app:layout_constraintTop_toTopOf="@+id/tv_title" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_beers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:clipToPadding="true"
+            android:orientation="horizontal"
+            app:horizontal_space="@{@dimen/margin_10}"
+            app:headTailSpace="@{@dimen/zero}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            tools:listitem="@layout/item_beer_card" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

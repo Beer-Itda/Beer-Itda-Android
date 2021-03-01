@@ -2,8 +2,7 @@ package com.ddd4.synesthesia.beer.data.model
 
 import android.os.Parcelable
 import com.ddd4.synesthesia.beer.presentation.base.event.SelectEventNotifier
-import com.ddd4.synesthesia.beer.presentation.commom.BeerClickEntity
-import com.ddd4.synesthesia.beer.presentation.commom.RelatedClickEntity
+import com.ddd4.synesthesia.beer.presentation.commom.entity.RelatedClickEntity
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 

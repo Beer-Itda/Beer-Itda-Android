@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="beer"
+            type="com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="18dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Beer Award"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Beer Award" />
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="한 달 동안 리뷰를 가장 많이 받은 맥주에요"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            tools:text="한 달 동안 리뷰를 가장 많이 받은 맥주에요" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_beer"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_marginVertical="18dp"
+            android:elevation="50dp"
+            app:cardCornerRadius="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_description">
+
+            <ImageView
+                android:id="@+id/iv_beer"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="@android:color/transparent"
+                android:scaleType="centerCrop"
+                app:errorDrawable="@{@drawable/beer}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:loadUrl="@{beer.thumbnailImage}"
+                tools:src="@drawable/beer" />
+        </androidx.cardview.widget.CardView>
+
+
+        <TextView
+            android:id="@+id/tv_beer_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:drawableStart="@drawable/ic_rating_star"
+            android:drawablePadding="4dp"
+            android:elevation="31dp"
+            android:fontFamily="@font/notosans_kr_bold"
+            android:gravity="center"
+            android:text="@{@string/rate_unit(beer.rateAvg)}"
+            android:textColor="@color/butterscotch"
+            app:layout_constraintBottom_toBottomOf="@+id/cv_beer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cv_beer"
+            tools:text="3.5점" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:elevation="31dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:singleLine="true"
+            android:text="@{beer.name}"
+            app:layout_constraintStart_toStartOf="@+id/tv_beer_rate"
+            app:layout_constraintTop_toBottomOf="@+id/tv_beer_rate"
+            tools:text="한강맥주" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

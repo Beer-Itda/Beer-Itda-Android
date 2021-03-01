@@ -3,7 +3,7 @@ package com.ddd4.synesthesia.beer.data.repository
 import com.ddd4.synesthesia.beer.data.model.*
 import com.ddd4.synesthesia.beer.data.source.remote.service.BeerApi
 import com.ddd4.synesthesia.beer.domain.repository.BeerRepository
-import com.ddd4.synesthesia.beer.util.filter.BeerFilter
+import com.ddd4.synesthesia.beer.presentation.ui.common.filter.BeerFilter
 import javax.inject.Inject
 
 class BeerRepositoryImpl @Inject constructor(

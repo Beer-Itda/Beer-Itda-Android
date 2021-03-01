@@ -19,11 +19,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.data.source.local.InfomationsType
 import com.ddd4.synesthesia.beer.ext.*
-import com.ddd4.synesthesia.beer.presentation.commom.ThrowEntity
+import com.ddd4.synesthesia.beer.presentation.commom.entity.ThrowEntity
 import com.ddd4.synesthesia.beer.util.CustomTypefaceSpan
 import com.ddd4.synesthesia.beer.util.MutableLiveDataList
-import com.ddd4.synesthesia.beer.util.RecyclerItemDecoration
-import com.ddd4.synesthesia.beer.util.filter.BeerFilter
+import com.ddd4.synesthesia.beer.util.decoration.RecyclerItemDecoration
+import com.ddd4.synesthesia.beer.presentation.ui.common.filter.BeerFilter
+import com.ddd4.synesthesia.beer.util.decoration.HorizontalItemSpaceDecoration
+import com.ddd4.synesthesia.beer.util.decoration.VerticalItemSpaceDecoration
 import com.ddd4.synesthesia.beer.util.sort.SortType
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
@@ -100,6 +102,18 @@ fun decoration(
                 recyclerview.addItemDecoration(this)
             }
     }
+}
+
+@BindingAdapter(value = ["horizontal_space", "headTailSpace"])
+fun setHorizontalItemDecoration(recyclerView: RecyclerView, space: Float, headTailSpaceSpace: Float) {
+    if(recyclerView.itemDecorationCount == 0) {
+        recyclerView.addItemDecoration(HorizontalItemSpaceDecoration(space.toInt(), headTailSpaceSpace.toInt()))
+    }
+}
+
+@BindingAdapter(value = ["vertical_space", "topBototmSpace"], requireAll = false)
+fun setVerticalItemDecoration(recyclerView: RecyclerView, space: Float, topBototmSpaceSpace: Float?) {
+    recyclerView.addItemDecoration(VerticalItemSpaceDecoration(space.toInt(), topBototmSpaceSpace?.toInt() ?: 0))
 }
 
 @BindingAdapter("app:updateCountText")

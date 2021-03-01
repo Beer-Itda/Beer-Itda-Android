@@ -11,7 +11,7 @@ import com.ddd4.synesthesia.beer.databinding.FragmentMyReviewBinding
 import com.ddd4.synesthesia.beer.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.presentation.base.BaseFragment
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
-import com.ddd4.synesthesia.beer.presentation.commom.BeerClickEntity
+import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsAdapter
 import com.ddd4.synesthesia.beer.presentation.ui.mypage.viewmodel.review.MyReviewViewModel
 import dagger.hilt.android.AndroidEntryPoint

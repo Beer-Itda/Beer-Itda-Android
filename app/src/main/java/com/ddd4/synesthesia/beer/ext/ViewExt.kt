@@ -1,8 +1,11 @@
 package com.ddd4.synesthesia.beer.ext
 
 import android.graphics.Typeface
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.LayoutRes
 import androidx.databinding.BindingAdapter
 import com.google.android.material.snackbar.Snackbar
 
@@ -29,3 +32,6 @@ fun View.setVisible(show: Boolean) {
         visibility = if (show) View.VISIBLE else View.GONE
     }
 }
+
+fun ViewGroup.createView(@LayoutRes layoutId: Int): View =
+    LayoutInflater.from(context).inflate(layoutId, this, false)

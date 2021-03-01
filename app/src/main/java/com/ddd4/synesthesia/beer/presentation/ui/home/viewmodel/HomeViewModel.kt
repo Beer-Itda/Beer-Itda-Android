@@ -1,6 +1,5 @@
 package com.ddd4.synesthesia.beer.presentation.ui.home.viewmodel
 
-import androidx.databinding.ObservableBoolean
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -12,13 +11,18 @@ import com.ddd4.synesthesia.beer.data.model.Beer
 import com.ddd4.synesthesia.beer.domain.repository.BeerRepository
 import com.ddd4.synesthesia.beer.ext.ChannelType
 import com.ddd4.synesthesia.beer.ext.CoroutinesEvent
-import com.ddd4.synesthesia.beer.ext.orFalse
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
+import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
-import com.ddd4.synesthesia.beer.presentation.commom.BeerClickEntity
+import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
+import com.ddd4.synesthesia.beer.presentation.ui.home.entity.HomeActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.home.entity.HomeSelectEntity
-import com.ddd4.synesthesia.beer.util.filter.BeerFilter
-import com.ddd4.synesthesia.beer.util.filter.FilterSetting
+import com.ddd4.synesthesia.beer.presentation.ui.common.filter.BeerFilter
+import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FilterSetting
+import com.ddd4.synesthesia.beer.presentation.ui.home.item.IHomeItemViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.home.item.parent.award.BeerAwardModelMapper
+import com.ddd4.synesthesia.beer.presentation.ui.home.item.parent.list.BeerListModelMapper.getMapper
+import com.ddd4.synesthesia.beer.presentation.ui.home.view.HomeStringProvider
 import com.ddd4.synesthesia.beer.util.sort.SortSetting
 import com.ddd4.synesthesia.beer.util.sort.SortType
 import kotlinx.coroutines.Dispatchers
@@ -30,15 +34,18 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import kotlin.random.Random
 
 @ExperimentalCoroutinesApi
 class HomeViewModel @ViewModelInject constructor(
     private val beerRepository: BeerRepository,
     private val sortSetting: SortSetting,
     private val filterSetting: FilterSetting,
-    @Assisted val savedState : SavedStateHandle
+    private val stringProvider: HomeStringProvider,
+    @Assisted val savedState: SavedStateHandle
 ) : BaseViewModel() {
 
+    private val beers = mutableListOf<IHomeItemViewModel>()
     private val _beerList = MutableLiveData<List<Beer>?>()
     val beerList: LiveData<List<Beer>?>
         get() = _beerList
@@ -52,10 +59,13 @@ class HomeViewModel @ViewModelInject constructor(
     val cursor = MutableLiveData(0)
 
     private val _isLoadMore = MutableLiveData<Boolean>(false)
-    val isLoadMore : LiveData<Boolean> get() = _isLoadMore
+    val isLoadMore: LiveData<Boolean> get() = _isLoadMore
 
     private val _appConfig = MutableLiveData<AppConfig>()
     val appConfig: LiveData<AppConfig> get() = _appConfig
+
+    private val _isRefresh = MutableLiveData<Boolean>()
+    val isRefresh : LiveData<Boolean> get() = _isRefresh
 
     val coroutineEvent = CoroutinesEvent.listen(ChannelType.Favorite::class.java)
 
@@ -81,14 +91,16 @@ class HomeViewModel @ViewModelInject constructor(
     private fun loadAppConfig() {
         viewModelScope.launch {
             _appConfig.value = beerRepository.getAppConfig().result
+            notifyActionEvent(HomeActionEntity.AppConfigSetting(_appConfig.value))
         }
     }
 
     fun loadMore() {
         viewModelScope.launch {
             cursor.value?.let {
-                if(_isLoadMore.value == false) {
-                    _beerList.value = _beerList.value?.toMutableList()?.apply { addAll(listOf(Beer(id = -1))) }
+                if (_isLoadMore.value == false) {
+                    _beerList.value =
+                        _beerList.value?.toMutableList()?.apply { addAll(listOf(Beer(id = -1))) }
                     _isLoadMore.value = true
                     load()
                 }
@@ -97,13 +109,14 @@ class HomeViewModel @ViewModelInject constructor(
     }
 
     fun load() {
-        if(_isLoadMore.value == false) {
+        if (_isLoadMore.value == false) {
             statusLoading()
         }
         viewModelScope.launch {
-            val response = beerRepository.getBeerList(_sortType.value?.value, _beerFilter.value,cursor.value)
+            val response =
+                beerRepository.getBeerList(_sortType.value?.value, _beerFilter.value, cursor.value)
 
-            if (response?.beers.isNullOrEmpty() && cursor.value == 0)  {
+            if (response?.beers.isNullOrEmpty() && cursor.value == 0) {
                 _beerList.value = response?.beers?.map { beer ->
                     beer.setFavorite()
                     beer.eventNotifier = this@HomeViewModel
@@ -112,8 +125,9 @@ class HomeViewModel @ViewModelInject constructor(
             }
 
             cursor.value = response?.nextCursor
-            if(_isLoadMore.value == true) {
-                _beerList.value = (_beerList.value?.toMutableList()?.apply { _beerList.value?.let { removeAt(it.size-1) } })
+            if (_isLoadMore.value == true) {
+                _beerList.value = (_beerList.value?.toMutableList()
+                    ?.apply { _beerList.value?.let { removeAt(it.size - 1) } })
                 _beerList.value = (_beerList.value?.let { beers ->
                     beers.toMutableList().apply {
                         response?.beers?.let { data ->
@@ -140,12 +154,83 @@ class HomeViewModel @ViewModelInject constructor(
         }
     }
 
+    fun refresh() {
+        load2()
+        _isRefresh.value = true
+    }
+
+    fun load2() {
+        if (_isLoadMore.value == false) {
+            statusLoading()
+        }
+        viewModelScope.launch {
+            val response = beerRepository.getBeerList(sortType = _sortType.value?.value, filter = null, cursor = cursor.value)?.beers.orEmpty().getMapper(
+                type = HomeStringProvider.Code.STYLE,
+                title = stringProvider.getStringRes(HomeStringProvider.Code.STYLE),
+                eventNotifier = this@HomeViewModel)
+
+            val randomIndex = Random.nextInt(response.beer.size)
+            val awardBeer = BeerAwardModelMapper.getMapper(response.beer[randomIndex])
+
+            val styleBeers = beerRepository.getBeerList(
+                sortType = _sortType.value?.value,
+                filter = BeerFilter(styleFilter = _beerFilter.value?.styleFilter),
+                cursor = cursor.value
+            )?.beers.orEmpty()
+                .getMapper(
+                    type = HomeStringProvider.Code.STYLE,
+                    title = stringProvider.getStringRes(HomeStringProvider.Code.STYLE),
+                    eventNotifier = this@HomeViewModel
+                )
+
+            val aromaBeers = beerRepository.getBeerList(
+                _sortType.value?.value,
+                BeerFilter(aromaFilter = _beerFilter.value?.aromaFilter),
+                cursor.value
+            )?.beers.orEmpty().getMapper(
+                type = HomeStringProvider.Code.AROMA,
+                title = stringProvider.getStringRes(HomeStringProvider.Code.AROMA),
+                eventNotifier = this@HomeViewModel
+            )
+
+//            val randomIndex = if(styleBeers.beer.isEmpty()) 0 else Random.nextInt(styleBeers.beer.size)
+//            val awardBeer = BeerAwardModelMapper.getMapper(styleBeers.beer[randomIndex])
+
+            beers.clear()
+            beers.add(awardBeer)
+            if(!styleBeers.beer.isNullOrEmpty()) {
+                beers.add(styleBeers)
+            }
+            if(!aromaBeers.beer.isNullOrEmpty()) {
+                beers.add(aromaBeers)
+            }
+            notifyActionEvent(HomeActionEntity.UpdateList(beers))
+            statusSuccess()
+            _isRefresh.value = false
+        }
+    }
+
+    fun loadMore2() {
+        viewModelScope.launch {
+            cursor.value?.let {
+                if (_isLoadMore.value == false) {
+                    _beerList.value =
+                        _beerList.value?.toMutableList()?.apply { addAll(listOf(Beer(id = -1))) }
+                    _isLoadMore.value = true
+                    load()
+                }
+            }
+        }
+    }
+
+
     private fun filterSort() {
         viewModelScope.launch {
             sortSetting.getSort()
                 .combine(filterSetting.getBeerFilterFlow()) { type, filter ->
                     _sortType.value = type
                     _beerFilter.value = filter
+                    notifyActionEvent(HomeActionEntity.FilterSetting(_beerFilter.value))
                 }
                 .onStart { delay(200) }
                 .collect {
@@ -185,15 +270,23 @@ class HomeViewModel @ViewModelInject constructor(
         }
     }
 
-    private fun fetchFavorite(beer : Beer) {
+    private fun fetchFavorite(beer: Beer) {
         viewModelScope.launch {
             beer.updateFavorite()
             beerRepository.postFavorite(beer.id, beer.isFavorite.get())
         }
     }
 
+    override fun handleActionEvent(entity: ActionEntity) {
+        when (entity) {
+            is HomeActionEntity.LoadMore -> {
+                loadMore2()
+            }
+        }
+    }
+
     override fun handleSelectEvent(entity: ItemClickEntity) {
-        when(entity) {
+        when (entity) {
             is BeerClickEntity.SelectFavorite -> {
                 fetchFavorite(entity.beer)
             }
@@ -209,7 +302,7 @@ class HomeViewModel @ViewModelInject constructor(
     }
 
     fun clickFilter() {
-        notifySelectEvent(HomeSelectEntity.Filter)
+        notifySelectEvent(HomeSelectEntity.ClickFilter)
     }
 
     fun clickSort() {

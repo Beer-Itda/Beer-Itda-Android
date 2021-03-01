@@ -6,28 +6,22 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MotionEvent
 import androidx.activity.viewModels
-import androidx.core.app.ActivityCompat.startActivityForResult
-import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.ddd4.synesthesia.beer.R
-import com.ddd4.synesthesia.beer.data.model.Beer
 import com.ddd4.synesthesia.beer.databinding.ActivityDetailBinding
-import com.ddd4.synesthesia.beer.ext.ChannelType
-import com.ddd4.synesthesia.beer.ext.CoroutinesEvent
 import com.ddd4.synesthesia.beer.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.ext.showToast
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
-import com.ddd4.synesthesia.beer.presentation.commom.RelatedClickEntity
+import com.ddd4.synesthesia.beer.presentation.commom.entity.RelatedClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsAdapter
 import com.ddd4.synesthesia.beer.presentation.ui.detail.entity.DetailItemSelectEntity
 import com.ddd4.synesthesia.beer.presentation.ui.detail.viewmodel.DetailViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.review.view.ReviewAllActivity
 import com.ddd4.synesthesia.beer.util.KeyStringConst.Companion.KEY_BEER_ID
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.internal.managers.ViewComponentManager
 
 @AndroidEntryPoint
 class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_detail) {

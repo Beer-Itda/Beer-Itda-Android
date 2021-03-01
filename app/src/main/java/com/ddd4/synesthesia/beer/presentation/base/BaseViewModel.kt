@@ -9,7 +9,7 @@ import com.ddd4.synesthesia.beer.presentation.base.event.BaseEvent
 import com.ddd4.synesthesia.beer.presentation.base.event.IBaseEvent
 import com.ddd4.synesthesia.beer.presentation.base.event.SelectActionEventNotifier
 import com.ddd4.synesthesia.beer.presentation.base.event.setHandledValue
-import com.ddd4.synesthesia.beer.presentation.commom.ThrowEntity
+import com.ddd4.synesthesia.beer.presentation.commom.entity.ThrowEntity
 import com.ddd4.synesthesia.beer.util.NetworkStatus
 
 abstract class BaseViewModel : ViewModel(), SelectActionEventNotifier {

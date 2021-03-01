@@ -13,7 +13,7 @@ import com.ddd4.synesthesia.beer.ext.CoroutinesEvent
 import com.ddd4.synesthesia.beer.ext.ObservableExt.ObservableString
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
-import com.ddd4.synesthesia.beer.presentation.commom.BeerClickEntity
+import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.delay
