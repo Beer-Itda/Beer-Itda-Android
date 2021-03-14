@@ -13,13 +13,13 @@ import kotlinx.coroutines.launch
 
 class MyFavoriteViewModel @ViewModelInject constructor(
     private val beerRepository: BeerRepository
-): BaseViewModel() {
+) : BaseViewModel() {
 
     private val _myFavorites = MutableLiveData<List<Beer?>>()
-    val myFavorites : LiveData<List<Beer?>> get() = _myFavorites
+    val myFavorites: LiveData<List<Beer?>> get() = _myFavorites
 
     private val _isRefresh = MutableLiveData<Boolean>(false)
-    val isRefresh : LiveData<Boolean> get() = _isRefresh
+    val isRefresh: LiveData<Boolean> get() = _isRefresh
 
     init {
         load()
@@ -28,11 +28,11 @@ class MyFavoriteViewModel @ViewModelInject constructor(
     fun load() {
         viewModelScope.launch {
             _myFavorites.value = beerRepository.getFavorite().results?.map {
-                    it.beer?.apply {
-                        setFavorite()
-                        eventNotifier = this@MyFavoriteViewModel
-                    }
-                }?.toList().orEmpty()
+                it.beer?.apply {
+                    setFavorite()
+                    eventNotifier = this@MyFavoriteViewModel
+                }
+            }?.toList().orEmpty()
             setRefresh(false)
         }
     }
@@ -42,7 +42,7 @@ class MyFavoriteViewModel @ViewModelInject constructor(
         load()
     }
 
-    private fun fetchFavorite(beer : Beer) {
+    private fun fetchFavorite(beer: Beer) {
         viewModelScope.launch {
             beer.updateFavorite()
             beerRepository.postFavorite(beer.id, beer.isFavorite.get())
@@ -50,14 +50,14 @@ class MyFavoriteViewModel @ViewModelInject constructor(
     }
 
     override fun handleSelectEvent(entity: ItemClickEntity) {
-        when(entity) {
+        when (entity) {
             is BeerClickEntity.SelectFavorite -> {
                 fetchFavorite(entity.beer)
             }
         }
     }
 
-    private fun setRefresh(status : Boolean) {
+    private fun setRefresh(status: Boolean) {
         _isRefresh.value = status
     }
 

@@ -22,7 +22,7 @@ class ReviewAllActivity : BaseActivity<ActivityReviewAllBinding>(R.layout.activi
 
     override fun initBind() {
         binding.apply {
-            reviewAdatper = ItemsAdapter(R.layout.layout_review,BR.review)
+            reviewAdatper = ItemsAdapter(R.layout.layout_review, BR.review)
             includeToolbar.toolbar.setNavigationOnClickListener {
                 finish()
             }
@@ -34,7 +34,7 @@ class ReviewAllActivity : BaseActivity<ActivityReviewAllBinding>(R.layout.activi
         const val KEY_REVIEW = "reviews"
 
         @JvmStatic
-        fun start(context: Context, review : Array<Review>?) {
+        fun start(context: Context, review: Array<Review>?) {
             context.startActivity(Intent(context, ReviewAllActivity::class.java).apply {
                 putExtra(KEY_REVIEW, review)
             })

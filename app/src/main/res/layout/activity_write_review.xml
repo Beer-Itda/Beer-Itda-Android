@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.text.TextUtils"/>
+
+        <import type="android.text.TextUtils" />
 
         <variable
             name="contents"
@@ -29,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/fl_review"
             tools:text="@string/review"
-            app:layout_constraintVertical_chainStyle="packed"/>
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
             android:id="@+id/tv_review_message"
@@ -53,7 +54,7 @@
             android:src="@drawable/ic_close"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_review_message"
-            app:layout_constraintBottom_toBottomOf="@id/tv_review_message"/>
+            app:layout_constraintBottom_toBottomOf="@id/tv_review_message" />
 
         <FrameLayout
             android:id="@+id/fl_review"

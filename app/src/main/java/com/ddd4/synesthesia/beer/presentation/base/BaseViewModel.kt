@@ -15,10 +15,10 @@ import com.ddd4.synesthesia.beer.util.NetworkStatus
 abstract class BaseViewModel : ViewModel(), SelectActionEventNotifier {
 
     private val _throwable = MutableLiveData<ThrowEntity>()
-    val throwable : LiveData<ThrowEntity> get() = _throwable
+    val throwable: LiveData<ThrowEntity> get() = _throwable
 
     private val _networkStatus = MutableLiveData<NetworkStatus>()
-    val networkStatus : LiveData<NetworkStatus> get() = _networkStatus
+    val networkStatus: LiveData<NetworkStatus> get() = _networkStatus
 
     protected open val _event: BaseEvent = BaseEvent()
     open val event: IBaseEvent
@@ -37,8 +37,8 @@ abstract class BaseViewModel : ViewModel(), SelectActionEventNotifier {
         _event._select.setHandledValue(entity)
     }
 
-    protected fun throwMessage(message: String, isFinish : Boolean) {
-        _throwable.value = ThrowEntity(message,isFinish)
+    protected fun throwMessage(message: String, isFinish: Boolean) {
+        _throwable.value = ThrowEntity(message, isFinish)
     }
 
     protected fun statusLoading() {

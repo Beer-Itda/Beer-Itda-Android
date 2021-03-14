@@ -6,8 +6,9 @@ import com.ddd4.synesthesia.beer.presentation.ui.common.filter.BeerFilter
 import com.ddd4.synesthesia.beer.presentation.ui.home.item.IHomeItemViewModel
 
 sealed class HomeActionEntity : ActionEntity() {
+    object Refresh : HomeActionEntity()
     class UpdateList(val beer: List<IHomeItemViewModel>) : HomeActionEntity()
-    class FilterSetting(val filter : BeerFilter?) : HomeActionEntity()
-    class AppConfigSetting(val config : AppConfig?) : HomeActionEntity()
+    class FilterSetting(val filter: BeerFilter?) : HomeActionEntity()
+    class AppConfigSetting(val config: AppConfig?) : HomeActionEntity()
     object LoadMore : HomeActionEntity()
 }

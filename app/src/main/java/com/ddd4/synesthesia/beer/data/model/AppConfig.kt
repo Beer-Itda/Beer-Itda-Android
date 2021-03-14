@@ -16,4 +16,4 @@ data class AppConfig(
     val minAbv: Int,
     @SerializedName("max_abv")
     val maxAbv: Int
-): Parcelable
+) : Parcelable

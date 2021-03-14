@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.util.TypedValue
 
-fun Float.toPx(context : Context): Int = TypedValue.applyDimension(
+fun Float.toPx(context: Context): Int = TypedValue.applyDimension(
     TypedValue.COMPLEX_UNIT_DIP,
     this,
     context.resources.displayMetrics
@@ -13,4 +13,4 @@ fun Float.toPx(context : Context): Int = TypedValue.applyDimension(
 val Float.dp: Int
     get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
 
-fun Float?.orZero() : Float = this ?: 0f
+fun Float?.orZero(): Float = this ?: 0f

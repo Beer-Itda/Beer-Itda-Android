@@ -9,7 +9,7 @@
 
         <variable
             name="vm"
-            type="com.ddd4.synesthesia.beer.presentation.ui.home.viewmodel.HomeSortViewModel" />
+            type="com.ddd4.synesthesia.beer.presentation.ui.common.sort.viewmodel.SortViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

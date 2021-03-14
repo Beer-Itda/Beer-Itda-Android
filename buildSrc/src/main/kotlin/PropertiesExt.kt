@@ -15,34 +15,34 @@ object PropertiesExt {
     private val secureProperties = secure()
     private val keyStoreProperties = keystore()
 
-    private fun secure() : Properties {
+    private fun secure(): Properties {
         val secureProperties = Properties()
         File(FILE_SECRURE).run {
             println("FILE_SECRURE : ${exists()}")
-            if(exists()) {
+            if (exists()) {
                 secureProperties.load(inputStream())
             }
         }
         return secureProperties
     }
 
-    private fun keystore() : Properties {
+    private fun keystore(): Properties {
         val keystoreProperties = Properties()
         File(FILE_KEYSTORE).run {
             println("FILE_KEYSTORE : ${exists()}")
-            if(exists()) {
+            if (exists()) {
                 keystoreProperties.load(inputStream())
             }
         }
         return keystoreProperties
     }
 
-    fun getKakaoKey() : String = secureProperties.getProperty(KAKAO) ?: ""
-    fun getBaseUrl() : String = secureProperties.getProperty(BASE_URL) ?: ""
+    fun getKakaoKey(): String = secureProperties.getProperty(KAKAO) ?: ""
+    fun getBaseUrl(): String = secureProperties.getProperty(BASE_URL) ?: ""
 
-    fun getStoreFile() : File = File(keyStoreProperties.getProperty(DEVELOP_KEYSTORE))
-    fun getStorePassword() : String = keyStoreProperties.getProperty(DEVELOP_KEYSTORE_PASSWORD)
-    fun getKeyAlias() : String = keyStoreProperties.getProperty(DEVELOP_KEY_ALIAS)
-    fun getKeyPassword() : String = keyStoreProperties.getProperty(DEVELOP_KEY_PASSWORD)
+    fun getStoreFile(): File = File(keyStoreProperties.getProperty(DEVELOP_KEYSTORE))
+    fun getStorePassword(): String = keyStoreProperties.getProperty(DEVELOP_KEYSTORE_PASSWORD)
+    fun getKeyAlias(): String = keyStoreProperties.getProperty(DEVELOP_KEY_ALIAS)
+    fun getKeyPassword(): String = keyStoreProperties.getProperty(DEVELOP_KEY_PASSWORD)
 
 }

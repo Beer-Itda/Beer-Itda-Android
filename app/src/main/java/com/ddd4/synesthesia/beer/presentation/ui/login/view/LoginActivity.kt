@@ -26,12 +26,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
     private val loginViewModel by viewModels<LoginViewModel>()
     private val message by lazy { intent.getStringExtra(KEY_LOGIN) }
-    private val callback : (OAuthToken?, Throwable?) -> Unit = { token, error ->
+    private val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
             Timber.tag("tokenInfo").e(error)
             showToast(getString(R.string.fail_login))
         } else if (token != null) {
-            preference.setPreference(getString(R.string.key_token),token.accessToken)
+            preference.setPreference(getString(R.string.key_token), token.accessToken)
             loginViewModel.login()
         }
     }
@@ -45,7 +45,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         }
         intent.data?.let {
             it.query?.split("=")?.let { query ->
-                if(query.isNotEmpty()) {
+                if (query.isNotEmpty()) {
                     loginViewModel.accessToken(query[1])
                 }
             }
@@ -67,7 +67,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     private fun startLogin() {
         // 카카오톡으로 로그인
         LoginClient.instance.apply {
-            if(isKakaoTalkLoginAvailable(this@LoginActivity)) {
+            if (isKakaoTalkLoginAvailable(this@LoginActivity)) {
                 loginWithKakaoTalk(context = this@LoginActivity, callback = callback)
             } else {
                 loginWithKakaoAccount(this@LoginActivity, callback = callback)
@@ -94,7 +94,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         const val KEY_LOGIN = "login"
 
         @JvmStatic
-        fun start(context: Context, message : String) {
+        fun start(context: Context, message: String) {
             context.startActivity(Intent(context, LoginActivity::class.java).apply {
                 putExtra(KEY_LOGIN, message)
             })

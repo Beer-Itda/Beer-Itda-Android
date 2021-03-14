@@ -6,7 +6,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.home.view.HomeViewType
 
 interface IHomeItemViewModel : IViewTypeGetter<HomeViewType> {
     override fun getViewType(): HomeViewType {
-        return when(this) {
+        return when (this) {
             is BeerAwardItemViewModel -> HomeViewType.AWARD
             else -> HomeViewType.RECOMMEND
         }

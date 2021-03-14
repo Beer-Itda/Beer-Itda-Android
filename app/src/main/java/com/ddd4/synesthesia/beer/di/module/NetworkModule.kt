@@ -25,14 +25,19 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOAuthOkHttpClient(application: Application) : OkHttpClient {
+    fun provideOAuthOkHttpClient(application: Application): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(Interceptor.invoke {
                 it.run {
                     val request = request().newBuilder()
-                    application.getSharedPreferences("BEER",MODE_PRIVATE).getString("token","")?.let {
-                        request.addHeader("Authorization","Bearer " + application.getSharedPreferences("BEER",MODE_PRIVATE).getString("token","")!!)
-                    }
+                    application.getSharedPreferences("BEER", MODE_PRIVATE).getString("token", "")
+                        ?.let {
+                            request.addHeader(
+                                "Authorization",
+                                "Bearer " + application.getSharedPreferences("BEER", MODE_PRIVATE)
+                                    .getString("token", "")!!
+                            )
+                        }
                     proceed(request.build())
                 }
             })
@@ -41,13 +46,15 @@ object NetworkModule {
                     HttpLoggingInterceptor.Level.BODY
                 } else {
                     HttpLoggingInterceptor.Level.NONE
-                } })
+                }
+            })
             .build()
     }
+
     @Provides
     @Singleton
     @Named("kakaoAuth")
-    fun provideKakaoAuthRetrofit(application: Application) : Retrofit {
+    fun provideKakaoAuthRetrofit(application: Application): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl("https://kauth.kakao.com")
@@ -58,33 +65,38 @@ object NetworkModule {
     @Provides
     @Singleton
     @Named("kakao")
-    fun provideKakaoRetrofit(application: Application) : Retrofit {
+    fun provideKakaoRetrofit(application: Application): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl("https://kapi.kakao.com")
             .client(provideOAuthOkHttpClient(application))
             .build()
     }
+
     @Provides
     @Singleton
-    fun provideKakaoAuthService(@Named("kakaoAuth") retrofit: Retrofit) : KakaoAuthApi {
+    fun provideKakaoAuthService(@Named("kakaoAuth") retrofit: Retrofit): KakaoAuthApi {
         return retrofit.create(KakaoAuthApi::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideKakaoService(@Named("kakao") retrofit: Retrofit) : KakaoApi {
+    fun provideKakaoService(@Named("kakao") retrofit: Retrofit): KakaoApi {
         return retrofit.create(KakaoApi::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideOtherOkHttpClient(application: Application) : OkHttpClient {
+    fun provideOtherOkHttpClient(application: Application): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(Interceptor.invoke {
                 it.run {
                     val request = request().newBuilder()
-                        .addHeader("Authorization",application.getSharedPreferences("BEER",MODE_PRIVATE).getString("token","")!!)
+                        .addHeader(
+                            "Authorization",
+                            application.getSharedPreferences("BEER", MODE_PRIVATE)
+                                .getString("token", "")!!
+                        )
                         .build()
                     proceed(request)
                 }
@@ -94,14 +106,15 @@ object NetworkModule {
                     HttpLoggingInterceptor.Level.BODY
                 } else {
                     HttpLoggingInterceptor.Level.NONE
-                } })
+                }
+            })
             .build()
     }
 
     @Provides
     @Singleton
     @Named("beer")
-    fun provideRetrofit(application : Application) : Retrofit {
+    fun provideRetrofit(application: Application): Retrofit {
         return Retrofit.Builder()
             .baseUrl(application.getString(R.string.base_url))
             .addConverterFactory(GsonConverterFactory.create())
@@ -111,11 +124,9 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideBeerService(@Named("beer") retrofit: Retrofit) : BeerApi {
+    fun provideBeerService(@Named("beer") retrofit: Retrofit): BeerApi {
         return retrofit.create(BeerApi::class.java)
     }
-
-
 
 
 }

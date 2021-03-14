@@ -11,13 +11,13 @@ import com.ddd4.synesthesia.beer.ext.createView
  * viewType 이 1개 인 단순한 listAdapter
  */
 abstract class SimpleBindingListAdapter<VM : Any>(
-        @LayoutRes val layoutId: Int
+    @LayoutRes val layoutId: Int
 ) : RecyclerView.Adapter<BaseBindingViewHolder<VM, ViewDataBinding>>(), ItemListProvider<VM> {
     val list: ArrayList<VM> = ArrayList()
 
     override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int
+        parent: ViewGroup,
+        viewType: Int
     ): BaseBindingViewHolder<VM, ViewDataBinding> {
         return createViewHolder(parent.createView(layoutId))
     }

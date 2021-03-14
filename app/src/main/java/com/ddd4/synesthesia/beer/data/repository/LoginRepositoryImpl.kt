@@ -22,7 +22,10 @@ class LoginRepositoryImpl(
                 tokenInfo.invoke(null)
                 preference.remove("token")
             } else if (token != null) {
-                preference.setPreference("token",TokenManagerProvider.instance.manager.getToken()?.accessToken)
+                preference.setPreference(
+                    "token",
+                    TokenManagerProvider.instance.manager.getToken()?.accessToken
+                )
                 tokenInfo.invoke(TokenManagerProvider.instance.manager.getToken())
             }
         }
@@ -31,9 +34,9 @@ class LoginRepositoryImpl(
     override fun login(userInfo: (User?, Throwable?) -> Unit) {
         UserApiClient.instance.me { user, error ->
             if (error != null) {
-                userInfo.invoke(null,error)
+                userInfo.invoke(null, error)
             } else if (user != null) {
-                userInfo.invoke(user,null)
+                userInfo.invoke(user, null)
             }
         }
     }
@@ -68,7 +71,7 @@ class LoginRepositoryImpl(
 
     override suspend fun accessToken(
         code: String?,
-        accessToken : ((TokenResponse?) -> Unit)?
+        accessToken: ((TokenResponse?) -> Unit)?
     ): TokenResponse {
         val token = kakaoAuthApi.accessToken(code = code)
         accessToken?.invoke(token)

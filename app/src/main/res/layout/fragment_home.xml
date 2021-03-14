@@ -8,121 +8,57 @@
         <variable
             name="vm"
             type="com.ddd4.synesthesia.beer.presentation.ui.home.viewmodel.HomeViewModel" />
-
-        <variable
-            name="adapter"
-            type="com.ddd4.synesthesia.beer.presentation.base.recyclerview.BaseRecyclerView.Adapter" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/iv_filter"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:elevation="0dp">
+            android:foreground="?attr/selectableItemBackground"
+            android:onClick="@{() -> vm.clickFilter()}"
+            android:padding="18dp"
+            android:src="@drawable/ic_filter"
+            android:tint="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/clt"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_filter"
+            app:onRefreshListener="@{() -> vm.refresh()}"
+            app:refreshing="@{vm.isRefresh()}">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_home"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layoutScrolFlagMode="@{vm.beerList == null || vm.beerList.size() == 0}">
+                android:layout_height="0dp"
+                android:clipToPadding="true"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_filter"
+                app:topBototmSpace="@{@dimen/margin_20}"
+                app:vertical_space="@{@dimen/margin_50}"
+                tools:listitem="@layout/layout_home" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <include
-                        android:id="@+id/header"
-                        layout="@layout/layout_home_header"
-                        app:vm="@{vm}" />
-
-                    <HorizontalScrollView
-                        android:id="@+id/filter_scroll"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="?attr/colorPrimaryDark"
-                        android:overScrollMode="never"
-                        android:paddingStart="28dp"
-                        android:paddingEnd="28dp"
-                        android:scrollbars="none"
-                        android:visibility="gone"
-                        app:filterVisibility="@{vm.beerFilter}"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/header">
-
-                        <com.google.android.material.chip.ChipGroup
-                            android:id="@+id/filter_chip_group"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:chipSpacing="0dp"
-                            app:chipSpacingHorizontal="16dp"
-                            tools:visibility="visible" />
-
-                    </HorizontalScrollView>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/filter"
-                        android:layout_width="0dp"
-                        android:layout_height="44dp"
-                        android:background="?attr/colorPrimaryDark"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/filter_scroll">
-
-                        <TextView
-                            android:id="@+id/sort"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableEnd="@drawable/ic_btn_dropdown"
-                            android:fontFamily="@font/notosans_kr_regular"
-                            android:gravity="center"
-                            android:onClick="@{() -> vm.clickSort()}"
-                            android:textColor="@color/white"
-                            android:textSize="12sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:sortTypeText="@{vm.sortType}" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-        </com.google.android.material.appbar.AppBarLayout>
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <include
+            android:id="@+id/include_progress"
+            layout="@layout/layout_progress"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+            app:networkStatus="@{vm.networkStatus}" />
 
-            <include
-                android:id="@+id/contents"
-                layout="@layout/layout_home_contents"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:adapter="@{adapter}" />
-
-            <include
-                android:id="@+id/empty_list"
-                layout="@layout/layout_empty_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:visibility="gone" />
-
-            <include
-                android:id="@+id/include_progress"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:networkStatus="@{vm.networkStatus}"
-                layout="@layout/layout_progress" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

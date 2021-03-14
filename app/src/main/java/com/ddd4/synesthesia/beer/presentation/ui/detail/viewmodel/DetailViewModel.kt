@@ -28,17 +28,17 @@ import timber.log.Timber
 class DetailViewModel @ViewModelInject constructor(
     private val beerRepository: BeerRepository,
     private val stringProvider: DetailStringProvider,
-    @Assisted private val savedState : SavedStateHandle
+    @Assisted private val savedState: SavedStateHandle
 ) : BaseViewModel() {
 
     private val _id = MutableLiveData<Int>(savedState.get(KEY_BEER_ID))
-    val id : LiveData<Int> get() = _id
+    val id: LiveData<Int> get() = _id
 
     private val _beer = MutableLiveData<Beer>()
-    val beer : LiveData<Beer> get() = _beer
+    val beer: LiveData<Beer> get() = _beer
 
     private val _relatedBeers = MutableLiveData<RelatedBeers>()
-    val relatedBeers : LiveData<RelatedBeers> get() = _relatedBeers
+    val relatedBeers: LiveData<RelatedBeers> get() = _relatedBeers
 
     private val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
         Timber.e(throwable)
@@ -60,7 +60,7 @@ class DetailViewModel @ViewModelInject constructor(
                 }
                 statusSuccess()
             } ?: kotlin.run {
-                throwMessage(stringProvider.getError(),true)
+                throwMessage(stringProvider.getError(), true)
                 statusFailure()
             }
         }
@@ -70,9 +70,9 @@ class DetailViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             _id.value?.let {
                 _beer.value?.updateFavorite()
-                beerRepository.postFavorite(it,_beer.value?.isFavorite?.get().orFalse())
+                beerRepository.postFavorite(it, _beer.value?.isFavorite?.get().orFalse())
             } ?: kotlin.run {
-                throwMessage(stringProvider.getError(),true)
+                throwMessage(stringProvider.getError(), true)
             }
         }
     }

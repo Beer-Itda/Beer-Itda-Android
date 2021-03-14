@@ -13,6 +13,8 @@
     <dimen name="margin_20">20dp</dimen>
     <dimen name="margin_24">24dp</dimen>
     <dimen name="margin_28">28dp</dimen>
+    <dimen name="margin_50">50dp</dimen>
     <dimen name="margin_56">56dp</dimen>
+    <dimen name="margin_58">58dp</dimen>
     <dimen name="margin_70">70dp</dimen>
 </resources>

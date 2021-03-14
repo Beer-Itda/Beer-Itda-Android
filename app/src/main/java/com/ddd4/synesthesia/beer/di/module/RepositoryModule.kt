@@ -20,13 +20,17 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideLoginRepository(kakaoApi : KakaoApi, kakaoAuthApi : KakaoAuthApi, preference : SharedPreferenceProvider) : LoginRepository {
-        return LoginRepositoryImpl(kakaoApi,kakaoAuthApi,preference)
+    fun provideLoginRepository(
+        kakaoApi: KakaoApi,
+        kakaoAuthApi: KakaoAuthApi,
+        preference: SharedPreferenceProvider
+    ): LoginRepository {
+        return LoginRepositoryImpl(kakaoApi, kakaoAuthApi, preference)
     }
 
     @Provides
     @Singleton
-    fun provideBeerRepository(beerApi : BeerApi) : BeerRepository {
+    fun provideBeerRepository(beerApi: BeerApi): BeerRepository {
         return BeerRepositoryImpl(beerApi)
     }
 }

@@ -35,13 +35,13 @@ data class Beer(
     @SerializedName("reviews")
     val reviews: List<Review>? = null,
     @SerializedName("thumbnail_image")
-    val thumbnailImage : String? = null,
+    val thumbnailImage: String? = null,
     @SerializedName("review_owner")
-    val reviewOwner : ReviewOwner? = null,
+    val reviewOwner: ReviewOwner? = null,
     @SerializedName("favorite_flag")
-    var favoriteFlag : Boolean? = false
+    var favoriteFlag: Boolean? = false
 ) : Parcelable {
-    var isFavorite : ObservableBoolean = ObservableBoolean(false)
+    var isFavorite: ObservableBoolean = ObservableBoolean(false)
     var eventNotifier: SelectEventNotifier? = null
 
     fun setFavorite() {

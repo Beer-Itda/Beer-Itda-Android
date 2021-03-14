@@ -11,11 +11,12 @@ import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 
-abstract class BaseBottomSheetDialogFragment<B : ViewDataBinding>(private val layoutId : Int) : BottomSheetDialogFragment() {
+abstract class BaseBottomSheetDialogFragment<B : ViewDataBinding>(private val layoutId: Int) :
+    BottomSheetDialogFragment() {
 
     @Inject
-    lateinit var preference : SharedPreferenceProvider
-    lateinit var binding : B
+    lateinit var preference: SharedPreferenceProvider
+    lateinit var binding: B
     abstract fun initBind()
     abstract fun initObserving()
 
@@ -24,11 +25,15 @@ abstract class BaseBottomSheetDialogFragment<B : ViewDataBinding>(private val la
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
-        binding = DataBindingUtil.inflate(inflater,layoutId,container,false)
+        binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         binding.lifecycleOwner = this
         return binding.root
     }

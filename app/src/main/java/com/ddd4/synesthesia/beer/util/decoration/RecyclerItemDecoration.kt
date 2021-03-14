@@ -14,9 +14,9 @@ import com.ddd4.synesthesia.beer.ext.toPx
 
 
 class RecyclerItemDecoration(
-    private var space : Int,
-    private var horizontalSpace : Int? = null,
-    private var verticalSpace : Int? = null
+    private var space: Int,
+    private var horizontalSpace: Int? = null,
+    private var verticalSpace: Int? = null
 ) : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(
@@ -32,19 +32,19 @@ class RecyclerItemDecoration(
 
         var spanIndex = 0
         var spanCount = 0
-        when(parent.layoutManager) {
+        when (parent.layoutManager) {
             is GridLayoutManager -> {
                 spanIndex = (view.layoutParams as GridLayoutManager.LayoutParams).spanIndex
                 spanCount = (parent.layoutManager as GridLayoutManager).spanCount
-                gridOffset(outRect,spanIndex,spanCount)
+                gridOffset(outRect, spanIndex, spanCount)
             }
             is LinearLayoutManager -> {
-                when((parent.layoutManager as LinearLayoutManager).orientation) {
+                when ((parent.layoutManager as LinearLayoutManager).orientation) {
                     HORIZONTAL -> {
-                        horizontalOffset(outRect,position,itemCount)
+                        horizontalOffset(outRect, position, itemCount)
                     }
                     VERTICAL -> {
-                        verticalOffset(outRect,position,itemCount)
+                        verticalOffset(outRect, position, itemCount)
                     }
                 }
             }
@@ -55,7 +55,7 @@ class RecyclerItemDecoration(
 
     }
 
-    private fun gridOffset(outRect: Rect, spanIndex : Int, spanCount : Int) {
+    private fun gridOffset(outRect: Rect, spanIndex: Int, spanCount: Int) {
         val spaceHalf = space / 2
         if (spanIndex == 0) {
             //가로 첫번째 아이템
@@ -63,7 +63,7 @@ class RecyclerItemDecoration(
             outRect.right = spaceHalf
             outRect.top = space
             outRect.bottom = spaceHalf
-        } else if(spanCount > 0 && (spanIndex % spanCount) == spanCount -1){
+        } else if (spanCount > 0 && (spanIndex % spanCount) == spanCount - 1) {
             //가로 마지막 아이템
             outRect.left = spaceHalf
             outRect.right = space
@@ -78,7 +78,7 @@ class RecyclerItemDecoration(
         }
     }
 
-    private fun horizontalOffset(outRect: Rect, position : Int, itemCount : Int) {
+    private fun horizontalOffset(outRect: Rect, position: Int, itemCount: Int) {
         val spaceHalf = space / 2
         if (position == 0) {
             //첫번째 아이템
@@ -86,7 +86,7 @@ class RecyclerItemDecoration(
             outRect.right = spaceHalf
             outRect.top = space
             outRect.bottom = space
-        } else if(position == itemCount-1){
+        } else if (position == itemCount - 1) {
             // 마지막 아이템
             outRect.left = spaceHalf
             outRect.right = horizontalSpace ?: space
@@ -100,7 +100,8 @@ class RecyclerItemDecoration(
             outRect.bottom = space
         }
     }
-    private fun verticalOffset(outRect: Rect, position : Int, itemCount : Int) {
+
+    private fun verticalOffset(outRect: Rect, position: Int, itemCount: Int) {
         val spaceHalf = space / 2
         if (position == 0) {
             //첫번째 아이템
@@ -108,7 +109,7 @@ class RecyclerItemDecoration(
             outRect.right = space
             outRect.top = verticalSpace ?: space
             outRect.bottom = spaceHalf
-        } else if(position == itemCount-1){
+        } else if (position == itemCount - 1) {
             // 마지막 아이템
             outRect.left = space
             outRect.right = space
@@ -122,7 +123,8 @@ class RecyclerItemDecoration(
             outRect.bottom = spaceHalf
         }
     }
-    private fun linearOffset(outRect: Rect, position : Int, itemCount : Int) {
+
+    private fun linearOffset(outRect: Rect, position: Int, itemCount: Int) {
         val spaceHalf = space / 2
         if (position == 0) {
             //첫번째 아이템
@@ -130,7 +132,7 @@ class RecyclerItemDecoration(
             outRect.right = space
             outRect.top = verticalSpace ?: space
             outRect.bottom = spaceHalf
-        } else if(position == itemCount-1){
+        } else if (position == itemCount - 1) {
             // 마지막 아이템
             outRect.left = space
             outRect.right = horizontalSpace ?: space

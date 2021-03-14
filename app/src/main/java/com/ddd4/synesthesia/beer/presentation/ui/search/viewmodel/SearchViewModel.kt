@@ -24,14 +24,14 @@ class SearchViewModel @ViewModelInject constructor(
     private val beerRepository: BeerRepository
 ) : BaseViewModel() {
 
-    private var debounceJob : Job? = null
+    private var debounceJob: Job? = null
 
     val isLoadMore = ObservableBoolean(false)
     val searchText = ObservableString()
     val isTemplateVisible = ObservableBoolean(false)
 
     private val _beerList = MutableLiveData<List<Beer>?>()
-    val beerList : LiveData<List<Beer>?> get() = _beerList
+    val beerList: LiveData<List<Beer>?> get() = _beerList
 
     val cursor = MutableLiveData(0)
 
@@ -69,10 +69,11 @@ class SearchViewModel @ViewModelInject constructor(
     }
 
     fun loadMore() {
-        if(!isLoadMore.get()) {
+        if (!isLoadMore.get()) {
             cursor.value?.let {
                 isLoadMore.set(true)
-                _beerList.value = _beerList.value?.toMutableList()?.apply { addAll(listOf(Beer(id = -1))) }
+                _beerList.value =
+                    _beerList.value?.toMutableList()?.apply { addAll(listOf(Beer(id = -1))) }
                 search()
             }
         }
@@ -86,20 +87,25 @@ class SearchViewModel @ViewModelInject constructor(
 
     fun search() {
         debounceJob?.cancel()
-        if(searchText.get().isNullOrEmpty()) {
+        if (searchText.get().isNullOrEmpty()) {
             reset()
             return
         }
         debounceJob = viewModelScope.launch {
             delay(400L)
-            beerRepository.getSearch(searchText.get().orEmpty(),cursor.value)?.result?.let { response ->
+            beerRepository.getSearch(
+                searchText.get().orEmpty(),
+                cursor.value
+            )?.result?.let { response ->
                 cursor.value = response.nextCursor
                 // 데이터 추가
-                if(isLoadMore.get()) {
+                if (isLoadMore.get()) {
                     // 커서
-                    _beerList.value = (_beerList.value?.toMutableList()?.apply { _beerList.value?.let {
-                        if(it.isNotEmpty()) {
-                            removeAt(it.size-1) }
+                    _beerList.value = (_beerList.value?.toMutableList()?.apply {
+                        _beerList.value?.let {
+                            if (it.isNotEmpty()) {
+                                removeAt(it.size - 1)
+                            }
                         }
                     })
                     _beerList.value = (_beerList.value?.let { beers ->
@@ -132,7 +138,7 @@ class SearchViewModel @ViewModelInject constructor(
         cursor.value = null
     }
 
-    private fun fetchFavorite(beer : Beer) {
+    private fun fetchFavorite(beer: Beer) {
         viewModelScope.launch {
             beer.updateFavorite()
             beerRepository.postFavorite(beer.id, beer.isFavorite.get())
@@ -140,7 +146,7 @@ class SearchViewModel @ViewModelInject constructor(
     }
 
     override fun handleSelectEvent(entity: ItemClickEntity) {
-        when(entity) {
+        when (entity) {
             is BeerClickEntity.SelectFavorite -> {
                 fetchFavorite(entity.beer)
             }

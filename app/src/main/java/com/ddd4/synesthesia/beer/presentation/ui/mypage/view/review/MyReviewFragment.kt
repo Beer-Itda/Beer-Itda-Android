@@ -25,7 +25,7 @@ class MyReviewFragment : BaseFragment<FragmentMyReviewBinding>(R.layout.fragment
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            reviewAdatper = ItemsAdapter(R.layout.item_my_review,BR.review)
+            reviewAdatper = ItemsAdapter(R.layout.item_my_review, BR.review)
             srvReview.setOnRefreshListener {
                 viewModel.review()
             }
@@ -50,7 +50,7 @@ class MyReviewFragment : BaseFragment<FragmentMyReviewBinding>(R.layout.fragment
     }
 
     override fun handleSelectEvent(entity: ItemClickEntity) {
-        when(entity) {
+        when (entity) {
             is BeerClickEntity.SelectItem -> {
 
             }

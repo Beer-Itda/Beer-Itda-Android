@@ -35,8 +35,11 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideAppConfig(application: Application,sharedPreference : SharedPreferenceProvider): AppConfig {
-        return AppConfig(application,sharedPreference)
+    fun provideAppConfig(
+        application: Application,
+        sharedPreference: SharedPreferenceProvider
+    ): AppConfig {
+        return AppConfig(application, sharedPreference)
     }
 
     @Provides

@@ -6,7 +6,8 @@
     <data>
 
         <import type="android.text.TextUtils" />
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
 
         <variable
             name="contents"
@@ -28,7 +29,7 @@
             app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/edt_nickname"/>
+            app:layout_constraintBottom_toTopOf="@+id/edt_nickname" />
 
 
         <EditText
@@ -48,7 +49,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/iv_clear"
             app:layout_constraintTop_toBottomOf="@+id/iv_close"
-            app:layout_constraintBottom_toTopOf="@+id/under_line"/>
+            app:layout_constraintBottom_toTopOf="@+id/under_line" />
 
         <ImageView
             android:id="@+id/iv_clear"
@@ -59,7 +60,7 @@
             app:layout_constraintTop_toTopOf="@+id/edt_nickname"
             app:layout_constraintBottom_toBottomOf="@+id/edt_nickname"
             app:layout_constraintStart_toStartOf="@+id/iv_close"
-            app:layout_constraintEnd_toEndOf="@+id/iv_close"/>
+            app:layout_constraintEnd_toEndOf="@+id/iv_close" />
 
         <View
             android:id="@+id/under_line"
@@ -69,7 +70,7 @@
             android:layout_marginHorizontal="28dp"
             android:layout_marginTop="10dp"
             app:layout_constraintBottom_toTopOf="@+id/btn_save"
-            app:layout_constraintTop_toBottomOf="@+id/edt_nickname"/>
+            app:layout_constraintTop_toBottomOf="@+id/edt_nickname" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -80,7 +81,7 @@
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="@+id/edt_nickname"
             app:layout_constraintEnd_toEndOf="@+id/edt_nickname"
-            app:layout_constraintTop_toBottomOf="@+id/under_line"/>
+            app:layout_constraintTop_toBottomOf="@+id/under_line" />
 
         <TextView
             android:id="@+id/btn_save"

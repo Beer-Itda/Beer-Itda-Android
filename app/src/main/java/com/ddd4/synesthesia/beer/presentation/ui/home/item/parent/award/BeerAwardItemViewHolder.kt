@@ -12,12 +12,13 @@ class BeerAwardItemViewHolder(
 ) : HomeViewHolder<BeerAwardItemViewModel, ItemBeerAwardBinding>(itemView) {
 
     companion object {
-        fun newInstance(parent: ViewGroup) = BeerAwardItemViewHolder(parent.createView(R.layout.item_beer_award))
+        fun newInstance(parent: ViewGroup) =
+            BeerAwardItemViewHolder(parent.createView(R.layout.item_beer_award))
     }
 
     override fun onBind(viewModel: BeerAwardItemViewModel, position: Int) {
         binding?.run {
-            beer = viewModel.beer
+            beer = viewModel.beer.data
             executePendingBindings()
         }
     }

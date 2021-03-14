@@ -15,10 +15,12 @@ import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
+import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.home.entity.HomeActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.home.entity.HomeSelectEntity
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.BeerFilter
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FilterSetting
+import com.ddd4.synesthesia.beer.presentation.ui.common.filter.orEmpty
 import com.ddd4.synesthesia.beer.presentation.ui.home.item.IHomeItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.home.item.parent.award.BeerAwardModelMapper
 import com.ddd4.synesthesia.beer.presentation.ui.home.item.parent.list.BeerListModelMapper.getMapper
@@ -65,7 +67,7 @@ class HomeViewModel @ViewModelInject constructor(
     val appConfig: LiveData<AppConfig> get() = _appConfig
 
     private val _isRefresh = MutableLiveData<Boolean>()
-    val isRefresh : LiveData<Boolean> get() = _isRefresh
+    val isRefresh: LiveData<Boolean> get() = _isRefresh
 
     val coroutineEvent = CoroutinesEvent.listen(ChannelType.Favorite::class.java)
 
@@ -164,13 +166,20 @@ class HomeViewModel @ViewModelInject constructor(
             statusLoading()
         }
         viewModelScope.launch {
-            val response = beerRepository.getBeerList(sortType = _sortType.value?.value, filter = null, cursor = cursor.value)?.beers.orEmpty().getMapper(
+            val response = beerRepository.getBeerList(
+                sortType = _sortType.value?.value,
+                filter = null,
+                cursor = cursor.value
+            )?.beers.orEmpty().getMapper(
+                sortType = _sortType.value,
                 type = HomeStringProvider.Code.STYLE,
+                filter = _beerFilter.value.orEmpty(),
                 title = stringProvider.getStringRes(HomeStringProvider.Code.STYLE),
-                eventNotifier = this@HomeViewModel)
+                eventNotifier = this@HomeViewModel
+            )
 
-            val randomIndex = Random.nextInt(response.beer.size)
-            val awardBeer = BeerAwardModelMapper.getMapper(response.beer[randomIndex])
+            val randomIndex = Random.nextInt(response.beers.size)
+            val awardBeer = BeerAwardModelMapper.getMapper(response.beers[randomIndex].data)
 
             val styleBeers = beerRepository.getBeerList(
                 sortType = _sortType.value?.value,
@@ -178,18 +187,34 @@ class HomeViewModel @ViewModelInject constructor(
                 cursor = cursor.value
             )?.beers.orEmpty()
                 .getMapper(
+                    sortType = _sortType.value,
                     type = HomeStringProvider.Code.STYLE,
+                    filter = _beerFilter.value.orEmpty(),
                     title = stringProvider.getStringRes(HomeStringProvider.Code.STYLE),
                     eventNotifier = this@HomeViewModel
                 )
 
             val aromaBeers = beerRepository.getBeerList(
-                _sortType.value?.value,
-                BeerFilter(aromaFilter = _beerFilter.value?.aromaFilter),
-                cursor.value
+                sortType = _sortType.value?.value,
+                filter = BeerFilter(aromaFilter = _beerFilter.value?.aromaFilter),
+                cursor = cursor.value
             )?.beers.orEmpty().getMapper(
+                sortType = _sortType.value,
                 type = HomeStringProvider.Code.AROMA,
+                filter = _beerFilter.value.orEmpty(),
                 title = stringProvider.getStringRes(HomeStringProvider.Code.AROMA),
+                eventNotifier = this@HomeViewModel
+            )
+
+            val randomBeers = beerRepository.getBeerList(
+                sortType = _sortType.value?.value,
+                filter = null,
+                cursor = cursor.value
+            )?.beers.orEmpty().getMapper(
+                sortType = _sortType.value,
+                type = HomeStringProvider.Code.RANDOM,
+                filter = _beerFilter.value.orEmpty(),
+                title = stringProvider.getStringRes(HomeStringProvider.Code.RANDOM),
                 eventNotifier = this@HomeViewModel
             )
 
@@ -198,11 +223,14 @@ class HomeViewModel @ViewModelInject constructor(
 
             beers.clear()
             beers.add(awardBeer)
-            if(!styleBeers.beer.isNullOrEmpty()) {
+            if (!styleBeers.beers.isNullOrEmpty()) {
                 beers.add(styleBeers)
             }
-            if(!aromaBeers.beer.isNullOrEmpty()) {
+            if (!aromaBeers.beers.isNullOrEmpty()) {
                 beers.add(aromaBeers)
+            }
+            if (!aromaBeers.beers.isNullOrEmpty()) {
+                beers.add(randomBeers)
             }
             notifyActionEvent(HomeActionEntity.UpdateList(beers))
             statusSuccess()
@@ -270,7 +298,7 @@ class HomeViewModel @ViewModelInject constructor(
         }
     }
 
-    private fun fetchFavorite(beer: Beer) {
+    private fun fetchFavorite(beer: BeerItemViewModel) {
         viewModelScope.launch {
             beer.updateFavorite()
             beerRepository.postFavorite(beer.id, beer.isFavorite.get())
@@ -287,7 +315,7 @@ class HomeViewModel @ViewModelInject constructor(
 
     override fun handleSelectEvent(entity: ItemClickEntity) {
         when (entity) {
-            is BeerClickEntity.SelectFavorite -> {
+            is BeerClickEntity.SelectFavorite2 -> {
                 fetchFavorite(entity.beer)
             }
         }

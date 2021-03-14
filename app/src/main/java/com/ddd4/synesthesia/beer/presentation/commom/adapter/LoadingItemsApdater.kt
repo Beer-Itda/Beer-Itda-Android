@@ -19,8 +19,11 @@ class LoadingItemsApdater(
         parent: ViewGroup,
         viewType: Int
     ): BaseRecyclerView.ViewHolder<ViewDataBinding> {
-        return when(viewType) {
-            BaseViewType.LOADING.ordinal -> BaseRecyclerView.LoadingViewHolder(R.layout.layout_loading, parent)
+        return when (viewType) {
+            BaseViewType.LOADING.ordinal -> BaseRecyclerView.LoadingViewHolder(
+                R.layout.layout_loading,
+                parent
+            )
             else -> super.onCreateViewHolder(parent, viewType)
         }
     }
@@ -37,7 +40,7 @@ class LoadingItemsApdater(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if((list[position] as Beer).id == -1) {
+        return if ((list[position] as Beer).id == -1) {
             BaseViewType.LOADING.ordinal
         } else {
             BaseViewType.ITEM.ordinal

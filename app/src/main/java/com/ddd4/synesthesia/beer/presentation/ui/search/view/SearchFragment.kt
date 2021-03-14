@@ -24,10 +24,15 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
     private val viewModel by viewModels<SearchViewModel>()
 
-    private val titleAdapter by lazy { LoadingItemsApdater(R.layout.item_auto_completation, BR.item) }
-    private val imageAdapter by lazy { LoadingItemsApdater(R.layout.item_home, BR.item) }
-    private lateinit var titleEndlessScroll : EndlessRecyclerViewScrollListener
-    private lateinit var imageEndlessScroll : EndlessRecyclerViewScrollListener
+    private val titleAdapter by lazy {
+        LoadingItemsApdater(
+            R.layout.item_auto_completation,
+            BR.item
+        )
+    }
+    private val imageAdapter by lazy { LoadingItemsApdater(R.layout.item_home, BR.beer) }
+    private lateinit var titleEndlessScroll: EndlessRecyclerViewScrollListener
+    private lateinit var imageEndlessScroll: EndlessRecyclerViewScrollListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,16 +46,18 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
     override fun initBind() {
         super.initBind()
-        titleEndlessScroll = object : EndlessRecyclerViewScrollListener(binding.rvOnlyTitle.layoutManager) {
-            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
-                viewModel.loadMore()
+        titleEndlessScroll =
+            object : EndlessRecyclerViewScrollListener(binding.rvOnlyTitle.layoutManager) {
+                override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
+                    viewModel.loadMore()
+                }
             }
-        }
-        imageEndlessScroll = object : EndlessRecyclerViewScrollListener(binding.rvWithImage.layoutManager) {
-            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
-                viewModel.loadMore()
+        imageEndlessScroll =
+            object : EndlessRecyclerViewScrollListener(binding.rvWithImage.layoutManager) {
+                override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
+                    viewModel.loadMore()
+                }
             }
-        }
 
         binding.apply {
             vm = viewModel
@@ -83,9 +90,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     }
 
     override fun handleSelectEvent(entity: ItemClickEntity) {
-        when(entity) {
+        when (entity) {
             is BeerClickEntity.SelectItem -> {
-                DetailActivity.start(this@SearchFragment,entity.beer.id)
+                DetailActivity.start(this@SearchFragment, entity.beer.id)
             }
         }
     }

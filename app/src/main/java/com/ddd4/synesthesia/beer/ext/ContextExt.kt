@@ -9,8 +9,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.ddd4.synesthesia.beer.R
 
-fun Context.versionName() : String =
-    packageManager.getPackageInfo(packageName,0).versionName
+fun Context.versionName(): String =
+    packageManager.getPackageInfo(packageName, 0).versionName
 
 
 fun Context.showKeyboard(view: View) {
@@ -20,7 +20,10 @@ fun Context.showKeyboard(view: View) {
                 isFocusable = true
                 isFocusableInTouchMode = true
                 view.requestFocus()
-                (getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+                (getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.showSoftInput(
+                    this,
+                    InputMethodManager.SHOW_IMPLICIT
+                )
                 view.setSelection(view.length())
 
             }
@@ -37,11 +40,11 @@ fun Context.hideKeyboard(view: View) {
 
 fun Context.permissonsCheck(
     neededPermissions: Array<String>,
-    granted : (() -> Unit)? = null,
-    denied : (() -> Unit)? = null
+    granted: (() -> Unit)? = null,
+    denied: (() -> Unit)? = null
 ) {
-    for(permission in neededPermissions) {
-        if(checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+    for (permission in neededPermissions) {
+        if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
             denied?.invoke()
             return
         }
@@ -49,12 +52,12 @@ fun Context.permissonsCheck(
     granted?.invoke()
 }
 
-fun Context.showToast(message : String, duration: Int? = null) {
-    Toast.makeText(this,message, duration ?: Toast.LENGTH_SHORT).show()
+fun Context.showToast(message: String, duration: Int? = null) {
+    Toast.makeText(this, message, duration ?: Toast.LENGTH_SHORT).show()
 }
 
 fun Context.showSimpleDialog(
-    title : String? = getString(R.string.app_name),
+    title: String? = getString(R.string.app_name),
     message: String,
     result: (() -> Unit)? = null
 ) {
@@ -70,7 +73,7 @@ fun Context.showSimpleDialog(
 }
 
 fun Context.showNoticeDialog(
-    title : String? = null,
+    title: String? = null,
     message: String,
     result: (() -> Unit)? = null
 ) {

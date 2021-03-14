@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class Result<ELEMENT>(
     @SerializedName("result")
-    val result : ELEMENT?
+    val result: ELEMENT?
 )

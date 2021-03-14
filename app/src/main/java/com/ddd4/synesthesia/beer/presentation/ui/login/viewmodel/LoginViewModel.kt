@@ -16,26 +16,32 @@ import timber.log.Timber
 import java.util.*
 
 class LoginViewModel @ViewModelInject constructor(
-    private val loginRepository : LoginRepository,
-    private val preference : SharedPreferenceProvider
+    private val loginRepository: LoginRepository,
+    private val preference: SharedPreferenceProvider
 ) : BaseViewModel() {
 
-    val isLoginSuccess = SingleLiveEvent<Pair<User?,Throwable?>>()
+    val isLoginSuccess = SingleLiveEvent<Pair<User?, Throwable?>>()
     val isLogoutSuccess = SingleLiveEvent<Boolean>()
 
     private val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
         Timber.e(throwable)
     }
 
-    fun accessToken(code : String?) {
+    fun accessToken(code: String?) {
         viewModelScope.launch(handler) {
             loginRepository.accessToken(code) {
                 it?.run {
                     TokenManagerProvider.instance.manager.setToken(
-                        OAuthToken(accessToken, Date(expiresIn.toLong()),refreshToken,Date(refreshTokenExpiresIn.toLong()),scope.split(","))
+                        OAuthToken(
+                            accessToken,
+                            Date(expiresIn.toLong()),
+                            refreshToken,
+                            Date(refreshTokenExpiresIn.toLong()),
+                            scope.split(",")
+                        )
                     )
                     accessToken.let { token ->
-                        preference.setPreference("token",token)
+                        preference.setPreference("token", token)
                         login()
                     }
                 }
@@ -47,8 +53,8 @@ class LoginViewModel @ViewModelInject constructor(
     fun login() = loginRepository.login { user, error ->
         user?.let {
             FirebaseCrashlytics.getInstance().setUserId(user.id.toString())
-            isLoginSuccess.call(Pair(user,null))
-        } ?: kotlin.run { isLoginSuccess.call(Pair(null,error)) }
+            isLoginSuccess.call(Pair(user, null))
+        } ?: kotlin.run { isLoginSuccess.call(Pair(null, error)) }
     }
 
     fun logout() = loginRepository.logout {

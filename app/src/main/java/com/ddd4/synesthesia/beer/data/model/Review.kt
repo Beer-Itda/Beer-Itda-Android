@@ -21,6 +21,6 @@ data class Review(
     @SerializedName("nickname")
     val nickname: String?
 ) : Parcelable {
-    val createdAt : String?
+    val createdAt: String?
         get() = SimpleDateFormat("YYYY. MM. dd").format(date)
 }

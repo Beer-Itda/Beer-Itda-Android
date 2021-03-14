@@ -4,12 +4,13 @@
 
     <data>
 
-        <import type="android.view.View"/>
-        <import type="android.text.TextUtils"/>
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
 
         <variable
             name="title"
-            type="String"/>
+            type="String" />
 
     </data>
 
@@ -26,7 +27,7 @@
             app:contentInsetStartWithNavigation="0dp"
             app:navigationIcon="@drawable/ic_arrow_left"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,6 +37,6 @@
             android:visibility="@{TextUtils.isEmpty(title) ? View.GONE : View.VISIBLE}"
             app:layout_constraintTop_toTopOf="@+id/toolbar"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-            app:layout_constraintStart_toEndOf="@+id/toolbar"/>
+            app:layout_constraintStart_toEndOf="@+id/toolbar" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

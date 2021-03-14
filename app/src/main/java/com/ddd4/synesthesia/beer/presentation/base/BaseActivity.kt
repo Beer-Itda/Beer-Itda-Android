@@ -16,13 +16,16 @@ import com.ddd4.synesthesia.beer.util.AppConfig
 import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
 import javax.inject.Inject
 
-abstract class BaseActivity<B : ViewDataBinding>(private val layoutId : Int) : AppCompatActivity(),
+abstract class BaseActivity<B : ViewDataBinding>(private val layoutId: Int) : AppCompatActivity(),
     HandleEvent {
 
-    @Inject lateinit var preference : SharedPreferenceProvider
-    @Inject lateinit var appConfig : AppConfig
+    @Inject
+    lateinit var preference: SharedPreferenceProvider
+
+    @Inject
+    lateinit var appConfig: AppConfig
     private var backKeyPressedTime = 0L
-    lateinit var binding : B
+    lateinit var binding: B
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,18 +36,18 @@ abstract class BaseActivity<B : ViewDataBinding>(private val layoutId : Int) : A
 
     override fun onBackPressed() {
         if (!supportFragmentManager.popBackStackImmediate()) {
-            if(this !is MainActivity) {
+            if (this !is MainActivity) {
                 finish()
                 return
             }
-            if(isInTimeInput()) {
+            if (isInTimeInput()) {
                 finishAffinity()
             }
         }
 
     }
 
-    fun isInTimeInput(finish : (() -> Unit)? = null) : Boolean {
+    fun isInTimeInput(finish: (() -> Unit)? = null): Boolean {
         if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
             backKeyPressedTime = System.currentTimeMillis()
             showToast(getString(R.string.back_press))
@@ -63,27 +66,33 @@ abstract class BaseActivity<B : ViewDataBinding>(private val layoutId : Int) : A
 
     fun showRecentlyVisitTime() {
         preference.getPreferenceString(getString(R.string.key_recently_visit))?.let {
-            when(it.isEmpty()) {
+            when (it.isEmpty()) {
                 false -> {
                     dateFormat().run {
                         binding.root.showSnackBar("최근 접속일 : ${it}")
                         appConfig.lastVisitTime = it
-                        preference.setPreference(getString(R.string.key_recently_visit),format(System.currentTimeMillis()))
+                        preference.setPreference(
+                            getString(R.string.key_recently_visit),
+                            format(System.currentTimeMillis())
+                        )
                     }
                 }
                 true -> {
                     dateFormat().run {
                         binding.root.showSnackBar("환영합니다")
-                        preference.setPreference(getString(R.string.key_recently_visit),format(System.currentTimeMillis()))
+                        preference.setPreference(
+                            getString(R.string.key_recently_visit),
+                            format(System.currentTimeMillis())
+                        )
                     }
                 }
             }
         }
     }
 
-    open fun initBind() { }
-    open fun initObserver() { }
+    open fun initBind() {}
+    open fun initObserver() {}
 
-    override fun handleSelectEvent(entity: ItemClickEntity) { }
-    override fun handleActionEvent(entity: ActionEntity) { }
+    override fun handleSelectEvent(entity: ItemClickEntity) {}
+    override fun handleActionEvent(entity: ActionEntity) {}
 }

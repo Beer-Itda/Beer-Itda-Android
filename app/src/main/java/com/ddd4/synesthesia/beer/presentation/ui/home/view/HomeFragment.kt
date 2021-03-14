@@ -3,23 +3,22 @@ package com.ddd4.synesthesia.beer.presentation.ui.home.view
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.ddd4.synesthesia.beer.BR
 import com.ddd4.synesthesia.beer.R
-import com.ddd4.synesthesia.beer.databinding.FragmentHome2Binding
+import com.ddd4.synesthesia.beer.databinding.FragmentHomeBinding
 import com.ddd4.synesthesia.beer.ext.observeHandledEvent
-import com.ddd4.synesthesia.beer.ext.showToast
 import com.ddd4.synesthesia.beer.presentation.base.BaseFragment
 import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
-import com.ddd4.synesthesia.beer.presentation.commom.adapter.LoadingItemsApdater
+import com.ddd4.synesthesia.beer.presentation.ui.common.filter.view.FilterDialog
+import com.ddd4.synesthesia.beer.presentation.ui.common.sort.view.SortDialog
 import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailActivity
 import com.ddd4.synesthesia.beer.presentation.ui.home.NavigationDirections
 import com.ddd4.synesthesia.beer.presentation.ui.home.entity.HomeActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.home.entity.HomeSelectEntity
 import com.ddd4.synesthesia.beer.presentation.ui.home.viewmodel.HomeViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.like.view.HomeLikeActivity
 import com.ddd4.synesthesia.beer.util.EndlessRecyclerViewScrollListener
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,13 +27,12 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentHome2Binding>(R.layout.fragment_home2) {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private val homeViewModel by viewModels<HomeViewModel>()
-    private val listAdapter by lazy { LoadingItemsApdater(R.layout.item_home, BR.item) }
     private val homeAdapter by lazy { HomeListAdapter() }
 
-    private lateinit var endlessRecyclerViewScrollListener : EndlessRecyclerViewScrollListener
+    private lateinit var endlessRecyclerViewScrollListener: EndlessRecyclerViewScrollListener
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -52,7 +50,7 @@ class HomeFragment : BaseFragment<FragmentHome2Binding>(R.layout.fragment_home2)
     }
 
     override fun handleActionEvent(entity: ActionEntity) {
-        when(entity) {
+        when (entity) {
             is HomeActionEntity.UpdateList -> {
                 homeAdapter.clear()
                 homeAdapter.addAll(entity.beer)
@@ -63,11 +61,14 @@ class HomeFragment : BaseFragment<FragmentHome2Binding>(R.layout.fragment_home2)
             is HomeActionEntity.AppConfigSetting -> {
                 preference.setPreference("appConfig", Gson().toJson(entity.config))
             }
+            is HomeActionEntity.Refresh -> {
+                endlessRecyclerViewScrollListener.resetState()
+            }
         }
     }
 
     override fun handleSelectEvent(entity: ItemClickEntity) {
-        when(entity) {
+        when (entity) {
             is HomeSelectEntity.Search -> {
                 findNavController().navigate(NavigationDirections.actionToSearch())
             }
@@ -80,18 +81,23 @@ class HomeFragment : BaseFragment<FragmentHome2Binding>(R.layout.fragment_home2)
                 }
             }
             is HomeSelectEntity.Sort -> {
-                val bottom = HomeSortDialog()
+                val bottom = SortDialog()
                 bottom.show(this@HomeFragment.parentFragmentManager, bottom.tag)
             }
             is HomeSelectEntity.ClickTitle -> {
-                // TODO 화면 이동
-                context?.showToast(entity.type.toString())
+                HomeLikeActivity.start(
+                    fragment = this@HomeFragment,
+                    sort = entity.sort,
+                    type = entity.type,
+                    title = entity.title,
+                    filter = entity.filter
+                )
             }
-            is  BeerClickEntity.SelectItem -> {
-                DetailActivity.start(this@HomeFragment,entity.beer.id)
+            is BeerClickEntity.SelectItem -> {
+                DetailActivity.start(this@HomeFragment, entity.beer.id)
             }
-            is BeerClickEntity.SelectItem2 -> {
-                DetailActivity.start(this@HomeFragment,entity.beer.id)
+            is BeerClickEntity.SelectBeer -> {
+                DetailActivity.start(this@HomeFragment, entity.beer.id)
             }
         }
     }

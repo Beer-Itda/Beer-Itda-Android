@@ -8,7 +8,8 @@ import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.util.CustomAlertDialog
 import com.ddd4.synesthesia.beer.util.SimpleCallback
 
-class WriteReviewActivity : BaseActivity<ActivityWriteReviewBinding>(R.layout.activity_write_review) {
+class WriteReviewActivity :
+    BaseActivity<ActivityWriteReviewBinding>(R.layout.activity_write_review) {
 
     private val review by lazy { intent.extras?.get(getString(R.string.key_review)) as? String }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +39,7 @@ class WriteReviewActivity : BaseActivity<ActivityWriteReviewBinding>(R.layout.ac
     }
 
     private fun notice() {
-        if(binding.contents == review) {
+        if (binding.contents == review) {
             finish()
         } else {
             CustomAlertDialog(
@@ -47,7 +48,7 @@ class WriteReviewActivity : BaseActivity<ActivityWriteReviewBinding>(R.layout.ac
                 posivie = getString(R.string.yes),
                 negative = getString(R.string.no),
                 result = DialogInterface.OnClickListener { dialog, which -> finish() }
-            ).show(supportFragmentManager,null)
+            ).show(supportFragmentManager, null)
         }
     }
 }

@@ -8,11 +8,11 @@ import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
 typealias LiveHandledData<T> = LiveData<SingleContentEvent<T>>
 typealias MutableLiveHandledData<T> = MutableLiveData<SingleContentEvent<T>>
 
-fun <T> MutableLiveHandledData<T>.setHandledValue(newValue : T) {
+fun <T> MutableLiveHandledData<T>.setHandledValue(newValue: T) {
     value = SingleContentEvent(newValue)
 }
 
-fun <T> MutableLiveHandledData<T>.postHandledValue(newValue : T) {
+fun <T> MutableLiveHandledData<T>.postHandledValue(newValue: T) {
     postValue(SingleContentEvent(newValue))
 }
 

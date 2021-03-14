@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class AppConfig @Inject constructor(
     private val context: Context,
-    private val sharedPreference : SharedPreferenceProvider
+    private val sharedPreference: SharedPreferenceProvider
 ) {
 
 
@@ -21,5 +21,8 @@ class AppConfig @Inject constructor(
 
     var lastVisitTime
         get() = sharedPreference.getPreferenceString(context.resources.getString(R.string.key_last_visit))
-        set(value) = sharedPreference.setPreference(context.resources.getString(R.string.key_last_visit),value)
+        set(value) = sharedPreference.setPreference(
+            context.resources.getString(R.string.key_last_visit),
+            value
+        )
 }

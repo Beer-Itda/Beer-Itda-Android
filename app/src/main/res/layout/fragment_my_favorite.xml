@@ -8,6 +8,7 @@
         <variable
             name="vm"
             type="com.ddd4.synesthesia.beer.presentation.ui.mypage.viewmodel.favorite.MyFavoriteViewModel" />
+
         <variable
             name="adapter"
             type="com.ddd4.synesthesia.beer.presentation.base.recyclerview.BaseRecyclerView.Adapter" />

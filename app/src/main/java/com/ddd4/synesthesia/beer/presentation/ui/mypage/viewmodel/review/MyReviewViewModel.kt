@@ -11,10 +11,10 @@ import kotlinx.coroutines.launch
 
 class MyReviewViewModel @ViewModelInject constructor(
     private val beerRepository: BeerRepository
-): BaseViewModel() {
+) : BaseViewModel() {
 
     private val _myReviews = MutableLiveData<List<Review>>()
-    val myReviews : LiveData<List<Review>> get() = _myReviews
+    val myReviews: LiveData<List<Review>> get() = _myReviews
 
     init {
         review()
@@ -26,6 +26,7 @@ class MyReviewViewModel @ViewModelInject constructor(
             _myReviews.postValue(result.results)
         }
     }
+
     override fun onCleared() {
         super.onCleared()
     }

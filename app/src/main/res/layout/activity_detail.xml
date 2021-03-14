@@ -6,7 +6,8 @@
     <data>
 
         <import type="android.view.View" />
-        <import type="com.ddd4.synesthesia.beer.util.NetworkStatus"/>
+
+        <import type="com.ddd4.synesthesia.beer.util.NetworkStatus" />
 
         <variable
             name="vm"
@@ -56,11 +57,11 @@
             android:onClick="@{() -> vm.clickFavorite()}"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:src="@{vm.beer.isFavorite() ? @drawable/ic_favorite : @drawable/ic_favorite_unactive}"
+            android:src="@{vm.beer.isFavorite() ? @drawable/ic_btn_like : @drawable/ic_btn_like_unactive}"
             app:layout_constraintBottom_toBottomOf="@+id/include_toolbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/include_toolbar"
-            tools:src="@drawable/ic_favorite" />
+            tools:src="@drawable/ic_btn_like" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"

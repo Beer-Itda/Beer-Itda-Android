@@ -5,6 +5,6 @@ import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 
 class MainViewModel @ViewModelInject constructor(
 
-): BaseViewModel() {
+) : BaseViewModel() {
 
 }

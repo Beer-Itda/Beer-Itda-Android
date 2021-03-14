@@ -24,7 +24,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class StarRatingBottomDialog : BaseBottomSheetDialogFragment<LayoutBottomStarRatingBinding>(R.layout.layout_bottom_star_rating) {
+class StarRatingBottomDialog :
+    BaseBottomSheetDialogFragment<LayoutBottomStarRatingBinding>(R.layout.layout_bottom_star_rating) {
 
     private val starRatingViewModel by viewModels<StarRatingViewModel>()
     private val beerInfo by lazy { arguments?.get(getString(R.string.key_beer)) as? Beer }
@@ -66,12 +67,13 @@ class StarRatingBottomDialog : BaseBottomSheetDialogFragment<LayoutBottomStarRat
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val reviewSheetDialog = BottomSheetDialog(requireContext(),theme)
-        reviewSheetDialog.setOnShowListener {  dialog ->
-            (dialog as? BottomSheetDialog)?.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)?.run {
-                BottomSheetBehavior.from(this).state = BottomSheetBehavior.STATE_EXPANDED
-                BottomSheetBehavior.from(this).isHideable = false
-            }
+        val reviewSheetDialog = BottomSheetDialog(requireContext(), theme)
+        reviewSheetDialog.setOnShowListener { dialog ->
+            (dialog as? BottomSheetDialog)?.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
+                ?.run {
+                    BottomSheetBehavior.from(this).state = BottomSheetBehavior.STATE_EXPANDED
+                    BottomSheetBehavior.from(this).isHideable = false
+                }
         }
 
         return reviewSheetDialog
@@ -87,6 +89,7 @@ class StarRatingBottomDialog : BaseBottomSheetDialogFragment<LayoutBottomStarRat
         show(fm, "")
         this@StarRatingBottomDialog.dismiss = dismiss
     }
+
     override fun getTheme(): Int {
         return R.style.BottomSheetDialog
     }
@@ -110,7 +113,7 @@ class StarRatingBottomDialog : BaseBottomSheetDialogFragment<LayoutBottomStarRat
     }
 
     private fun notice() {
-        if(beerInfo?.reviewOwner?.ratio == starRatingViewModel.rating.value && beerInfo?.reviewOwner?.content == starRatingViewModel.review.value) {
+        if (beerInfo?.reviewOwner?.ratio == starRatingViewModel.rating.value && beerInfo?.reviewOwner?.content == starRatingViewModel.review.value) {
             dismiss()
         } else {
             CustomAlertDialog(
@@ -119,7 +122,7 @@ class StarRatingBottomDialog : BaseBottomSheetDialogFragment<LayoutBottomStarRat
                 posivie = getString(R.string.yes),
                 negative = getString(R.string.no),
                 result = DialogInterface.OnClickListener { dialog, which -> dismiss() }
-            ).show(parentFragmentManager,null)
+            ).show(parentFragmentManager, null)
         }
     }
 }

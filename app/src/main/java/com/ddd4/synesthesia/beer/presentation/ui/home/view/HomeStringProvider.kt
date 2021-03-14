@@ -11,13 +11,18 @@ class HomeStringProvider @Inject constructor(
     enum class Code {
         STYLE,
         AROMA,
+        RANDOM,
     }
+
     fun getStringRes(type: Code): String = when (type) {
         Code.STYLE -> {
             stringProvider.getStringRes(R.string.title_like_style)
         }
         Code.AROMA -> {
             stringProvider.getStringRes(R.string.title_like_aroma)
+        }
+        Code.RANDOM -> {
+            stringProvider.getStringRes(R.string.title_like_random)
         }
     }
 }

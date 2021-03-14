@@ -1,4 +1,4 @@
-package com.ddd4.synesthesia.beer.presentation.ui.home.view
+package com.ddd4.synesthesia.beer.presentation.ui.common.sort.view
 
 import android.os.Bundle
 import android.view.View
@@ -9,15 +9,15 @@ import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.LayoutBottomSortBinding
 import com.ddd4.synesthesia.beer.ext.updateTypeface
 import com.ddd4.synesthesia.beer.presentation.base.BaseBottomSheetDialogFragment
-import com.ddd4.synesthesia.beer.presentation.ui.home.viewmodel.HomeSortViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.common.sort.viewmodel.SortViewModel
 import com.ddd4.synesthesia.beer.util.sort.SortType
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeSortDialog
+class SortDialog
     : BaseBottomSheetDialogFragment<LayoutBottomSortBinding>(R.layout.layout_bottom_sort) {
 
-    private val viewModel: HomeSortViewModel by viewModels()
+    private val viewModel: SortViewModel by viewModels()
 
     override fun getTheme(): Int {
         return R.style.BottomSheetDialog

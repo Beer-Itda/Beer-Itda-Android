@@ -1,4 +1,4 @@
-package com.ddd4.synesthesia.beer.presentation.ui.home.viewmodel
+package com.ddd4.synesthesia.beer.presentation.ui.common.filter.viewmodel
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData

@@ -6,13 +6,13 @@ buildscript {
     }
 
     dependencies {
-        classpath ("com.android.tools.build:gradle:${Versions.GRADLE}")
-        classpath ("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.KOTLIN}")
-        classpath ("com.google.dagger:hilt-android-gradle-plugin:${Versions.HILT}")
-        classpath ("androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.NAVIGATION_SAFE_ARGS}")
-        classpath ("com.google.gms:google-services:${Versions.GOOGLE_SERVIER}")
-        classpath ("com.google.firebase:firebase-crashlytics-gradle:${Versions.GOOGLE_CRASHLYTICS}")
-        classpath ("com.google.android.gms:oss-licenses-plugin:${Versions.LICENSES}")
+        classpath("com.android.tools.build:gradle:${Versions.GRADLE}")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.KOTLIN}")
+        classpath("com.google.dagger:hilt-android-gradle-plugin:${Versions.HILT}")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.NAVIGATION_SAFE_ARGS}")
+        classpath("com.google.gms:google-services:${Versions.GOOGLE_SERVIER}")
+        classpath("com.google.firebase:firebase-crashlytics-gradle:${Versions.GOOGLE_CRASHLYTICS}")
+        classpath("com.google.android.gms:oss-licenses-plugin:${Versions.LICENSES}")
     }
 }
 
@@ -25,6 +25,6 @@ allprojects {
     }
 }
 
-tasks.register("clean",Delete::class){
+tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }

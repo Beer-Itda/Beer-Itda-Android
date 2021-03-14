@@ -38,7 +38,8 @@ import com.google.android.material.chip.ChipGroup
 fun makeChips(chipGroup: ChipGroup, flavor: List<String>?) {
     if (flavor == null) return
     chipGroup.removeAllViews()
-    if (flavor.first().isEmpty()) chipGroup.visibility = View.GONE else chipGroup.visibility = View.VISIBLE
+    if (flavor.first().isEmpty()) chipGroup.visibility = View.GONE else chipGroup.visibility =
+        View.VISIBLE
 
     flavor.asSequence().forEach {
         val chip = Chip(chipGroup.context).apply {
@@ -105,15 +106,33 @@ fun decoration(
 }
 
 @BindingAdapter(value = ["horizontal_space", "headTailSpace"])
-fun setHorizontalItemDecoration(recyclerView: RecyclerView, space: Float, headTailSpaceSpace: Float) {
-    if(recyclerView.itemDecorationCount == 0) {
-        recyclerView.addItemDecoration(HorizontalItemSpaceDecoration(space.toInt(), headTailSpaceSpace.toInt()))
+fun setHorizontalItemDecoration(
+    recyclerView: RecyclerView,
+    space: Float,
+    headTailSpaceSpace: Float
+) {
+    if (recyclerView.itemDecorationCount == 0) {
+        recyclerView.addItemDecoration(
+            HorizontalItemSpaceDecoration(
+                space.toInt(),
+                headTailSpaceSpace.toInt()
+            )
+        )
     }
 }
 
 @BindingAdapter(value = ["vertical_space", "topBototmSpace"], requireAll = false)
-fun setVerticalItemDecoration(recyclerView: RecyclerView, space: Float, topBototmSpaceSpace: Float?) {
-    recyclerView.addItemDecoration(VerticalItemSpaceDecoration(space.toInt(), topBototmSpaceSpace?.toInt() ?: 0))
+fun setVerticalItemDecoration(
+    recyclerView: RecyclerView,
+    space: Float,
+    topBototmSpaceSpace: Float?
+) {
+    recyclerView.addItemDecoration(
+        VerticalItemSpaceDecoration(
+            space.toInt(),
+            topBototmSpaceSpace?.toInt() ?: 0
+        )
+    )
 }
 
 @BindingAdapter("app:updateCountText")
@@ -229,28 +248,29 @@ fun margin(
 }
 
 @BindingAdapter(value = ["layoutScrolFlagMode"])
-fun setLayoutScrollFlagMode(view: CollapsingToolbarLayout, isEmpty : Boolean) {
+fun setLayoutScrollFlagMode(view: CollapsingToolbarLayout, isEmpty: Boolean) {
     val params = view.layoutParams as? AppBarLayout.LayoutParams
     val appBarLayoutParams = view.layoutParams
     if (isEmpty) {
         params?.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_NO_SCROLL
         view.layoutParams = appBarLayoutParams
     } else {
-        params?.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
+        params?.scrollFlags =
+            AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
         view.layoutParams = appBarLayoutParams
     }
 }
 
 @BindingAdapter(value = ["throwable"])
-fun View.bindThrowable(entity : ThrowEntity?) {
+fun View.bindThrowable(entity: ThrowEntity?) {
     entity?.run {
         postDelayed({
             context?.showNoticeDialog(message = message, result = {
-                if(isFinish.orFalse()) {
+                if (isFinish.orFalse()) {
                     (context as? Activity)?.finish()
                 }
             })
-        },300)
+        }, 300)
     }
 }
 

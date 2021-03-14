@@ -13,27 +13,32 @@ import com.ddd4.synesthesia.beer.presentation.commom.entity.HandleEvent
 import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
 import javax.inject.Inject
 
-abstract class BaseFragment<B : ViewDataBinding>(private val layoutId : Int) : Fragment(),
+abstract class BaseFragment<B : ViewDataBinding>(private val layoutId: Int) : Fragment(),
     HandleEvent {
 
-    lateinit var binding : B
+    lateinit var binding: B
+
     @Inject
-    lateinit var preference : SharedPreferenceProvider
+    lateinit var preference: SharedPreferenceProvider
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        binding = DataBindingUtil.inflate(inflater,layoutId,container,false)
+        binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         binding.lifecycleOwner = this
         return binding.root
     }
 
-    protected open fun initBind() { }
-    protected open fun initObserver() { }
+    protected open fun initBind() {}
+    protected open fun initObserver() {}
 
-    override fun handleSelectEvent(entity: ItemClickEntity) { }
-    override fun handleActionEvent(entity: ActionEntity) { }
+    override fun handleSelectEvent(entity: ItemClickEntity) {}
+    override fun handleActionEvent(entity: ActionEntity) {}
 }

@@ -12,7 +12,8 @@ import com.ddd4.synesthesia.beer.util.CustomAlertDialog
 import com.ddd4.synesthesia.beer.util.KeyStringConst
 import com.ddd4.synesthesia.beer.util.SimpleCallback
 
-class WriteNickNameActivity : BaseActivity<ActivityWriteNicknameBinding>(R.layout.activity_write_nickname) {
+class WriteNickNameActivity :
+    BaseActivity<ActivityWriteNicknameBinding>(R.layout.activity_write_nickname) {
 
     private val nickName by lazy { intent.extras?.getString(KEY_NICKNAME) }
 
@@ -44,7 +45,7 @@ class WriteNickNameActivity : BaseActivity<ActivityWriteNicknameBinding>(R.layou
     }
 
     private fun notice() {
-        if(binding.contents == nickName) {
+        if (binding.contents == nickName) {
             finish()
         } else {
             CustomAlertDialog(
@@ -53,12 +54,13 @@ class WriteNickNameActivity : BaseActivity<ActivityWriteNicknameBinding>(R.layou
                 posivie = getString(R.string.yes),
                 negative = getString(R.string.no),
                 result = DialogInterface.OnClickListener { dialog, which -> finish() }
-            ).show(supportFragmentManager,null)
+            ).show(supportFragmentManager, null)
         }
     }
 
     companion object {
         const val KEY_NICKNAME = "nickname"
+
         @JvmStatic
         fun start(context: Context, nickname: String) {
             context.startActivity(Intent(context, WriteNickNameActivity::class.java).apply {

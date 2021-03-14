@@ -1,20 +1,25 @@
 package com.ddd4.synesthesia.beer.util
+
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
-abstract class EndlessRecyclerViewScrollListener(private val layoutManager: RecyclerView.LayoutManager? = null) :
+abstract class EndlessRecyclerViewScrollListener(private val layoutManager: RecyclerView.LayoutManager?) :
     RecyclerView.OnScrollListener() {
     // The minimum amount of items to have below your current scroll position
     // before loading more.
     private var visibleThreshold = 3
+
     // The current offset index of data you have loaded
     private var currentPage = 0
+
     // The total number of items in the dataset after the last load
     private var previousTotalItemCount = 0
+
     // True if we are still waiting for the last set of data to load.
     private var loading = true
+
     // Sets the starting page index
     private val startingPageIndex = 0
 
@@ -106,7 +111,7 @@ abstract class EndlessRecyclerViewScrollListener(private val layoutManager: Recy
         this.loading = true
     }
 
-    private fun scrollLog(msg : Any) {
+    private fun scrollLog(msg: Any) {
 //        Log.i("beerL","scrollLog : ${msg}")
     }
 

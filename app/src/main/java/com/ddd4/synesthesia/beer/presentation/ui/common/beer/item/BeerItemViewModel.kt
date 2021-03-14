@@ -6,7 +6,6 @@ import com.ddd4.synesthesia.beer.data.model.Review
 import com.ddd4.synesthesia.beer.ext.toggle
 import com.ddd4.synesthesia.beer.presentation.base.event.SelectEventNotifier
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
-import com.ddd4.synesthesia.beer.presentation.ui.home.item.child.IHomeItemChildViewModel
 
 class BeerItemViewModel(
     val abv: Float,
@@ -29,7 +28,7 @@ class BeerItemViewModel(
     val reviewOwnerRatio: Float,
     val reviewOwnerUserId: Int,
     initFavorite: Boolean
-) : IHomeItemChildViewModel {
+) {
     var isFavorite: ObservableBoolean = ObservableBoolean(initFavorite)
     var eventNotifier: SelectEventNotifier? = null
 
@@ -38,7 +37,7 @@ class BeerItemViewModel(
     }
 
     fun clickItem() {
-        eventNotifier?.notifySelectEvent(BeerClickEntity.SelectItem2(this))
+        eventNotifier?.notifySelectEvent(BeerClickEntity.SelectBeer(this))
     }
 
     fun clickFavorite() {

@@ -80,7 +80,7 @@
             app:layout_constraintTop_toTopOf="@+id/tv_name"
             app:layout_constraintBottom_toBottomOf="@+id/tv_name"
             app:layout_constraintStart_toEndOf="@+id/tv_name"
-            app:layout_constraintEnd_toEndOf="@+id/iv_profile"/>
+            app:layout_constraintEnd_toEndOf="@+id/iv_profile" />
 
         <ImageView
             android:id="@+id/iv_modify"

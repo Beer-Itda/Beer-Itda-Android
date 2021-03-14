@@ -22,8 +22,8 @@ interface BeerApi {
         @Query("country") country: List<String>?,
         @Query("min_abv") minAbv: Int?,
         @Query("max_abv") maxAbv: Int?,
-        @Query("cursor") nextCursor : Int? = 0,
-        @Query("max_count") maxCount : Int? = 10
+        @Query("cursor") nextCursor: Int? = 0,
+        @Query("max_count") maxCount: Int? = 10
     ): Result<Response>?
 
     /**
@@ -31,9 +31,9 @@ interface BeerApi {
      */
     @GET("api/beers")
     suspend fun getSearchBeer(
-        @Query("name") name : String,
-        @Query("cursor") nextCursor : Int?
-    ) : Result<Response>?
+        @Query("name") name: String,
+        @Query("cursor") nextCursor: Int?
+    ): Result<Response>?
 
     /**
      * 맥주 상세
@@ -73,7 +73,7 @@ interface BeerApi {
      * 리뷰
      */
     @GET("api/review")
-    suspend fun getReview() : Results<Review>
+    suspend fun getReview(): Results<Review>
 
     /**
      * 즐겨찾기 등록/삭제
@@ -81,14 +81,14 @@ interface BeerApi {
     @FormUrlEncoded
     @POST("api/favorite")
     suspend fun postFavorite(
-        @Field("beer_id") id : Int,
-        @Field("flag") flag : Boolean
+        @Field("beer_id") id: Int,
+        @Field("flag") flag: Boolean
     )
 
     /**
      * 내가 즐겨찾기한 맥주 리스트
      */
     @GET("api/favorite")
-    suspend fun getFavorite() : Results<Response>
+    suspend fun getFavorite(): Results<Response>
 
 }

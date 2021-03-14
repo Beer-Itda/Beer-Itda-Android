@@ -49,7 +49,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
             }
 
             rbBeerRate.setOnTouchListener { v, event ->
-                when(event.action) {
+                when (event.action) {
                     MotionEvent.ACTION_UP -> {
                         showStarRatingView()
                     }
@@ -75,12 +75,15 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
     }
 
     override fun handleSelectEvent(entity: ItemClickEntity) {
-        when(entity) {
+        when (entity) {
             is RelatedClickEntity.SelectItem -> {
-                start(this@DetailActivity,entity.beer.id)
+                start(this@DetailActivity, entity.beer.id)
             }
             is DetailItemSelectEntity.ReviewAll -> {
-                ReviewAllActivity.start(this@DetailActivity,detailViewModel.beer.value?.reviews?.toTypedArray())
+                ReviewAllActivity.start(
+                    this@DetailActivity,
+                    detailViewModel.beer.value?.reviews?.toTypedArray()
+                )
             }
             is DetailItemSelectEntity.StarRate -> {
                 showStarRatingView()
@@ -91,7 +94,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
     private fun showStarRatingView() {
         StarRatingBottomDialog().run {
             val bundle = Bundle()
-            bundle.putParcelable("beer",detailViewModel.beer.value)
+            bundle.putParcelable("beer", detailViewModel.beer.value)
             this@run.arguments = bundle
             showDialog(this@DetailActivity.supportFragmentManager) {
                 detailViewModel.load()
@@ -104,12 +107,17 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
         const val REQ_CODE_DETAIL = 10
 
         @JvmStatic
-        fun start(context : Context, beerId: Int, requestCode : Int = REQ_CODE_DETAIL) {
-            when(context) {
+        fun start(context: Context, beerId: Int, requestCode: Int = REQ_CODE_DETAIL) {
+            when (context) {
                 is Activity -> {
-                    context.startActivityForResult(Intent(context, DetailActivity::class.java).apply {
-                        putExtra(KEY_BEER_ID, beerId)
-                    }, requestCode)
+                    context.startActivityForResult(
+                        Intent(
+                            context,
+                            DetailActivity::class.java
+                        ).apply {
+                            putExtra(KEY_BEER_ID, beerId)
+                        }, requestCode
+                    )
                 }
                 else -> {
                     context.startActivity(Intent(context, DetailActivity::class.java).apply {
@@ -120,10 +128,15 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
         }
 
         @JvmStatic
-        fun start(fragment : Fragment, beerId: Int, requestCode : Int = REQ_CODE_DETAIL) {
-            fragment.startActivityForResult(Intent(fragment.context, DetailActivity::class.java).apply {
-                putExtra(KEY_BEER_ID, beerId)
-            }, requestCode)
+        fun start(fragment: Fragment, beerId: Int, requestCode: Int = REQ_CODE_DETAIL) {
+            fragment.startActivityForResult(
+                Intent(
+                    fragment.context,
+                    DetailActivity::class.java
+                ).apply {
+                    putExtra(KEY_BEER_ID, beerId)
+                }, requestCode
+            )
         }
     }
 }

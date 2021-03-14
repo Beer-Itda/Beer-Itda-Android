@@ -31,7 +31,7 @@ class ItemsAdapter(
         super.onBindViewHolder(holder, position)
     }
 
-    fun addItems(items : List<Any>) {
+    fun addItems(items: List<Any>) {
 
     }
 }

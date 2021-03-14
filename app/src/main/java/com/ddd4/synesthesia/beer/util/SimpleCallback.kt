@@ -2,7 +2,8 @@ package com.ddd4.synesthesia.beer.util
 
 interface SimpleCallback {
     companion object {
-        var callback : SimpleCallback? = null
+        var callback: SimpleCallback? = null
     }
-    fun call(text : String)
+
+    fun call(text: String)
 }

@@ -18,7 +18,7 @@ class BaseRecyclerView {
         private var list = listItem
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder<B> =
-            object : ViewHolder<B>(layoutId, parent, bindingVariableId) { }
+            object : ViewHolder<B>(layoutId, parent, bindingVariableId) {}
 
         override fun getItemCount(): Int = list.size
         override fun onBindViewHolder(holder: ViewHolder<B>, position: Int) =
@@ -38,7 +38,7 @@ class BaseRecyclerView {
                 layoutId,
                 parent,
                 bindingVariableId
-            ) { }
+            ) {}
         }
 
         override fun getItemCount(): Int = list.size
@@ -57,7 +57,7 @@ class BaseRecyclerView {
     class LoadingViewHolder<B : ViewDataBinding>(
         private val layoutId: Int,
         private val parent: ViewGroup
-    ) : ViewHolder<B>(layoutId,parent,null) {
+    ) : ViewHolder<B>(layoutId, parent, null) {
 
     }
 

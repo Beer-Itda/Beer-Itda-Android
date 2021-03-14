@@ -7,13 +7,13 @@ import com.ddd4.synesthesia.beer.presentation.base.recyclerview2.BaseBindingView
 import com.ddd4.synesthesia.beer.presentation.ui.home.item.HomeViewHolder
 import com.ddd4.synesthesia.beer.presentation.ui.home.item.IHomeItemViewModel
 
-class HomeListAdapter : BaseBindableAdapter<HomeViewType,IHomeItemViewModel>() {
+class HomeListAdapter : BaseBindableAdapter<HomeViewType, IHomeItemViewModel>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): BaseBindingViewHolder<IHomeItemViewModel, ViewDataBinding> {
-        return HomeViewHolder.getViewHolder(parent,HomeViewType.values()[viewType])
+        return HomeViewHolder.getViewHolder(parent, HomeViewType.values()[viewType])
     }
 }
 

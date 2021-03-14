@@ -10,5 +10,4 @@
     android:textColor="@color/white"
     android:textAlignment="center"
     android:fontFamily="@font/notosans_kr_medium"
-    tools:text="Chip"
-    />
+    tools:text="Chip" />

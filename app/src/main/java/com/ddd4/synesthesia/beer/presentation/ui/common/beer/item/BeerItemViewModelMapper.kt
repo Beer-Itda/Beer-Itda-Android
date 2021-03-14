@@ -7,7 +7,7 @@ import com.ddd4.synesthesia.beer.presentation.base.event.SelectActionEventNotifi
 
 object BeerItemViewModelMapper {
 
-    fun getMapper(beer: Beer,eventNotifier: SelectActionEventNotifier): BeerItemViewModel {
+    fun getMapper(beer: Beer, eventNotifier: SelectActionEventNotifier): BeerItemViewModel {
         return BeerItemViewModel(
             abv = beer.abv.orZero(),
             aromas = beer.aromas.orEmpty(),

@@ -27,9 +27,9 @@ class StarRatingViewModel @ViewModelInject constructor(
         Timber.e(throwable)
     }
 
-    fun postReview(id : Int) {
+    fun postReview(id: Int) {
         viewModelScope.launch(handler) {
-            beerRepository.postReview(id,rating.value ?: 0.5f, review.value ?: "")
+            beerRepository.postReview(id, rating.value ?: 0.5f, review.value ?: "")
             register.call()
         }
     }

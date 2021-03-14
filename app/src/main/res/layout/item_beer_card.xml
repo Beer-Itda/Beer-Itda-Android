@@ -10,25 +10,30 @@
             type="com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="@{() -> beer.clickItem()}">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_beer"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:elevation="50dp"
-            app:cardCornerRadius="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_beer"
+        android:layout_width="120dp"
+        android:layout_height="210dp"
+        android:background="@color/color_1c1b21"
+        android:elevation="50dp"
+        android:onClick="@{() -> beer.clickItem()}"
+        app:cardCornerRadius="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_marginHorizontal="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/iv_beer"
-                android:layout_width="140dp"
-                android:layout_height="140dp"
+                android:layout_width="62dp"
+                android:layout_height="112dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="12dp"
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
                 app:errorDrawable="@{@drawable/beer}"
@@ -37,42 +42,56 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:loadUrl="@{beer.thumbnailImage}"
                 tools:src="@drawable/beer" />
-        </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:id="@+id/iv_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="12dp"
+                android:onClick="@{() -> beer.clickFavorite()}"
+                android:src="@{beer.isFavorite() ? @drawable/ic_btn_like : @drawable/ic_btn_like_unactive}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_btn_like" />
 
 
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:ellipsize="end"
-            android:fontFamily="@font/notosans_kr_regular"
-            android:singleLine="true"
-            android:text="@{beer.name}"
-            app:layout_constraintEnd_toStartOf="@+id/tv_beer_rate"
-            app:layout_constraintStart_toStartOf="@+id/cv_beer"
-            app:layout_constraintTop_toBottomOf="@+id/cv_beer"
-            tools:text="한강맥주"
-            tools:textColor="@color/black" />
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/notosans_kr_regular"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@{beer.name}"
+                app:layout_constraintBottom_toTopOf="@+id/tv_beer_rate"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_beer"
+                tools:text="한강맥주"
+                tools:textColor="@color/black" />
 
 
-        <TextView
-            android:id="@+id/tv_beer_rate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:drawableStart="@drawable/ic_rating_star"
-            android:drawablePadding="4dp"
-            android:fontFamily="@font/notosans_kr_bold"
-            android:gravity="center"
-            android:text="@{@string/rate_unit(beer.rateAvg)}"
-            android:textColor="@color/butterscotch"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_name"
-            app:layout_constraintEnd_toEndOf="@+id/cv_beer"
-            app:layout_constraintStart_toEndOf="@+id/tv_name"
-            app:layout_constraintTop_toTopOf="@+id/tv_name"
-            tools:text="3.5점" />
+            <TextView
+                android:id="@+id/tv_beer_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_rating_star"
+                android:drawablePadding="4dp"
+                android:fontFamily="@font/notosans_kr_bold"
+                android:text="@{@string/rate_unit(beer.rateAvg)}"
+                android:textColor="@color/butterscotch"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/iv_beer"
+                app:layout_constraintStart_toStartOf="@+id/iv_beer"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                tools:text="3.5점" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
 </layout>

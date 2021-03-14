@@ -9,15 +9,16 @@ import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewMo
 
 class HomeItemViewHolder(
     itemView: View
-) : HomeViewChildHolder<BeerItemViewModel, ItemBeerCardBinding>(itemView) {
+) : HomeViewChildHolder<HomeBeerChildItemViewModel, ItemBeerCardBinding>(itemView) {
 
     companion object {
-        fun newInstance(parent: ViewGroup) = HomeItemViewHolder(parent.createView(R.layout.item_beer_card))
+        fun newInstance(parent: ViewGroup) =
+            HomeItemViewHolder(parent.createView(R.layout.item_beer_card))
     }
 
-    override fun onBind(viewModel: BeerItemViewModel, position: Int) {
+    override fun onBind(viewModel: HomeBeerChildItemViewModel, position: Int) {
         binding?.run {
-            beer = viewModel
+            beer = viewModel.data
             executePendingBindings()
         }
     }

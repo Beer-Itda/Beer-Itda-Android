@@ -31,7 +31,7 @@ class MyFavoriteFragment : BaseFragment<FragmentMyFavoriteBinding>(R.layout.frag
     override fun initBind() {
         binding.apply {
             vm = viewModel
-            adapter = ItemsAdapter(R.layout.item_my_favorite,BR.beer)
+            adapter = ItemsAdapter(R.layout.item_my_favorite, BR.beer)
             includeToolbar.toolbar.setNavigationOnClickListener {
                 findNavController().popBackStack()
             }
@@ -48,7 +48,7 @@ class MyFavoriteFragment : BaseFragment<FragmentMyFavoriteBinding>(R.layout.frag
     }
 
     override fun handleSelectEvent(entity: ItemClickEntity) {
-        when(entity) {
+        when (entity) {
             is BeerClickEntity.SelectItem -> {
                 DetailActivity.start(this@MyFavoriteFragment, entity.beer.id)
             }

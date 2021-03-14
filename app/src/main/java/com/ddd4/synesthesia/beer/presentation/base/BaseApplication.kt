@@ -18,7 +18,7 @@ class BaseApplication : Application() {
         super.onCreate()
         FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG)
         // SDK 초기화 V2
-        KakaoSdk.init(this@BaseApplication,getString(R.string.kakao))
+        KakaoSdk.init(this@BaseApplication, getString(R.string.kakao))
 
         // Timber 로그 초기화
         if (BuildConfig.DEBUG) {

@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
 
         <variable
             name="review"
@@ -21,9 +21,9 @@
             android:id="@+id/include_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:item="@{review.beer}"
+            app:beer="@{review.beer}"
             app:createAt="@{review.createdAt}"
-            layout="@layout/item_home"/>
+            layout="@layout/item_home" />
 
         <TextView
             android:layout_width="0dp"
@@ -33,7 +33,7 @@
             tools:text="아 맥주.. 제 인생 맥주입니다 ㅠㅠ 너무 맛있어요ㅠㅠㅠ 저는 과일향 나는, 가볍게 마실 수 있는 맥주를 선호하는데, 그런저에게 딱인 것 같습니다! 상큼한 향이 너무 좋았어요"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_home"/>
+            app:layout_constraintTop_toBottomOf="@+id/include_home" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

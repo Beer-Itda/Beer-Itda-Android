@@ -15,7 +15,11 @@ class BeerRepositoryImpl @Inject constructor(
         return beerApi.getAppConfig()
     }
 
-    override suspend fun getBeerList(sortType: String?, filter: BeerFilter?, cursor : Int?): Response? {
+    override suspend fun getBeerList(
+        sortType: String?,
+        filter: BeerFilter?,
+        cursor: Int?
+    ): Response? {
         return beerApi.getBeerList(
             sortType,
             filter?.styleFilter,
@@ -33,7 +37,8 @@ class BeerRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getSearch(name: String, cursor: Int?): Result<Response>? = beerApi.getSearchBeer(name,cursor)
+    override suspend fun getSearch(name: String, cursor: Int?): Result<Response>? =
+        beerApi.getSearchBeer(name, cursor)
 
     override suspend fun getUserInfo(): User? {
         return beerApi.getUserInfo()?.result?.let {
@@ -49,7 +54,7 @@ class BeerRepositoryImpl @Inject constructor(
         return beerApi.postReview(id, rating, review)
     }
 
-    override suspend fun getReview() : Results<Review> {
+    override suspend fun getReview(): Results<Review> {
         return beerApi.getReview()
     }
 
@@ -57,7 +62,7 @@ class BeerRepositoryImpl @Inject constructor(
         return beerApi.getFavorite()
     }
 
-    override suspend fun postFavorite(beerId: Int, isFavorite : Boolean) {
-        return beerApi.postFavorite(beerId,isFavorite)
+    override suspend fun postFavorite(beerId: Int, isFavorite: Boolean) {
+        return beerApi.postFavorite(beerId, isFavorite)
     }
 }

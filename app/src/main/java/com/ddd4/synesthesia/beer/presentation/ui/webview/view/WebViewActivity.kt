@@ -9,11 +9,12 @@ import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_webview.*
 
 
-class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_webview){
+class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_webview) {
 
     companion object {
         const val WEBVIEW_URL = "webview_url"
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initBind()
@@ -41,9 +42,13 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_w
     }
 
     override fun onBackPressed() {
-        when(binding.webview.canGoBack()) {
-            true -> { webview.goBack() }
-            false -> { finish() }
+        when (binding.webview.canGoBack()) {
+            true -> {
+                webview.goBack()
+            }
+            false -> {
+                finish()
+            }
         }
     }
 }

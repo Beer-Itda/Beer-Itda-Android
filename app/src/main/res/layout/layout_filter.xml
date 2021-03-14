@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.ddd4.synesthesia.beer.presentation.ui.home.viewmodel.FilterViewModel" />
+            type="com.ddd4.synesthesia.beer.presentation.ui.common.filter.viewmodel.FilterViewModel" />
 
         <variable
             name="adapter"

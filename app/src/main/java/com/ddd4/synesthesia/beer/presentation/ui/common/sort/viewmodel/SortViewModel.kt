@@ -1,4 +1,4 @@
-package com.ddd4.synesthesia.beer.presentation.ui.home.viewmodel
+package com.ddd4.synesthesia.beer.presentation.ui.common.sort.viewmodel
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -7,7 +7,7 @@ import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.util.sort.SortSetting
 import com.ddd4.synesthesia.beer.util.sort.SortType
 
-class HomeSortViewModel @ViewModelInject constructor(
+class SortViewModel @ViewModelInject constructor(
     private val sortSetting: SortSetting
 ) : BaseViewModel() {
 
