@@ -73,6 +73,7 @@
             app:layout_constraintTop_toBottomOf="@+id/edt_nickname" />
 
         <TextView
+            android:id="@+id/tv_max_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{@string/max_text_length(contents.length())}"
@@ -84,17 +85,29 @@
             app:layout_constraintTop_toBottomOf="@+id/under_line" />
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/min_text_length}"
+            tools:text="최소 2자 이상 입력해주세요."
+            android:textColor="@{2 > contents.length() ? @color/red : @color/white}"
+            android:visibility="@{2 > contents.length() ? View.VISIBLE : View.GONE}"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/edt_nickname"
+            app:layout_constraintEnd_toEndOf="@+id/edt_nickname"
+            app:layout_constraintTop_toBottomOf="@+id/tv_max_text" />
+
+        <TextView
             android:id="@+id/btn_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/black"
-            android:clickable="@{TextUtils.isEmpty(contents) ? false : true}"
-            android:focusable="@{TextUtils.isEmpty(contents) ? false : true}"
+            android:clickable="@{contents.length() >= 2 ? true : false}"
+            android:focusable="@{contents.length() >= 2 ? true : false}"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:paddingVertical="22dp"
             android:text="@string/save"
-            android:textColor="@{TextUtils.isEmpty(contents) ? @color/color_8e8f93 : @color/butterscotch}"
+            android:textColor="@{contents.length() >= 2 ? @color/butterscotch : @color/color_8e8f93}"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
