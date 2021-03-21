@@ -7,6 +7,8 @@ import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.data.source.remote.service.BeerApi
 import com.ddd4.synesthesia.beer.data.source.remote.service.KakaoApi
 import com.ddd4.synesthesia.beer.data.source.remote.service.KakaoAuthApi
+import com.ddd4.synesthesia.beer.util.AppConfig
+import com.ddd4.synesthesia.beer.util.Consts
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -87,11 +89,13 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOtherOkHttpClient(application: Application): OkHttpClient {
+    fun provideOtherOkHttpClient(application: Application, appConfig: AppConfig): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(Interceptor.invoke {
                 it.run {
                     val request = request().newBuilder()
+                        .addHeader("platform", Consts.PLATFORM)
+                        .addHeader("version", appConfig.version)
                         .addHeader(
                             "Authorization",
                             application.getSharedPreferences("BEER", MODE_PRIVATE)
@@ -114,11 +118,11 @@ object NetworkModule {
     @Provides
     @Singleton
     @Named("beer")
-    fun provideRetrofit(application: Application): Retrofit {
+    fun provideRetrofit(application: Application, appConfig: AppConfig): Retrofit {
         return Retrofit.Builder()
             .baseUrl(application.getString(R.string.base_url))
             .addConverterFactory(GsonConverterFactory.create())
-            .client(provideOtherOkHttpClient(application))
+            .client(provideOtherOkHttpClient(application, appConfig))
             .build()
     }
 

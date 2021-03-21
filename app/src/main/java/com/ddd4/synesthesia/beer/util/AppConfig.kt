@@ -16,7 +16,7 @@ class AppConfig @Inject constructor(
         get() = try {
             context.packageManager.getPackageInfo(context.packageName, 0).versionName
         } catch (e: PackageManager.NameNotFoundException) {
-            null
+            ""
         }
 
     var lastVisitTime
