@@ -91,7 +91,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:loadUrl="@{vm.beer.imageUrl.size() > 0 ? vm.beer.imageUrl.get(0) : null}"
+                    app:loadUrl="@{vm.beer.thumbnailImage}"
                     tools:src="@drawable/beer" />
 
                 <TextView

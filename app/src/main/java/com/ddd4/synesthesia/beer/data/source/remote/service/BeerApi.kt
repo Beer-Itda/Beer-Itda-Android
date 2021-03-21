@@ -91,4 +91,11 @@ interface BeerApi {
     @GET("api/favorite")
     suspend fun getFavorite(): Results<Response>
 
+    /**
+     * 내가 즐겨찾기한 맥주 리스트
+     */
+    @GET("api/popular-beers")
+    suspend fun getPopularBeer(): Result<Response>
+
+
 }

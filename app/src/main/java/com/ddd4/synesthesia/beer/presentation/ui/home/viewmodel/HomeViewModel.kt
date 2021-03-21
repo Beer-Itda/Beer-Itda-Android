@@ -22,7 +22,10 @@ import com.ddd4.synesthesia.beer.presentation.ui.common.filter.BeerFilter
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FilterSetting
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.orEmpty
 import com.ddd4.synesthesia.beer.presentation.ui.home.item.IHomeItemViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.home.item.child.HomeBeerChildItemViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.home.item.parent.award.BeerAwardItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.home.item.parent.award.BeerAwardModelMapper
+import com.ddd4.synesthesia.beer.presentation.ui.home.item.parent.list.BeerListItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.home.item.parent.list.BeerListModelMapper.getMapper
 import com.ddd4.synesthesia.beer.presentation.ui.home.view.HomeStringProvider
 import com.ddd4.synesthesia.beer.util.sort.SortSetting
@@ -166,76 +169,89 @@ class HomeViewModel @ViewModelInject constructor(
             statusLoading()
         }
         viewModelScope.launch {
-            val response = beerRepository.getBeerList(
-                sortType = _sortType.value?.value,
-                filter = null,
-                cursor = cursor.value
-            )?.beers.orEmpty().getMapper(
+            val awardBeer = fetchAward()
+            val styleBeer = fetchStyle()
+            val aromaBeer = fetchAroma()
+            val recommandBeer = fetchRecommand()
+
+            beers.clear()
+            beers.add(awardBeer)
+            if (!styleBeer.beers.isNullOrEmpty()) {
+                beers.add(styleBeer)
+            }
+            if (!aromaBeer.beers.isNullOrEmpty()) {
+                beers.add(aromaBeer)
+            }
+            if (!recommandBeer.beers.isNullOrEmpty()) {
+                beers.add(recommandBeer)
+            }
+            notifyActionEvent(HomeActionEntity.UpdateList(beers))
+            statusSuccess()
+            _isRefresh.value = false
+        }
+    }
+
+    private suspend fun fetchAward(): BeerAwardItemViewModel {
+        val awardResponse = beerRepository.getPopularBeer()?.beers
+            .orEmpty()
+            .getMapper(
                 sortType = _sortType.value,
                 type = HomeStringProvider.Code.STYLE,
                 filter = _beerFilter.value.orEmpty(),
                 title = stringProvider.getStringRes(HomeStringProvider.Code.STYLE),
                 eventNotifier = this@HomeViewModel
             )
+        val randomIndex = Random.nextInt(awardResponse.beers.size)
+        return awardResponse.beers[randomIndex]
+            .let {
+                BeerAwardModelMapper.getMapper(
+                    it.data.apply {
+                        eventNotifier = this@HomeViewModel
+                    })
+            }
+    }
 
-            val randomIndex = Random.nextInt(response.beers.size)
-            val awardBeer = BeerAwardModelMapper.getMapper(response.beers[randomIndex].data)
-
-            val styleBeers = beerRepository.getBeerList(
-                sortType = _sortType.value?.value,
-                filter = BeerFilter(styleFilter = _beerFilter.value?.styleFilter),
-                cursor = cursor.value
-            )?.beers.orEmpty()
-                .getMapper(
-                    sortType = _sortType.value,
-                    type = HomeStringProvider.Code.STYLE,
-                    filter = _beerFilter.value.orEmpty(),
-                    title = stringProvider.getStringRes(HomeStringProvider.Code.STYLE),
-                    eventNotifier = this@HomeViewModel
-                )
-
-            val aromaBeers = beerRepository.getBeerList(
-                sortType = _sortType.value?.value,
-                filter = BeerFilter(aromaFilter = _beerFilter.value?.aromaFilter),
-                cursor = cursor.value
-            )?.beers.orEmpty().getMapper(
+    private suspend fun fetchStyle(): BeerListItemViewModel {
+        return beerRepository.getBeerList(
+            sortType = _sortType.value?.value,
+            filter = BeerFilter(styleFilter = _beerFilter.value?.styleFilter),
+            cursor = cursor.value
+        )?.beers.orEmpty()
+            .getMapper(
                 sortType = _sortType.value,
-                type = HomeStringProvider.Code.AROMA,
+                type = HomeStringProvider.Code.STYLE,
                 filter = _beerFilter.value.orEmpty(),
-                title = stringProvider.getStringRes(HomeStringProvider.Code.AROMA),
+                title = stringProvider.getStringRes(HomeStringProvider.Code.STYLE),
                 eventNotifier = this@HomeViewModel
             )
+    }
 
-            val randomBeers = beerRepository.getBeerList(
-                sortType = _sortType.value?.value,
-                filter = null,
-                cursor = cursor.value
-            )?.beers.orEmpty().getMapper(
-                sortType = _sortType.value,
-                type = HomeStringProvider.Code.RANDOM,
-                filter = _beerFilter.value.orEmpty(),
-                title = stringProvider.getStringRes(HomeStringProvider.Code.RANDOM),
-                eventNotifier = this@HomeViewModel
-            )
+    private suspend fun fetchAroma(): BeerListItemViewModel {
+        return beerRepository.getBeerList(
+            sortType = _sortType.value?.value,
+            filter = BeerFilter(aromaFilter = _beerFilter.value?.aromaFilter),
+            cursor = cursor.value
+        )?.beers.orEmpty().getMapper(
+            sortType = _sortType.value,
+            type = HomeStringProvider.Code.AROMA,
+            filter = _beerFilter.value.orEmpty(),
+            title = stringProvider.getStringRes(HomeStringProvider.Code.AROMA),
+            eventNotifier = this@HomeViewModel
+        )
+    }
 
-//            val randomIndex = if(styleBeers.beer.isEmpty()) 0 else Random.nextInt(styleBeers.beer.size)
-//            val awardBeer = BeerAwardModelMapper.getMapper(styleBeers.beer[randomIndex])
-
-            beers.clear()
-            beers.add(awardBeer)
-            if (!styleBeers.beers.isNullOrEmpty()) {
-                beers.add(styleBeers)
-            }
-            if (!aromaBeers.beers.isNullOrEmpty()) {
-                beers.add(aromaBeers)
-            }
-            if (!aromaBeers.beers.isNullOrEmpty()) {
-                beers.add(randomBeers)
-            }
-            notifyActionEvent(HomeActionEntity.UpdateList(beers))
-            statusSuccess()
-            _isRefresh.value = false
-        }
+    private suspend fun fetchRecommand(): BeerListItemViewModel {
+        return beerRepository.getBeerList(
+            sortType = _sortType.value?.value,
+            filter = null,
+            cursor = cursor.value
+        )?.beers.orEmpty().getMapper(
+            sortType = _sortType.value,
+            type = HomeStringProvider.Code.RANDOM,
+            filter = _beerFilter.value.orEmpty(),
+            title = stringProvider.getStringRes(HomeStringProvider.Code.RANDOM),
+            eventNotifier = this@HomeViewModel
+        )
     }
 
     fun loadMore2() {

@@ -37,6 +37,10 @@ class BeerRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getPopularBeer(): Response? {
+        return beerApi.getPopularBeer().result
+    }
+
     override suspend fun getSearch(name: String, cursor: Int?): Result<Response>? =
         beerApi.getSearchBeer(name, cursor)
 

@@ -43,6 +43,7 @@
             android:layout_marginVertical="18dp"
             android:elevation="50dp"
             app:cardCornerRadius="30dp"
+            android:onClick="@{() -> beer.clickItem()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

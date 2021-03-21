@@ -6,6 +6,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.common.filter.BeerFilter
 interface BeerRepository {
     suspend fun getAppConfig(): Result<AppConfig>
     suspend fun getBeerList(sortType: String?, filter: BeerFilter?, cursor: Int?): Response?
+    suspend fun getPopularBeer(): Response?
     suspend fun getUserInfo(): User?
     suspend fun postUserInfo(nickName: String?)
     suspend fun getBeer(id: Int): Response?
