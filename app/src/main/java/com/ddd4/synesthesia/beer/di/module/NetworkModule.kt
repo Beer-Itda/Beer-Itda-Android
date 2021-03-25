@@ -94,8 +94,8 @@ object NetworkModule {
             .addInterceptor(Interceptor.invoke {
                 it.run {
                     val request = request().newBuilder()
-                        .addHeader("platform", Consts.PLATFORM)
-                        .addHeader("version", appConfig.version)
+                        .addHeader("Platform", Consts.PLATFORM)
+                        .addHeader("AppVersion", appConfig.version)
                         .addHeader(
                             "Authorization",
                             application.getSharedPreferences("BEER", MODE_PRIVATE)
