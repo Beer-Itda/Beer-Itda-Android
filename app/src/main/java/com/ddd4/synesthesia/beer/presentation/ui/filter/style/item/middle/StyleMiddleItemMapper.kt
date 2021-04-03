@@ -1,9 +1,9 @@
-package com.ddd4.synesthesia.beer.presentation.ui.filter.item.middle
+package com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle
 
 import com.ddd4.synesthesia.beer.data.model.filter.BeerMiddleType
 import com.ddd4.synesthesia.beer.data.model.filter.StyleList
 import com.ddd4.synesthesia.beer.presentation.base.event.SelectActionEventNotifier
-import com.ddd4.synesthesia.beer.presentation.ui.filter.item.small.StyleSmallItemMapper
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small.StyleSmallItemMapper
 
 object StyleMiddleItemMapper {
 

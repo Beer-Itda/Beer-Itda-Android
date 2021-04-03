@@ -1,12 +1,12 @@
-package com.ddd4.synesthesia.beer.presentation.ui.filter.view.adapter
+package com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.adapter
 
 import android.view.View
 import androidx.databinding.ViewDataBinding
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.presentation.base.recyclerview2.BaseBindingViewHolder
 import com.ddd4.synesthesia.beer.presentation.base.recyclerview2.SimpleBindingListAdapter
-import com.ddd4.synesthesia.beer.presentation.ui.filter.item.middle.StyleMiddleItemViewHolder
-import com.ddd4.synesthesia.beer.presentation.ui.filter.item.middle.StyleMiddleItemViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleMiddleItemViewHolder
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleMiddleItemViewModel
 
 class StyleMiddleListAdapter :
     SimpleBindingListAdapter<StyleMiddleItemViewModel>(R.layout.item_filter_middle) {

@@ -1,4 +1,4 @@
-package com.ddd4.synesthesia.beer.presentation.ui.filter.viewmodel
+package com.ddd4.synesthesia.beer.presentation.ui.filter.style.viewmodel
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -9,19 +9,19 @@ import com.ddd4.synesthesia.beer.data.model.filter.StyleList
 import com.ddd4.synesthesia.beer.domain.repository.BeerRepository
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
-import com.ddd4.synesthesia.beer.presentation.ui.filter.entity.FilterActionEntity
-import com.ddd4.synesthesia.beer.presentation.ui.filter.entity.FilterClicklEntity
-import com.ddd4.synesthesia.beer.presentation.ui.filter.item.StyleItemModel
-import com.ddd4.synesthesia.beer.presentation.ui.filter.item.middle.StyleMiddleItemMapper
-import com.ddd4.synesthesia.beer.presentation.ui.filter.item.middle.StyleMiddleItemViewModel
-import com.ddd4.synesthesia.beer.presentation.ui.filter.item.small.StyleSmallItemViewModel
-import com.ddd4.synesthesia.beer.presentation.ui.filter.view.FilterStringProvider
-import com.ddd4.synesthesia.beer.presentation.ui.filter.view.FilterViewState
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.FilterActionEntity
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.FilterClicklEntity
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.StyleItemModel
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleMiddleItemMapper
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleMiddleItemViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small.StyleSmallItemViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.StyleStringProvider
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.StyleViewState
 import kotlinx.coroutines.launch
 
-class FilterViewModel @ViewModelInject constructor(
+class StyleViewModel @ViewModelInject constructor(
     private val repository: BeerRepository,
-    private val stringProvider: FilterStringProvider
+    private val stringProvider: StyleStringProvider
 ) : BaseViewModel() {
 
     companion object {
@@ -34,14 +34,14 @@ class FilterViewModel @ViewModelInject constructor(
     private val currentMiddleCategory = mutableListOf<StyleMiddleItemViewModel>()
     private val currentSmallCategory = mutableListOf<StyleSmallItemViewModel>()
     private val selectedStyleList = mutableListOf<StyleSmallItemViewModel>()
-    val viewState = FilterViewState()
+    val viewState = StyleViewState()
 
     private val totalStyle by lazy {
         StyleItemModel(
-            aleList = StyleMiddleItemMapper.getAle(_styleData.value, this@FilterViewModel),
-            lagerList = StyleMiddleItemMapper.getLarger(_styleData.value, this@FilterViewModel),
-            lambicList = StyleMiddleItemMapper.getLambic(_styleData.value, this@FilterViewModel),
-            ectList = StyleMiddleItemMapper.getEtc(_styleData.value, this@FilterViewModel)
+            aleList = StyleMiddleItemMapper.getAle(_styleData.value, this@StyleViewModel),
+            lagerList = StyleMiddleItemMapper.getLarger(_styleData.value, this@StyleViewModel),
+            lambicList = StyleMiddleItemMapper.getLambic(_styleData.value, this@StyleViewModel),
+            ectList = StyleMiddleItemMapper.getEtc(_styleData.value, this@StyleViewModel)
         )
     }
 
@@ -172,7 +172,7 @@ class FilterViewModel @ViewModelInject constructor(
             notifyActionEvent(
                 FilterActionEntity.ShowToast(
                     stringProvider.getStringRes(
-                        FilterStringProvider.Code.MAX
+                        StyleStringProvider.Code.MAX
                     )
                 )
             )

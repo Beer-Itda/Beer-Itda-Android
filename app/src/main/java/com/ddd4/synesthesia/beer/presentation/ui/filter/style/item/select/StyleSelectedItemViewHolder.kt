@@ -1,9 +1,9 @@
-package com.ddd4.synesthesia.beer.presentation.ui.filter.item.select
+package com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.select
 
 import android.view.View
 import com.ddd4.synesthesia.beer.databinding.ItemSelectedStyleBinding
 import com.ddd4.synesthesia.beer.presentation.base.recyclerview2.BaseBindingViewHolder
-import com.ddd4.synesthesia.beer.presentation.ui.filter.item.small.StyleSmallItemViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small.StyleSmallItemViewModel
 
 class StyleSelectedItemViewHolder(
     itemView: View

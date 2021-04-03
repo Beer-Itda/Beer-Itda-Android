@@ -1,4 +1,4 @@
-package com.ddd4.synesthesia.beer.presentation.ui.filter.item.small
+package com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small
 
 import android.view.View
 import com.ddd4.synesthesia.beer.databinding.ItemStyleSetBinding
@@ -10,7 +10,7 @@ class StyleSmalItemViewHolder(
 
     override fun onBind(viewModel: StyleSmallItemViewModel, position: Int) {
         binding?.apply {
-            filter = viewModel
+            style = viewModel
         }
     }
 }

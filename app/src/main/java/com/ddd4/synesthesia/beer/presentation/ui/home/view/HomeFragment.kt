@@ -13,7 +13,7 @@ import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.common.sort.view.SortDialog
 import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailActivity
-import com.ddd4.synesthesia.beer.presentation.ui.filter.view.FilterActivity
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.StyleActivity
 import com.ddd4.synesthesia.beer.presentation.ui.home.NavigationDirections
 import com.ddd4.synesthesia.beer.presentation.ui.home.entity.HomeActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.home.entity.HomeSelectEntity
@@ -76,7 +76,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 findNavController().navigate(NavigationDirections.actionToMyPage())
             }
             is HomeSelectEntity.ClickFilter -> {
-                FilterActivity.start(requireContext())
+                StyleActivity.start(requireContext())
             }
             is HomeSelectEntity.Sort -> {
                 val bottom = SortDialog()

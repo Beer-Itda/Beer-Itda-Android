@@ -1,10 +1,9 @@
-package com.ddd4.synesthesia.beer.presentation.ui.filter.item.middle
+package com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle
 
 import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableField
 import com.ddd4.synesthesia.beer.presentation.base.event.SelectActionEventNotifier
-import com.ddd4.synesthesia.beer.presentation.ui.filter.entity.FilterClicklEntity
-import com.ddd4.synesthesia.beer.presentation.ui.filter.item.small.StyleSmallItemViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.FilterClicklEntity
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small.StyleSmallItemViewModel
 
 class StyleMiddleItemViewModel(
     val name: String,

@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.ddd4.synesthesia.beer.presentation.ui.filter.viewmodel.FilterViewModel" />
+            type="com.ddd4.synesthesia.beer.presentation.ui.filter.style.viewmodel.StyleViewModel" />
 
     </data>
 

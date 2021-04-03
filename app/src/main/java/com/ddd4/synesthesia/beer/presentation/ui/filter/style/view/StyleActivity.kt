@@ -1,4 +1,4 @@
-package com.ddd4.synesthesia.beer.presentation.ui.filter.view
+package com.ddd4.synesthesia.beer.presentation.ui.filter.style.view
 
 import android.app.Activity
 import android.content.Context
@@ -14,24 +14,24 @@ import com.ddd4.synesthesia.beer.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
-import com.ddd4.synesthesia.beer.presentation.ui.filter.entity.FilterActionEntity
-import com.ddd4.synesthesia.beer.presentation.ui.filter.entity.FilterClicklEntity
-import com.ddd4.synesthesia.beer.presentation.ui.filter.item.middle.StyleMiddleItemViewHolder
-import com.ddd4.synesthesia.beer.presentation.ui.filter.view.adapter.StyleMiddleListAdapter
-import com.ddd4.synesthesia.beer.presentation.ui.filter.view.adapter.StyleSelectedListAdapter
-import com.ddd4.synesthesia.beer.presentation.ui.filter.view.adapter.StyleSmallListAdapter
-import com.ddd4.synesthesia.beer.presentation.ui.filter.viewmodel.FilterViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.FilterActionEntity
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.FilterClicklEntity
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleMiddleItemViewHolder
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.adapter.StyleMiddleListAdapter
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.adapter.StyleSelectedListAdapter
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.adapter.StyleSmallListAdapter
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.viewmodel.StyleViewModel
 import com.google.android.material.tabs.TabLayout
 import com.yarolegovich.discretescrollview.DiscreteScrollView
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_filter),
+class StyleActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_filter),
     DiscreteScrollView.OnItemChangedListener<StyleMiddleItemViewHolder>,
     TabLayout.OnTabSelectedListener {
 
-    private val viewModel: FilterViewModel by viewModels()
+    private val viewModel: StyleViewModel by viewModels()
     private val filterSetAdapter by lazy { StyleSmallListAdapter() }
     private val middleCategoryListAdapter by lazy { StyleMiddleListAdapter() }
     private val selectedStyleAdapter by lazy { StyleSelectedListAdapter() }
@@ -48,8 +48,8 @@ class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_fil
             vm = viewModel
             with(rvFilterMiddleCategory) {
                 adapter = middleCategoryListAdapter
-                lifecycleOwner = this@FilterActivity
-                addOnItemChangedListener(this@FilterActivity)
+                lifecycleOwner = this@StyleActivity
+                addOnItemChangedListener(this@StyleActivity)
                 setItemTransformer(
                     ScaleTransformer.Builder()
                         .setMinScale(0.7f)
@@ -60,18 +60,18 @@ class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_fil
             }
             with(rvFilterSet) {
                 adapter = filterSetAdapter
-                lifecycleOwner = this@FilterActivity
+                lifecycleOwner = this@StyleActivity
             }
             with(rvSelectedStyle) {
                 adapter = selectedStyleAdapter
-                lifecycleOwner = this@FilterActivity
+                lifecycleOwner = this@StyleActivity
             }
             with(tabs) {
                 addTab(newTab().setText(BeerLargeType.Ale.name))
                 addTab(newTab().setText(BeerLargeType.Lager.name))
                 addTab(newTab().setText(BeerLargeType.Lambic.name))
                 addTab(newTab().setText(BeerLargeType.Etc.name))
-                addOnTabSelectedListener(this@FilterActivity)
+                addOnTabSelectedListener(this@StyleActivity)
             }
             with(includeToolbar.toolbar) {
                 setOnClickListener {
@@ -162,13 +162,13 @@ class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_fil
                     context.startActivityForResult(
                         Intent(
                             context,
-                            FilterActivity::class.java
+                            StyleActivity::class.java
                         ).apply {
                         }, requestCode
                     )
                 }
                 else -> {
-                    context.startActivity(Intent(context, FilterActivity::class.java).apply {
+                    context.startActivity(Intent(context, StyleActivity::class.java).apply {
                     })
                 }
             }
@@ -182,7 +182,7 @@ class FilterActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_fil
             fragment.startActivityForResult(
                 Intent(
                     fragment.context,
-                    FilterActivity::class.java
+                    StyleActivity::class.java
                 ).apply {
                 }, requestCode
             )

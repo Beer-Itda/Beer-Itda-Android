@@ -67,7 +67,7 @@
             android:screenOrientation="portrait" />
         
         <activity
-            android:name=".presentation.ui.filter.view.FilterActivity"
+            android:name="com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.StyleActivity"
             android:screenOrientation="portrait" />
 
     </application>

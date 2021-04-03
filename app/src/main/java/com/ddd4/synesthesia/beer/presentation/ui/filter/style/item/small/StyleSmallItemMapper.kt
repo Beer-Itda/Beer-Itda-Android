@@ -1,4 +1,4 @@
-package com.ddd4.synesthesia.beer.presentation.ui.filter.item.small
+package com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small
 
 import com.ddd4.synesthesia.beer.presentation.base.event.SelectActionEventNotifier
 

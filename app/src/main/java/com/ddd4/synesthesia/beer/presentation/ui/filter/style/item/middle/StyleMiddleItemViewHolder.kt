@@ -1,4 +1,4 @@
-package com.ddd4.synesthesia.beer.presentation.ui.filter.item.middle
+package com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle
 
 import android.view.View
 import com.ddd4.synesthesia.beer.databinding.ItemFilterMiddleBinding
@@ -10,7 +10,7 @@ class StyleMiddleItemViewHolder(
 
     override fun onBind(viewModel: StyleMiddleItemViewModel, position: Int) {
         binding?.apply {
-            filter = viewModel
+            style = viewModel
         }
     }
 }
