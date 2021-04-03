@@ -1,4 +1,4 @@
-package com.ddd4.synesthesia.beer.util
+package com.ddd4.synesthesia.beer.util.listener
 
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager

@@ -11,15 +11,15 @@ import com.ddd4.synesthesia.beer.presentation.base.BaseFragment
 import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
-import com.ddd4.synesthesia.beer.presentation.ui.common.filter.view.FilterDialog
 import com.ddd4.synesthesia.beer.presentation.ui.common.sort.view.SortDialog
 import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailActivity
+import com.ddd4.synesthesia.beer.presentation.ui.filter.view.FilterActivity
 import com.ddd4.synesthesia.beer.presentation.ui.home.NavigationDirections
 import com.ddd4.synesthesia.beer.presentation.ui.home.entity.HomeActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.home.entity.HomeSelectEntity
 import com.ddd4.synesthesia.beer.presentation.ui.home.viewmodel.HomeViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.like.view.HomeLikeActivity
-import com.ddd4.synesthesia.beer.util.EndlessRecyclerViewScrollListener
+import com.ddd4.synesthesia.beer.util.listener.EndlessRecyclerViewScrollListener
 import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -76,9 +76,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 findNavController().navigate(NavigationDirections.actionToMyPage())
             }
             is HomeSelectEntity.ClickFilter -> {
-                FilterDialog().run {
-                    show(this@HomeFragment.parentFragmentManager, tag)
-                }
+                FilterActivity.start(requireContext())
             }
             is HomeSelectEntity.Sort -> {
                 val bottom = SortDialog()

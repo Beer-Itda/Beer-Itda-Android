@@ -8,7 +8,7 @@ import com.ddd4.synesthesia.beer.databinding.LayoutHomeBinding
 import com.ddd4.synesthesia.beer.ext.createView
 import com.ddd4.synesthesia.beer.presentation.ui.home.item.HomeViewHolder
 import com.ddd4.synesthesia.beer.presentation.ui.home.view.HomeListChildAdapter
-import com.ddd4.synesthesia.beer.util.EndlessRecyclerViewScrollListener
+import com.ddd4.synesthesia.beer.util.listener.EndlessRecyclerViewScrollListener
 
 class BeerListItemViewHolder(
     itemView: View
@@ -42,6 +42,6 @@ class BeerListItemViewHolder(
             executePendingBindings()
         }
         adapter.clear()
-        adapter.addAll(viewModel.beers)
+        adapter.addAll(viewModel.beers.orEmpty())
     }
 }

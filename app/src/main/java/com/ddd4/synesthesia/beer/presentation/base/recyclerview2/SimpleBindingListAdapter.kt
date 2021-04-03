@@ -4,8 +4,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd4.synesthesia.beer.ext.createView
+import com.ddd4.synesthesia.beer.ext.orFalse
+import com.ddd4.synesthesia.beer.util.RecyclerDiffUtil
 
 /**
  * viewType 이 1개 인 단순한 listAdapter
@@ -13,7 +16,7 @@ import com.ddd4.synesthesia.beer.ext.createView
 abstract class SimpleBindingListAdapter<VM : Any>(
     @LayoutRes val layoutId: Int
 ) : RecyclerView.Adapter<BaseBindingViewHolder<VM, ViewDataBinding>>(), ItemListProvider<VM> {
-    val list: ArrayList<VM> = ArrayList()
+    var list: MutableList<VM> = mutableListOf()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -39,10 +42,19 @@ abstract class SimpleBindingListAdapter<VM : Any>(
         }
     }
 
-    fun addAll(items: List<VM>) {
-        val start = itemCount
-        list.addAll(items)
-        notifyItemRangeChanged(start, items.size)
+    fun addAll(items: List<VM>, isDiffUtil: Boolean? = false) {
+        if (isDiffUtil.orFalse()) {
+            RecyclerDiffUtil(list, items).apply {
+                list = items.toMutableList()
+                DiffUtil.calculateDiff(this).dispatchUpdatesTo(this@SimpleBindingListAdapter)
+            }
+        } else {
+            val start = itemCount
+            clear()
+            list.addAll(items)
+            notifyItemRangeChanged(start, items.size)
+
+        }
     }
 
     fun clear() {

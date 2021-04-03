@@ -32,6 +32,11 @@ fun View.setVisible(show: Boolean) {
         visibility = if (show) View.VISIBLE else View.GONE
     }
 }
+fun View.setInVisible(show: Boolean) {
+    if (isVisible() != show) {
+        visibility = if (show) View.VISIBLE else View.INVISIBLE
+    }
+}
 
 fun ViewGroup.createView(@LayoutRes layoutId: Int): View =
     LayoutInflater.from(context).inflate(layoutId, this, false)

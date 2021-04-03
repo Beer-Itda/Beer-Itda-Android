@@ -175,7 +175,9 @@ class HomeViewModel @ViewModelInject constructor(
             val recommandBeer = fetchRecommand()
 
             beers.clear()
-            beers.add(awardBeer)
+            awardBeer?.let {
+                beers.add(it)
+            }
             if (!styleBeer.beers.isNullOrEmpty()) {
                 beers.add(styleBeer)
             }
@@ -191,7 +193,7 @@ class HomeViewModel @ViewModelInject constructor(
         }
     }
 
-    private suspend fun fetchAward(): BeerAwardItemViewModel {
+    private suspend fun fetchAward(): BeerAwardItemViewModel? {
         val awardResponse = beerRepository.getPopularBeer()?.beers
             .orEmpty()
             .getMapper(
@@ -201,6 +203,11 @@ class HomeViewModel @ViewModelInject constructor(
                 title = stringProvider.getStringRes(HomeStringProvider.Code.STYLE),
                 eventNotifier = this@HomeViewModel
             )
+
+        if (awardResponse.beers.isEmpty()) {
+            return null
+        }
+
         val randomIndex = Random.nextInt(awardResponse.beers.size)
         return awardResponse.beers[randomIndex]
             .let {

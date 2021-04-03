@@ -133,6 +133,9 @@ dependencies {
     implementation(Libs.FIREBASE_CRASHLYTICS)
     implementation(Libs.LICENSES)
 
+    //
+    implementation(Libs.SNAP_RECYCLERVIEW)
+
     testImplementation(TestLibs.JUNIT)
     androidTestImplementation(TestLibs.ANDROID_X_JUNIT)
     androidTestImplementation(TestLibs.ESPRESSO_CORE)

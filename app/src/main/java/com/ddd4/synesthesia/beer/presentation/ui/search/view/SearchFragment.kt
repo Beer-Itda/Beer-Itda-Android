@@ -16,7 +16,7 @@ import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.adapter.LoadingItemsApdater
 import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailActivity
 import com.ddd4.synesthesia.beer.presentation.ui.search.viewmodel.SearchViewModel
-import com.ddd4.synesthesia.beer.util.EndlessRecyclerViewScrollListener
+import com.ddd4.synesthesia.beer.util.listener.EndlessRecyclerViewScrollListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

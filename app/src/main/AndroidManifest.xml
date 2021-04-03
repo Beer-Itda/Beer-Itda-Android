@@ -25,8 +25,8 @@
         <activity
             android:name="com.ddd4.synesthesia.beer.presentation.ui.main.view.MainActivity"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
             android:name="com.ddd4.synesthesia.beer.presentation.ui.login.view.LoginActivity"
@@ -64,6 +64,10 @@
 
         <activity
             android:name=".presentation.ui.like.view.HomeLikeActivity"
+            android:screenOrientation="portrait" />
+        
+        <activity
+            android:name=".presentation.ui.filter.view.FilterActivity"
             android:screenOrientation="portrait" />
 
     </application>

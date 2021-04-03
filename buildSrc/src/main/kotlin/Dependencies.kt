@@ -38,6 +38,9 @@ object Versions {
     const val FIREBASE_CRASHLYTICS = "17.2.1"
     const val LICENSES = "0.10.2"
     const val OSS_LICENSES = "17.0.0"
+
+    //
+    const val SNAP_RECYCLERVIEW = "1.5.1"
 }
 
 object Libs {
@@ -93,6 +96,10 @@ object Libs {
 
     const val LICENSES =
         "com.google.android.gms:play-services-oss-licenses:${Versions.OSS_LICENSES}"
+
+    //
+    const val SNAP_RECYCLERVIEW =
+        "com.yarolegovich:discrete-scrollview:${Versions.SNAP_RECYCLERVIEW}"
 
 }
 

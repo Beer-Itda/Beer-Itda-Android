@@ -12,14 +12,12 @@ import com.ddd4.synesthesia.beer.databinding.ActivityHomeLikeBinding
 import com.ddd4.synesthesia.beer.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
-import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
-import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.BeerFilter
 import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailActivity
 import com.ddd4.synesthesia.beer.presentation.ui.home.view.HomeStringProvider
 import com.ddd4.synesthesia.beer.presentation.ui.like.entity.HomeLikeActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.like.viewmodel.HomeLikeViewModel
-import com.ddd4.synesthesia.beer.util.EndlessRecyclerViewScrollListener
+import com.ddd4.synesthesia.beer.util.listener.EndlessRecyclerViewScrollListener
 import com.ddd4.synesthesia.beer.util.sort.SortType
 import dagger.hilt.android.AndroidEntryPoint
 

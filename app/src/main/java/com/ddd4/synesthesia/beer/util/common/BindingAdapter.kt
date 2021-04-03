@@ -24,6 +24,7 @@ import com.ddd4.synesthesia.beer.util.CustomTypefaceSpan
 import com.ddd4.synesthesia.beer.util.MutableLiveDataList
 import com.ddd4.synesthesia.beer.util.decoration.RecyclerItemDecoration
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.BeerFilter
+import com.ddd4.synesthesia.beer.util.NetworkStatus
 import com.ddd4.synesthesia.beer.util.decoration.HorizontalItemSpaceDecoration
 import com.ddd4.synesthesia.beer.util.decoration.VerticalItemSpaceDecoration
 import com.ddd4.synesthesia.beer.util.sort.SortType
@@ -105,32 +106,32 @@ fun decoration(
     }
 }
 
-@BindingAdapter(value = ["horizontal_space", "headTailSpace"])
+@BindingAdapter(value = ["horizontalSpace", "headTailSpace"], requireAll = false)
 fun setHorizontalItemDecoration(
     recyclerView: RecyclerView,
-    space: Float,
-    headTailSpaceSpace: Float
+    space: Float?,
+    headTailSpaceSpace: Float?
 ) {
     if (recyclerView.itemDecorationCount == 0) {
         recyclerView.addItemDecoration(
             HorizontalItemSpaceDecoration(
-                space.toInt(),
-                headTailSpaceSpace.toInt()
+                space?.toInt().orZero(),
+                headTailSpaceSpace?.toInt().orZero()
             )
         )
     }
 }
 
-@BindingAdapter(value = ["vertical_space", "topBototmSpace"], requireAll = false)
+@BindingAdapter(value = ["verticalSpace", "topBototmSpace"], requireAll = false)
 fun setVerticalItemDecoration(
     recyclerView: RecyclerView,
-    space: Float,
+    space: Float?,
     topBototmSpaceSpace: Float?
 ) {
     recyclerView.addItemDecoration(
         VerticalItemSpaceDecoration(
-            space.toInt(),
-            topBototmSpaceSpace?.toInt() ?: 0
+            space?.toInt().orZero(),
+            topBototmSpaceSpace?.toInt().orZero()
         )
     )
 }
@@ -278,5 +279,32 @@ fun View.bindThrowable(entity: ThrowEntity?) {
 fun View.setVisibility(value: Boolean?) {
     value?.let {
         setVisible(value)
+    }
+}
+@BindingAdapter(value = ["inVisibility"])
+fun View.setInVisibility(value: Boolean?) {
+    value?.let {
+        setVisible(value)
+    }
+}
+
+@BindingAdapter(value = ["networkVisibility"])
+fun View.setNetworkVisibility(value: NetworkStatus?) {
+    value?.let {
+        setVisible(value != NetworkStatus.LOADING)
+    }
+}
+
+@BindingAdapter(value = ["changeWidth", "changeHeight"])
+fun View.setChangeWidthAndHeight(width: Int?, height: Int?) {
+    width?.let {
+        layoutParams = layoutParams.apply {
+            this.width = it
+        }
+    }
+    height?.let {
+        layoutParams = layoutParams.apply {
+            this.height = it
+        }
     }
 }

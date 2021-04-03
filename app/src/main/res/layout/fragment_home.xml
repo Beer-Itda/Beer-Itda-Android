@@ -49,7 +49,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_filter"
                 app:topBototmSpace="@{@dimen/margin_20}"
-                app:vertical_space="@{@dimen/margin_50}"
+                app:verticalSpace="@{@dimen/margin_50}"
                 tools:listitem="@layout/layout_home" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
