@@ -1,20 +1,20 @@
 package com.ddd4.synesthesia.beer.data.model
 
 import android.os.Parcelable
-import com.ddd4.synesthesia.beer.data.model.filter.StyleList
+import com.ddd4.synesthesia.beer.data.model.filter.style.StyleLargeCategories
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class AppConfig(
     @SerializedName("aroma_list")
-    val aromaList: List<String>,
+    val aromaList: List<String>?,
     @SerializedName("country_list")
-    val countryList: List<String>,
+    val countryList: List<String>?,
     @SerializedName("style_list")
-    val styleList: StyleList,
+    val styleLargeCategoriesList: List<StyleLargeCategories>?,
     @SerializedName("min_abv")
-    val minAbv: Int,
+    val minAbv: Int?,
     @SerializedName("max_abv")
-    val maxAbv: Int
+    val maxAbv: Int?
 ) : Parcelable

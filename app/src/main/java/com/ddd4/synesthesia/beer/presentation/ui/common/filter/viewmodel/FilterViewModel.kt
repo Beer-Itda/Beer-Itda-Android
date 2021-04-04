@@ -3,7 +3,6 @@ package com.ddd4.synesthesia.beer.presentation.ui.common.filter.viewmodel
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.ddd4.synesthesia.beer.data.model.filter.StyleList
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.util.MutableLiveDataList
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.BeerFilter
@@ -15,7 +14,7 @@ class FilterViewModel @ViewModelInject constructor(
     private val filterSetting: FilterSetting
 ) : BaseViewModel() {
 
-    val styleList = mutableListOf<StyleList>()
+//    val styleList = mutableListOf<StyleList>()
     val aromaList = mutableListOf<String>()
     val countryList = mutableListOf<String>()
     var minAbv = 0

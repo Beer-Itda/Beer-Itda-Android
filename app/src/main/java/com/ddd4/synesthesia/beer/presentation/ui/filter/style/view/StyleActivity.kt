@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import com.ddd4.synesthesia.beer.R
-import com.ddd4.synesthesia.beer.data.model.filter.BeerLargeType
 import com.ddd4.synesthesia.beer.databinding.ActivityFilterBinding
 import com.ddd4.synesthesia.beer.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
@@ -32,7 +31,7 @@ class StyleActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_filt
     TabLayout.OnTabSelectedListener {
 
     private val viewModel: StyleViewModel by viewModels()
-    private val filterSetAdapter by lazy { StyleSmallListAdapter() }
+    private val smallCategoryListAdapter by lazy { StyleSmallListAdapter() }
     private val middleCategoryListAdapter by lazy { StyleMiddleListAdapter() }
     private val selectedStyleAdapter by lazy { StyleSelectedListAdapter() }
 
@@ -59,19 +58,12 @@ class StyleActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_filt
                 scrollToPosition(0)
             }
             with(rvFilterSet) {
-                adapter = filterSetAdapter
+                adapter = smallCategoryListAdapter
                 lifecycleOwner = this@StyleActivity
             }
             with(rvSelectedStyle) {
                 adapter = selectedStyleAdapter
                 lifecycleOwner = this@StyleActivity
-            }
-            with(tabs) {
-                addTab(newTab().setText(BeerLargeType.Ale.name))
-                addTab(newTab().setText(BeerLargeType.Lager.name))
-                addTab(newTab().setText(BeerLargeType.Lambic.name))
-                addTab(newTab().setText(BeerLargeType.Etc.name))
-                addOnTabSelectedListener(this@StyleActivity)
             }
             with(includeToolbar.toolbar) {
                 setOnClickListener {
@@ -92,11 +84,19 @@ class StyleActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_filt
 
     override fun handleActionEvent(entity: ActionEntity) {
         when (entity) {
-            is FilterActionEntity.UpdateList -> {
+            is FilterActionEntity.UpdateLarge -> {
+                with(binding.tabs) {
+                    entity.styleLarge.forEach {
+                        addTab(newTab().setText(it.bigName))
+                    }
+                    addOnTabSelectedListener(this@StyleActivity)
+                }
+            }
+            is FilterActionEntity.UpdateMiddle -> {
                 middleCategoryListAdapter.addAll(entity.styleMiddle, true)
             }
-            is FilterActionEntity.UpdateStyleSet -> {
-                filterSetAdapter.addAll(entity.styleSmall, true)
+            is FilterActionEntity.UpdateSmall -> {
+                smallCategoryListAdapter.addAll(entity.styleSmall, true)
             }
             is FilterActionEntity.UpdateSelectedStyleList -> {
                 selectedStyleAdapter.addAll(entity.style, true)
@@ -126,19 +126,8 @@ class StyleActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_filt
     override fun onTabUnselected(tab: TabLayout.Tab?) {}
     override fun onTabReselected(tab: TabLayout.Tab?) {}
     override fun onTabSelected(tab: TabLayout.Tab?) {
-        when (tab?.position) {
-            0 -> {
-                viewModel.load(BeerLargeType.Ale)
-            }
-            1 -> {
-                viewModel.load(BeerLargeType.Lager)
-            }
-            2 -> {
-                viewModel.load(BeerLargeType.Lambic)
-            }
-            3 -> {
-                viewModel.load(BeerLargeType.Etc)
-            }
+        tab?.position?.let { position ->
+            viewModel.load(position)
         }
     }
 

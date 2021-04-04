@@ -6,9 +6,10 @@ import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.FilterClick
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small.StyleSmallItemViewModel
 
 class StyleMiddleItemViewModel(
-    val name: String,
+    val middleName: String,
     val description: String,
-    val list: List<StyleSmallItemViewModel>,
+    val largePosition: Int,
+    val smallCategories: List<StyleSmallItemViewModel>,
     val eventNotifier: SelectActionEventNotifier
 ) {
     val isSelected = ObservableBoolean(false)

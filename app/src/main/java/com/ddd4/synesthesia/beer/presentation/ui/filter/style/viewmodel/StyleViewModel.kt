@@ -4,23 +4,27 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.ddd4.synesthesia.beer.data.model.filter.BeerLargeType
-import com.ddd4.synesthesia.beer.data.model.filter.StyleList
+import com.ddd4.synesthesia.beer.data.Result
+import com.ddd4.synesthesia.beer.data.model.filter.style.StyleLargeCategories
 import com.ddd4.synesthesia.beer.domain.repository.BeerRepository
+import com.ddd4.synesthesia.beer.domain.usecase.filter.style.GetStyleUseCase
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.FilterActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.FilterClicklEntity
-import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.StyleItemModel
-import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleMiddleItemMapper
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.large.StyleLargeItemMapper
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.large.StyleLargeItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleMiddleItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small.StyleSmallItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.StyleStringProvider
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.StyleViewState
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class StyleViewModel @ViewModelInject constructor(
-    private val repository: BeerRepository,
+    private val styleUseCase: GetStyleUseCase,
     private val stringProvider: StyleStringProvider
 ) : BaseViewModel() {
 
@@ -28,51 +32,44 @@ class StyleViewModel @ViewModelInject constructor(
         const val MAX_STYLE_COUNT = 3
     }
 
-    private val _styleData = MutableLiveData<StyleList>()
-    val styleData: LiveData<StyleList> get() = _styleData
-
-    private val currentMiddleCategory = mutableListOf<StyleMiddleItemViewModel>()
-    private val currentSmallCategory = mutableListOf<StyleSmallItemViewModel>()
-    private val selectedStyleList = mutableListOf<StyleSmallItemViewModel>()
     val viewState = StyleViewState()
 
-    private val totalStyle by lazy {
-        StyleItemModel(
-            aleList = StyleMiddleItemMapper.getAle(_styleData.value, this@StyleViewModel),
-            lagerList = StyleMiddleItemMapper.getLarger(_styleData.value, this@StyleViewModel),
-            lambicList = StyleMiddleItemMapper.getLambic(_styleData.value, this@StyleViewModel),
-            ectList = StyleMiddleItemMapper.getEtc(_styleData.value, this@StyleViewModel)
-        )
-    }
+    private val selectedStyleList = mutableListOf<StyleSmallItemViewModel>()
+    private val currentMiddleCategory = mutableListOf<StyleMiddleItemViewModel>()
+    private val currentSmallCategory = mutableListOf<StyleSmallItemViewModel>()
+
+    private lateinit var allCategories: List<StyleLargeItemViewModel>
 
     fun init() {
         statusLoading()
         viewModelScope.launch {
-            _styleData.value = repository.getAppConfig().result?.styleList
-            currentMiddleCategory.addAll(totalStyle.aleList)
-            notifyActionEvent(FilterActionEntity.UpdateList(currentMiddleCategory))
-            statusSuccess()
+            styleUseCase.execute { response ->
+                when (response) {
+                    is Result.Success -> {
+                        allCategories = StyleLargeItemMapper.getStyles(
+                            list = response.data,
+                            eventNotifier = this@StyleViewModel
+                        )
+                        currentMiddleCategory.addAll(allCategories[0].middleCategories)
+                        notifyActionEvent(FilterActionEntity.UpdateLarge(allCategories))
+                        notifyActionEvent(FilterActionEntity.UpdateMiddle(currentMiddleCategory))
+                        statusSuccess()
+                    }
+                    is Result.NoContents -> {
+                        // do noting
+                    }
+                    is Result.Error -> {
+                        // TODO do something...
+                    }
+                }
+            }
         }
     }
 
-    fun load(largeType: BeerLargeType) {
-        selectedStyleList
+    fun load(position: Int) {
         currentMiddleCategory.clear()
-        when (largeType) {
-            BeerLargeType.Ale -> {
-                currentMiddleCategory.addAll(totalStyle.aleList)
-            }
-            BeerLargeType.Lager -> {
-                currentMiddleCategory.addAll(totalStyle.lagerList)
-            }
-            BeerLargeType.Lambic -> {
-                currentMiddleCategory.addAll(totalStyle.lambicList)
-            }
-            BeerLargeType.Etc -> {
-                currentMiddleCategory.addAll(totalStyle.ectList)
-            }
-        }
-        notifyActionEvent(FilterActionEntity.UpdateList(currentMiddleCategory))
+        currentMiddleCategory.addAll(allCategories[position].middleCategories)
+        notifyActionEvent(FilterActionEntity.UpdateMiddle(currentMiddleCategory))
     }
 
     fun loadFilterSet(position: Int) {
@@ -84,8 +81,8 @@ class StyleViewModel @ViewModelInject constructor(
         }
         viewState.description.set(currentMiddleCategory[position].description)
         currentSmallCategory.clear()
-        currentSmallCategory.addAll(currentMiddleCategory[position].list)
-        notifyActionEvent(FilterActionEntity.UpdateStyleSet(currentSmallCategory))
+        currentSmallCategory.addAll(currentMiddleCategory[position].smallCategories)
+        notifyActionEvent(FilterActionEntity.UpdateSmall(currentSmallCategory))
     }
 
     override fun handleSelectEvent(entity: ItemClickEntity) {
@@ -184,12 +181,15 @@ class StyleViewModel @ViewModelInject constructor(
      */
     private fun setSelectedStatusChange(item: StyleSmallItemViewModel, isSelected: Boolean) {
         if (item.isAll) {
-            currentSmallCategory.forEachIndexed { index, style ->
-                if (index != 0) {
-                    removeSelectedStyle(style)
+            allCategories[item.largePosition]
+                .middleCategories[item.middlePosition]
+                .smallCategories
+                .forEachIndexed { index, small ->
+                    if (index != 0) {
+                        removeSelectedStyle(small)
+                    }
+                    small.isSelected.set(isSelected)
                 }
-                style.isSelected.set(isSelected)
-            }
         } else {
             item.isSelected.set(isSelected)
         }

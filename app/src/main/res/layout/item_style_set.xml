@@ -29,7 +29,7 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="2"
-            android:text="@{style.name}"
+            android:text="@{style.smallName}"
             android:textColor="@{style.isSelected() ? @color/butterscotch : @color/color_5c5b5f}"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="parent"

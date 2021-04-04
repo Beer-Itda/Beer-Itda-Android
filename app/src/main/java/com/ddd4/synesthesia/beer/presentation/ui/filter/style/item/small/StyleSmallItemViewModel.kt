@@ -5,9 +5,11 @@ import com.ddd4.synesthesia.beer.presentation.base.event.SelectActionEventNotifi
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.FilterClicklEntity
 
 class StyleSmallItemViewModel(
-    val title: String,
-    val name: String,
+    val middleName: String,
+    val smallName: String,
     val isAll: Boolean,
+    val largePosition: Int,
+    val middlePosition: Int,
     val eventNotifier: SelectActionEventNotifier
 ) {
 
@@ -15,9 +17,9 @@ class StyleSmallItemViewModel(
 
     fun getStyleName(): String {
         return if (isAll) {
-            "$name ∙ $title"
+            "$smallName ∙ $middleName"
         } else {
-            name
+            smallName
         }
     }
 

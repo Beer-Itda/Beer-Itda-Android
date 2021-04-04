@@ -3,15 +3,20 @@ package com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small
 import com.ddd4.synesthesia.beer.presentation.base.event.SelectActionEventNotifier
 
 object StyleSmallItemMapper {
-    fun get(
-        title: String,
-        list: List<String>,
+
+    fun getCategories(
+        middleName: String,
+        largePosition: Int,
+        middlePosition: Int,
+        smallCategories: List<String>,
         eventNotifier: SelectActionEventNotifier
     ): List<StyleSmallItemViewModel> {
-        val items = list.map {
+        val items = smallCategories.map {
             StyleSmallItemViewModel(
-                title = title,
-                name = it,
+                middleName = middleName,
+                smallName = it,
+                largePosition = largePosition,
+                middlePosition = middlePosition,
                 isAll = false,
                 eventNotifier = eventNotifier
             )
@@ -20,8 +25,10 @@ object StyleSmallItemMapper {
         items.add(
             0,
             StyleSmallItemViewModel(
-                title = title,
-                name = "전체선택",
+                middleName = middleName,
+                smallName = "전체선택",
+                largePosition = largePosition,
+                middlePosition = middlePosition,
                 isAll = true,
                 eventNotifier = eventNotifier
             )
