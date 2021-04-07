@@ -81,11 +81,13 @@
 
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/black">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="52dp"
                     app:layout_scrollFlags="scroll">
 
                     <com.yarolegovich.discretescrollview.DiscreteScrollView
@@ -96,7 +98,6 @@
                         android:clipToPadding="true"
                         android:orientation="horizontal"
                         android:overScrollMode="never"
-                        android:paddingVertical="15dp"
                         app:dsv_orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -128,7 +129,8 @@
                 android:orientation="vertical"
                 android:overScrollMode="never"
                 android:paddingHorizontal="12dp"
-                android:paddingVertical="16dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="60dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
                 app:layout_constraintBottom_toTopOf="@+id/tv_choice"
@@ -144,17 +146,19 @@
             android:id="@+id/tv_choice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@{vm.viewState.isMaxSelected() ? @android:color/transparent : @color/color_39393b}"
             android:clickable="@{vm.viewState.isMaxSelected()}"
             android:focusable="@{vm.viewState.isMaxSelected()}"
             android:gravity="center"
             android:onClick="@{() -> vm.clickDone()}"
             android:paddingVertical="24dp"
             android:text="@string/choice"
-            android:textColor="@{vm.viewState.isMaxSelected() ? @color/butterscotch : @color/white}"
+            android:textColor="@{vm.viewState.isMaxSelected() ? @color/butterscotch : @color/color_8e8d94}"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            tools:background="@android:color/transparent"
             tools:text="선택하기"
             tools:textColor="@color/butterscotch" />
 
