@@ -65,9 +65,13 @@
         <activity
             android:name=".presentation.ui.like.view.HomeLikeActivity"
             android:screenOrientation="portrait" />
-        
+
         <activity
-            android:name="com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.StyleActivity"
+            android:name=".presentation.ui.filter.style.view.StyleActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".presentation.ui.filter.aroma.view.AromaActivity"
             android:screenOrientation="portrait" />
 
     </application>

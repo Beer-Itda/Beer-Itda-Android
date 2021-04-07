@@ -90,5 +90,6 @@
     <string name="search_hint">검색어를 입력해주세요.</string>
     <string name="error_message">잠시후 다시 시도해 주세요.</string>
     <string name="max_choice_count_style">최대 %d가지의 스타일을 선택할 수 있어요!</string>
+    <string name="max_choice_count_aroma">최대 %d가지의 향을 선택할 수 있어요!</string>
     <string name="choice">선택하기</string>
 </resources>

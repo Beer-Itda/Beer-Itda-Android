@@ -9,7 +9,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.select.StyleS
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small.StyleSmallItemViewModel
 
 class StyleSelectedListAdapter :
-    SimpleBindingListAdapter<StyleSmallItemViewModel>(R.layout.item_selected_style) {
+    SimpleBindingListAdapter<StyleSmallItemViewModel>(R.layout.item_filter_selected_style) {
 
     @Suppress("UNCHECKED_CAST")
     override fun createViewHolder(view: View): BaseBindingViewHolder<StyleSmallItemViewModel, ViewDataBinding> {

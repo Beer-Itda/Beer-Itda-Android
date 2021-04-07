@@ -4,7 +4,7 @@ import android.view.View
 import com.ddd4.synesthesia.beer.databinding.ItemFilterStyleSmallBinding
 import com.ddd4.synesthesia.beer.presentation.base.recyclerview2.BaseBindingViewHolder
 
-class StyleSmalItemViewHolder(
+class StyleSmallItemViewHolder(
     itemView: View
 ) : BaseBindingViewHolder<StyleSmallItemViewModel, ItemFilterStyleSmallBinding>(itemView) {
 

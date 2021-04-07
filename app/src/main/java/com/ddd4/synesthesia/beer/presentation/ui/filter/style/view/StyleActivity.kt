@@ -13,6 +13,7 @@ import com.ddd4.synesthesia.beer.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.view.AromaActivity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleClicklEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleMiddleItemViewHolder
@@ -44,7 +45,7 @@ class StyleActivity : BaseActivity<ActivityFilterStyleBinding>(R.layout.activity
 
     override fun initBind() {
         binding.apply {
-            vm = viewModel
+            viewModel = this@StyleActivity.viewModel
             with(rvFilterMiddleCategory) {
                 adapter = middleCategoryListAdapter
                 lifecycleOwner = this@StyleActivity
@@ -119,6 +120,7 @@ class StyleActivity : BaseActivity<ActivityFilterStyleBinding>(R.layout.activity
                 entity.selectItem.map {
 
                 }
+                AromaActivity.start(this@StyleActivity)
             }
         }
     }

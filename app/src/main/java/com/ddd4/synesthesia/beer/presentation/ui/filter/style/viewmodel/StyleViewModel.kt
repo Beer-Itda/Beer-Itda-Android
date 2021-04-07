@@ -12,13 +12,13 @@ import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.large.StyleLa
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.large.StyleLargeItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleMiddleItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small.StyleSmallItemViewModel
-import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.StyleStringProvider
+import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FliterStringProvider
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.StyleViewState
 import kotlinx.coroutines.launch
 
 class StyleViewModel @ViewModelInject constructor(
     private val styleUseCase: GetStyleUseCase,
-    private val stringProvider: StyleStringProvider
+    private val stringProvider: FliterStringProvider
 ) : BaseViewModel() {
 
     companion object {
@@ -27,7 +27,7 @@ class StyleViewModel @ViewModelInject constructor(
 
     val viewState = StyleViewState()
 
-    private val selectedStyleList = mutableListOf<StyleSmallItemViewModel>()
+    private val selectedList = mutableListOf<StyleSmallItemViewModel>()
     private val currentMiddleCategory = mutableListOf<StyleMiddleItemViewModel>()
     private val currentSmallCategory = mutableListOf<StyleSmallItemViewModel>()
 
@@ -114,9 +114,9 @@ class StyleViewModel @ViewModelInject constructor(
      */
     private fun addSelectedStyle(item: StyleSmallItemViewModel) {
         resetCurrentSelectedStyle()
-        selectedStyleList.add(0, item)
+        selectedList.add(0, item)
         setSelectedStatusChange(item, true)
-        notifyActionEvent(StyleActionEntity.UpdateSelectedStyleList(selectedStyleList))
+        notifyActionEvent(StyleActionEntity.UpdateSelectedStyleList(selectedList))
         setMaxSelectedCount()
     }
 
@@ -124,9 +124,9 @@ class StyleViewModel @ViewModelInject constructor(
      * 선택된 스타일 삭제
      */
     private fun removeSelectedStyle(item: StyleSmallItemViewModel) {
-        selectedStyleList.remove(item)
+        selectedList.remove(item)
         setSelectedStatusChange(item, false)
-        notifyActionEvent(StyleActionEntity.UpdateSelectedStyleList(selectedStyleList))
+        notifyActionEvent(StyleActionEntity.UpdateSelectedStyleList(selectedList))
         setMaxSelectedCount()
     }
 
@@ -134,8 +134,8 @@ class StyleViewModel @ViewModelInject constructor(
      * 선택된 스타일 모두 삭제
      */
     private fun removeAllCurrentStyleList() {
-        selectedStyleList.removeAll(currentSmallCategory)
-        notifyActionEvent(StyleActionEntity.UpdateSelectedStyleList(selectedStyleList))
+        selectedList.removeAll(currentSmallCategory)
+        notifyActionEvent(StyleActionEntity.UpdateSelectedStyleList(selectedList))
     }
 
     /**
@@ -156,13 +156,13 @@ class StyleViewModel @ViewModelInject constructor(
     private fun oneOfTheFullSmallSelections(item: StyleSmallItemViewModel) {
         if (currentSmallCategory[0].isSelected.get()) {
             addSelectedStyle(item)
-        } else if (item.isAll && isContainsCurrentSelectedItem()) {
+        } else if (item.isAll && isContainsSelectedItem(item).not()) {
             addSelectedStyle(item)
         } else {
             notifyActionEvent(
                 StyleActionEntity.ShowToast(
                     stringProvider.getStringRes(
-                        StyleStringProvider.Code.MAX
+                        FliterStringProvider.Code.MAX_STYLE
                     )
                 )
             )
@@ -189,23 +189,12 @@ class StyleViewModel @ViewModelInject constructor(
     }
 
     /**
-     * 현재 소분류 스타일에 선택된 아이템이 있는지
-     */
-    private fun isContainsCurrentSelectedItem(): Boolean {
-        return currentSmallCategory.find { style ->
-            style.isSelected.get()
-        }.let {
-            it != null
-        }
-    }
-
-    /**
      * 클릭한 아이템이 선택된 리스트에 포함되는지
      */
     private fun isContainsSelectedItem(
         item: StyleSmallItemViewModel
     ): Boolean {
-        return selectedStyleList.find {
+        return selectedList.find {
             it == item
         }.let {
             it != null
@@ -214,19 +203,15 @@ class StyleViewModel @ViewModelInject constructor(
     }
 
     fun clickDone() {
-        notifySelectEvent(StyleClicklEntity.SelectDone(selectedStyleList))
+        notifySelectEvent(StyleClicklEntity.SelectDone(selectedList))
     }
 
 
     private fun setMaxSelectedCount() {
-        viewState.isSelectedEmpty.set(selectedStyleList.isEmpty())
-        when {
-            selectedStyleList.size == MAX_STYLE_COUNT -> {
-                viewState.isMaxSelected.set(true)
-            }
-            selectedStyleList.size < MAX_STYLE_COUNT -> {
-                viewState.isMaxSelected.set(false)
-            }
-        }
+        viewState.setIsMaxSelected(
+            isEmpty = selectedList.isEmpty(),
+            size = selectedList.size,
+            maxCount = MAX_STYLE_COUNT,
+        )
     }
 }
