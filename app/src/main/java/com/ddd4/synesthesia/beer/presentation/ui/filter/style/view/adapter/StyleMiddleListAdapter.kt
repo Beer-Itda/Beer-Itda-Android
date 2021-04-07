@@ -9,7 +9,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleM
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleMiddleItemViewModel
 
 class StyleMiddleListAdapter :
-    SimpleBindingListAdapter<StyleMiddleItemViewModel>(R.layout.item_filter_middle) {
+    SimpleBindingListAdapter<StyleMiddleItemViewModel>(R.layout.item_filter_style_middle) {
 
     @Suppress("UNCHECKED_CAST")
     override fun createViewHolder(view: View): BaseBindingViewHolder<StyleMiddleItemViewModel, ViewDataBinding> {

@@ -2,7 +2,7 @@ package com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small
 
 import androidx.databinding.ObservableBoolean
 import com.ddd4.synesthesia.beer.presentation.base.event.SelectActionEventNotifier
-import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.FilterClicklEntity
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleClicklEntity
 
 class StyleSmallItemViewModel(
     val middleName: String,
@@ -24,11 +24,11 @@ class StyleSmallItemViewModel(
     }
 
     fun clickAddItem() {
-        eventNotifier.notifySelectEvent(FilterClicklEntity.AddStyle(this))
+        eventNotifier.notifySelectEvent(StyleClicklEntity.AddStyle(this))
     }
 
     fun clickDeleteItem() {
-        eventNotifier.notifySelectEvent(FilterClicklEntity.DeleteStyle(this))
+        eventNotifier.notifySelectEvent(StyleClicklEntity.DeleteStyle(this))
     }
 
 }

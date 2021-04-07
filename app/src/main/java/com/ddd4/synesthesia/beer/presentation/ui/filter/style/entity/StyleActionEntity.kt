@@ -5,11 +5,11 @@ import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.large.StyleLa
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleMiddleItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small.StyleSmallItemViewModel
 
-sealed class FilterActionEntity : ActionEntity() {
-    class ShowToast(val message: String) : FilterActionEntity()
-    class UpdateLarge(val styleLarge: List<StyleLargeItemViewModel>) : FilterActionEntity()
-    class UpdateMiddle(val styleMiddle: List<StyleMiddleItemViewModel>) : FilterActionEntity()
-    class UpdateSmall(val styleSmall: List<StyleSmallItemViewModel>) : FilterActionEntity()
+sealed class StyleActionEntity : ActionEntity() {
+    class ShowToast(val message: String) : StyleActionEntity()
+    class UpdateLarge(val styleLarge: List<StyleLargeItemViewModel>) : StyleActionEntity()
+    class UpdateMiddle(val styleMiddle: List<StyleMiddleItemViewModel>) : StyleActionEntity()
+    class UpdateSmall(val styleSmall: List<StyleSmallItemViewModel>) : StyleActionEntity()
     class UpdateSelectedStyleList(val style: List<StyleSmallItemViewModel>) :
-        FilterActionEntity()
+        StyleActionEntity()
 }

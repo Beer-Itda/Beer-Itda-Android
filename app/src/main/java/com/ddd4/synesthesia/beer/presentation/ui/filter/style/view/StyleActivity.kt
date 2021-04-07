@@ -8,13 +8,13 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import com.ddd4.synesthesia.beer.R
-import com.ddd4.synesthesia.beer.databinding.ActivityFilterBinding
+import com.ddd4.synesthesia.beer.databinding.ActivityFilterStyleBinding
 import com.ddd4.synesthesia.beer.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
-import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.FilterActionEntity
-import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.FilterClicklEntity
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleActionEntity
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleClicklEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleMiddleItemViewHolder
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.adapter.StyleMiddleListAdapter
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.adapter.StyleSelectedListAdapter
@@ -26,7 +26,7 @@ import com.yarolegovich.discretescrollview.transform.ScaleTransformer
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class StyleActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_filter),
+class StyleActivity : BaseActivity<ActivityFilterStyleBinding>(R.layout.activity_filter_style),
     DiscreteScrollView.OnItemChangedListener<StyleMiddleItemViewHolder>,
     TabLayout.OnTabSelectedListener {
 
@@ -57,7 +57,7 @@ class StyleActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_filt
                 setOffscreenItems(3)
                 scrollToPosition(0)
             }
-            with(rvFilterSet) {
+            with(rvFilterStyleSmall) {
                 adapter = smallCategoryListAdapter
                 lifecycleOwner = this@StyleActivity
             }
@@ -84,7 +84,7 @@ class StyleActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_filt
 
     override fun handleActionEvent(entity: ActionEntity) {
         when (entity) {
-            is FilterActionEntity.UpdateLarge -> {
+            is StyleActionEntity.UpdateLarge -> {
                 with(binding.tabs) {
                     entity.styleLarge.forEach {
                         addTab(newTab().setText(it.bigName))
@@ -92,17 +92,17 @@ class StyleActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_filt
                     addOnTabSelectedListener(this@StyleActivity)
                 }
             }
-            is FilterActionEntity.UpdateMiddle -> {
+            is StyleActionEntity.UpdateMiddle -> {
                 middleCategoryListAdapter.addAll(entity.styleMiddle, true)
             }
-            is FilterActionEntity.UpdateSmall -> {
+            is StyleActionEntity.UpdateSmall -> {
                 smallCategoryListAdapter.addAll(entity.styleSmall, true)
             }
-            is FilterActionEntity.UpdateSelectedStyleList -> {
+            is StyleActionEntity.UpdateSelectedStyleList -> {
                 selectedStyleAdapter.addAll(entity.style, true)
                 binding.rvSelectedStyle.scrollToPosition(0)
             }
-            is FilterActionEntity.ShowToast -> {
+            is StyleActionEntity.ShowToast -> {
                 Toast.makeText(this, entity.message, Toast.LENGTH_SHORT).show()
             }
         }
@@ -110,11 +110,11 @@ class StyleActivity : BaseActivity<ActivityFilterBinding>(R.layout.activity_filt
 
     override fun handleSelectEvent(entity: ItemClickEntity) {
         when (entity) {
-            is FilterClicklEntity.SelectMiddleCategory -> {
+            is StyleClicklEntity.SelectMiddleCategory -> {
             }
-            is FilterClicklEntity.SelectStyleSet -> {
+            is StyleClicklEntity.SelectStyleSet -> {
             }
-            is FilterClicklEntity.SelectDone -> {
+            is StyleClicklEntity.SelectDone -> {
                 // TODO style 저장 하기
                 entity.selectItem.map {
 

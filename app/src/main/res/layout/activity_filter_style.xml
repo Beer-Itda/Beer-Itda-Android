@@ -102,7 +102,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:listitem="@layout/item_filter_middle" />
+                        tools:listitem="@layout/item_filter_style_middle" />
 
                     <TextView
                         android:id="@+id/tv_beer_description"
@@ -121,7 +121,7 @@
             </com.google.android.material.appbar.AppBarLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_filter_set"
+                android:id="@+id/rv_filter_style_small"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/black"
@@ -138,7 +138,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_beer_description"
                 app:spanCount="3"
-                tools:listitem="@layout/item_style_set" />
+                tools:listitem="@layout/item_filter_style_small" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
