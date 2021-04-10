@@ -92,4 +92,9 @@
     <string name="max_choice_count_style">최대 %d가지의 스타일을 선택할 수 있어요!</string>
     <string name="max_choice_count_aroma">최대 %d가지의 향을 선택할 수 있어요!</string>
     <string name="choice">선택하기</string>
+    <string name="login_with_kakaotalk">카카오톡 로그인하기</string>
+    <string name="login_notice"><![CDATA[카카오톡 로그인하기를 통해 로그인 하시면
+    <a href=\%s><font color="#fdbd39"><b>서비스 이용약관</b></font></a>과
+    <br></br>
+    <a href=\%s><font color="#fdbd39"><b>개인정보처리방침</b></font></a>에 동의한 것으로 간주됩니다.]]></string>
 </resources>

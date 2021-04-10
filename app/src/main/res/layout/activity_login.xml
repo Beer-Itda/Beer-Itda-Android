@@ -1,40 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="androidx.core.text.HtmlCompat" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/color_1c1b21">
 
         <include
             android:id="@+id/include_beer"
+            layout="@layout/layout_beer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            layout="@layout/layout_beer"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/ib_login"
+        <TextView
+            android:id="@+id/tv_login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_kakao_login"
+            android:layout_marginHorizontal="50dp"
+            android:background="@drawable/background_butterscotch_round_20"
             android:foreground="?attr/selectableItemBackground"
-            android:background="@android:color/transparent"
-            android:padding="10dp"
-            android:textColor="@color/black"
+            android:gravity="center"
+            android:paddingHorizontal="70dp"
+            android:paddingVertical="11dp"
+            android:text="@string/login_with_kakaotalk"
+            android:textColor="@color/white"
+            android:textSize="14sp"
             android:textStyle="bold"
-            android:layout_marginHorizontal="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_beer" />
+            app:layout_constraintTop_toBottomOf="@+id/include_beer"
+            tools:text="카카오톡 로그인하기" />
+
+        <TextView
+            android:id="@+id/tv_login_notice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textColor="@color/color_8e8d94"
+            android:textColorLink="@color/butterscotch"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_login"
+            app:layout_constraintStart_toStartOf="@+id/tv_login"
+            app:layout_constraintTop_toBottomOf="@+id/tv_login"
+            tools:text="카카오톡 로그인하기를 통해 로그인 하시면 서비스 이용약관과 개인정보처리방침에 동의한 것으로 간주됩니다." />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
