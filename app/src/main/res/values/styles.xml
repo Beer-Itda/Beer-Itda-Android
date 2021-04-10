@@ -41,7 +41,8 @@
         <item name="android:background">@drawable/background_dialog_round_20</item>
     </style>
 
-    <style name="BottomSheetDialog" parent="Theme.Design.BottomSheetDialog">
+    <style name="BottomSheetDialogStyle" parent="Theme.Design.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
         <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
     </style>
 

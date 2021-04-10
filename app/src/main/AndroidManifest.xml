@@ -42,10 +42,6 @@
                     android:scheme="kakao${kakao}" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".presentation.ui.detail.view.WriteReviewActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".presentation.ui.mypage.view.WriteNickNameActivity"

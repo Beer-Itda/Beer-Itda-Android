@@ -5,21 +5,24 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
-import androidx.core.os.bundleOf
+import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.data.model.Beer
 import com.ddd4.synesthesia.beer.databinding.LayoutBottomStarRatingBinding
+import com.ddd4.synesthesia.beer.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.ext.showToast
 import com.ddd4.synesthesia.beer.presentation.base.BaseBottomSheetDialogFragment
+import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
+import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.ddd4.synesthesia.beer.presentation.ui.detail.entity.StarRatingBottomClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.detail.viewmodel.StarRatingViewModel
 import com.ddd4.synesthesia.beer.util.CustomAlertDialog
 import com.ddd4.synesthesia.beer.util.SimpleCallback
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.hyden.ext.start
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -38,9 +41,14 @@ class StarRatingBottomDialog :
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         SimpleCallback.callback = reviewCallback
+        isCancelable = false
         binding.apply {
             vm = starRatingViewModel
             beer = beerInfo
@@ -52,12 +60,6 @@ class StarRatingBottomDialog :
                 beerInfo?.let { beer ->
                     starRatingViewModel.postReview(beer.id)
                 } ?: kotlin.run { context?.showToast(getString(R.string.review_fail_message)) }
-            }
-            edtReview.setOnClickListener {
-                val bundle = bundleOf(
-                    getString(R.string.key_review) to starRatingViewModel.review.value
-                )
-                start<WriteReviewActivity>(false, bundle)
             }
             ivClose.setOnClickListener {
                 notice()
@@ -71,8 +73,11 @@ class StarRatingBottomDialog :
         reviewSheetDialog.setOnShowListener { dialog ->
             (dialog as? BottomSheetDialog)?.findViewById<FrameLayout>(com.google.android.material.R.id.design_bottom_sheet)
                 ?.run {
-                    BottomSheetBehavior.from(this).state = BottomSheetBehavior.STATE_EXPANDED
-                    BottomSheetBehavior.from(this).isHideable = false
+                    with(BottomSheetBehavior.from(this)) {
+                        state = BottomSheetBehavior.STATE_EXPANDED
+                        isDraggable = false
+                        isHideable = false
+                    }
                 }
         }
 
@@ -91,7 +96,7 @@ class StarRatingBottomDialog :
     }
 
     override fun getTheme(): Int {
-        return R.style.BottomSheetDialog
+        return R.style.BottomSheetDialogStyle
     }
 
     override fun initBind() {
@@ -99,6 +104,9 @@ class StarRatingBottomDialog :
     }
 
     override fun initObserving() {
+        observeHandledEvent(starRatingViewModel.event.select) {
+            handleSelectEvent(it)
+        }
         starRatingViewModel.register.observe(viewLifecycleOwner, Observer {
             dismiss()
             dismiss?.invoke()
@@ -110,6 +118,21 @@ class StarRatingBottomDialog :
                 }
             } ?: kotlin.run { starRatingViewModel.rating.value = 0.5f }
         })
+    }
+
+    override fun handleSelectEvent(entity: ItemClickEntity) {
+        when (entity) {
+            StarRatingBottomClickEntity.ClickGuide -> {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.please_wait_for_a_little_while),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    override fun handleActionEvent(entity: ActionEntity) {
     }
 
     private fun notice() {

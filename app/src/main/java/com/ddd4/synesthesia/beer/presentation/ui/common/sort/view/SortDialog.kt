@@ -20,7 +20,7 @@ class SortDialog
     private val viewModel: SortViewModel by viewModels()
 
     override fun getTheme(): Int {
-        return R.style.BottomSheetDialog
+        return R.style.BottomSheetDialogStyle
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

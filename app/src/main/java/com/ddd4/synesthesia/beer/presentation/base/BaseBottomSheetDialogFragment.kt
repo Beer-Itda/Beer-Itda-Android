@@ -7,12 +7,17 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
+import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.ddd4.synesthesia.beer.presentation.commom.entity.HandleEvent
 import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 
+
 abstract class BaseBottomSheetDialogFragment<B : ViewDataBinding>(private val layoutId: Int) :
-    BottomSheetDialogFragment() {
+    BottomSheetDialogFragment(),
+    HandleEvent {
 
     @Inject
     lateinit var preference: SharedPreferenceProvider
@@ -37,4 +42,7 @@ abstract class BaseBottomSheetDialogFragment<B : ViewDataBinding>(private val la
         binding.lifecycleOwner = this
         return binding.root
     }
+
+    override fun handleSelectEvent(entity: ItemClickEntity) {}
+    override fun handleActionEvent(entity: ActionEntity) {}
 }

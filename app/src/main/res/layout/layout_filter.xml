@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/margin_14"
-                android:src="@drawable/ic_close"
+                android:src="@drawable/ic_btn_close"
                 tools:ignore="ContentDescription" />
 
         </LinearLayout>
