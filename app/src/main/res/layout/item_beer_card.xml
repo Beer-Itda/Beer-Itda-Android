@@ -15,7 +15,7 @@
         android:id="@+id/cv_beer"
         android:layout_width="120dp"
         android:layout_height="210dp"
-        android:background="@color/color_1c1b21"
+        android:backgroundTint="@color/color_1c1b21"
         android:elevation="50dp"
         android:onClick="@{() -> beer.clickItem()}"
         app:cardCornerRadius="30dp"

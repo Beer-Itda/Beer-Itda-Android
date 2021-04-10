@@ -31,9 +31,9 @@
         <include
             android:id="@+id/include_toolbar"
             layout="@layout/layout_global_toolbar"
-            app:title="@{null}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@{null}" />
 
         <ImageView
             android:id="@+id/iv_profile"
@@ -42,11 +42,11 @@
             android:layout_marginTop="24dp"
             android:background="@android:color/transparent"
             android:contentDescription="@string/app_name"
+            app:errorDrawable="@{@drawable/ic_img_profile_blank}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include_toolbar"
             app:loadUrl="@{vm.userInfo.kakaoAccount.profile.profileImageUrl}"
-            app:errorDrawable="@{@drawable/ic_img_profile_blank}"
             app:tranformType="@{ImageTransformType.CIRCLE}"
             tools:background="@drawable/ic_img_profile_blank" />
 
@@ -55,32 +55,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:ellipsize="end"
             android:gravity="center"
+            android:maxLength="@integer/max_length"
+            android:onClick="@{() -> vm.clickModify()}"
+            android:singleLine="true"
             android:text="@{vm.nickName}"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:maxLength="@integer/max_length"
-            android:onClick="@{() -> vm.clickModify()}"
             android:visibility="@{TextUtils.isEmpty(vm.userInfo.kakaoAccount.profile.nickname) ? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toStartOf="@+id/tv_name_cell"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@+id/iv_profile"
             app:layout_constraintTop_toBottomOf="@+id/iv_profile"
-            app:layout_constraintHorizontal_chainStyle="packed"
             tools:text="공감각" />
 
         <TextView
             android:id="@+id/tv_name_cell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="님"
             android:onClick="@{() -> vm.clickModify()}"
-            app:layout_constraintTop_toTopOf="@+id/tv_name"
+            android:text="님"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_name"
+            app:layout_constraintEnd_toEndOf="@+id/iv_profile"
             app:layout_constraintStart_toEndOf="@+id/tv_name"
-            app:layout_constraintEnd_toEndOf="@+id/iv_profile" />
+            app:layout_constraintTop_toTopOf="@+id/tv_name" />
 
         <ImageView
             android:id="@+id/iv_modify"
@@ -88,8 +88,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="15dp"
-            android:src="@drawable/ic_modify"
             android:onClick="@{() -> vm.clickModify()}"
+            android:src="@drawable/ic_modify"
             app:layout_constraintBottom_toBottomOf="@+id/tv_name"
             app:layout_constraintStart_toEndOf="@+id/tv_name_cell"
             app:layout_constraintTop_toTopOf="@+id/tv_name" />
@@ -100,8 +100,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textColor="@color/color_c8c8c8"
             android:text="@{vm.userInfo.kakaoAccount.email}"
+            android:textColor="@color/color_c8c8c8"
             android:visibility="@{TextUtils.isEmpty(vm.userInfo.kakaoAccount.email) ? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

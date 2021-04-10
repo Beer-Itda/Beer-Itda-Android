@@ -41,6 +41,7 @@ object Versions {
 
     //
     const val SNAP_RECYCLERVIEW = "1.5.1"
+    const val LOTTIE = "3.7.0"
 }
 
 object Libs {
@@ -100,6 +101,7 @@ object Libs {
     //
     const val SNAP_RECYCLERVIEW =
         "com.yarolegovich:discrete-scrollview:${Versions.SNAP_RECYCLERVIEW}"
+    const val LOTTIE = "com.airbnb.android:lottie:${Versions.LOTTIE}"
 
 }
 

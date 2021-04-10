@@ -135,6 +135,7 @@ dependencies {
 
     //
     implementation(Libs.SNAP_RECYCLERVIEW)
+    implementation(Libs.LOTTIE)
 
     testImplementation(TestLibs.JUNIT)
     androidTestImplementation(TestLibs.ANDROID_X_JUNIT)

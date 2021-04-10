@@ -5,68 +5,68 @@
     <Transition
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@+id/start"
-        motion:motionInterpolator="linear"
-        motion:duration="1000">
+        motion:duration="1000"
+        motion:motionInterpolator="linear">
         <OnSwipe
+            motion:dragDirection="dragUp"
             motion:touchAnchorId="@+id/rv_page"
-            motion:touchAnchorSide="top"
-            motion:dragDirection="dragUp" />
+            motion:touchAnchorSide="top" />
 
         <KeyFrameSet>
 
             <KeyAttribute
-                motion:motionTarget="@id/view_divider"
+                android:alpha="1"
                 motion:framePosition="0"
-                android:alpha="1" />
+                motion:motionTarget="@id/view_divider" />
 
             <KeyAttribute
-                motion:motionTarget="@id/view_divider"
+                android:alpha="0"
                 motion:framePosition="80"
-                android:alpha="0" />
+                motion:motionTarget="@id/view_divider" />
             <KeyAttribute
-                motion:motionTarget="@id/view_divider"
+                android:alpha="1"
                 motion:framePosition="100"
-                android:alpha="1" />
+                motion:motionTarget="@id/view_divider" />
 
 
             <KeyAttribute
-                motion:motionTarget="@id/tv_kakao_connect_title"
+                android:alpha="1"
                 motion:framePosition="30"
-                android:alpha="1" />
+                motion:motionTarget="@id/tv_kakao_connect_title" />
             <KeyAttribute
-                motion:motionTarget="@id/tv_kakao_connect_title"
+                android:alpha="0"
                 motion:framePosition="100"
-                android:alpha="0" />
+                motion:motionTarget="@id/tv_kakao_connect_title" />
 
             <KeyAttribute
-                motion:motionTarget="@id/tv_email"
+                android:alpha="1"
                 motion:framePosition="30"
-                android:alpha="1" />
+                motion:motionTarget="@id/tv_email" />
 
             <KeyAttribute
-                motion:motionTarget="@id/tv_email"
+                android:alpha="0"
                 motion:framePosition="100"
-                android:alpha="0" />
+                motion:motionTarget="@id/tv_email" />
 
             <KeyAttribute
-                motion:motionTarget="@+id/iv_modify"
+                android:alpha="1"
                 motion:framePosition="20"
-                android:alpha="1" />
+                motion:motionTarget="@+id/iv_modify" />
 
             <KeyAttribute
-                motion:motionTarget="@+id/iv_modify"
+                android:alpha="0"
                 motion:framePosition="100"
-                android:alpha="0" />
+                motion:motionTarget="@+id/iv_modify" />
 
             <KeyAttribute
-                motion:motionTarget="@+id/tv_name_cell"
+                android:alpha="1"
                 motion:framePosition="20"
-                android:alpha="1" />
+                motion:motionTarget="@+id/tv_name_cell" />
 
             <KeyAttribute
-                motion:motionTarget="@+id/tv_name_cell"
+                android:alpha="0"
                 motion:framePosition="100"
-                android:alpha="0" />
+                motion:motionTarget="@+id/tv_name_cell" />
         </KeyFrameSet>
 
     </Transition>
@@ -75,18 +75,18 @@
 
         <Constraint
             android:id="@+id/include_toolbar"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            motion:layout_constraintTop_toTopOf="parent"
-            motion:layout_constraintStart_toStartOf="parent" />
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
             android:id="@+id/iv_profile"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_marginTop="14dp"
-            motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toBottomOf="@+id/include_toolbar" />
 
         <Constraint
@@ -94,26 +94,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            motion:layout_constraintEnd_toStartOf="@+id/tv_name_cell"
             motion:layout_constraintHorizontal_chainStyle="packed"
             motion:layout_constraintStart_toStartOf="@+id/iv_profile"
-            motion:layout_constraintEnd_toStartOf="@+id/tv_name_cell"
             motion:layout_constraintTop_toBottomOf="@+id/iv_profile" />
 
         <Constraint
             android:id="@+id/tv_name_cell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            motion:layout_constraintStart_toEndOf="@+id/tv_name"
+            motion:layout_constraintBottom_toBottomOf="@+id/tv_name"
             motion:layout_constraintEnd_toEndOf="@+id/iv_profile"
-            motion:layout_constraintBottom_toBottomOf="@+id/tv_name" />
+            motion:layout_constraintStart_toEndOf="@+id/tv_name" />
 
         <Constraint
             android:id="@+id/tv_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
         <Constraint
@@ -121,8 +121,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toBottomOf="@+id/tv_email" />
 
         <Constraint
@@ -130,17 +130,17 @@
             android:layout_width="0dp"
             android:layout_height="5dp"
             android:layout_marginTop="24dp"
-            motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toBottomOf="@+id/tv_kakao_connect_title" />
 
         <Constraint
             android:id="@+id/rv_page"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toBottomOf="@+id/view_divider" />
     </ConstraintSet>
 
@@ -148,50 +148,51 @@
 
         <Constraint
             android:id="@+id/include_toolbar"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            motion:layout_constraintTop_toTopOf="parent"
-            motion:layout_constraintStart_toStartOf="parent" />
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
             android:id="@+id/iv_profile"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="28dp"
-            motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintBottom_toBottomOf="@+id/include_toolbar"
+            motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintTop_toTopOf="@+id/include_toolbar" />
 
         <Constraint
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            motion:layout_constraintStart_toEndOf="@+id/include_toolbar"
             motion:layout_constraintBottom_toBottomOf="@+id/include_toolbar"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toTopOf="@+id/include_toolbar" />
 
         <Constraint
             android:id="@+id/tv_name_cell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            motion:layout_constraintStart_toEndOf="@+id/tv_name"
             motion:layout_constraintBottom_toBottomOf="@+id/include_toolbar"
+            motion:layout_constraintStart_toEndOf="@+id/tv_name"
             motion:layout_constraintTop_toTopOf="@+id/include_toolbar" />
 
         <Constraint
             android:id="@+id/tv_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
         <Constraint
             android:id="@+id/tv_kakao_connect_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toBottomOf="@+id/tv_email" />
 
         <Constraint
@@ -199,17 +200,17 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="0dp"
-            motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toBottomOf="@+id/include_toolbar" />
 
         <Constraint
             android:id="@+id/rv_page"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            motion:layout_constraintStart_toStartOf="parent"
-            motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toBottomOf="@+id/view_divider" />
     </ConstraintSet>
 
