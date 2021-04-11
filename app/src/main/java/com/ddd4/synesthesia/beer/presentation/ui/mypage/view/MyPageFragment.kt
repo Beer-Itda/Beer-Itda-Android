@@ -67,9 +67,6 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
                 R.layout.layout_my_page,
                 BR.my
             ).apply { updateItems(myPageViewModel.generateInfoList()) }
-            includeToolbar.toolbar.setNavigationOnClickListener {
-                findNavController().popBackStack()
-            }
         }
     }
 
@@ -91,7 +88,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
                 infomationsEvent(entity.info.title)
             }
             is MyPageClickEntity.Modify -> {
-                WriteNickNameActivity.start(requireContext(), binding.tvName.text.toString())
+                NickNameActivity.start(requireContext(), binding.tvName.text.toString())
             }
         }
     }

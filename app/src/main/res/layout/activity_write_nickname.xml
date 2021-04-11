@@ -10,8 +10,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="contents"
-            type="String" />
+            name="viewModel"
+            type="com.ddd4.synesthesia.beer.presentation.ui.mypage.viewmodel.NickNameViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,95 +19,115 @@
         android:layout_height="match_parent"
         android:background="@color/color_1c1b21">
 
-        <ImageView
-            android:id="@+id/iv_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:src="@drawable/ic_btn_close"
-            app:layout_constraintVertical_bias="0.3"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/edt_nickname" />
+        <include
+            android:id="@+id/include_toolbar"
+            layout="@layout/layout_global_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
+        <TextView
+            android:id="@+id/tv_nickname_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="18dp"
+            android:layout_marginTop="28dp"
+            android:text="@string/please_nickname_setting"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/include_toolbar"
+            tools:text="@string/please_nickname_setting" />
+
+        <TextView
+            android:id="@+id/tv_nickname_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/available_nickname_format"
+            android:textColor="@color/color_8e8d94"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_nickname_title"
+            app:layout_constraintStart_toStartOf="@+id/tv_nickname_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_nickname_title"
+            tools:text="@string/available_nickname_format" />
 
         <EditText
             android:id="@+id/edt_nickname"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="100dp"
             android:background="@null"
-            android:gravity="center"
-            android:text="@={contents}"
-            tools:text="공감각"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:layout_marginStart="28dp"
-            android:maxLength="@integer/max_length"
+            android:gravity="start"
             android:hint="@string/nickname"
+            android:maxLength="@integer/max_length"
+            android:text="@={viewModel.nickName}"
+            android:textColor="@color/white"
             android:textColorHint="@color/color_c8c8c8"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/under_line"
             app:layout_constraintEnd_toStartOf="@+id/iv_clear"
-            app:layout_constraintTop_toBottomOf="@+id/iv_close"
-            app:layout_constraintBottom_toTopOf="@+id/under_line" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_nickname_description"
+            tools:text="공감각" />
 
         <ImageView
             android:id="@+id/iv_clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.clickClear()}"
             android:src="@drawable/ic_clear"
-            android:visibility="@{TextUtils.isEmpty(contents) ? View.GONE : View.VISIBLE}"
-            app:layout_constraintTop_toTopOf="@+id/edt_nickname"
+            android:visibility="@{TextUtils.isEmpty(viewModel.nickName) ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/edt_nickname"
-            app:layout_constraintStart_toStartOf="@+id/iv_close"
-            app:layout_constraintEnd_toEndOf="@+id/iv_close" />
+            app:layout_constraintEnd_toEndOf="@+id/tv_nickname_description"
+            app:layout_constraintTop_toTopOf="@+id/edt_nickname" />
 
         <View
             android:id="@+id/under_line"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/color_7a7a7a"
-            android:layout_marginHorizontal="28dp"
+            android:layout_height="2dp"
+            android:layout_marginHorizontal="18dp"
             android:layout_marginTop="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/btn_save"
-            app:layout_constraintTop_toBottomOf="@+id/edt_nickname" />
+            android:background="@{viewModel.isValid() ? @color/color_61c453 : @color/color_ed6a5e}"
+            app:layout_constraintTop_toBottomOf="@+id/edt_nickname"
+            tools:background="@color/color_61c453" />
 
         <TextView
             android:id="@+id/tv_max_text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{@string/max_text_length(contents.length())}"
-            tools:text="0/10"
-            android:textColor="@{contents.length() >= 10 ? @color/red : @color/white}"
             android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="@+id/edt_nickname"
+            android:text="@{@string/max_text_length(viewModel.nickName.length())}"
+            android:textColor="@{viewModel.isValid() ? @color/color_61c453 : @color/color_ed6a5e}"
             app:layout_constraintEnd_toEndOf="@+id/edt_nickname"
-            app:layout_constraintTop_toBottomOf="@+id/under_line" />
+            app:layout_constraintStart_toStartOf="@+id/edt_nickname"
+            app:layout_constraintTop_toBottomOf="@+id/under_line"
+            tools:textColor="@color/color_61c453"
+            tools:text="0/10" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{@string/min_text_length}"
-            tools:text="최소 2자 이상 입력해주세요."
-            android:textColor="@{2 > contents.length() ? @color/red : @color/white}"
-            android:visibility="@{2 > contents.length() ? View.VISIBLE : View.GONE}"
             android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="@+id/edt_nickname"
+            android:text="@{@string/min_text_length}"
+            android:textColor="@{2 > viewModel.nickName.length() ? @color/color_ed6a5e : @color/white}"
+            android:visibility="@{2 > viewModel.nickName.length() ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="@+id/edt_nickname"
-            app:layout_constraintTop_toBottomOf="@+id/tv_max_text" />
+            app:layout_constraintStart_toStartOf="@+id/edt_nickname"
+            app:layout_constraintTop_toBottomOf="@+id/tv_max_text"
+            tools:text="최소 2자 이상 입력해주세요." />
 
         <TextView
             android:id="@+id/btn_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/black"
-            android:clickable="@{contents.length() >= 2 ? true : false}"
-            android:focusable="@{contents.length() >= 2 ? true : false}"
+            android:clickable="@{viewModel.nickName.length() >= 2 ? true : false}"
+            android:focusable="@{viewModel.nickName.length() >= 2 ? true : false}"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:paddingVertical="22dp"
             android:text="@string/save"
-            android:textColor="@{contents.length() >= 2 ? @color/butterscotch : @color/color_8e8f93}"
+            android:textColor="@{viewModel.nickName.length() >= 2 ? @color/butterscotch : @color/color_8e8f93}"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -4,32 +4,44 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.core.widget.addTextChangedListener
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityWriteNicknameBinding
+import com.ddd4.synesthesia.beer.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
-import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailActivity
+import com.ddd4.synesthesia.beer.presentation.ui.mypage.viewmodel.NickNameViewModel
 import com.ddd4.synesthesia.beer.util.CustomAlertDialog
-import com.ddd4.synesthesia.beer.util.KeyStringConst
+import com.ddd4.synesthesia.beer.util.RegexUtil.isValidNickName
 import com.ddd4.synesthesia.beer.util.SimpleCallback
+import dagger.hilt.android.AndroidEntryPoint
 
-class WriteNickNameActivity :
+@AndroidEntryPoint
+class NickNameActivity :
     BaseActivity<ActivityWriteNicknameBinding>(R.layout.activity_write_nickname) {
 
+    private val viewModel by viewModels<NickNameViewModel>()
     private val nickName by lazy { intent.extras?.getString(KEY_NICKNAME) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.apply {
+            viewModel = this@NickNameActivity.viewModel
             edtNickname.apply {
-                contents = nickName
                 requestFocus()
             }
-            ivClose.setOnClickListener { notice() }
-            ivClear.setOnClickListener { contents = "" }
+            includeToolbar.toolbar.setOnClickListener { notice() }
             btnSave.setOnClickListener {
                 SimpleCallback.callback?.call(edtNickname.text.toString())
                 finish()
             }
+        }
+        initObserver()
+    }
+
+    override fun initObserver() {
+        viewModel.nickName.observe(this@NickNameActivity) {
+            viewModel.setIsValid(isValidNickName(it.toString()))
         }
     }
 
@@ -45,7 +57,7 @@ class WriteNickNameActivity :
     }
 
     private fun notice() {
-        if (binding.contents == nickName) {
+        if (viewModel.nickName.value == nickName) {
             finish()
         } else {
             CustomAlertDialog(
@@ -63,7 +75,7 @@ class WriteNickNameActivity :
 
         @JvmStatic
         fun start(context: Context, nickname: String) {
-            context.startActivity(Intent(context, WriteNickNameActivity::class.java).apply {
+            context.startActivity(Intent(context, NickNameActivity::class.java).apply {
                 putExtra(KEY_NICKNAME, nickname)
             })
         }
