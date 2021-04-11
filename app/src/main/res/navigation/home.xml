@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.ddd4.synesthesia.beer.presentation.ui.home.view.HomeFragment"
+        android:name="com.ddd4.synesthesia.beer.presentation.ui.home.main.view.HomeFragment"
         tools:layout="@layout/fragment_home" />
 
 
     <fragment
         android:id="@+id/nav_mypage"
-        android:name="com.ddd4.synesthesia.beer.presentation.ui.mypage.view.MyPageFragment"
+        android:name="com.ddd4.synesthesia.beer.presentation.ui.mypage.main.view.MyPageFragment"
         tools:layout="@layout/fragment_my_page" />
 
     <fragment
@@ -33,12 +33,12 @@
 
     <fragment
         android:id="@+id/nav_my_review"
-        android:name="com.ddd4.synesthesia.beer.presentation.ui.mypage.view.review.MyReviewFragment"
+        android:name="com.ddd4.synesthesia.beer.presentation.ui.mypage.review.view.MyReviewFragment"
         tools:layout="@layout/fragment_my_review" />
 
     <fragment
         android:id="@+id/nav_my_favorite"
-        android:name="com.ddd4.synesthesia.beer.presentation.ui.mypage.view.favorite.MyFavoriteFragment"
+        android:name="com.ddd4.synesthesia.beer.presentation.ui.mypage.favorite.view.MyFavoriteFragment"
         tools:layout="@layout/fragment_my_favorite" />
 
 

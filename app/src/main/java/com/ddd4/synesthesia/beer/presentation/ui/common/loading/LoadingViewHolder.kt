@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.LayoutLoadingBinding
 import com.ddd4.synesthesia.beer.ext.createView
-import com.ddd4.synesthesia.beer.presentation.ui.like.view.HomeLikeHolder
+import com.ddd4.synesthesia.beer.presentation.ui.home.like.view.HomeLikeHolder
 
 class LoadingViewHolder<VM : Any> constructor(
     itemView: View

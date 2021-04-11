@@ -13,7 +13,7 @@
 
         <variable
             name="vm"
-            type="com.ddd4.synesthesia.beer.presentation.ui.mypage.viewmodel.MyPageViewModel" />
+            type="com.ddd4.synesthesia.beer.presentation.ui.mypage.main.viewmodel.MyPageViewModel" />
 
         <variable
             name="userAdapter"

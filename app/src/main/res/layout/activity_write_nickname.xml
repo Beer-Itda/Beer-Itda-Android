@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="com.ddd4.synesthesia.beer.presentation.ui.mypage.viewmodel.NickNameViewModel" />
+            type="com.ddd4.synesthesia.beer.presentation.ui.mypage.nickname.viewmodel.NickNameViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

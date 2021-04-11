@@ -11,7 +11,7 @@
 
         <variable
             name="adapter"
-            type="com.ddd4.synesthesia.beer.presentation.ui.home.adapter.FilterCountryAdapter" />
+            type="com.ddd4.synesthesia.beer.presentation.ui.home.main.adapter.FilterCountryAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
