@@ -31,6 +31,7 @@ class StyleActivity : BaseActivity<ActivityFilterStyleBinding>(R.layout.activity
     DiscreteScrollView.OnItemChangedListener<StyleMiddleItemViewHolder>,
     TabLayout.OnTabSelectedListener {
 
+    private var isFirstStart = true
     private val viewModel: StyleViewModel by viewModels()
     private val smallCategoryListAdapter by lazy { StyleSmallListAdapter() }
     private val middleCategoryListAdapter by lazy { StyleMiddleListAdapter() }
@@ -116,11 +117,8 @@ class StyleActivity : BaseActivity<ActivityFilterStyleBinding>(R.layout.activity
             is StyleClicklEntity.SelectStyleSet -> {
             }
             is StyleClicklEntity.SelectDone -> {
-                // TODO style 저장 하기
-                entity.selectItem.map {
-
-                }
                 AromaActivity.start(this@StyleActivity)
+                finish()
             }
         }
     }
@@ -137,7 +135,10 @@ class StyleActivity : BaseActivity<ActivityFilterStyleBinding>(R.layout.activity
         viewHolder: StyleMiddleItemViewHolder?,
         adapterPosition: Int
     ) {
-        viewModel.loadFilterSet(adapterPosition)
+        if (!isFirstStart) {
+            viewModel.loadFilterSet(adapterPosition)
+        }
+        isFirstStart = false
     }
 
     companion object {

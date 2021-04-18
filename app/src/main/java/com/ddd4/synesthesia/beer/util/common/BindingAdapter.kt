@@ -22,10 +22,9 @@ import com.ddd4.synesthesia.beer.ext.*
 import com.ddd4.synesthesia.beer.presentation.commom.entity.ThrowEntity
 import com.ddd4.synesthesia.beer.util.CustomTypefaceSpan
 import com.ddd4.synesthesia.beer.util.MutableLiveDataList
-import com.ddd4.synesthesia.beer.util.decoration.RecyclerItemDecoration
-import com.ddd4.synesthesia.beer.presentation.ui.common.filter.BeerFilter
 import com.ddd4.synesthesia.beer.util.NetworkStatus
 import com.ddd4.synesthesia.beer.util.decoration.HorizontalItemSpaceDecoration
+import com.ddd4.synesthesia.beer.util.decoration.RecyclerItemDecoration
 import com.ddd4.synesthesia.beer.util.decoration.VerticalItemSpaceDecoration
 import com.ddd4.synesthesia.beer.util.sort.SortType
 import com.google.android.material.appbar.AppBarLayout
@@ -35,7 +34,7 @@ import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
 
 
-@BindingAdapter("app:addChip")
+@BindingAdapter("app:addChip", requireAll = false)
 fun makeChips(chipGroup: ChipGroup, flavor: List<String>?) {
     if (flavor == null) return
     chipGroup.removeAllViews()
@@ -122,21 +121,21 @@ fun setHorizontalItemDecoration(
     }
 }
 
-@BindingAdapter(value = ["verticalSpace", "topBototmSpace"], requireAll = false)
+@BindingAdapter(value = ["verticalSpace", "topBottomSpace"], requireAll = false)
 fun setVerticalItemDecoration(
     recyclerView: RecyclerView,
     space: Float?,
-    topBototmSpaceSpace: Float?
+    topBottomSpaceSpace: Float?
 ) {
     recyclerView.addItemDecoration(
         VerticalItemSpaceDecoration(
             space?.toInt().orZero(),
-            topBototmSpaceSpace?.toInt().orZero()
+            topBottomSpaceSpace?.toInt().orZero()
         )
     )
 }
 
-@BindingAdapter("app:updateCountText")
+@BindingAdapter("app:updateCountText", requireAll = false)
 fun updateCountText(countView: TextView, selectedItemList: MutableLiveDataList<String>) {
     if (selectedItemList.isNotEmpty()) {
         val context = countView.context
@@ -166,7 +165,7 @@ fun updateCountText(countView: TextView, selectedItemList: MutableLiveDataList<S
     }
 }
 
-@BindingAdapter("app:updateAbvRange")
+@BindingAdapter("app:updateAbvRange", requireAll = false)
 fun updateAbvRange(abvTextView: TextView, abvRange: Pair<Int, Int>?) {
     if (abvRange == null) {
         abvTextView.text = ""
@@ -203,21 +202,6 @@ fun updateAbvRange(abvTextView: TextView, abvRange: Pair<Int, Int>?) {
     span.setSpan(imageSpan, span.length - 1, span.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
     span.append(maxAbv)
     abvTextView.setText(span, TextView.BufferType.SPANNABLE)
-}
-
-@BindingAdapter("app:filterVisibility")
-fun homeFilterVisibility(view: View, filter: BeerFilter?) {
-    filter ?: return
-
-    with(filter) {
-        view.visibility =
-            if (styleFilter != null || aromaFilter != null || abvFilter != null || countryFilter != null) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
-    }
-
 }
 
 @BindingAdapter(
@@ -281,6 +265,7 @@ fun View.setVisibility(value: Boolean?) {
         setVisible(value)
     }
 }
+
 @BindingAdapter(value = ["inVisibility"])
 fun View.setInVisibility(value: Boolean?) {
     value?.let {

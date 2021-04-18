@@ -12,7 +12,6 @@ import com.ddd4.synesthesia.beer.databinding.ActivityHomeLikeBinding
 import com.ddd4.synesthesia.beer.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
-import com.ddd4.synesthesia.beer.presentation.ui.common.filter.BeerFilter
 import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailActivity
 import com.ddd4.synesthesia.beer.presentation.ui.home.like.entity.HomeLikeActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.home.like.viewmodel.HomeLikeViewModel
@@ -28,7 +27,6 @@ class HomeLikeActivity : BaseActivity<ActivityHomeLikeBinding>(R.layout.activity
     private val adapter by lazy { HomeLikeListAdapter() }
     private val type by lazy { intent.extras?.get(KEY_LIKE_TYPE) }
     private val title by lazy { intent.extras?.get(KEY_LIKE_TITLE) }
-    private val filter by lazy { intent.extras?.get(KEY_LIKE_FILTER) }
     private val endlessRecyclerViewScrollListener: EndlessRecyclerViewScrollListener by lazy {
         object : EndlessRecyclerViewScrollListener(binding.rvHomeLike.layoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
@@ -80,14 +78,12 @@ class HomeLikeActivity : BaseActivity<ActivityHomeLikeBinding>(R.layout.activity
         const val KEY_LIKE_SORT = "home_like_sort"
         const val KEY_LIKE_TYPE = "home_like_type"
         const val KEY_LIKE_TITLE = "home_like_title"
-        const val KEY_LIKE_FILTER = "home_like_filter"
 
         @JvmStatic
         fun start(
             context: Context,
             type: HomeStringProvider.Code,
             title: String,
-            filter: BeerFilter,
             requestCode: Int = REQ_CODE_HOME_LIKE
         ) {
             when (context) {
@@ -99,7 +95,6 @@ class HomeLikeActivity : BaseActivity<ActivityHomeLikeBinding>(R.layout.activity
                         ).apply {
                             putExtra(KEY_LIKE_TYPE, type)
                             putExtra(KEY_LIKE_TITLE, title)
-                            putExtra(KEY_LIKE_FILTER, filter)
                         }, requestCode
                     )
                 }
@@ -107,7 +102,6 @@ class HomeLikeActivity : BaseActivity<ActivityHomeLikeBinding>(R.layout.activity
                     context.startActivity(Intent(context, HomeLikeActivity::class.java).apply {
                         putExtra(KEY_LIKE_TYPE, type)
                         putExtra(KEY_LIKE_TITLE, title)
-                        putExtra(KEY_LIKE_FILTER, filter)
                     })
                 }
             }
@@ -119,7 +113,6 @@ class HomeLikeActivity : BaseActivity<ActivityHomeLikeBinding>(R.layout.activity
             sort: SortType?,
             type: HomeStringProvider.Code,
             title: String,
-            filter: BeerFilter,
             requestCode: Int = REQ_CODE_HOME_LIKE
         ) {
             fragment.startActivityForResult(
@@ -130,7 +123,6 @@ class HomeLikeActivity : BaseActivity<ActivityHomeLikeBinding>(R.layout.activity
                     putExtra(KEY_LIKE_SORT, sort)
                     putExtra(KEY_LIKE_TYPE, type)
                     putExtra(KEY_LIKE_TITLE, title)
-                    putExtra(KEY_LIKE_FILTER, filter)
                 }, requestCode
             )
         }

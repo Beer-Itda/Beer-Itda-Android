@@ -3,7 +3,10 @@ package com.ddd4.synesthesia.beer.presentation.ui.home.main.item.parent.list
 import com.ddd4.synesthesia.beer.data.model.Beer
 import com.ddd4.synesthesia.beer.presentation.base.event.SelectActionEventNotifier
 import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModelMapper
-import com.ddd4.synesthesia.beer.presentation.ui.common.filter.BeerFilter
+import com.ddd4.synesthesia.beer.presentation.ui.common.filter.AromaProvider
+import com.ddd4.synesthesia.beer.presentation.ui.common.filter.StyleProvider
+import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small.StyleSmallItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.home.main.item.child.HomeBeerChildItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.home.main.view.HomeStringProvider
 import com.ddd4.synesthesia.beer.util.sort.SortType
@@ -14,7 +17,8 @@ object BeerListModelMapper {
         sortType: SortType?,
         type: HomeStringProvider.Code,
         title: String,
-        filter: BeerFilter,
+        style: List<StyleSmallItemViewModel>? = null,
+        aroma: List<AromaItemViewModel>? = null,
         eventNotifier: SelectActionEventNotifier
     ): BeerListItemViewModel {
         val list = this.map {
@@ -31,7 +35,8 @@ object BeerListModelMapper {
             type = type,
             title = title,
             beers = list,
-            filter = filter,
+            style = style.orEmpty(),
+            aroma = aroma.orEmpty(),
             eventNotifier = eventNotifier
         )
     }

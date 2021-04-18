@@ -5,13 +5,16 @@ import com.ddd4.synesthesia.beer.presentation.base.event.SelectActionEventNotifi
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleClicklEntity
 
 class StyleSmallItemViewModel(
+    val id: String,
     val middleName: String,
     val smallName: String,
     val isAll: Boolean,
     val largePosition: Int,
     val middlePosition: Int,
-    val eventNotifier: SelectActionEventNotifier
+    val smallPosition: Int,
 ) {
+
+    var eventNotifier: SelectActionEventNotifier? = null
 
     val isSelected = ObservableBoolean(false)
 
@@ -24,11 +27,11 @@ class StyleSmallItemViewModel(
     }
 
     fun clickAddItem() {
-        eventNotifier.notifySelectEvent(StyleClicklEntity.AddStyle(this))
+        eventNotifier?.notifySelectEvent(StyleClicklEntity.AddStyle(this))
     }
 
     fun clickDeleteItem() {
-        eventNotifier.notifySelectEvent(StyleClicklEntity.DeleteStyle(this))
+        eventNotifier?.notifySelectEvent(StyleClicklEntity.DeleteStyle(this))
     }
 
 }

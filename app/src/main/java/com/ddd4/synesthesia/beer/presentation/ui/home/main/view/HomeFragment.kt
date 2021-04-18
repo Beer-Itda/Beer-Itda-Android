@@ -38,6 +38,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
         initObserver()
         initView()
+        homeViewModel.load()
     }
 
     override fun initObserver() {
@@ -54,9 +55,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             is HomeActionEntity.UpdateList -> {
                 homeAdapter.clear()
                 homeAdapter.addAll(entity.beer)
-            }
-            is HomeActionEntity.FilterSetting -> {
-                homeViewModel.load2()
             }
             is HomeActionEntity.AppConfigSetting -> {
                 preference.setPreference("appConfig", Gson().toJson(entity.config))
@@ -87,8 +85,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     fragment = this@HomeFragment,
                     sort = entity.sort,
                     type = entity.type,
-                    title = entity.title,
-                    filter = entity.filter
+                    title = entity.title
                 )
             }
             is BeerClickEntity.SelectItem -> {

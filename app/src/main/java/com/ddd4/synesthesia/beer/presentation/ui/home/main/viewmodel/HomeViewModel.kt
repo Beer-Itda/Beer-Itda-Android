@@ -16,9 +16,8 @@ import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModel
-import com.ddd4.synesthesia.beer.presentation.ui.common.filter.BeerFilter
-import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FilterSetting
-import com.ddd4.synesthesia.beer.presentation.ui.common.filter.orEmpty
+import com.ddd4.synesthesia.beer.presentation.ui.common.filter.AromaProvider
+import com.ddd4.synesthesia.beer.presentation.ui.common.filter.StyleProvider
 import com.ddd4.synesthesia.beer.presentation.ui.home.main.entity.HomeActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.home.main.entity.HomeSelectEntity
 import com.ddd4.synesthesia.beer.presentation.ui.home.main.item.IHomeItemViewModel
@@ -27,24 +26,19 @@ import com.ddd4.synesthesia.beer.presentation.ui.home.main.item.parent.award.Bee
 import com.ddd4.synesthesia.beer.presentation.ui.home.main.item.parent.list.BeerListItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.home.main.item.parent.list.BeerListModelMapper.getMapper
 import com.ddd4.synesthesia.beer.presentation.ui.home.main.view.HomeStringProvider
-import com.ddd4.synesthesia.beer.util.sort.SortSetting
 import com.ddd4.synesthesia.beer.util.sort.SortType
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.consume
 import kotlinx.coroutines.channels.consumeEach
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import kotlin.random.Random
 
 @ExperimentalCoroutinesApi
 class HomeViewModel @ViewModelInject constructor(
     private val beerRepository: BeerRepository,
-    private val sortSetting: SortSetting,
-    private val filterSetting: FilterSetting,
+    private val styleProvider: StyleProvider,
+    private val aromaProvider: AromaProvider,
     private val stringProvider: HomeStringProvider,
     @Assisted val savedState: SavedStateHandle
 ) : BaseViewModel() {
@@ -57,9 +51,6 @@ class HomeViewModel @ViewModelInject constructor(
     private val _sortType = MutableLiveData<SortType>()
     val sortType: LiveData<SortType> get() = _sortType
 
-    private val _beerFilter = MutableLiveData<BeerFilter>()
-    val beerFilter: LiveData<BeerFilter> get() = _beerFilter
-
     val cursor = MutableLiveData(0)
 
     private val _isLoadMore = MutableLiveData<Boolean>(false)
@@ -71,17 +62,16 @@ class HomeViewModel @ViewModelInject constructor(
     private val _isRefresh = MutableLiveData<Boolean>()
     val isRefresh: LiveData<Boolean> get() = _isRefresh
 
-    val coroutineEvent = CoroutinesEvent.listen(ChannelType.Favorite::class.java)
+    private val favoriteEvent = CoroutinesEvent.listen(ChannelType.Favorite::class.java)
 
     init {
-        loadAppConfig()
-        filterSort()
+//        loadAppConfig()
         eventListen()
     }
 
     private fun eventListen() {
         viewModelScope.launch {
-            coroutineEvent.consumeEach { favorite ->
+            favoriteEvent.consumeEach { favorite ->
                 beerList.value?.filter {
                     it.id == favorite.beer?.id
                 }?.map {
@@ -99,71 +89,12 @@ class HomeViewModel @ViewModelInject constructor(
         }
     }
 
-    fun loadMore() {
-        viewModelScope.launch {
-            cursor.value?.let {
-                if (_isLoadMore.value == false) {
-                    _beerList.value =
-                        _beerList.value?.toMutableList()?.apply { addAll(listOf(Beer(id = -1))) }
-                    _isLoadMore.value = true
-                    load()
-                }
-            }
-        }
+    fun refresh() {
+        _isRefresh.value = true
+        load()
     }
 
     fun load() {
-        if (_isLoadMore.value == false) {
-            statusLoading()
-        }
-        viewModelScope.launch {
-            val response =
-                beerRepository.getBeerList(_sortType.value?.value, _beerFilter.value, cursor.value)
-
-            if (response?.beers.isNullOrEmpty() && cursor.value == 0) {
-                _beerList.value = response?.beers?.map { beer ->
-                    beer.setFavorite()
-                    beer.eventNotifier = this@HomeViewModel
-                    beer
-                }
-            }
-
-            cursor.value = response?.nextCursor
-            if (_isLoadMore.value == true) {
-                _beerList.value = (_beerList.value?.toMutableList()
-                    ?.apply { _beerList.value?.let { removeAt(it.size - 1) } })
-                _beerList.value = (_beerList.value?.let { beers ->
-                    beers.toMutableList().apply {
-                        response?.beers?.let { data ->
-                            val beers = data.map { beer ->
-                                beer.setFavorite()
-                                beer.eventNotifier = this@HomeViewModel
-                                beer
-                            }
-                            addAll(beers)
-                        }
-                    }
-                })
-            } else {
-                response?.beers?.let {
-                    _beerList.value = it.map { beer ->
-                        beer.setFavorite()
-                        beer.eventNotifier = this@HomeViewModel
-                        beer
-                    }
-                }
-            }
-            _isLoadMore.value = false
-            statusSuccess()
-        }
-    }
-
-    fun refresh() {
-        load2()
-        _isRefresh.value = true
-    }
-
-    fun load2() {
         if (_isLoadMore.value == false) {
             statusLoading()
         }
@@ -198,14 +129,9 @@ class HomeViewModel @ViewModelInject constructor(
             .getMapper(
                 sortType = _sortType.value,
                 type = HomeStringProvider.Code.STYLE,
-                filter = _beerFilter.value.orEmpty(),
                 title = stringProvider.getStringRes(HomeStringProvider.Code.STYLE),
                 eventNotifier = this@HomeViewModel
             )
-
-        if (awardResponse.beers.isEmpty()) {
-            return null
-        }
 
         val randomIndex = Random.nextInt(awardResponse.beers.size)
         return awardResponse.beers[randomIndex]
@@ -220,13 +146,13 @@ class HomeViewModel @ViewModelInject constructor(
     private suspend fun fetchStyle(): BeerListItemViewModel {
         return beerRepository.getBeerList(
             sortType = _sortType.value?.value,
-            filter = BeerFilter(styleFilter = _beerFilter.value?.styleFilter),
+            style = styleProvider.getNames(),
             cursor = cursor.value
         )?.beers.orEmpty()
             .getMapper(
                 sortType = _sortType.value,
                 type = HomeStringProvider.Code.STYLE,
-                filter = _beerFilter.value.orEmpty(),
+                style = styleProvider.data,
                 title = stringProvider.getStringRes(HomeStringProvider.Code.STYLE),
                 eventNotifier = this@HomeViewModel
             )
@@ -235,12 +161,12 @@ class HomeViewModel @ViewModelInject constructor(
     private suspend fun fetchAroma(): BeerListItemViewModel {
         return beerRepository.getBeerList(
             sortType = _sortType.value?.value,
-            filter = BeerFilter(aromaFilter = _beerFilter.value?.aromaFilter),
+            aroma = aromaProvider.getNames(),
             cursor = cursor.value
         )?.beers.orEmpty().getMapper(
             sortType = _sortType.value,
             type = HomeStringProvider.Code.AROMA,
-            filter = _beerFilter.value.orEmpty(),
+            aroma = aromaProvider.data,
             title = stringProvider.getStringRes(HomeStringProvider.Code.AROMA),
             eventNotifier = this@HomeViewModel
         )
@@ -249,18 +175,16 @@ class HomeViewModel @ViewModelInject constructor(
     private suspend fun fetchRecommand(): BeerListItemViewModel {
         return beerRepository.getBeerList(
             sortType = _sortType.value?.value,
-            filter = null,
             cursor = cursor.value
         )?.beers.orEmpty().getMapper(
             sortType = _sortType.value,
             type = HomeStringProvider.Code.RANDOM,
-            filter = _beerFilter.value.orEmpty(),
             title = stringProvider.getStringRes(HomeStringProvider.Code.RANDOM),
             eventNotifier = this@HomeViewModel
         )
     }
 
-    fun loadMore2() {
+    fun loadMore() {
         viewModelScope.launch {
             cursor.value?.let {
                 if (_isLoadMore.value == false) {
@@ -273,50 +197,14 @@ class HomeViewModel @ViewModelInject constructor(
         }
     }
 
-
-    private fun filterSort() {
+    private fun updateFilter() {
         viewModelScope.launch {
-            sortSetting.getSort()
-                .combine(filterSetting.getBeerFilterFlow()) { type, filter ->
-                    _sortType.value = type
-                    _beerFilter.value = filter
-                    notifyActionEvent(HomeActionEntity.FilterSetting(_beerFilter.value))
-                }
-                .onStart { delay(200) }
-                .collect {
-                    cursor.value = 0
-                }
-        }
-    }
-
-    fun updateFilter(item: String, tag: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            Timber.d("Current Thread on UpdateFilter ${Thread.currentThread()} :: ${Thread.currentThread().name}")
-            val filter = filterSetting.beerFilter
-
-            val styleValue = filter.styleFilter?.toMutableList()
-            val aromaValue = filter.aromaFilter?.toMutableList()
-            val countryValue = filter.countryFilter?.toMutableList()
-            var abvValue = filter.abvFilter
-            Timber.d(" Tag: $tag ::  styleValue $styleValue aromaValue $aromaValue countryValue $countryValue abvValue $abvValue")
-            when (tag) {
-                "style" -> removeContainsItem(item, styleValue)
-                "aroma" -> removeContainsItem(item, aromaValue)
-                "country" -> removeContainsItem(item, countryValue)
-                "abv" -> {
-                    abvValue ?: return@launch
-                    abvValue = null
-                }
-                else -> return@launch
+            aromaProvider.getFlow().collect {
+                load()
             }
-
-            filterSetting.beerFilter = BeerFilter(
-                styleValue,
-                aromaValue,
-                abvValue,
-                countryValue
-            )
-
+            styleProvider.getFlow().collect {
+                load()
+            }
         }
     }
 
@@ -330,7 +218,7 @@ class HomeViewModel @ViewModelInject constructor(
     override fun handleActionEvent(entity: ActionEntity) {
         when (entity) {
             is HomeActionEntity.LoadMore -> {
-                loadMore2()
+                loadMore()
             }
         }
     }

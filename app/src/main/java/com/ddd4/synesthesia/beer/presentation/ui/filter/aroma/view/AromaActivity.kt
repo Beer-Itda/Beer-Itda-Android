@@ -35,6 +35,9 @@ class AromaActivity : BaseActivity<ActivityFilterAromaBinding>(R.layout.activity
     override fun initBind() {
         binding.apply {
             viewModel = this@AromaActivity.viewModel
+            with(includeToolbar.toolbar) {
+                setOnClickListener { finish() }
+            }
             with(rvFilterAroma) {
                 adapter = aromaListAdapter
             }
@@ -62,7 +65,7 @@ class AromaActivity : BaseActivity<ActivityFilterAromaBinding>(R.layout.activity
                 selectedListAdapter.addAll(entity.list, true)
             }
             is AromaActionEntity.SelectDone -> {
-                // TODO 향 선택완료
+                finish()
             }
         }
     }

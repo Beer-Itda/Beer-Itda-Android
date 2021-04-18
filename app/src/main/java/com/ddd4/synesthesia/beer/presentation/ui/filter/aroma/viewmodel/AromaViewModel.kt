@@ -4,19 +4,25 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.data.Result
 import com.ddd4.synesthesia.beer.domain.usecase.filter.aroma.GetAromaUseCase
+import com.ddd4.synesthesia.beer.ext.ChannelType
+import com.ddd4.synesthesia.beer.ext.CoroutinesEvent
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.ddd4.synesthesia.beer.presentation.ui.common.filter.AromaProvider
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FliterStringProvider
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemMapper
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.view.AromaViewState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
 class AromaViewModel @ViewModelInject constructor(
     private val aromaUseCase: GetAromaUseCase,
-    private val stringProvider: FliterStringProvider
+    private val stringProvider: FliterStringProvider,
+    private val aromaProvider: AromaProvider
 ) : BaseViewModel() {
 
     companion object {
@@ -37,6 +43,7 @@ class AromaViewModel @ViewModelInject constructor(
                             items = response.data,
                             eventNotifier = this@AromaViewModel
                         )
+                        initSelectedAroma()
                         notifyActionEvent(AromaActionEntity.UpdateList(items))
                     }
                     is Result.NoContents -> {
@@ -161,8 +168,25 @@ class AromaViewModel @ViewModelInject constructor(
 
     }
 
+    @ExperimentalCoroutinesApi
     fun clickDone() {
+        aromaProvider.data = selectedList.map {
+            it.eventNotifier = null
+            it
+        }
         notifyActionEvent(AromaActionEntity.SelectDone(selectedList))
+    }
+
+    private fun initSelectedAroma() {
+        selectedList.clear()
+        aromaProvider.data?.map { saved ->
+            items[saved.position].let { item ->
+                setSelectedStatusChange(item, true)
+                selectedList.add(item)
+            }
+        }
+        setMaxSelectedCount()
+        notifyActionEvent(AromaActionEntity.UpdateSelectedList(selectedList))
     }
 
     private fun setMaxSelectedCount() {

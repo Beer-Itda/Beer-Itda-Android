@@ -1,7 +1,9 @@
 package com.ddd4.synesthesia.beer.presentation.base.event
 
+import android.os.Parcelable
 import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import kotlinx.android.parcel.Parcelize
 
 interface EventNotifier
 
@@ -15,6 +17,5 @@ interface ActionEventNotifier : EventNotifier {
 interface SelectEventNotifier : EventNotifier {
     fun notifySelectEvent(entity: ItemClickEntity)
 }
-
 
 interface SelectActionEventNotifier : SelectEventNotifier, ActionEventNotifier

@@ -1,23 +1,30 @@
 package com.ddd4.synesthesia.beer.presentation.ui.filter.style.viewmodel
 
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.data.Result
 import com.ddd4.synesthesia.beer.domain.usecase.filter.style.GetStyleUseCase
+import com.ddd4.synesthesia.beer.ext.ChannelType
+import com.ddd4.synesthesia.beer.ext.CoroutinesEvent
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FliterStringProvider
+import com.ddd4.synesthesia.beer.presentation.ui.common.filter.StyleProvider
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleClicklEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.large.StyleLargeItemMapper
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.large.StyleLargeItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleMiddleItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small.StyleSmallItemViewModel
-import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FliterStringProvider
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.StyleViewState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
 class StyleViewModel @ViewModelInject constructor(
     private val styleUseCase: GetStyleUseCase,
+    private val styleProvider: StyleProvider,
     private val stringProvider: FliterStringProvider
 ) : BaseViewModel() {
 
@@ -33,6 +40,9 @@ class StyleViewModel @ViewModelInject constructor(
 
     private lateinit var allCategories: List<StyleLargeItemViewModel>
 
+    init {
+    }
+
     fun init() {
         statusLoading()
         viewModelScope.launch {
@@ -46,6 +56,8 @@ class StyleViewModel @ViewModelInject constructor(
                         currentMiddleCategory.addAll(allCategories[0].middleCategories)
                         notifyActionEvent(StyleActionEntity.UpdateLarge(allCategories))
                         notifyActionEvent(StyleActionEntity.UpdateMiddle(currentMiddleCategory))
+                        loadFilterSet(0)
+                        initSelectedStyle()
                         statusSuccess()
                     }
                     is Result.NoContents -> {
@@ -60,12 +72,14 @@ class StyleViewModel @ViewModelInject constructor(
     }
 
     fun load(position: Int) {
+        Log.e("filterSetting", "load : ${position}")
         currentMiddleCategory.clear()
         currentMiddleCategory.addAll(allCategories[position].middleCategories)
         notifyActionEvent(StyleActionEntity.UpdateMiddle(currentMiddleCategory))
     }
 
     fun loadFilterSet(position: Int) {
+        Log.e("filterSetting", "loadFilterSet : ${position}")
         currentMiddleCategory.filterIndexed { index, item ->
             item.isSelected.set(false)
             index == position
@@ -76,6 +90,7 @@ class StyleViewModel @ViewModelInject constructor(
         currentSmallCategory.clear()
         currentSmallCategory.addAll(currentMiddleCategory[position].smallCategories)
         notifyActionEvent(StyleActionEntity.UpdateSmall(currentSmallCategory))
+
     }
 
     override fun handleSelectEvent(entity: ItemClickEntity) {
@@ -202,8 +217,26 @@ class StyleViewModel @ViewModelInject constructor(
 
     }
 
+    @ExperimentalCoroutinesApi
     fun clickDone() {
+        styleProvider.data = selectedList.map {
+            it.eventNotifier = null
+            it
+        }
         notifySelectEvent(StyleClicklEntity.SelectDone(selectedList))
+    }
+
+    private fun initSelectedStyle() {
+        selectedList.clear()
+        styleProvider.data?.map {
+            val style = allCategories[it.largePosition]
+                .middleCategories[it.middlePosition]
+                .smallCategories[it.smallPosition]
+            setSelectedStatusChange(style, true)
+            selectedList.add(style)
+        }
+        setMaxSelectedCount()
+        notifyActionEvent(StyleActionEntity.UpdateSelectedStyleList(selectedList))
     }
 
 

@@ -1,11 +1,16 @@
 package com.ddd4.synesthesia.beer.domain.repository
 
 import com.ddd4.synesthesia.beer.data.model.*
-import com.ddd4.synesthesia.beer.presentation.ui.common.filter.BeerFilter
 
 interface BeerRepository {
     suspend fun getAppConfig(): Result<AppConfig>
-    suspend fun getBeerList(sortType: String?, filter: BeerFilter?, cursor: Int?): Response?
+    suspend fun getBeerList(
+        sortType: String?,
+        style: List<String>? = null,
+        aroma: List<String>? = null,
+        cursor: Int?
+    ): Response?
+
     suspend fun getPopularBeer(): Response?
     suspend fun getUserInfo(): User?
     suspend fun postUserInfo(nickName: String?)

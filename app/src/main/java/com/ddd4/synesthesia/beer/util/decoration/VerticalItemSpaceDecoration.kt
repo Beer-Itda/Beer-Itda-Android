@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 
 class VerticalItemSpaceDecoration(
     private val spaceHeight: Int,
-    private val topBototmSpaceHeight: Int
+    private val topBottomSpaceHeight: Int
 ) : ItemDecoration() {
     override fun getItemOffsets(
         outRect: Rect,
@@ -17,7 +17,7 @@ class VerticalItemSpaceDecoration(
     ) {
         val position = parent.getChildAdapterPosition(view)
         if (position == 0) {
-            outRect.top = topBototmSpaceHeight
+            outRect.top = topBottomSpaceHeight
             if (parent.adapter!!.itemCount == 1) {
                 outRect.bottom = 0
             } else {
@@ -25,7 +25,7 @@ class VerticalItemSpaceDecoration(
             }
         } else if (position == parent.adapter!!.itemCount - 1) {
             outRect.top = 0
-            outRect.bottom = topBototmSpaceHeight
+            outRect.bottom = topBottomSpaceHeight
         } else {
             outRect.top = 0
             outRect.bottom = spaceHeight

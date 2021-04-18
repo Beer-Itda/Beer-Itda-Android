@@ -19,9 +19,6 @@ interface BeerApi {
         @Query("sort_by") sortType: String?,
         @Query("beer_style") style: List<String>?,
         @Query("aroma") aroma: List<String>?,
-        @Query("country") country: List<String>?,
-        @Query("min_abv") minAbv: Int?,
-        @Query("max_abv") maxAbv: Int?,
         @Query("cursor") nextCursor: Int? = 0,
         @Query("max_count") maxCount: Int? = 10
     ): Result<Response>?

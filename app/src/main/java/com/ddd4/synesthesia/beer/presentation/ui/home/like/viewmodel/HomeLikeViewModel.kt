@@ -12,21 +12,25 @@ import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModel
-import com.ddd4.synesthesia.beer.presentation.ui.common.filter.BeerFilter
+import com.ddd4.synesthesia.beer.presentation.ui.common.filter.AromaProvider
+import com.ddd4.synesthesia.beer.presentation.ui.common.filter.StyleProvider
 import com.ddd4.synesthesia.beer.presentation.ui.home.like.entity.HomeLikeActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.home.like.footer.HomeLikeListItemLoadingViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.home.like.item.HomeLikeListModelMapper
 import com.ddd4.synesthesia.beer.presentation.ui.home.like.item.IHomeLikeViewModel
-import com.ddd4.synesthesia.beer.presentation.ui.home.like.view.HomeLikeActivity.Companion.KEY_LIKE_FILTER
 import com.ddd4.synesthesia.beer.presentation.ui.home.like.view.HomeLikeActivity.Companion.KEY_LIKE_SORT
 import com.ddd4.synesthesia.beer.presentation.ui.home.like.view.HomeLikeActivity.Companion.KEY_LIKE_TITLE
 import com.ddd4.synesthesia.beer.presentation.ui.home.like.view.HomeLikeActivity.Companion.KEY_LIKE_TYPE
 import com.ddd4.synesthesia.beer.presentation.ui.home.main.view.HomeStringProvider
 import com.ddd4.synesthesia.beer.util.sort.SortType
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
+@ExperimentalCoroutinesApi
 class HomeLikeViewModel @ViewModelInject constructor(
     private val beerRepository: BeerRepository,
+    private val styleProvider: StyleProvider,
+    private val aromaProvider: AromaProvider,
     @Assisted private val savedState: SavedStateHandle
 ) : BaseViewModel() {
 
@@ -46,7 +50,6 @@ class HomeLikeViewModel @ViewModelInject constructor(
     val cursor: LiveData<Int> get() = _cursor
 
     private val sortType: SortType? by lazy { savedState.get(KEY_LIKE_SORT) }
-    private val filter: BeerFilter? by lazy { savedState.get(KEY_LIKE_FILTER) }
     private val type: HomeStringProvider.Code? by lazy { savedState.get(KEY_LIKE_TYPE) }
 
     init {
@@ -59,21 +62,20 @@ class HomeLikeViewModel @ViewModelInject constructor(
                 HomeStringProvider.Code.AROMA -> {
                     beerRepository.getBeerList(
                         sortType = sortType?.value,
-                        filter = BeerFilter(aromaFilter = filter?.aromaFilter),
+                        aroma = aromaProvider.getNames(),
                         cursor = cursor.value
                     )
                 }
                 HomeStringProvider.Code.STYLE -> {
                     beerRepository.getBeerList(
                         sortType = sortType?.value,
-                        filter = BeerFilter(styleFilter = filter?.styleFilter),
+                        style = styleProvider.getNames(),
                         cursor = cursor.value
                     )
                 }
                 else -> {
                     beerRepository.getBeerList(
                         sortType = null,
-                        filter = null,
                         cursor = cursor.value
                     )
                 }
