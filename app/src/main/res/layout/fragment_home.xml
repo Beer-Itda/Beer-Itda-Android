@@ -24,9 +24,9 @@
             android:onClick="@{() -> vm.clickFilter()}"
             android:padding="18dp"
             android:src="@drawable/ic_filter"
-            android:tint="@color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
