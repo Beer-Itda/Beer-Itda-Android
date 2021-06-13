@@ -70,7 +70,7 @@ class HomeViewModel @ViewModelInject constructor(
     }
 
     private fun eventListen() {
-        viewModelScope.launch {
+        viewModelScope.launch(errorHandler) {
             favoriteEvent.consumeEach { favorite ->
                 beerList.value?.filter {
                     it.id == favorite.beer?.id
@@ -83,7 +83,7 @@ class HomeViewModel @ViewModelInject constructor(
     }
 
     private fun loadAppConfig() {
-        viewModelScope.launch {
+        viewModelScope.launch(errorHandler) {
             _appConfig.value = beerRepository.getAppConfig().result
             notifyActionEvent(HomeActionEntity.AppConfigSetting(_appConfig.value))
         }
@@ -98,7 +98,7 @@ class HomeViewModel @ViewModelInject constructor(
         if (_isLoadMore.value == false) {
             statusLoading()
         }
-        viewModelScope.launch {
+        viewModelScope.launch(errorHandler) {
             val awardBeer = fetchAward()
             val styleBeer = fetchStyle()
             val aromaBeer = fetchAroma()
@@ -185,7 +185,7 @@ class HomeViewModel @ViewModelInject constructor(
     }
 
     fun loadMore() {
-        viewModelScope.launch {
+        viewModelScope.launch(errorHandler) {
             cursor.value?.let {
                 if (_isLoadMore.value == false) {
                     _beerList.value =
@@ -198,7 +198,7 @@ class HomeViewModel @ViewModelInject constructor(
     }
 
     private fun updateFilter() {
-        viewModelScope.launch {
+        viewModelScope.launch(errorHandler) {
             aromaProvider.getFlow().collect {
                 load()
             }
@@ -209,7 +209,7 @@ class HomeViewModel @ViewModelInject constructor(
     }
 
     private fun fetchFavorite(beer: BeerItemViewModel) {
-        viewModelScope.launch {
+        viewModelScope.launch(errorHandler) {
             beer.updateFavorite()
             beerRepository.postFavorite(beer.id, beer.isFavorite.get())
         }

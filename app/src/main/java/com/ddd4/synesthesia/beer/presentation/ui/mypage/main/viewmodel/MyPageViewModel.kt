@@ -139,13 +139,13 @@ class MyPageViewModel @ViewModelInject constructor(
     }
 
     private fun userInfo() {
-        viewModelScope.launch {
+        viewModelScope.launch(errorHandler) {
             _nickName.value = beerRepository.getUserInfo()?.nickname
         }
     }
 
     fun updateUserInfo(nickName: String?) {
-        viewModelScope.launch {
+        viewModelScope.launch(errorHandler) {
             beerRepository.postUserInfo(nickName)
         }
     }

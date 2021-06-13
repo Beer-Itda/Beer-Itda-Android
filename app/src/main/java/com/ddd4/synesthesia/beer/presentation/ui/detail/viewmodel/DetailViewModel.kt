@@ -67,7 +67,7 @@ class DetailViewModel @ViewModelInject constructor(
     }
 
     private fun fetchFavorite() {
-        viewModelScope.launch {
+        viewModelScope.launch(errorHandler) {
             _id.value?.let {
                 _beer.value?.updateFavorite()
                 beerRepository.postFavorite(it, _beer.value?.isFavorite?.get().orFalse())

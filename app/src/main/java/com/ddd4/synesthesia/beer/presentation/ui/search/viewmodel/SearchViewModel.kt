@@ -51,7 +51,7 @@ class SearchViewModel @ViewModelInject constructor(
     }
 
     private fun eventListen() {
-        viewModelScope.launch {
+        viewModelScope.launch(errorHandler) {
             coroutineEvent.consumeEach { favorite ->
                 beerList.value?.filter {
                     it.id == favorite.beer?.id
@@ -91,7 +91,7 @@ class SearchViewModel @ViewModelInject constructor(
             reset()
             return
         }
-        debounceJob = viewModelScope.launch {
+        debounceJob = viewModelScope.launch(errorHandler) {
             delay(400L)
             beerRepository.getSearch(
                 searchText.get().orEmpty(),
@@ -139,7 +139,7 @@ class SearchViewModel @ViewModelInject constructor(
     }
 
     private fun fetchFavorite(beer: Beer) {
-        viewModelScope.launch {
+        viewModelScope.launch(errorHandler) {
             beer.updateFavorite()
             beerRepository.postFavorite(beer.id, beer.isFavorite.get())
         }

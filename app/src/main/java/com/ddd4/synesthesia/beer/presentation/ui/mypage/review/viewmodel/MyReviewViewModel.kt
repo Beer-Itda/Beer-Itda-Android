@@ -21,7 +21,7 @@ class MyReviewViewModel @ViewModelInject constructor(
     }
 
     fun review() {
-        viewModelScope.launch {
+        viewModelScope.launch(errorHandler) {
             val result = (beerRepository.getReview())
             _myReviews.postValue(result.results)
         }

@@ -11,6 +11,8 @@ import com.ddd4.synesthesia.beer.presentation.base.event.SelectActionEventNotifi
 import com.ddd4.synesthesia.beer.presentation.base.event.setHandledValue
 import com.ddd4.synesthesia.beer.presentation.commom.entity.ThrowEntity
 import com.ddd4.synesthesia.beer.util.NetworkStatus
+import kotlinx.coroutines.CoroutineExceptionHandler
+import timber.log.Timber
 
 abstract class BaseViewModel : ViewModel(), SelectActionEventNotifier {
 
@@ -19,6 +21,11 @@ abstract class BaseViewModel : ViewModel(), SelectActionEventNotifier {
 
     private val _networkStatus = MutableLiveData<NetworkStatus>()
     val networkStatus: LiveData<NetworkStatus> get() = _networkStatus
+
+    val errorHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
+        _networkStatus.value = NetworkStatus.FAILURE
+        Timber.e(throwable)
+    }
 
     protected open val _event: BaseEvent = BaseEvent()
     open val event: IBaseEvent

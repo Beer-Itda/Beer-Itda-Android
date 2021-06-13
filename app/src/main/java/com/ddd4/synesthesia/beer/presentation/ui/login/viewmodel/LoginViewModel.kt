@@ -23,12 +23,8 @@ class LoginViewModel @ViewModelInject constructor(
     val isLoginSuccess = SingleLiveEvent<Pair<User?, Throwable?>>()
     val isLogoutSuccess = SingleLiveEvent<Boolean>()
 
-    private val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
-        Timber.e(throwable)
-    }
-
     fun accessToken(code: String?) {
-        viewModelScope.launch(handler) {
+        viewModelScope.launch(errorHandler) {
             loginRepository.accessToken(code) {
                 it?.run {
                     TokenManagerProvider.instance.manager.setToken(

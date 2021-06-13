@@ -45,7 +45,7 @@ class StyleViewModel @ViewModelInject constructor(
 
     fun init() {
         statusLoading()
-        viewModelScope.launch {
+        viewModelScope.launch(errorHandler) {
             styleUseCase.execute { response ->
                 when (response) {
                     is Result.Success -> {

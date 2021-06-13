@@ -35,7 +35,7 @@ class AromaViewModel @ViewModelInject constructor(
     private lateinit var items: List<AromaItemViewModel>
 
     fun load() {
-        viewModelScope.launch {
+        viewModelScope.launch(errorHandler) {
             aromaUseCase.execute { response ->
                 when (response) {
                     is Result.Success -> {

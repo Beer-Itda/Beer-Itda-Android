@@ -57,7 +57,7 @@ class HomeLikeViewModel @ViewModelInject constructor(
     }
 
     fun load() {
-        viewModelScope.launch {
+        viewModelScope.launch(errorHandler) {
             val response = when (type) {
                 HomeStringProvider.Code.AROMA -> {
                     beerRepository.getBeerList(
@@ -112,7 +112,7 @@ class HomeLikeViewModel @ViewModelInject constructor(
     }
 
     private fun fetchFavorite(beer: BeerItemViewModel) {
-        viewModelScope.launch {
+        viewModelScope.launch(errorHandler) {
             beer.updateFavorite()
             beerRepository.postFavorite(beer.id, beer.isFavorite.get())
         }

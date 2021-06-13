@@ -26,7 +26,7 @@ class MyFavoriteViewModel @ViewModelInject constructor(
     }
 
     fun load() {
-        viewModelScope.launch {
+        viewModelScope.launch(errorHandler) {
             _myFavorites.value = beerRepository.getFavorite().results?.map {
                 it.beer?.apply {
                     setFavorite()
@@ -43,7 +43,7 @@ class MyFavoriteViewModel @ViewModelInject constructor(
     }
 
     private fun fetchFavorite(beer: Beer) {
-        viewModelScope.launch {
+        viewModelScope.launch(errorHandler) {
             beer.updateFavorite()
             beerRepository.postFavorite(beer.id, beer.isFavorite.get())
         }
