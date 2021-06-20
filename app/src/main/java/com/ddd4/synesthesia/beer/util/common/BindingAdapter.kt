@@ -55,7 +55,7 @@ fun makeChips(chipGroup: ChipGroup, flavor: List<String>?) {
 }
 
 @BindingAdapter(value = ["forgroundSelected"])
-fun forgroundSelected(view: View, type: InfomationsType) = if (type == InfomationsType.HEADER) {
+fun forgroundSelected(view: View, type: InfomationsType?) = if (type == InfomationsType.HEADER) {
     view.foreground = null
 } else {
     val typeValue = TypedValue()

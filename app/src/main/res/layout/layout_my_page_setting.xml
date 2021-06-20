@@ -13,55 +13,55 @@
 
         <variable
             name="my"
-            type="com.ddd4.synesthesia.beer.data.source.local.MyInfo" />
+            type="com.ddd4.synesthesia.beer.presentation.ui.mypage.setting.item.SettingItemViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="28dp"
-        android:paddingVertical="8dp"
+        android:foreground="?attr/selectableItemBackground"
         android:onClick="@{() -> my.clickItem()}"
-        app:layout_margin_top="@{my.type == InfomationsType.ITEM || my.type == InfomationsType.TEXT? @integer/space_4 : @integer/space_16}"
-        app:forgroundSelected="@{my.type}">
+        android:paddingHorizontal="28dp"
+        android:paddingBottom="8dp">
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:text="내 활동"
+            android:paddingVertical="20dp"
             android:text="@{my.title}"
-            android:textSize="@{my.type == InfomationsType.HEADER ? @dimen/textSize_12 : @dimen/textSize_14}"
             android:textColor="@{my.type == InfomationsType.HEADER || my.type == InfomationsType.LOGOUT || my.type == InfomationsType.UNLINK ? @color/color_7a7a7a : @color/white}"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="@{my.type == InfomationsType.HEADER ? @dimen/textSize_12 : @dimen/textSize_14}"
             app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="내 활동" />
 
         <ImageView
             android:id="@+id/iv_arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:src="@drawable/ic_arrow_right"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_btn_more"
             android:visibility="@{my.type == InfomationsType.ITEM ? View.VISIBLE : View.GONE}"
-            app:layout_constraintTop_toTopOf="@+id/tv_title"
             app:layout_constraintBottom_toBottomOf="@+id/tv_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/tv_title" />
+            app:layout_constraintLeft_toRightOf="@+id/tv_title"
+            app:layout_constraintTop_toTopOf="@+id/tv_title" />
 
         <TextView
             android:id="@+id/tv_detail_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{my.detailInfomation}"
-            tools:text="2.0.0"
+            android:textColor="@{my.type == InfomationsType.HEADER ? @color/color_7a7a7a : @color/white}"
+            android:textSize="@{my.type == InfomationsType.HEADER ? @dimen/textSize_12 : @dimen/textSize_14}"
             android:textStyle="bold"
             android:visibility="@{TextUtils.isEmpty(my.detailInfomation) ? View.GONE : View.VISIBLE}"
-            android:textSize="@{my.type == InfomationsType.HEADER ? @dimen/textSize_12 : @dimen/textSize_14}"
-            android:textColor="@{my.type == InfomationsType.HEADER ? @color/color_7a7a7a : @color/white}"
-            app:layout_constraintTop_toTopOf="@+id/tv_title"
             app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/tv_title"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/tv_title"
+            tools:text="2.0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

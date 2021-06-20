@@ -3,6 +3,7 @@
     <color name="colorPrimary">#d47a31</color>
     <color name="colorPrimaryDark">@color/black</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="ripple">@color/color_5c5b5f</color>
 
     <color name="red">#FF0000</color>
     <color name="white">#FFFFFF</color>
@@ -27,5 +28,4 @@
     <color name="color_353537">#353537</color>
     <color name="color_5c5b5f">#5c5b5f</color>
     <color name="color_deffffff">#deffffff</color>
-
 </resources>

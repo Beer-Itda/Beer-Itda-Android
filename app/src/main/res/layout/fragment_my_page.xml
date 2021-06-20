@@ -15,135 +15,144 @@
             name="vm"
             type="com.ddd4.synesthesia.beer.presentation.ui.mypage.main.viewmodel.MyPageViewModel" />
 
-        <variable
-            name="userAdapter"
-            type="com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsAdapter" />
-
     </data>
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
-        android:id="@+id/motion_base"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="@{TextUtils.isEmpty(vm.userInfo.kakaoAccount.profile.nickname) ? View.GONE : View.VISIBLE}"
-        app:layoutDescription="@xml/secen_my_page">
+        android:fillViewport="true">
 
-<!--        <include-->
-<!--            android:id="@+id/include_toolbar"-->
-<!--            layout="@layout/layout_global_toolbar"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:title="@{null}" />-->
-
-        <ImageView
-            android:id="@+id/iv_profile"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="24dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/app_name"
-            app:errorDrawable="@{@drawable/ic_img_profile_blank}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_toolbar"
-            app:loadUrl="@{vm.userInfo.kakaoAccount.profile.profileImageUrl}"
-            app:tranformType="@{ImageTransformType.CIRCLE}"
-            tools:background="@drawable/ic_img_profile_blank" />
-
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:maxLength="@integer/max_length"
-            android:onClick="@{() -> vm.clickModify()}"
-            android:singleLine="true"
-            android:text="@{vm.nickName}"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:visibility="@{TextUtils.isEmpty(vm.userInfo.kakaoAccount.profile.nickname) ? View.GONE : View.VISIBLE}"
-            app:layout_constraintEnd_toStartOf="@+id/tv_name_cell"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="@+id/iv_profile"
-            app:layout_constraintTop_toBottomOf="@+id/iv_profile"
-            tools:text="공감각" />
+            android:orientation="vertical"
+            android:visibility="@{TextUtils.isEmpty(vm.userInfo.kakaoAccount.profile.nickname) ? View.GONE : View.VISIBLE}">
 
-        <TextView
-            android:id="@+id/tv_name_cell"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> vm.clickModify()}"
-            android:text="님"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_name"
-            app:layout_constraintEnd_toEndOf="@+id/iv_profile"
-            app:layout_constraintStart_toEndOf="@+id/tv_name"
-            app:layout_constraintTop_toTopOf="@+id/tv_name" />
-
-        <ImageView
-            android:id="@+id/iv_modify"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="15dp"
-            android:onClick="@{() -> vm.clickModify()}"
-            android:src="@drawable/ic_modify"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_name"
-            app:layout_constraintStart_toEndOf="@+id/tv_name_cell"
-            app:layout_constraintTop_toTopOf="@+id/tv_name" />
+            <!--정보-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/motion_base"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_1c1b21"
+                android:paddingBottom="30dp">
 
 
-        <TextView
-            android:id="@+id/tv_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@{vm.userInfo.kakaoAccount.email}"
-            android:textColor="@color/color_c8c8c8"
-            android:visibility="@{TextUtils.isEmpty(vm.userInfo.kakaoAccount.email) ? View.GONE : View.VISIBLE}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_name"
-            tools:text="android@google.com" />
+                <ImageView
+                    android:id="@+id/iv_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_ripple"
+                    android:padding="20dp"
+                    android:src="@drawable/ic_img_setting"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_kakao_connect_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="@string/connect_kakao"
-            android:visibility="@{TextUtils.isEmpty(vm.userInfo.kakaoAccount.profile.nickname) ? View.GONE : View.VISIBLE}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_email"
-            tools:text="카카오톡 계정 연결" />
 
-        <View
-            android:id="@+id/view_divider"
-            android:layout_width="wrap_content"
-            android:layout_height="5dp"
-            android:layout_marginTop="24dp"
-            android:background="@color/shark"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_kakao_connect_title" />
+                <ImageView
+                    android:id="@+id/iv_profile"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/app_name"
+                    app:errorDrawable="@{@drawable/ic_img_profile_blank}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_setting"
+                    app:loadUrl="@{vm.userInfo.kakaoAccount.profile.profileImageUrl}"
+                    app:tranformType="@{ImageTransformType.CIRCLE}"
+                    tools:background="@drawable/ic_img_profile_blank" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_page"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:clipToPadding="true"
-            android:overScrollMode="never"
-            app:adapter="@{userAdapter}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_divider"
-            tools:itemCount="5"
-            tools:listitem="@layout/layout_my_page" />
+                <TextView
+                    android:id="@+id/tv_level"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="보리"
+                    android:textColor="@color/butterscotch"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_name"
+                    app:layout_constraintStart_toEndOf="@+id/iv_profile"
+                    app:layout_constraintTop_toTopOf="@+id/iv_profile"
+                    app:layout_constraintVertical_chainStyle="spread_inside"
+                    tools:text="보리" />
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+                <include
+                    android:id="@+id/include_level_guide"
+                    layout="@layout/layout_level_guide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_level"
+                    app:layout_constraintStart_toEndOf="@id/tv_level"
+                    app:layout_constraintTop_toTopOf="@id/tv_level" />
+
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLength="@integer/max_length"
+                    android:onClick="@{() -> vm.clickModify()}"
+                    android:singleLine="true"
+                    android:text="@{vm.nickName}"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_email"
+                    app:layout_constraintStart_toEndOf="@+id/iv_profile"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_level"
+                    tools:text="공감각" />
+
+                <ImageView
+                    android:id="@+id/iv_modify"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:onClick="@{() -> vm.clickModify()}"
+                    android:src="@drawable/ic_btn_name_edit"
+                    android:visibility="@{TextUtils.isEmpty(vm.nickName) ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_name"
+                    app:layout_constraintStart_toEndOf="@+id/tv_name"
+                    app:layout_constraintTop_toTopOf="@+id/tv_name" />
+
+
+                <TextView
+                    android:id="@+id/tv_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@{vm.userInfo.kakaoAccount.email}"
+                    android:textColor="@color/color_8e8d94"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
+                    app:layout_constraintStart_toEndOf="@+id/iv_profile"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                    tools:text="android@google.com" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--별점과 리뷰-->
+            <include
+                android:id="@+id/include_my_page_review"
+                layout="@layout/layout_mypage_review"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="13dp"
+                android:layout_marginTop="29dp" />
+
+            <!--찜한 맥주-->
+            <include
+                android:id="@+id/include_my_page_favorite"
+                layout="@layout/layout_mypage_favorite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="13dp"
+                android:layout_marginTop="29dp" />
+        </LinearLayout>
+    </ScrollView>
 </layout>

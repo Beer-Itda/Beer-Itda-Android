@@ -41,6 +41,11 @@
         android:name="com.ddd4.synesthesia.beer.presentation.ui.mypage.favorite.view.MyFavoriteFragment"
         tools:layout="@layout/fragment_my_favorite" />
 
+    <fragment
+        android:id="@+id/nav_setting"
+        android:name="com.ddd4.synesthesia.beer.presentation.ui.mypage.setting.view.SettingFragment"
+        tools:layout="@layout/fragment_my_page_setting" />
+
 
     <!-- Global Action -->
 
@@ -79,6 +84,14 @@
     <action
         android:id="@+id/action_to_my_favorite"
         app:destination="@id/nav_my_favorite"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out" />
+
+    <action
+        android:id="@+id/action_to_setting"
+        app:destination="@id/nav_setting"
         app:enterAnim="@anim/fade_in"
         app:exitAnim="@anim/fade_out"
         app:popEnterAnim="@anim/fade_in"
