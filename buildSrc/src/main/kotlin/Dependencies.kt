@@ -16,9 +16,7 @@ object Versions {
     const val ACTIVITY_KTX = "1.1.0"
     const val FRAGMENT_KTX = "1.2.4"
     const val LIFECYCLE = "2.2.0"
-    const val NAVIGATION_FRAGMENT = "2.3.0"
-    const val NAVIGATION_UI_KTX = "2.3.0"
-    const val NAVIGATION_SAFE_ARGS = "2.3.0"
+    const val NAVIGATION_VERSION = "2.3.5"
     const val GOOGLE_SERVIER = "4.3.4"
 
     // ThirdParty Libraries
@@ -68,9 +66,9 @@ object Libs {
     const val LIFECYCLE_LIVE_DATA_KTX =
         "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.LIFECYCLE}"
     const val NAVIGATION_FRAGMENT =
-        "androidx.navigation:navigation-fragment-ktx:${Versions.NAVIGATION_FRAGMENT}"
+        "androidx.navigation:navigation-fragment-ktx:${Versions.NAVIGATION_VERSION}"
     const val NAVIGATION_UI_KTX =
-        "androidx.navigation:navigation-ui-ktx:${Versions.NAVIGATION_UI_KTX}"
+        "androidx.navigation:navigation-ui-ktx:${Versions.NAVIGATION_VERSION}"
     const val BILLING = "com.android.billingclient:billing-ktx:${Versions.BILLING}"
 
     // Third Party Libraries

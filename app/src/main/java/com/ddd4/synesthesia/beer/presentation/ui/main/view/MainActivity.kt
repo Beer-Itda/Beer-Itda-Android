@@ -17,8 +17,7 @@ import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main),
-    BottomNavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private val navHostFragment: NavHostFragment by lazy { supportFragmentManager.findFragmentById(R.id.nav_main_container) as NavHostFragment }
     private val navController: NavController by lazy { navHostFragment.navController }
@@ -26,7 +25,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        showRecentlyVisitTime()
-        setUpNavigationView()
+        initBottomNavigationController()
+        initBottomNavigationListener()
     }
 
     override fun onBackPressed() {
@@ -48,31 +48,27 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main),
         }
     }
 
-    override fun onNavigationItemSelected(menu: MenuItem): Boolean {
-        if (navController.currentDestination?.id == menu.itemId) {
-            return false
-        }
-        when (menu.itemId) {
-            R.id.nav_home -> {
-                navController.navigate(R.id.nav_home)
+    private fun initBottomNavigationListener() {
+        binding.navBottomView.run {
+            setupWithNavController(navController)
+
+            setOnNavigationItemSelectedListener {
+                navController.navigate(it.itemId)
+                navController.currentDestination?.id != it.itemId
             }
-            R.id.nav_search -> {
-                navController.navigate(R.id.nav_search)
-            }
-            R.id.nav_mypage -> {
-                navController.navigate(R.id.nav_mypage)
+
+            setOnNavigationItemReselectedListener {
+                // do nothing
             }
         }
-        return true
     }
 
-    private fun setUpNavigationView() {
+    private fun initBottomNavigationController() {
         val keepNavController = KeepStateNavigator(
             context = this@MainActivity,
             manager = navHostFragment.childFragmentManager,
             R.id.nav_main_container
         )
-        binding.navBottomView.setOnNavigationItemSelectedListener(this)
         navController.navigatorProvider.addNavigator(keepNavController)
         navController.setGraph(R.navigation.home)
     }

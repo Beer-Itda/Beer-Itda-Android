@@ -5,18 +5,18 @@
     android:id="@+id/home_navigation"
     app:startDestination="@id/nav_home">
 
-    <fragment
+    <KeepStateFragment
         android:id="@+id/nav_home"
         android:name="com.ddd4.synesthesia.beer.presentation.ui.home.main.view.HomeFragment"
         tools:layout="@layout/fragment_home" />
 
 
-    <fragment
+    <KeepStateFragment
         android:id="@+id/nav_mypage"
         android:name="com.ddd4.synesthesia.beer.presentation.ui.mypage.main.view.MyPageFragment"
         tools:layout="@layout/fragment_my_page" />
 
-    <fragment
+    <KeepStateFragment
         android:id="@+id/nav_search"
         android:name="com.ddd4.synesthesia.beer.presentation.ui.search.view.SearchFragment"
         tools:layout="@layout/fragment_search" />
