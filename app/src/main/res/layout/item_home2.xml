@@ -33,6 +33,7 @@
             android:layout_height="190dp"
             android:elevation="50dp"
             app:cardCornerRadius="30dp"
+            android:backgroundTint="@color/color_1c1b21"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 

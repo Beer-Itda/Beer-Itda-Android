@@ -19,7 +19,7 @@ import com.ddd4.synesthesia.beer.presentation.commom.entity.RelatedClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsAdapter
 import com.ddd4.synesthesia.beer.presentation.ui.detail.entity.DetailItemSelectEntity
 import com.ddd4.synesthesia.beer.presentation.ui.detail.viewmodel.DetailViewModel
-import com.ddd4.synesthesia.beer.presentation.ui.review.view.ReviewAllActivity
+import com.ddd4.synesthesia.beer.presentation.ui.review.view.ReviewListActivity
 import com.ddd4.synesthesia.beer.util.KeyStringConst.Companion.KEY_BEER_ID
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -80,7 +80,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
                 start(this@DetailActivity, entity.beer.id)
             }
             is DetailItemSelectEntity.ReviewAll -> {
-                ReviewAllActivity.start(
+                ReviewListActivity.start(
                     this@DetailActivity,
                     detailViewModel.beer.value?.reviews?.toTypedArray()
                 )

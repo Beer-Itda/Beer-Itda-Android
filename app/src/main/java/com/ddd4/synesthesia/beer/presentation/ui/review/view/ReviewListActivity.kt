@@ -12,7 +12,7 @@ import com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ReviewAllActivity : BaseActivity<ActivityReviewAllBinding>(R.layout.activity_review_all) {
+class ReviewListActivity : BaseActivity<ActivityReviewAllBinding>(R.layout.activity_review_all) {
 
     private val reviews by lazy { intent.getParcelableArrayExtra(KEY_REVIEW)?.toList() }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +35,7 @@ class ReviewAllActivity : BaseActivity<ActivityReviewAllBinding>(R.layout.activi
 
         @JvmStatic
         fun start(context: Context, review: Array<Review>?) {
-            context.startActivity(Intent(context, ReviewAllActivity::class.java).apply {
+            context.startActivity(Intent(context, ReviewListActivity::class.java).apply {
                 putExtra(KEY_REVIEW, review)
             })
         }

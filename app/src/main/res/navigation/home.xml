@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/nav_review"
-        android:name="com.ddd4.synesthesia.beer.presentation.ui.review.view.ReviewAllActivity"
+        android:name="com.ddd4.synesthesia.beer.presentation.ui.review.view.ReviewListActivity"
         tools:layout="@layout/activity_review_all">
         <argument
             android:name="arg_review"

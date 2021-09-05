@@ -55,7 +55,7 @@
             android:name=".presentation.ui.detail.view.DetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.ui.review.view.ReviewAllActivity"
+            android:name=".presentation.ui.review.view.ReviewListActivity"
             android:screenOrientation="portrait" />
 
         <activity
