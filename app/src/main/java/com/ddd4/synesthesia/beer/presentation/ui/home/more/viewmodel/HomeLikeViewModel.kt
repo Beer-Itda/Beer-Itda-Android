@@ -1,4 +1,4 @@
-package com.ddd4.synesthesia.beer.presentation.ui.home.like.viewmodel
+package com.ddd4.synesthesia.beer.presentation.ui.home.more.viewmodel
 
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
@@ -14,13 +14,13 @@ import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.AromaProvider
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.StyleProvider
-import com.ddd4.synesthesia.beer.presentation.ui.home.like.entity.HomeLikeActionEntity
-import com.ddd4.synesthesia.beer.presentation.ui.home.like.footer.HomeLikeListItemLoadingViewModel
-import com.ddd4.synesthesia.beer.presentation.ui.home.like.item.HomeLikeListModelMapper
-import com.ddd4.synesthesia.beer.presentation.ui.home.like.item.IHomeLikeViewModel
-import com.ddd4.synesthesia.beer.presentation.ui.home.like.view.HomeLikeActivity.Companion.KEY_LIKE_SORT
-import com.ddd4.synesthesia.beer.presentation.ui.home.like.view.HomeLikeActivity.Companion.KEY_LIKE_TITLE
-import com.ddd4.synesthesia.beer.presentation.ui.home.like.view.HomeLikeActivity.Companion.KEY_LIKE_TYPE
+import com.ddd4.synesthesia.beer.presentation.ui.home.more.entity.MoreListActionEntity
+import com.ddd4.synesthesia.beer.presentation.ui.home.more.footer.MoreItemLoadingViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.home.more.item.MoreListModelMapper
+import com.ddd4.synesthesia.beer.presentation.ui.home.more.item.IMoreListViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.home.more.view.MoreListActivity.Companion.KEY_LIKE_SORT
+import com.ddd4.synesthesia.beer.presentation.ui.home.more.view.MoreListActivity.Companion.KEY_LIKE_TITLE
+import com.ddd4.synesthesia.beer.presentation.ui.home.more.view.MoreListActivity.Companion.KEY_LIKE_TYPE
 import com.ddd4.synesthesia.beer.presentation.ui.home.main.view.HomeStringProvider
 import com.ddd4.synesthesia.beer.util.sort.SortType
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -34,8 +34,8 @@ class HomeLikeViewModel @ViewModelInject constructor(
     @Assisted private val savedState: SavedStateHandle
 ) : BaseViewModel() {
 
-    private val _data = MutableLiveData<List<IHomeLikeViewModel>>()
-    val data: LiveData<List<IHomeLikeViewModel>> get() = _data
+    private val _data = MutableLiveData<List<IMoreListViewModel>>()
+    val data: LiveData<List<IMoreListViewModel>> get() = _data
 
     private val _title = MutableLiveData<String>()
     val title: LiveData<String> get() = _title
@@ -82,7 +82,7 @@ class HomeLikeViewModel @ViewModelInject constructor(
             }
             removeLoadingProgress()
             val data =
-                HomeLikeListModelMapper.getMapper(response?.beers.orEmpty(), this@HomeLikeViewModel)
+                MoreListModelMapper.getMapper(response?.beers.orEmpty(), this@HomeLikeViewModel)
 
             if (_isLoadMore.value.orFalse()) {
                 _data.value = _data.value?.toMutableList()?.run {
@@ -96,7 +96,7 @@ class HomeLikeViewModel @ViewModelInject constructor(
             _isRefresh.value = false
             _isLoadMore.value = false
             _cursor.value = response?.nextCursor
-            notifyActionEvent(HomeLikeActionEntity.UpdateList(_data.value))
+            notifyActionEvent(MoreListActionEntity.UpdateList(_data.value))
         }
     }
 
@@ -106,7 +106,7 @@ class HomeLikeViewModel @ViewModelInject constructor(
                 fetchFavorite(entity.beer)
             }
             is BeerClickEntity.SelectBeer -> {
-                notifyActionEvent(HomeLikeActionEntity.MoveToDetail(entity.beer.id))
+                notifyActionEvent(MoreListActionEntity.MoveToDetail(entity.beer.id))
             }
         }
     }
@@ -132,15 +132,15 @@ class HomeLikeViewModel @ViewModelInject constructor(
         _isRefresh.value = true
         _cursor.value = 0
         load()
-        notifyActionEvent(HomeLikeActionEntity.Refresh)
+        notifyActionEvent(MoreListActionEntity.Refresh)
     }
 
     private fun addLoadingProgress() {
         _data.value = _data.value?.toMutableList()?.run {
-            addAll(arrayListOf(HomeLikeListItemLoadingViewModel()))
+            addAll(arrayListOf(MoreItemLoadingViewModel()))
             this
         }
-        notifyActionEvent(HomeLikeActionEntity.UpdateList(_data.value))
+        notifyActionEvent(MoreListActionEntity.UpdateList(_data.value))
     }
 
     private fun removeLoadingProgress() {
@@ -150,6 +150,6 @@ class HomeLikeViewModel @ViewModelInject constructor(
             }
             this
         }
-        notifyActionEvent(HomeLikeActionEntity.UpdateList(_data.value))
+        notifyActionEvent(MoreListActionEntity.UpdateList(_data.value))
     }
 }

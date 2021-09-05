@@ -1,4 +1,4 @@
-package com.ddd4.synesthesia.beer.presentation.ui.home.like.view
+package com.ddd4.synesthesia.beer.presentation.ui.home.more.view
 
 import android.app.Activity
 import android.content.Context
@@ -8,23 +8,23 @@ import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd4.synesthesia.beer.R
-import com.ddd4.synesthesia.beer.databinding.ActivityHomeLikeBinding
+import com.ddd4.synesthesia.beer.databinding.ActivityMoreListBinding
 import com.ddd4.synesthesia.beer.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailActivity
-import com.ddd4.synesthesia.beer.presentation.ui.home.like.entity.HomeLikeActionEntity
-import com.ddd4.synesthesia.beer.presentation.ui.home.like.viewmodel.HomeLikeViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.home.more.entity.MoreListActionEntity
+import com.ddd4.synesthesia.beer.presentation.ui.home.more.viewmodel.HomeLikeViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.home.main.view.HomeStringProvider
 import com.ddd4.synesthesia.beer.util.listener.EndlessRecyclerViewScrollListener
 import com.ddd4.synesthesia.beer.util.sort.SortType
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeLikeActivity : BaseActivity<ActivityHomeLikeBinding>(R.layout.activity_home_like) {
+class MoreListActivity : BaseActivity<ActivityMoreListBinding>(R.layout.activity_more_list) {
 
     private val viewModel by viewModels<HomeLikeViewModel>()
-    private val adapter by lazy { HomeLikeListAdapter() }
+    private val adapter by lazy { MoreListAdapter() }
     private val type by lazy { intent.extras?.get(KEY_LIKE_TYPE) }
     private val title by lazy { intent.extras?.get(KEY_LIKE_TITLE) }
     private val endlessRecyclerViewScrollListener: EndlessRecyclerViewScrollListener by lazy {
@@ -46,7 +46,7 @@ class HomeLikeActivity : BaseActivity<ActivityHomeLikeBinding>(R.layout.activity
         binding.apply {
             vm = viewModel
             with(rvHomeLike) {
-                adapter = this@HomeLikeActivity.adapter
+                adapter = this@MoreListActivity.adapter
                 addOnScrollListener(endlessRecyclerViewScrollListener)
             }
         }
@@ -60,15 +60,15 @@ class HomeLikeActivity : BaseActivity<ActivityHomeLikeBinding>(R.layout.activity
 
     override fun handleActionEvent(entity: ActionEntity) {
         when (entity) {
-            is HomeLikeActionEntity.UpdateList -> {
+            is MoreListActionEntity.UpdateList -> {
                 adapter.clear()
                 adapter.addAll(entity.data.orEmpty())
             }
-            is HomeLikeActionEntity.Refresh -> {
+            is MoreListActionEntity.Refresh -> {
                 endlessRecyclerViewScrollListener.resetState()
             }
-            is HomeLikeActionEntity.MoveToDetail -> {
-                DetailActivity.start(this@HomeLikeActivity, entity.id)
+            is MoreListActionEntity.MoveToDetail -> {
+                DetailActivity.start(this@MoreListActivity, entity.id)
             }
         }
     }
@@ -91,7 +91,7 @@ class HomeLikeActivity : BaseActivity<ActivityHomeLikeBinding>(R.layout.activity
                     context.startActivityForResult(
                         Intent(
                             context,
-                            HomeLikeActivity::class.java
+                            MoreListActivity::class.java
                         ).apply {
                             putExtra(KEY_LIKE_TYPE, type)
                             putExtra(KEY_LIKE_TITLE, title)
@@ -99,7 +99,7 @@ class HomeLikeActivity : BaseActivity<ActivityHomeLikeBinding>(R.layout.activity
                     )
                 }
                 else -> {
-                    context.startActivity(Intent(context, HomeLikeActivity::class.java).apply {
+                    context.startActivity(Intent(context, MoreListActivity::class.java).apply {
                         putExtra(KEY_LIKE_TYPE, type)
                         putExtra(KEY_LIKE_TITLE, title)
                     })
@@ -118,7 +118,7 @@ class HomeLikeActivity : BaseActivity<ActivityHomeLikeBinding>(R.layout.activity
             fragment.startActivityForResult(
                 Intent(
                     fragment.context,
-                    HomeLikeActivity::class.java
+                    MoreListActivity::class.java
                 ).apply {
                     putExtra(KEY_LIKE_SORT, sort)
                     putExtra(KEY_LIKE_TYPE, type)

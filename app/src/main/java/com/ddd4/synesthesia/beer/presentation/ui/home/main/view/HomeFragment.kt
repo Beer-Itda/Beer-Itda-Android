@@ -15,7 +15,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.common.sort.view.SortDialog
 import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailActivity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.StyleActivity
 import com.ddd4.synesthesia.beer.presentation.ui.home.NavigationDirections
-import com.ddd4.synesthesia.beer.presentation.ui.home.like.view.HomeLikeActivity
+import com.ddd4.synesthesia.beer.presentation.ui.home.more.view.MoreListActivity
 import com.ddd4.synesthesia.beer.presentation.ui.home.main.entity.HomeActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.home.main.entity.HomeSelectEntity
 import com.ddd4.synesthesia.beer.presentation.ui.home.main.viewmodel.HomeViewModel
@@ -81,7 +81,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 bottom.show(this@HomeFragment.parentFragmentManager, bottom.tag)
             }
             is HomeSelectEntity.ClickTitle -> {
-                HomeLikeActivity.start(
+                MoreListActivity.start(
                     fragment = this@HomeFragment,
                     sort = entity.sort,
                     type = entity.type,

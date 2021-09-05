@@ -16,8 +16,9 @@ import com.ddd4.synesthesia.beer.util.AppConfig
 import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
 import javax.inject.Inject
 
-abstract class BaseActivity<B : ViewDataBinding>(private val layoutId: Int) : AppCompatActivity(),
-    HandleEvent {
+abstract class BaseActivity<B : ViewDataBinding>(
+    private val layoutId: Int
+) : AppCompatActivity(), HandleEvent {
 
     @Inject
     lateinit var preference: SharedPreferenceProvider

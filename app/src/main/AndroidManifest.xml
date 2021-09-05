@@ -59,7 +59,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".presentation.ui.home.like.view.HomeLikeActivity"
+            android:name=".presentation.ui.home.more.view.MoreListActivity"
             android:screenOrientation="portrait" />
 
         <activity
