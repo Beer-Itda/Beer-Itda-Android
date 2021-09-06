@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.ddd4.synesthesia.beer">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -59,7 +58,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".presentation.ui.home.more.view.MoreListActivity"
+            android:name=".presentation.ui.main.home.more.view.MoreListActivity"
             android:screenOrientation="portrait" />
 
         <activity
@@ -68,6 +67,18 @@
 
         <activity
             android:name=".presentation.ui.filter.aroma.view.AromaActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".presentation.ui.main.mypage.setting.view.SettingActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".presentation.ui.main.mypage.review.view.MyReviewActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".presentation.ui.main.mypage.favorite.view.MyFavoriteActivity"
             android:screenOrientation="portrait" />
 
     </application>

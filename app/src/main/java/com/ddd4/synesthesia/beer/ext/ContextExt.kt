@@ -1,12 +1,17 @@
 package com.ddd4.synesthesia.beer.ext
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.ddd4.synesthesia.beer.R
 
 fun Context.versionName(): String =
@@ -84,4 +89,27 @@ fun Context.showNoticeDialog(
             result?.invoke()
         }
     }.show()
+}
+
+fun Context.start(
+    intent: Intent,
+    isFinish: Boolean? = false,
+    isAnimation: Boolean? = false
+) {
+
+    startActivity(intent)
+
+    when (this) {
+        is Activity -> {
+            if (isAnimation == true) {
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+            }
+            if (isFinish == true) {
+                finish()
+            }
+        }
+        is Fragment -> {
+
+        }
+    }
 }

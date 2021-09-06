@@ -1,18 +1,18 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.mypage.favorite.view
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import androidx.activity.viewModels
 import androidx.databinding.library.baseAdapters.BR
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import com.ddd4.synesthesia.beer.R
-import com.ddd4.synesthesia.beer.databinding.FragmentMyFavoriteBinding
+import com.ddd4.synesthesia.beer.databinding.ActivityMyFavoriteBinding
 import com.ddd4.synesthesia.beer.ext.observeHandledEvent
-import com.ddd4.synesthesia.beer.presentation.base.BaseFragment
+import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
-import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsAdapter
+import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.favorite.viewmodel.MyFavoriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,12 +21,12 @@ import dagger.hilt.android.AndroidEntryPoint
  * 내가 찜한 맥주 리스트
  */
 @AndroidEntryPoint
-class MyFavoriteFragment : BaseFragment<FragmentMyFavoriteBinding>(R.layout.fragment_my_favorite) {
+class MyFavoriteActivity : BaseActivity<ActivityMyFavoriteBinding>(R.layout.activity_my_favorite) {
 
     private val viewModel by viewModels<MyFavoriteViewModel>()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         initBind()
         initObserver()
     }
@@ -36,13 +36,13 @@ class MyFavoriteFragment : BaseFragment<FragmentMyFavoriteBinding>(R.layout.frag
             vm = viewModel
             adapter = ItemsAdapter(R.layout.item_my_favorite, BR.beer)
             includeToolbar.toolbar.setNavigationOnClickListener {
-                findNavController().popBackStack()
+                finish()
             }
         }
     }
 
     override fun initObserver() {
-        viewModel.myFavorites.observe(viewLifecycleOwner, Observer {
+        viewModel.myFavorites.observe(this@MyFavoriteActivity, Observer {
             binding.adapter?.updateItems(it)
         })
         observeHandledEvent(viewModel.event.select) {
@@ -53,7 +53,16 @@ class MyFavoriteFragment : BaseFragment<FragmentMyFavoriteBinding>(R.layout.frag
     override fun handleSelectEvent(entity: ItemClickEntity) {
         when (entity) {
             is BeerClickEntity.SelectItem -> {
-                DetailActivity.start(this@MyFavoriteFragment, entity.beer.id)
+                DetailActivity.start(this@MyFavoriteActivity, entity.beer.id)
+            }
+        }
+    }
+
+    companion object {
+
+        fun getIntent(context: Context): Intent {
+            return Intent(context, MyFavoriteActivity::class.java).apply {
+
             }
         }
     }

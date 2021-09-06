@@ -5,50 +5,23 @@
     android:id="@+id/home_navigation"
     app:startDestination="@id/nav_home">
 
-    <KeepStateFragment
+    <fragment
         android:id="@+id/nav_home"
         android:name="com.ddd4.synesthesia.beer.presentation.ui.main.home.main.view.HomeFragment"
         tools:layout="@layout/fragment_home" />
 
 
-    <KeepStateFragment
+    <fragment
         android:id="@+id/nav_mypage"
         android:name="com.ddd4.synesthesia.beer.presentation.ui.main.mypage.main.view.MyPageFragment"
         tools:layout="@layout/fragment_my_page" />
 
-    <KeepStateFragment
+    <fragment
         android:id="@+id/nav_search"
         android:name="com.ddd4.synesthesia.beer.presentation.ui.main.search.view.SearchFragment"
         tools:layout="@layout/fragment_search" />
 
-    <fragment
-        android:id="@+id/nav_review"
-        android:name="com.ddd4.synesthesia.beer.presentation.ui.review.view.ReviewListActivity"
-        tools:layout="@layout/activity_review_all">
-        <argument
-            android:name="arg_review"
-            app:argType="com.ddd4.synesthesia.beer.data.model.Review[]"
-            app:nullable="true" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/nav_my_review"
-        android:name="com.ddd4.synesthesia.beer.presentation.ui.main.mypage.review.view.MyReviewFragment"
-        tools:layout="@layout/fragment_my_review" />
-
-    <fragment
-        android:id="@+id/nav_my_favorite"
-        android:name="com.ddd4.synesthesia.beer.presentation.ui.main.mypage.favorite.view.MyFavoriteFragment"
-        tools:layout="@layout/fragment_my_favorite" />
-
-    <fragment
-        android:id="@+id/nav_setting"
-        android:name="com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.view.SettingFragment"
-        tools:layout="@layout/fragment_my_page_setting" />
-
-
     <!-- Global Action -->
-
     <action
         android:id="@+id/action_to_mypage"
         app:destination="@id/nav_mypage"
@@ -64,38 +37,5 @@
         app:exitAnim="@anim/fade_out"
         app:popEnterAnim="@anim/fade_in"
         app:popExitAnim="@anim/fade_out" />
-
-    <action
-        android:id="@+id/action_to_review_all"
-        app:destination="@id/nav_review"
-        app:enterAnim="@anim/fade_in"
-        app:exitAnim="@anim/fade_out"
-        app:popEnterAnim="@anim/fade_in"
-        app:popExitAnim="@anim/fade_out" />
-
-    <action
-        android:id="@+id/action_to_my_review"
-        app:destination="@id/nav_my_review"
-        app:enterAnim="@anim/fade_in"
-        app:exitAnim="@anim/fade_out"
-        app:popEnterAnim="@anim/fade_in"
-        app:popExitAnim="@anim/fade_out" />
-
-    <action
-        android:id="@+id/action_to_my_favorite"
-        app:destination="@id/nav_my_favorite"
-        app:enterAnim="@anim/fade_in"
-        app:exitAnim="@anim/fade_out"
-        app:popEnterAnim="@anim/fade_in"
-        app:popExitAnim="@anim/fade_out" />
-
-    <action
-        android:id="@+id/action_to_setting"
-        app:destination="@id/nav_setting"
-        app:enterAnim="@anim/fade_in"
-        app:exitAnim="@anim/fade_out"
-        app:popEnterAnim="@anim/fade_in"
-        app:popExitAnim="@anim/fade_out" />
-
 
 </navigation>

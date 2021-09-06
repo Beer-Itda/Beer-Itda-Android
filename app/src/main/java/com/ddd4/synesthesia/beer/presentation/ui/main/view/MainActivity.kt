@@ -1,6 +1,7 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.view
 
 import android.os.Bundle
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -36,7 +37,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     binding.navBottomView.selectedItemId = graph.startDestination
                 }
                 else -> {
-                    popBackStack()
+                    // do nothing
                 }
             }
         }

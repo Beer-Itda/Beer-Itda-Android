@@ -33,11 +33,10 @@ class ReviewListActivity : BaseActivity<ActivityReviewAllBinding>(R.layout.activ
     companion object {
         const val KEY_REVIEW = "reviews"
 
-        @JvmStatic
-        fun start(context: Context, review: Array<Review>?) {
-            context.startActivity(Intent(context, ReviewListActivity::class.java).apply {
+        fun getIntent(context: Context, review: Array<Review>?): Intent {
+            return Intent(context, ReviewListActivity::class.java).apply {
                 putExtra(KEY_REVIEW, review)
-            })
+            }
         }
     }
 }

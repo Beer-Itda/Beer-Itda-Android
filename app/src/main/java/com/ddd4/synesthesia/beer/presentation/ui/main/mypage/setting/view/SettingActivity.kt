@@ -1,51 +1,48 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.view
 
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.view.View
+import androidx.activity.viewModels
 import androidx.core.os.bundleOf
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.ddd4.synesthesia.beer.HomeNavigationDirections
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.data.source.local.InfomationsData
-import com.ddd4.synesthesia.beer.databinding.FragmentMyPageSettingBinding
+import com.ddd4.synesthesia.beer.databinding.ActivityMyPageSettingBinding
 import com.ddd4.synesthesia.beer.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.ext.showToast
-import com.ddd4.synesthesia.beer.presentation.base.BaseFragment
+import com.ddd4.synesthesia.beer.ext.start
+import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.login.view.LoginActivity
-import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.main.viewmodel.MyPageViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.model.SettingActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.model.SettingClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.viewmodel.SettingViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.webview.view.WebViewActivity
 import com.ddd4.synesthesia.beer.util.CustomAlertDialog
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
-import com.hyden.ext.start
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SettingFragment :
-    BaseFragment<FragmentMyPageSettingBinding>(R.layout.fragment_my_page_setting) {
+class SettingActivity :
+    BaseActivity<ActivityMyPageSettingBinding>(R.layout.activity_my_page_setting) {
 
     private val viewModel by viewModels<SettingViewModel>()
     private val settingAdapter by lazy { SettingAdapter() }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         initBind()
         initObserver()
     }
 
     override fun initBind() {
         binding.run {
-            includeToolbar.toolbar.setNavigationOnClickListener { moveToBackStack() }
+            includeToolbar.toolbar.setNavigationOnClickListener { finish() }
             with(rvSetting) {
                 adapter = settingAdapter
             }
@@ -67,9 +64,9 @@ class SettingFragment :
                 settingAdapter.clear()
                 settingAdapter.addAll(entity.items)
             }
-            is SettingActionEntity.LogOut ->  {
+            is SettingActionEntity.LogOut -> {
                 preference.clear()
-                LoginActivity.start(requireContext(), getString(R.string.success_logout))
+                LoginActivity.start(this@SettingActivity, getString(R.string.success_logout))
             }
         }
     }
@@ -80,10 +77,6 @@ class SettingFragment :
                 informationsEvent(entity.item.title)
             }
         }
-    }
-
-    private fun moveToBackStack() {
-        findNavController().popBackStack()
     }
 
     private fun informationsEvent(section: String) {
@@ -126,7 +119,7 @@ class SettingFragment :
             }
             // 알림설정
             InfomationsData.PUSH.title -> {
-                context?.showToast(resources.getString(R.string.please_wait_for_a_little_while))
+                showToast(resources.getString(R.string.please_wait_for_a_little_while))
             }
         }
     }
@@ -148,7 +141,7 @@ class SettingFragment :
                     }
                 }
             }
-        ).show(parentFragmentManager, null)
+        ).show(supportFragmentManager, null)
     }
 
     /**
@@ -220,7 +213,7 @@ class SettingFragment :
                 startActivity(this)
             }
         } catch (e: ActivityNotFoundException) {
-            context?.showToast(resources.getString(R.string.error))
+            showToast(resources.getString(R.string.error))
         }
     }
 
@@ -249,7 +242,16 @@ class SettingFragment :
             intent.data = Uri.parse(resources.getString(R.string.play_store_market))
             startActivity(intent)
         } catch (e: ActivityNotFoundException) {
-            context?.showToast(resources.getString(R.string.not_installed_play_store))
+            showToast(resources.getString(R.string.not_installed_play_store))
+        }
+    }
+
+    companion object {
+
+        fun getIntent(context: Context): Intent {
+            return Intent(context, SettingActivity::class.java).apply {
+
+            }
         }
     }
 }

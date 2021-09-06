@@ -4,20 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.ddd4.synesthesia.beer.ext.permissonsCheck
+import com.ddd4.synesthesia.beer.ext.start
 import com.ddd4.synesthesia.beer.util.Consts.DEF_REQUEST_PERMISSION_CODE
 
-inline fun <reified T> Fragment.start(isFinish: Boolean? = false, bundle: Bundle? = null) {
-    context?.run {
-        Intent(this, T::class.java).apply {
-            bundle?.let {
-                putExtras(bundle)
-            }
-            startActivity(this)
-            if (isFinish == true) {
-                activity?.finish()
-            }
-        }
-    }
+fun Fragment.start(
+    intent: Intent
+) {
+    context?.start(intent = intent)
 }
 
 

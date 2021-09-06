@@ -13,6 +13,7 @@ import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityDetailBinding
 import com.ddd4.synesthesia.beer.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.ext.showToast
+import com.ddd4.synesthesia.beer.ext.start
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.entity.RelatedClickEntity
@@ -80,10 +81,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
                 start(this@DetailActivity, entity.beer.id)
             }
             is DetailItemSelectEntity.ReviewAll -> {
-                ReviewListActivity.start(
-                    this@DetailActivity,
-                    detailViewModel.beer.value?.reviews?.toTypedArray()
-                )
+                start(intent = ReviewListActivity.getIntent(this, detailViewModel.beer.value?.reviews?.toTypedArray()))
             }
             is DetailItemSelectEntity.StarRate -> {
                 showStarRatingView()

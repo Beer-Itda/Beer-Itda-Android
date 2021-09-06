@@ -3,16 +3,18 @@ package com.ddd4.synesthesia.beer.presentation.ui.main.mypage.main.view
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.ddd4.synesthesia.beer.HomeNavigationDirections
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.FragmentMyPageBinding
 import com.ddd4.synesthesia.beer.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.presentation.base.BaseFragment
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.entity.MyPageClickEntity
+import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.favorite.view.MyFavoriteActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.main.viewmodel.MyPageViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.nickname.view.NickNameActivity
+import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.review.view.MyReviewActivity
+import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.view.SettingActivity
+import com.hyden.ext.start
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -60,21 +62,21 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
      * 설정
      */
     private fun moveToSetting() {
-        findNavController().navigate(R.id.action_to_setting)
+        start(intent = SettingActivity.getIntent(requireContext()))
     }
 
     /**
      * 별점과 리뷰
      */
     private fun moveToReview() {
-        findNavController().navigate(R.id.action_to_my_review)
+        start(intent = MyReviewActivity.getIntent(requireContext()))
     }
 
     /**
      * 찜한 맥주
      */
     private fun moveToFavorite() {
-        findNavController().navigate(R.id.action_to_my_favorite)
+        start(intent = MyFavoriteActivity.getIntent(requireContext()))
     }
 
 }
