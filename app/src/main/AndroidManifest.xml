@@ -44,7 +44,7 @@
         </activity>
 
         <activity
-            android:name=".presentation.ui.mypage.nickname.view.NickNameActivity"
+            android:name=".presentation.ui.main.mypage.nickname.view.NickNameActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
 

@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.ddd4.synesthesia.beer.presentation.ui.home.main.viewmodel.HomeViewModel" />
+            type="com.ddd4.synesthesia.beer.presentation.ui.main.home.main.viewmodel.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

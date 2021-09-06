@@ -13,7 +13,7 @@
 
         <variable
             name="my"
-            type="com.ddd4.synesthesia.beer.presentation.ui.mypage.setting.item.SettingItemViewModel" />
+            type="com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.item.SettingItemViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

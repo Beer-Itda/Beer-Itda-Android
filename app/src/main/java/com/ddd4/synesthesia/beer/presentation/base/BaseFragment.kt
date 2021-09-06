@@ -17,6 +17,7 @@ abstract class BaseFragment<B : ViewDataBinding>(private val layoutId: Int) : Fr
     HandleEvent {
 
     lateinit var binding: B
+    private var isCreated: Boolean = false
 
     @Inject
     lateinit var preference: SharedPreferenceProvider
@@ -34,6 +35,13 @@ abstract class BaseFragment<B : ViewDataBinding>(private val layoutId: Int) : Fr
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         binding.lifecycleOwner = this
         return binding.root
+    }
+
+    fun firstLoaded(action: () -> Unit) {
+        if (isCreated.not()) {
+            action()
+            isCreated = true
+        }
     }
 
     protected open fun initBind() {}
