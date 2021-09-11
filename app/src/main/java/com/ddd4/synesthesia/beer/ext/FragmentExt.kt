@@ -5,12 +5,17 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.ddd4.synesthesia.beer.ext.permissonsCheck
 import com.ddd4.synesthesia.beer.ext.start
+import com.ddd4.synesthesia.beer.util.Consts.DEFAULT_REQ_CODE
 import com.ddd4.synesthesia.beer.util.Consts.DEF_REQUEST_PERMISSION_CODE
 
 fun Fragment.start(
-    intent: Intent
+    intent: Intent,
+    requestCode: Int? = DEFAULT_REQ_CODE
 ) {
-    context?.start(intent = intent)
+    context?.start(
+        intent = intent,
+        requestCode = requestCode
+    )
 }
 
 

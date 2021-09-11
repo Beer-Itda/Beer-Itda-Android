@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityMoreListBinding
 import com.ddd4.synesthesia.beer.ext.observeHandledEvent
+import com.ddd4.synesthesia.beer.ext.start
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailActivity
@@ -68,7 +69,7 @@ class MoreListActivity : BaseActivity<ActivityMoreListBinding>(R.layout.activity
                 endlessRecyclerViewScrollListener.resetState()
             }
             is MoreListActionEntity.MoveToDetail -> {
-                DetailActivity.start(this@MoreListActivity, entity.id)
+                start(intent = DetailActivity.getIntent(this, entity.id))
             }
         }
     }

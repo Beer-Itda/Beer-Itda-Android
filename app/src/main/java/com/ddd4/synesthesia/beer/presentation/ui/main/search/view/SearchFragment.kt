@@ -17,6 +17,7 @@ import com.ddd4.synesthesia.beer.presentation.commom.adapter.LoadingItemsApdater
 import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.search.viewmodel.SearchViewModel
 import com.ddd4.synesthesia.beer.util.listener.EndlessRecyclerViewScrollListener
+import com.hyden.ext.start
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -92,7 +93,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     override fun handleSelectEvent(entity: ItemClickEntity) {
         when (entity) {
             is BeerClickEntity.SelectItem -> {
-                DetailActivity.start(this@SearchFragment, entity.beer.id)
+                context?.let {
+                    start(intent = DetailActivity.getIntent(it, entity.beer.id))
+                }
             }
         }
     }

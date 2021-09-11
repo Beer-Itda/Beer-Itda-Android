@@ -20,6 +20,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.viewmodel.HomeVi
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.view.MoreListActivity
 import com.ddd4.synesthesia.beer.util.listener.EndlessRecyclerViewScrollListener
 import com.google.gson.Gson
+import com.hyden.ext.start
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -91,11 +92,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 )
             }
             is BeerClickEntity.SelectItem -> {
-                DetailActivity.start(this@HomeFragment, entity.beer.id)
+                moveToDetail(entity.beer.id)
             }
             is BeerClickEntity.SelectBeer -> {
-                DetailActivity.start(this@HomeFragment, entity.beer.id)
+                moveToDetail(entity.beer.id)
             }
+        }
+    }
+
+    private fun moveToDetail(beerId: Int) {
+        context?.let {
+            start(intent = DetailActivity.getIntent(it, beerId))
         }
     }
 

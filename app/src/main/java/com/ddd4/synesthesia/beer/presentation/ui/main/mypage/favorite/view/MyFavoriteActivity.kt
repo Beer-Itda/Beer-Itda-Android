@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityMyFavoriteBinding
 import com.ddd4.synesthesia.beer.ext.observeHandledEvent
+import com.ddd4.synesthesia.beer.ext.start
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsAdapter
@@ -53,7 +54,7 @@ class MyFavoriteActivity : BaseActivity<ActivityMyFavoriteBinding>(R.layout.acti
     override fun handleSelectEvent(entity: ItemClickEntity) {
         when (entity) {
             is BeerClickEntity.SelectItem -> {
-                DetailActivity.start(this@MyFavoriteActivity, entity.beer.id)
+                start(intent = DetailActivity.getIntent(this, entity.beer.id))
             }
         }
     }

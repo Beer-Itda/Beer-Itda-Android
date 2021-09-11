@@ -78,10 +78,15 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
     override fun handleSelectEvent(entity: ItemClickEntity) {
         when (entity) {
             is RelatedClickEntity.SelectItem -> {
-                start(this@DetailActivity, entity.beer.id)
+                start(intent = getIntent(this, entity.beer.id))
             }
             is DetailItemSelectEntity.ReviewAll -> {
-                start(intent = ReviewListActivity.getIntent(this, detailViewModel.beer.value?.reviews?.toTypedArray()))
+                start(
+                    intent = ReviewListActivity.getIntent(
+                        this,
+                        detailViewModel.beer.value?.reviews?.toTypedArray()
+                    )
+                )
             }
             is DetailItemSelectEntity.StarRate -> {
                 showStarRatingView()
@@ -104,37 +109,14 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
     companion object {
         const val REQ_CODE_DETAIL = 10
 
-        @JvmStatic
-        fun start(context: Context, beerId: Int, requestCode: Int = REQ_CODE_DETAIL) {
-            when (context) {
-                is Activity -> {
-                    context.startActivityForResult(
-                        Intent(
-                            context,
-                            DetailActivity::class.java
-                        ).apply {
-                            putExtra(KEY_BEER_ID, beerId)
-                        }, requestCode
-                    )
-                }
-                else -> {
-                    context.startActivity(Intent(context, DetailActivity::class.java).apply {
-                        putExtra(KEY_BEER_ID, beerId)
-                    })
-                }
+        fun getIntent(
+            context: Context,
+            beerId: Int
+        ): Intent {
+            return Intent(context, DetailActivity::class.java).apply {
+                putExtra(KEY_BEER_ID, beerId)
             }
         }
-
-        @JvmStatic
-        fun start(fragment: Fragment, beerId: Int, requestCode: Int = REQ_CODE_DETAIL) {
-            fragment.startActivityForResult(
-                Intent(
-                    fragment.context,
-                    DetailActivity::class.java
-                ).apply {
-                    putExtra(KEY_BEER_ID, beerId)
-                }, requestCode
-            )
-        }
     }
+
 }

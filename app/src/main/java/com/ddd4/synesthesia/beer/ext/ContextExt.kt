@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.ddd4.synesthesia.beer.R
+import com.ddd4.synesthesia.beer.util.Consts.DEFAULT_REQ_CODE
 
 fun Context.versionName(): String =
     packageManager.getPackageInfo(packageName, 0).versionName
@@ -93,23 +94,24 @@ fun Context.showNoticeDialog(
 
 fun Context.start(
     intent: Intent,
+    requestCode: Int? = DEFAULT_REQ_CODE,
     isFinish: Boolean? = false,
-    isAnimation: Boolean? = false
+    isAnimation: Boolean? = true
 ) {
 
-    startActivity(intent)
 
     when (this) {
         is Activity -> {
-            if (isAnimation == true) {
+            startActivityForResult(intent, requestCode.orZero())
+            if (isAnimation.orFalse()) {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
             }
-            if (isFinish == true) {
+            if (isFinish.orFalse()) {
                 finish()
             }
         }
-        is Fragment -> {
-
+        else -> {
+            startActivity(intent)
         }
     }
 }
