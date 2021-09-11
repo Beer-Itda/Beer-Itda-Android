@@ -10,9 +10,11 @@ import androidx.fragment.app.Fragment
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityFilterStyleBinding
 import com.ddd4.synesthesia.beer.ext.observeHandledEvent
+import com.ddd4.synesthesia.beer.ext.start
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailActivity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.view.AromaActivity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleClicklEntity
@@ -21,6 +23,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.adapter.Style
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.adapter.StyleSelectedListAdapter
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.adapter.StyleSmallListAdapter
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.viewmodel.StyleViewModel
+import com.ddd4.synesthesia.beer.util.KEY_BEER_ID
 import com.google.android.material.tabs.TabLayout
 import com.yarolegovich.discretescrollview.DiscreteScrollView
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer
@@ -117,7 +120,6 @@ class StyleActivity : BaseActivity<ActivityFilterStyleBinding>(R.layout.activity
             is StyleClicklEntity.SelectStyleSet -> {
             }
             is StyleClicklEntity.SelectDone -> {
-                AromaActivity.start(this@StyleActivity)
                 finish()
             }
         }
@@ -144,40 +146,11 @@ class StyleActivity : BaseActivity<ActivityFilterStyleBinding>(R.layout.activity
     companion object {
         const val REQ_CODE_FILTER = 30
 
-        @JvmStatic
-        fun start(
-            context: Context,
-            requestCode: Int = REQ_CODE_FILTER
-        ) {
-            when (context) {
-                is Activity -> {
-                    context.startActivityForResult(
-                        Intent(
-                            context,
-                            StyleActivity::class.java
-                        ).apply {
-                        }, requestCode
-                    )
-                }
-                else -> {
-                    context.startActivity(Intent(context, StyleActivity::class.java).apply {
-                    })
-                }
+        fun getIntent(
+            context: Context
+        ): Intent {
+            return Intent(context, StyleActivity::class.java).apply {
             }
-        }
-
-        @JvmStatic
-        fun start(
-            fragment: Fragment,
-            requestCode: Int = REQ_CODE_FILTER
-        ) {
-            fragment.startActivityForResult(
-                Intent(
-                    fragment.context,
-                    StyleActivity::class.java
-                ).apply {
-                }, requestCode
-            )
         }
     }
 }

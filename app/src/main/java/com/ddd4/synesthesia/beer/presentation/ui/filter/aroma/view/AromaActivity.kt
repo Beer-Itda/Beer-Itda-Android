@@ -10,12 +10,14 @@ import androidx.fragment.app.Fragment
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityFilterAromaBinding
 import com.ddd4.synesthesia.beer.ext.observeHandledEvent
+import com.ddd4.synesthesia.beer.ext.start
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.view.adapter.AromaListAdapter
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.view.adapter.AromaSelectedListAdapter
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.viewmodel.AromaViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.StyleActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -65,7 +67,10 @@ class AromaActivity : BaseActivity<ActivityFilterAromaBinding>(R.layout.activity
                 selectedListAdapter.addAll(entity.list, true)
             }
             is AromaActionEntity.SelectDone -> {
-                finish()
+                start(
+                    intent = StyleActivity.getIntent(this),
+                    isFinish = true
+                )
             }
         }
     }
@@ -73,40 +78,11 @@ class AromaActivity : BaseActivity<ActivityFilterAromaBinding>(R.layout.activity
     companion object {
         const val REQ_CODE_AROMA = 302
 
-        @JvmStatic
-        fun start(
-            context: Context,
-            requestCode: Int = REQ_CODE_AROMA
-        ) {
-            when (context) {
-                is Activity -> {
-                    context.startActivityForResult(
-                        Intent(
-                            context,
-                            AromaActivity::class.java
-                        ).apply {
-                        }, requestCode
-                    )
-                }
-                else -> {
-                    context.startActivity(Intent(context, AromaActivity::class.java).apply {
-                    })
-                }
+        fun getIntent(
+            context: Context
+        ): Intent {
+            return Intent(context, AromaActivity::class.java).apply {
             }
-        }
-
-        @JvmStatic
-        fun start(
-            fragment: Fragment,
-            requestCode: Int = REQ_CODE_AROMA
-        ) {
-            fragment.startActivityForResult(
-                Intent(
-                    fragment.context,
-                    AromaActivity::class.java
-                ).apply {
-                }, requestCode
-            )
         }
     }
 }
