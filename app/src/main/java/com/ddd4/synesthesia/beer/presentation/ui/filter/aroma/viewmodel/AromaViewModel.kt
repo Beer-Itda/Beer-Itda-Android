@@ -26,7 +26,7 @@ class AromaViewModel @ViewModelInject constructor(
 ) : BaseViewModel() {
 
     companion object {
-        const val MAX_AROMA_COUNT = 3
+        const val MAX_AROMA_COUNT = 5
     }
 
     val viewState = AromaViewState()
