@@ -14,3 +14,4 @@ val Float.dp: Int
     get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
 
 fun Float?.orZero(): Float = this ?: 0f
+fun Float?.orDefault(value: Float): Float = this ?: value

@@ -23,10 +23,10 @@ class BeerItemViewModel(
     val reviews: List<Review>,
     val thumbnailImage: String,
     val reviewOwnerBeer: Beer?,
-    val reviewOwnerContent: String,
-    val reviewOwnerNickname: String,
-    val reviewOwnerRatio: Float,
-    val reviewOwnerUserId: Int,
+    val reviewOwnerContent: String?,
+    val reviewOwnerNickname: String?,
+    val reviewOwnerRatio: Float?,
+    val reviewOwnerUserId: Int?,
     initFavorite: Boolean
 ) {
     var isFavorite: ObservableBoolean = ObservableBoolean(initFavorite)

@@ -3,11 +3,7 @@ package com.ddd4.synesthesia.beer.presentation.ui.login.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Html
-import android.text.method.LinkMovementMethod
-import android.text.method.MovementMethod
 import androidx.activity.viewModels
-import androidx.core.os.bundleOf
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.Observer
 import com.ddd4.synesthesia.beer.R
@@ -16,12 +12,9 @@ import com.ddd4.synesthesia.beer.ext.showSnackBar
 import com.ddd4.synesthesia.beer.ext.showToast
 import com.ddd4.synesthesia.beer.ext.start
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
-import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailActivity
 import com.ddd4.synesthesia.beer.presentation.ui.login.viewmodel.LoginViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.view.MainActivity
 import com.ddd4.synesthesia.beer.util.HyperLinkMovement
-import com.ddd4.synesthesia.beer.util.KeyStringConst
-import com.ddd4.synesthesia.beer.util.provider.INoticeStringResourceProvider
 import com.kakao.sdk.auth.LoginClient
 import com.kakao.sdk.auth.model.OAuthToken
 import dagger.hilt.android.AndroidEntryPoint

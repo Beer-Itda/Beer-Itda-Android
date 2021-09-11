@@ -2,7 +2,7 @@ package com.ddd4.synesthesia.beer.presentation.ui.main.home.main.item.parent.lis
 
 import com.ddd4.synesthesia.beer.data.model.Beer
 import com.ddd4.synesthesia.beer.presentation.base.event.SelectActionEventNotifier
-import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModelMapper
+import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModelMapper.getBeerItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small.StyleSmallItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.item.child.HomeBeerChildItemViewModel
@@ -21,8 +21,7 @@ object BeerListModelMapper {
     ): BeerListItemViewModel {
         val list = this.map {
             HomeBeerChildItemViewModel(
-                BeerItemViewModelMapper.getMapper(
-                    beer = it,
+                it.getBeerItemViewModel(
                     eventNotifier = eventNotifier
                 )
             )

@@ -34,4 +34,12 @@ class StarRatingViewModel @ViewModelInject constructor(
     fun clickGuide() {
         notifySelectEvent(StarRatingBottomClickEntity.ClickGuide)
     }
+
+    fun setData(
+        reviewContent : String,
+        reviewRatio : Float
+    ) {
+        review.value = reviewContent
+        rating.value = reviewRatio
+    }
 }

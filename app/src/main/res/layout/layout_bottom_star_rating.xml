@@ -8,8 +8,16 @@
         <import type="android.text.TextUtils" />
 
         <variable
-            name="beer"
-            type="com.ddd4.synesthesia.beer.data.model.Beer" />
+            name="reviewContent"
+            type="String" />
+
+        <variable
+            name="reviewRatio"
+            type="Float" />
+
+        <variable
+            name="isFirstWrite"
+            type="Boolean" />
 
         <variable
             name="vm"
@@ -214,14 +222,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@{TextUtils.isEmpty(vm.review) ? @color/color_39393b : ((beer.reviewOwner.content.equals(vm.review) &amp;&amp; beer.reviewOwner.ratio.equals(vm.rating)) ? @color/color_39393b : @android:color/transparent)}"
-            android:clickable="@{TextUtils.isEmpty(vm.review) ? false : ((beer.reviewOwner.content.equals(vm.review) &amp;&amp; beer.reviewOwner.ratio.equals(vm.rating)) ? false : true)}"
-            android:focusable="@{TextUtils.isEmpty(vm.review) ? false : ((beer.reviewOwner.content.equals(vm.review) &amp;&amp; beer.reviewOwner.ratio.equals(vm.rating)) ? false : true)}"
+            android:background="@{TextUtils.isEmpty(vm.review) ? @color/color_39393b : ((reviewContent.equals(vm.review) &amp;&amp; reviewRatio.equals(vm.rating)) ? @color/color_39393b : @android:color/transparent)}"
+            android:clickable="@{TextUtils.isEmpty(vm.review) ? false : ((reviewContent.equals(vm.review) &amp;&amp; reviewRatio.equals(vm.rating)) ? false : true)}"
+            android:focusable="@{TextUtils.isEmpty(vm.review) ? false : ((reviewContent.equals(vm.review) &amp;&amp; reviewRatio.equals(vm.rating)) ? false : true)}"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:paddingVertical="22dp"
-            android:text="@{beer.reviewOwner == null ? @string/register : @string/modify}"
-            android:textColor="@{TextUtils.isEmpty(vm.review) ? @color/color_8e8d94 : ((beer.reviewOwner.content.equals(vm.review) &amp;&amp; beer.reviewOwner.ratio.equals(vm.rating)) ? @color/color_8e8f93 : @color/butterscotch)}"
+            android:text="@{isFirstWrite ? @string/register : @string/modify}"
+            android:textColor="@{TextUtils.isEmpty(vm.review) ? @color/color_8e8d94 : ((reviewContent.equals(vm.review) &amp;&amp; reviewRatio.equals(vm.rating)) ? @color/color_8e8f93 : @color/butterscotch)}"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

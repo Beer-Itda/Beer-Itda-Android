@@ -1,7 +1,9 @@
 package com.ddd4.synesthesia.beer.presentation.ui.detail.view
 
 import android.app.Dialog
+import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
@@ -10,16 +12,15 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.ddd4.synesthesia.beer.R
-import com.ddd4.synesthesia.beer.data.model.Beer
 import com.ddd4.synesthesia.beer.databinding.LayoutBottomStarRatingBinding
-import com.ddd4.synesthesia.beer.ext.observeHandledEvent
-import com.ddd4.synesthesia.beer.ext.showToast
+import com.ddd4.synesthesia.beer.ext.*
 import com.ddd4.synesthesia.beer.presentation.base.BaseBottomSheetDialogFragment
 import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.detail.entity.StarRatingBottomClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.detail.viewmodel.StarRatingViewModel
 import com.ddd4.synesthesia.beer.util.CustomAlertDialog
+import com.ddd4.synesthesia.beer.util.KEY_BEER_ID
 import com.ddd4.synesthesia.beer.util.SimpleCallback
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -27,11 +28,16 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class StarRatingBottomDialog :
+class StarRatingBottomDialogFragment :
     BaseBottomSheetDialogFragment<LayoutBottomStarRatingBinding>(R.layout.layout_bottom_star_rating) {
 
     private val starRatingViewModel by viewModels<StarRatingViewModel>()
-    private val beerInfo by lazy { arguments?.get(getString(R.string.key_beer)) as? Beer }
+
+    private val beerId by lazy { arguments?.getInt(KEY_BEER_ID) }
+    private val reviewContent by lazy { arguments?.getString(KEY_REVIEW_CONTENT).orEmpty() }
+    private val reviewRatio by lazy { arguments?.getFloat(KEY_REVIEW_RATIO).orDefault(0.5f) }
+    private val isFirstWrite by lazy { arguments?.getBoolean(KEY_IS_FIRST_WRITE).orFalse() }
+
     private var dismiss: (() -> Unit)? = null
     private val minRating = 0.5f
 
@@ -51,14 +57,14 @@ class StarRatingBottomDialog :
         isCancelable = false
         binding.apply {
             vm = starRatingViewModel
-            beer = beerInfo
-            beerInfo?.let {
-                starRatingViewModel.review.value = it.reviewOwner?.content
-                starRatingViewModel.rating.value = it.reviewOwner?.ratio
-            }
+            reviewContent = this@StarRatingBottomDialogFragment.reviewContent
+            reviewRatio = this@StarRatingBottomDialogFragment.reviewRatio
+            isFirstWrite = this@StarRatingBottomDialogFragment.isFirstWrite
+
+
             btnSendReview.setOnClickListener {
-                beerInfo?.let { beer ->
-                    starRatingViewModel.postReview(beer.id)
+                beerId?.let { id ->
+                    starRatingViewModel.postReview(id)
                 } ?: kotlin.run { context?.showToast(getString(R.string.review_fail_message)) }
             }
             ivClose.setOnClickListener {
@@ -66,6 +72,10 @@ class StarRatingBottomDialog :
             }
         }
         initObserving()
+        starRatingViewModel.setData(
+            reviewContent = reviewContent,
+            reviewRatio = reviewRatio
+        )
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -92,7 +102,7 @@ class StarRatingBottomDialog :
 
     fun showDialog(fm: FragmentManager, dismiss: (() -> Unit)?) {
         show(fm, "")
-        this@StarRatingBottomDialog.dismiss = dismiss
+        this@StarRatingBottomDialogFragment.dismiss = dismiss
     }
 
     override fun getTheme(): Int {
@@ -136,7 +146,7 @@ class StarRatingBottomDialog :
     }
 
     private fun notice() {
-        if (beerInfo?.reviewOwner?.ratio == starRatingViewModel.rating.value && beerInfo?.reviewOwner?.content == starRatingViewModel.review.value) {
+        if (reviewRatio == starRatingViewModel.rating.value && reviewContent == starRatingViewModel.review.value) {
             dismiss()
         } else {
             CustomAlertDialog(
@@ -146,6 +156,27 @@ class StarRatingBottomDialog :
                 negative = getString(R.string.no),
                 result = DialogInterface.OnClickListener { dialog, which -> dismiss() }
             ).show(parentFragmentManager, null)
+        }
+    }
+
+    companion object {
+        const val KEY_REVIEW_CONTENT = "review_content"
+        const val KEY_REVIEW_RATIO = "review_ratio"
+        const val KEY_IS_FIRST_WRITE = "is_first_write"
+
+
+        fun getBundle(
+            beerId: Int,
+            reviewContent: String?,
+            reviewRatio: Float?,
+            isFirstWrite: Boolean?
+        ): Bundle {
+            return Bundle().apply {
+                putInt(KEY_BEER_ID, beerId)
+                putString(KEY_REVIEW_CONTENT, reviewContent)
+                putFloat(KEY_REVIEW_RATIO, reviewRatio.orDefault(0.5f))
+                putBoolean(KEY_IS_FIRST_WRITE, isFirstWrite.orFalse())
+            }
         }
     }
 }

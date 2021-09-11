@@ -1,6 +1,7 @@
 package com.ddd4.synesthesia.beer.ext
 
 import com.ddd4.synesthesia.beer.data.model.Beer
+import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.*
 
@@ -18,5 +19,5 @@ object CoroutinesEvent {
 }
 
 sealed class ChannelType {
-    data class Favorite(val beer: Beer?) : ChannelType()
+    data class Favorite(val beer: BeerItemViewModel?) : ChannelType()
 }

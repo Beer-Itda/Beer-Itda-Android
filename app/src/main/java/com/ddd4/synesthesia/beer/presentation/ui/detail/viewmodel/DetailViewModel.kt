@@ -14,9 +14,11 @@ import com.ddd4.synesthesia.beer.ext.ChannelType
 import com.ddd4.synesthesia.beer.ext.CoroutinesEvent
 import com.ddd4.synesthesia.beer.ext.orFalse
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModelMapper.getBeerItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.detail.entity.DetailItemSelectEntity
 import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailStringProvider
-import com.ddd4.synesthesia.beer.util.KeyStringConst.Companion.KEY_BEER_ID
+import com.ddd4.synesthesia.beer.util.KEY_BEER_ID
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -34,25 +36,20 @@ class DetailViewModel @ViewModelInject constructor(
     private val _id = MutableLiveData<Int>(savedState.get(KEY_BEER_ID))
     val id: LiveData<Int> get() = _id
 
-    private val _beer = MutableLiveData<Beer>()
-    val beer: LiveData<Beer> get() = _beer
+    private val _beer = MutableLiveData<BeerItemViewModel>()
+    val beer: LiveData<BeerItemViewModel> get() = _beer
 
     private val _relatedBeers = MutableLiveData<RelatedBeers>()
     val relatedBeers: LiveData<RelatedBeers> get() = _relatedBeers
 
-    private val handler = CoroutineExceptionHandler { coroutineContext, throwable ->
-        Timber.e(throwable)
-    }
-
     fun load() {
         statusLoading()
-        viewModelScope.launch(handler) {
+        viewModelScope.launch(errorHandler) {
             _id.value?.let {
                 val response = beerRepository.getBeer(it)
-                _beer.value = response?.beer?.apply {
-                    setFavorite()
-                    eventNotifier = this@DetailViewModel
-                }
+
+                _beer.value = response?.beer?.getBeerItemViewModel(eventNotifier = this@DetailViewModel)
+
                 _relatedBeers.value = response?.relatedBeers?.apply {
                     aromaRelated?.map { it.eventNotifier = this@DetailViewModel }
                     randomlyRelated?.map { it.eventNotifier = this@DetailViewModel }
