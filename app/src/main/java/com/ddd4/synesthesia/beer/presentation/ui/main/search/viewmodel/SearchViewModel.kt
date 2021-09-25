@@ -43,7 +43,7 @@ class SearchViewModel @ViewModelInject constructor(
         }
     }
 
-    val coroutineEvent = CoroutinesEvent.listen(ChannelType.Favorite::class.java)
+//    val coroutineEvent = CoroutinesEvent.listen(ChannelType.Favorite::class.java)
 
     init {
         searchText.addOnPropertyChangedCallback(searchTextObserver)
@@ -51,16 +51,16 @@ class SearchViewModel @ViewModelInject constructor(
     }
 
     private fun eventListen() {
-        viewModelScope.launch(errorHandler) {
-            coroutineEvent.consumeEach { favorite ->
-                beerList.value?.filter {
-                    it.id == favorite.beer?.id
-                }?.map {
-                    it.updateFavorite()
-                    it
-                }
-            }
-        }
+//        viewModelScope.launch(errorHandler) {
+//            coroutineEvent.consumeEach { favorite ->
+//                beerList.value?.filter {
+//                    it.id == favorite.beer?.id
+//                }?.map {
+//                    it.updateFavorite()
+//                    it
+//                }
+//            }
+//        }
     }
 
     fun clearText() {

@@ -61,7 +61,7 @@ class HomeViewModel @ViewModelInject constructor(
     private val _isRefresh = MutableLiveData<Boolean>()
     val isRefresh: LiveData<Boolean> get() = _isRefresh
 
-    private val favoriteEvent = CoroutinesEvent.listen(ChannelType.Favorite::class.java)
+//    private val favoriteEvent = CoroutinesEvent.listen(ChannelType.Favorite::class.java)
 
     init {
 //        loadAppConfig()
@@ -69,16 +69,16 @@ class HomeViewModel @ViewModelInject constructor(
     }
 
     private fun eventListen() {
-        viewModelScope.launch(errorHandler) {
-            favoriteEvent.consumeEach { favorite ->
-                beerList.value?.filter {
-                    it.id == favorite.beer?.id
-                }?.map {
-                    it.updateFavorite()
-                    it
-                }
-            }
-        }
+//        viewModelScope.launch(errorHandler) {
+//            favoriteEvent.consumeEach { favorite ->
+//                beerList.value?.filter {
+//                    it.id == favorite.beer?.id
+//                }?.map {
+//                    it.updateFavorite()
+//                    it
+//                }
+//            }
+//        }
     }
 
     private fun loadAppConfig() {

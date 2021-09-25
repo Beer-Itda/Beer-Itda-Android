@@ -14,8 +14,8 @@ object CoroutinesEvent {
         observerChanner.send(o)
     }
 
-    fun <T> listen(eventType: Class<T>): ReceiveChannel<T> =
-        observerChanner.openSubscription().filter { it is kotlin.Any }.map { it as T }
+//    fun <T> listen(eventType: Class<T>): ReceiveChannel<T> =
+//        observerChanner.openSubscription().filter { it is kotlin.Any }.map { it as T }
 }
 
 sealed class ChannelType {

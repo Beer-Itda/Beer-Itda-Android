@@ -44,7 +44,7 @@ android {
         resValue("string", KAKAO, getKakaoKey())
         resValue("string", BASE_URL, getBaseUrl())
 
-        manifestPlaceholders[PropertiesExt.KAKAO] = getKakaoKey()
+        manifestPlaceholders[KAKAO] = getKakaoKey()
     }
 
     buildTypes {
@@ -53,20 +53,22 @@ android {
             isDebuggable = false
             proguardFiles("proguard-android-optimize.txt", "proguard-rules.pro")
             signingConfig = signingConfigs.getByName("develop")
+            multiDexEnabled = true
         }
 
         getByName("debug") {
             signingConfig = signingConfigs.getByName("develop")
+            multiDexEnabled = true
         }
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     buildFeatures {
@@ -78,10 +80,12 @@ android {
         create("playStore") {
             dimension = "mode"
             resValue("string", "app_name", "비어있다")
+            multiDexEnabled = true
         }
         create("dev") {
             dimension = "mode"
             resValue("string", "app_name", "beer dev")
+            multiDexEnabled = true
         }
     }
 
