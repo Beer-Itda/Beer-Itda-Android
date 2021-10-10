@@ -20,8 +20,8 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url = uri("https://devrepo.kakao.com/nexus/content/groups/public/") }
-        maven { url = uri("https://jitpack.io") }
+        maven { setUrl("https://devrepo.kakao.com/nexus/content/groups/public/") }
+        maven { setUrl("https://jitpack.io") }
     }
 }
 
