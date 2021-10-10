@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="beer"
-            type="com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModel" />
+            name="viewModel"
+            type="com.ddd4.synesthesia.beer.presentation.ui.common.related.RelatedItemViewModel" />
     </data>
 
 
@@ -17,7 +17,7 @@
         android:layout_height="210dp"
         android:backgroundTint="@color/color_1c1b21"
         android:elevation="50dp"
-        android:onClick="@{() -> beer.clickItem()}"
+        android:onClick="@{() -> viewModel.beer.clickItem()}"
         app:cardCornerRadius="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,6 +32,7 @@
                 android:id="@+id/iv_beer"
                 android:layout_width="62dp"
                 android:layout_height="112dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="12dp"
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
@@ -39,17 +40,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:loadUrl="@{beer.thumbnailImage}"
+                app:loadUrl="@{viewModel.beer.thumbnailImage}"
                 tools:src="@drawable/beer" />
 
             <ImageView
                 android:id="@+id/iv_like"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                android:layout_marginTop="17dp"
-                android:onClick="@{() -> beer.clickFavorite()}"
-                android:src="@{beer.isFavorite() ? @drawable/ic_btn_like : @drawable/ic_btn_like_unactive}"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="12dp"
+                android:onClick="@{() -> viewModel.beer.clickFavorite()}"
+                android:src="@{viewModel.beer.isFavorite() ? @drawable/ic_btn_like : @drawable/ic_btn_like_unactive}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/ic_btn_like" />
@@ -65,7 +66,7 @@
                 android:fontFamily="@font/notosans_kr_regular"
                 android:gravity="center"
                 android:singleLine="true"
-                android:text="@{beer.name}"
+                android:text="@{viewModel.beer.name}"
                 app:layout_constraintBottom_toTopOf="@+id/tv_beer_rate"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:drawablePadding="4dp"
                 android:fontFamily="@font/notosans_kr_bold"
-                android:text="@{@string/rate_unit_2(beer.rateAvg)}"
+                android:text="@{@string/rate_unit_2(viewModel.beer.rateAvg)}"
                 android:textColor="@color/butterscotch"
                 android:textSize="14sp"
                 app:drawableStartCompat="@drawable/ic_rating_star"

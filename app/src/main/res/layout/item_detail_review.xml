@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.ddd4.synesthesia.beer.util.NetworkStatus" />
+
+        <variable
+            name="viewModel"
+            type="com.ddd4.synesthesia.beer.presentation.ui.detail.item.review.BeerDetailReviewListViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@color/shark"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_my_review"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:gravity="center_vertical"
+            android:text="@string/my_write_review"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:drawableEndCompat="@drawable/ic_btn_more"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            app:visibility="@{viewModel.myReviewExist}"
+            tools:text="내가 쓴 리뷰" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/background_1c1b21_round_8"
+            android:paddingVertical="18dp"
+            app:visibility="@{viewModel.myReviewExist}">
+
+            <RatingBar
+                android:id="@+id/rb_beer_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:backgroundTint="@color/butterscotch"
+                android:isIndicator="true"
+                android:max="5"
+                android:numStars="5"
+                android:progressBackgroundTint="@color/shark"
+                android:progressTint="@color/butterscotch"
+                android:rating="@{viewModel.myReview.ratio}"
+                android:secondaryProgressTint="@color/butterscotch"
+                android:stepSize="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_review_score"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:text="@{@string/rate_unit_2(viewModel.myReview.ratio)}"
+                android:textColor="@color/butterscotch"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/rb_beer_rate"
+                app:layout_constraintStart_toEndOf="@+id/rb_beer_rate"
+                app:layout_constraintTop_toTopOf="@+id/rb_beer_rate"
+                tools:text="3.0" />
+
+            <TextView
+                android:id="@+id/tv_my_review_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="16dp"
+                android:text="@{viewModel.myReview.content}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rb_beer_rate"
+                tools:text="
+이 맥주.. 제 인생 맥주 입니다 ㅠㅠ 너무 맛있어요 저는 과일향 나는 가볍게 마실 수 있는 맥주를 호 하는 저에게 딱인 것 같습니다! 향이 너무 좋아요!!" />
+
+            <TextView
+                android:id="@+id/tv_write_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="8dp"
+                android:text="@{viewModel.myReview.createdAt}"
+                android:textColor="@color/color_8e8d94"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_my_review_content"
+                tools:text="2021.08.01" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--리뷰-->
+        <TextView
+            android:id="@+id/tv_review"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="54dp"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:gravity="center_vertical"
+            android:onClick="@{() -> viewModel.clickShowMoreReview()}"
+            android:text="@{@string/review_with_count(viewModel.reviewCount)}"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:drawableEndCompat="@drawable/ic_btn_more"
+            app:layout_constraintTop_toBottomOf="@+id/tv_beer_review_write_title"
+            app:visibility="@{viewModel.review.size() > 0}"
+            tools:text="리뷰 (12)" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_review"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:clipToPadding="true"
+            android:overScrollMode="never"
+            app:adapter="@{viewModel.adapter}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/tv_review"
+            app:vertical_space="@{@integer/space_20}"
+            app:visibility="@{viewModel.review.size() > 0}"
+            tools:itemCount="3"
+            tools:layout_editor_absoluteX="0dp"
+            tools:listitem="@layout/item_review"
+            tools:paddingTop="24dp" />
+
+        <TextView
+            android:id="@+id/tv_beer_review_write_title"
+            style="@style/TextBoldButterscotch14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/background_butterscotch_round_12"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.clickWriteReview()}"
+            android:paddingVertical="14dp"
+            android:text="@{@string/write_review}"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_review"
+            app:visibility="@{!viewModel.myReviewExist}"
+            tools:text="@string/write_review" />
+
+
+    </LinearLayout>
+
+</layout>

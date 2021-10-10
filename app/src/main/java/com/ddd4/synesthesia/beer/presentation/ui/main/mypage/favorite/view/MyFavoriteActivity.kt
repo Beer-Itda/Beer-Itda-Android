@@ -14,7 +14,7 @@ import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsAdapter
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
-import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailActivity
+import com.ddd4.synesthesia.beer.presentation.ui.detail.view.BeerDetailActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.favorite.viewmodel.MyFavoriteViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -54,7 +54,7 @@ class MyFavoriteActivity : BaseActivity<ActivityMyFavoriteBinding>(R.layout.acti
     override fun handleSelectEvent(entity: ItemClickEntity) {
         when (entity) {
             is BeerClickEntity.SelectItem -> {
-                start(intent = DetailActivity.getIntent(this, entity.beer.id))
+                start(intent = BeerDetailActivity.getIntent(this, entity.beer.id))
             }
         }
     }

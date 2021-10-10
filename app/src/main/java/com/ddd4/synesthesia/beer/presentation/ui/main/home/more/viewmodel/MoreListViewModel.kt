@@ -19,6 +19,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.entity.MoreListA
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.footer.MoreItemLoadingViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.item.IMoreListViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.item.MoreListModelMapper
+import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.item.MoreListModelMapper.getMapper
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.view.MoreListActivity.Companion.KEY_LIKE_SORT
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.view.MoreListActivity.Companion.KEY_LIKE_TITLE
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.view.MoreListActivity.Companion.KEY_LIKE_TYPE
@@ -82,7 +83,7 @@ class MoreListViewModel @ViewModelInject constructor(
             }
             removeLoadingProgress()
             val data =
-                MoreListModelMapper.getMapper(response?.beers.orEmpty(), this@MoreListViewModel)
+                response.getMapper(eventNotifier = this@MoreListViewModel)
 
             if (_isLoadMore.value.orFalse()) {
                 _data.value = _data.value?.toMutableList()?.run {

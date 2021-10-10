@@ -42,6 +42,7 @@
     <string name="logout_message">로그아웃 하시겠습니까?</string>
     <string name="unlink_message">회원탈퇴 하시겠습니까?</string>
     <string name="rate_unit">%,.1f점</string>
+    <string name="rate_unit_2">%,.1f</string>
     <string name="abv">%,.1f%%</string>
     <string name="back_press">\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다</string>
     <string name="profile_name"><b>%s</b>님</string>
@@ -52,6 +53,7 @@
     <string name="my_review">내가 남긴 별점과 리뷰</string>
     <string name="my_favorite">찜한 맥주</string>
     <string name="review">리뷰</string>
+    <string name="review_with_count">리뷰 (%,.0f)</string>
     <string name="star_rating">별점</string>
     <string name="message_review">맥주이름에 대한 자세한 후기를 작성해주세요</string>
     <string name="message_star_rating">맥주이름에 대한 별점을 남겨주세요</string>
@@ -62,7 +64,7 @@
     <string name="title_like_aroma">회원님이 좋아하는 향 🍒</string>
     <string name="title_like_random">이런 맥주는 어떠세요? 🍺</string>
     <string name="show_all">전체보기</string>
-    <string name="register_review">별점과 리뷰 남기기</string>
+    <string name="write_review">맥주 리뷰쓰기</string>
     <string name="modify_review">별점과 리뷰 수정하기</string>
     <string name="manufacturer">제조사</string>
     <string name="registered_review">후기가 등록되었습니다.</string>
@@ -103,4 +105,5 @@
     <string name="review_level_guide">비어있다 등급 가이드</string>
     <string name="review_notice">무성의하게 작성된 리뷰는\n이용약관에 기반하여 삭제될 수 있음을 알려드립니다.</string>
     <string name="setting">설정</string>
+    <string name="my_write_review">내가 쓴 리뷰</string>
 </resources>

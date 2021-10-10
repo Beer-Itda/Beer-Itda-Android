@@ -14,7 +14,7 @@ import com.ddd4.synesthesia.beer.presentation.base.BaseFragment
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.adapter.LoadingItemsApdater
-import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailActivity
+import com.ddd4.synesthesia.beer.presentation.ui.detail.view.BeerDetailActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.search.viewmodel.SearchViewModel
 import com.ddd4.synesthesia.beer.util.listener.EndlessRecyclerViewScrollListener
 import com.hyden.ext.start
@@ -94,7 +94,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         when (entity) {
             is BeerClickEntity.SelectItem -> {
                 context?.let {
-                    start(intent = DetailActivity.getIntent(it, entity.beer.id))
+                    start(intent = BeerDetailActivity.getIntent(it, entity.beer.id))
                 }
             }
         }

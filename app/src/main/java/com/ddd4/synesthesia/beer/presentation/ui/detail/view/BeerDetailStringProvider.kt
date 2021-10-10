@@ -4,7 +4,7 @@ import com.ddd4.synesthesia.beer.util.provider.IStringResourceProvider
 import com.ddd4.synesthesia.beer.util.provider.StringProvider
 import javax.inject.Inject
 
-class DetailStringProvider @Inject constructor(
+class BeerDetailStringProvider @Inject constructor(
     private val stringProvider: StringProvider
 ) : IStringResourceProvider {
 

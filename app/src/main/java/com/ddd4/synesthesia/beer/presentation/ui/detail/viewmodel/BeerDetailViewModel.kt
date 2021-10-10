@@ -1,43 +1,39 @@
 package com.ddd4.synesthesia.beer.presentation.ui.detail.viewmodel
 
-import android.provider.Contacts
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.ddd4.synesthesia.beer.data.model.Beer
 import com.ddd4.synesthesia.beer.data.model.RelatedBeers
 import com.ddd4.synesthesia.beer.domain.repository.BeerRepository
 import com.ddd4.synesthesia.beer.ext.ChannelType
 import com.ddd4.synesthesia.beer.ext.CoroutinesEvent
 import com.ddd4.synesthesia.beer.ext.orFalse
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
-import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModel
-import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModelMapper.getBeerItemViewModel
-import com.ddd4.synesthesia.beer.presentation.ui.detail.entity.DetailItemSelectEntity
-import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailStringProvider
+import com.ddd4.synesthesia.beer.presentation.ui.detail.entity.BeerDetailActionEntity
+import com.ddd4.synesthesia.beer.presentation.ui.detail.entity.BeerDetailItemSelectEntity
+import com.ddd4.synesthesia.beer.presentation.ui.detail.item.BeerDetailItemMapper.getBeerDetailItemViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.detail.item.BeerDetailItemViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.detail.item.IBeerDetailViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.detail.view.BeerDetailStringProvider
 import com.ddd4.synesthesia.beer.util.KEY_BEER_ID
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
-import timber.log.Timber
 
-class DetailViewModel @ViewModelInject constructor(
+class BeerDetailViewModel @ViewModelInject constructor(
     private val beerRepository: BeerRepository,
-    private val stringProvider: DetailStringProvider,
+    private val stringProvider: BeerDetailStringProvider,
     @Assisted private val savedState: SavedStateHandle
 ) : BaseViewModel() {
 
     private val _id = MutableLiveData<Int>(savedState.get(KEY_BEER_ID))
     val id: LiveData<Int> get() = _id
 
-    private val _beer = MutableLiveData<BeerItemViewModel>()
-    val beer: LiveData<BeerItemViewModel> get() = _beer
+    private val _item = MutableLiveData<BeerDetailItemViewModel>()
+    val item: LiveData<BeerDetailItemViewModel> get() = _item
 
     private val _relatedBeers = MutableLiveData<RelatedBeers>()
     val relatedBeers: LiveData<RelatedBeers> get() = _relatedBeers
@@ -48,13 +44,17 @@ class DetailViewModel @ViewModelInject constructor(
             _id.value?.let {
                 val response = beerRepository.getBeer(it)
 
-                _beer.value = response?.beer?.getBeerItemViewModel(eventNotifier = this@DetailViewModel)
+                val items: List<IBeerDetailViewModel> = response
+                    ?.getBeerDetailItemViewModel(eventNotifier = this@BeerDetailViewModel)
+                    .orEmpty()
 
-                _relatedBeers.value = response?.relatedBeers?.apply {
-                    aromaRelated?.map { it.eventNotifier = this@DetailViewModel }
-                    randomlyRelated?.map { it.eventNotifier = this@DetailViewModel }
-                    styleRelated?.map { it.eventNotifier = this@DetailViewModel }
-                }
+//                _beer.value = response?.beer?.getBeerItemViewModel(eventNotifier = this@DetailViewModel)
+//                _relatedBeers.value = response?.relatedBeers?.apply {
+//                    aromaRelated?.map { it.eventNotifier = this@DetailViewModel }
+//                    randomlyRelated?.map { it.eventNotifier = this@DetailViewModel }
+//                    styleRelated?.map { it.eventNotifier = this@DetailViewModel }
+//                }
+                notifyActionEvent(BeerDetailActionEntity.UpdateUi(items))
                 statusSuccess()
             } ?: kotlin.run {
                 throwMessage(stringProvider.getError(), true)
@@ -66,8 +66,8 @@ class DetailViewModel @ViewModelInject constructor(
     private fun fetchFavorite() {
         viewModelScope.launch(errorHandler) {
             _id.value?.let {
-                _beer.value?.updateFavorite()
-                beerRepository.postFavorite(it, _beer.value?.isFavorite?.get().orFalse())
+                _item.value?.beer?.updateFavorite()
+                beerRepository.postFavorite(it, _item.value?.beer?.isFavorite?.get().orFalse())
             } ?: kotlin.run {
                 throwMessage(stringProvider.getError(), true)
             }
@@ -77,18 +77,18 @@ class DetailViewModel @ViewModelInject constructor(
     @ExperimentalCoroutinesApi
     fun clickFavorite() {
         fetchFavorite()
-        _beer.value?.let {
+        _item.value?.let {
             viewModelScope.launch(Dispatchers.Main) {
-                CoroutinesEvent.publish(ChannelType.Favorite(it))
+                CoroutinesEvent.publish(ChannelType.Favorite(it.beer))
             }
         }
     }
 
     fun clickReviewAll() {
-        notifySelectEvent(DetailItemSelectEntity.ReviewAll)
+        notifySelectEvent(BeerDetailItemSelectEntity.ReviewAll)
     }
 
     fun clickStarRate() {
-        notifySelectEvent(DetailItemSelectEntity.StarRate)
+        notifySelectEvent(BeerDetailItemSelectEntity.StarRate)
     }
 }

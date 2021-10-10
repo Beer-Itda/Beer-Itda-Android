@@ -12,9 +12,8 @@ import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.common.sort.view.SortDialog
-import com.ddd4.synesthesia.beer.presentation.ui.detail.view.DetailActivity
+import com.ddd4.synesthesia.beer.presentation.ui.detail.view.BeerDetailActivity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.view.AromaActivity
-import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.StyleActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.entity.HomeActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.entity.HomeSelectEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.viewmodel.HomeViewModel
@@ -105,7 +104,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private fun moveToDetail(beerId: Int) {
         context?.let {
-            start(intent = DetailActivity.getIntent(it, beerId))
+            start(intent = BeerDetailActivity.getIntent(it, beerId))
         }
     }
 

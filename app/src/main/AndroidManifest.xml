@@ -51,7 +51,7 @@
             android:name=".presentation.ui.webview.view.WebViewActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.ui.detail.view.DetailActivity"
+            android:name=".presentation.ui.detail.view.BeerDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.ui.review.view.ReviewListActivity"

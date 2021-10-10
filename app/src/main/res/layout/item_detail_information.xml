@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.ddd4.synesthesia.beer.presentation.ui.detail.item.info.BeerDetailInfoItemViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_image_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_1c1b21"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_beer"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:errorDrawable="@{@drawable/beer}"
+                app:layout_constraintDimensionRatio="8:11"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:loadUrl="@{viewModel.beer.thumbnailImage}"
+                tools:src="@drawable/beer" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/tv_beer_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="28dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:singleLine="true"
+            android:text="@{viewModel.beer.beerStyle}"
+            android:textColor="@color/butterscotch"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_image_container"
+            tools:text="White Beer" />
+
+
+        <TextView
+            android:id="@+id/tv_beer_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:drawablePadding="4dp"
+            android:fontFamily="@font/notosans_kr_medium"
+            android:text="@{@string/rate_unit_2(viewModel.beer.rateAvg)}"
+            android:textColor="@color/butterscotch"
+            android:textSize="19sp"
+            app:drawableStartCompat="@drawable/ic_rating_star"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_beer_style"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_beer_style"
+            tools:text="5.0점" />
+
+        <TextView
+            android:id="@+id/tv_beer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:text="@{viewModel.beer.name}"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_beer_style"
+            app:layout_constraintTop_toBottomOf="@+id/tv_beer_style"
+            tools:text="화이트" />
+
+        <TextView
+            android:id="@+id/tv_beer_manufacturer_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:text="@string/manufacturer"
+            android:textColor="@color/color_c8c8c8"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toStartOf="@+id/view_line"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@+id/tv_beer_style"
+            app:layout_constraintTop_toBottomOf="@+id/tv_beer_name"
+            tools:text="@string/manufacturer" />
+
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="8dp"
+            android:background="@color/color_d3d3d3"
+            android:scaleY="0.6"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_beer_manufacturer_title"
+            app:layout_constraintEnd_toStartOf="@+id/tv_beer_manufacturer_name"
+            app:layout_constraintStart_toEndOf="@+id/tv_beer_manufacturer_title"
+            app:layout_constraintTop_toTopOf="@+id/tv_beer_manufacturer_title" />
+
+        <TextView
+            android:id="@+id/tv_beer_manufacturer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:text="@{viewModel.beer.country}"
+            android:textColor="@color/color_c8c8c8"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_beer_manufacturer_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/view_line"
+            app:layout_constraintTop_toTopOf="@+id/tv_beer_manufacturer_title"
+            tools:text="대한민국" />
+
+        <TextView
+            android:id="@+id/tv_beer_alcohol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:text="@{@string/abv(viewModel.beer.alcoholByVolume)}"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_beer_manufacturer_name"
+            app:layout_constraintStart_toEndOf="@+id/tv_beer_manufacturer_name"
+            app:layout_constraintTop_toTopOf="@+id/tv_beer_manufacturer_name"
+            tools:text="5.0%" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_aroma"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:minHeight="20dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp"
+            app:horizontalSpace="@{@dimen/margin_8}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@+id/tv_beer_rate"
+            app:layout_constraintStart_toStartOf="@+id/tv_beer_style"
+            app:layout_constraintTop_toBottomOf="@+id/tv_beer_manufacturer_name"
+            tools:listitem="@layout/layout_aroma" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

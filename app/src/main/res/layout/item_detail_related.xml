@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.ddd4.synesthesia.beer.presentation.ui.detail.item.related.BeerDetailRelatedListViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:paddingHorizontal="18dp"
+        app:visibility="@{viewModel.relatedBeerList.size() > 0}">
+
+        <TextView
+            android:id="@+id/tv_related_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:onClick="@{()-> viewModel.clickShowMore()}"
+            android:text="@{viewModel.title}"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/title_aroma" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_aroma_related"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:clipToPadding="true"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            app:adapter="@{viewModel.adapter}"
+            app:horizontalSpace="@{@dimen/margin_8}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_related_title"
+            app:layout_goneMarginTop="20dp"
+            tools:listitem="@layout/item_beer_card" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
