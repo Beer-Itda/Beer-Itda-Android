@@ -9,8 +9,8 @@ import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.data.model.AppConfig
 import com.ddd4.synesthesia.beer.data.model.Beer
 import com.ddd4.synesthesia.beer.domain.repository.BeerRepository
-import com.ddd4.synesthesia.beer.ext.ChannelType
-import com.ddd4.synesthesia.beer.ext.CoroutinesEvent
+import com.ddd4.synesthesia.beer.ext.EventFlow
+import com.ddd4.synesthesia.beer.ext.GlobalEvent
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
@@ -28,7 +28,6 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.item.parent.list
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.view.HomeStringProvider
 import com.ddd4.synesthesia.beer.util.sort.SortType
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlin.random.Random
@@ -42,7 +41,7 @@ class HomeViewModel @ViewModelInject constructor(
     @Assisted val savedState: SavedStateHandle
 ) : BaseViewModel() {
 
-    private val beers = mutableListOf<IHomeItemViewModel>()
+    private val beerItems = mutableListOf<IHomeItemViewModel>()
     private val _beerList = MutableLiveData<List<Beer>?>()
     val beerList: LiveData<List<Beer>?>
         get() = _beerList
@@ -61,24 +60,30 @@ class HomeViewModel @ViewModelInject constructor(
     private val _isRefresh = MutableLiveData<Boolean>()
     val isRefresh: LiveData<Boolean> get() = _isRefresh
 
-//    private val favoriteEvent = CoroutinesEvent.listen(ChannelType.Favorite::class.java)
+    private var awardBeer: BeerAwardItemViewModel? = null
+    private var styleBeer: BeerListItemViewModel? = null
+    private var aromaBeer: BeerListItemViewModel? = null
+    private var recommendBeer :BeerListItemViewModel? = null
+
 
     init {
-//        loadAppConfig()
         eventListen()
     }
 
     private fun eventListen() {
-//        viewModelScope.launch(errorHandler) {
-//            favoriteEvent.consumeEach { favorite ->
-//                beerList.value?.filter {
-//                    it.id == favorite.beer?.id
-//                }?.map {
-//                    it.updateFavorite()
-//                    it
-//                }
-//            }
-//        }
+        viewModelScope.launch(errorHandler) {
+            EventFlow.subscribe<GlobalEvent>().collect { event ->
+                when (event) {
+                    is GlobalEvent.Favorite -> {
+                        styleBeer?.beers?.filter {
+                            it.data.id == event.beerId
+                        }?.map {
+                            it.data.updateFavorite()
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun loadAppConfig() {
@@ -98,25 +103,34 @@ class HomeViewModel @ViewModelInject constructor(
             statusLoading()
         }
         viewModelScope.launch(errorHandler) {
-            val awardBeer = fetchAward()
-            val styleBeer = fetchStyle()
-            val aromaBeer = fetchAroma()
-            val recommandBeer = fetchRecommand()
+            awardBeer = fetchAward()
+            styleBeer = fetchStyle()
+            aromaBeer = fetchAroma()
+            recommendBeer = fetchRecommend()
 
-            beers.clear()
+            beerItems.clear()
             awardBeer?.let {
-                beers.add(it)
+                beerItems.add(it)
             }
-            if (!styleBeer.beers.isNullOrEmpty()) {
-                beers.add(styleBeer)
+            styleBeer?.run {
+                if(beers.isNotEmpty()) {
+                    beerItems.add(this)
+                }
             }
-            if (!aromaBeer.beers.isNullOrEmpty()) {
-                beers.add(aromaBeer)
+
+            aromaBeer?.run {
+                if(beers.isNotEmpty()) {
+                    beerItems.add(this)
+                }
             }
-            if (!recommandBeer.beers.isNullOrEmpty()) {
-                beers.add(recommandBeer)
+
+            recommendBeer?.run {
+                if(beers.isNotEmpty()) {
+                    beerItems.add(this)
+                }
             }
-            notifyActionEvent(entity = HomeActionEntity.UpdateList(beers))
+
+            notifyActionEvent(entity = HomeActionEntity.UpdateList(beerItems))
             statusSuccess()
             _isRefresh.value = false
         }
@@ -171,7 +185,7 @@ class HomeViewModel @ViewModelInject constructor(
         )
     }
 
-    private suspend fun fetchRecommand(): BeerListItemViewModel {
+    private suspend fun fetchRecommend(): BeerListItemViewModel {
         return beerRepository.getBeerList(
             sortType = _sortType.value?.value,
             cursor = cursor.value

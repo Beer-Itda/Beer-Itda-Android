@@ -14,7 +14,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.detail.item.review.BeerDetailRe
 
 object BeerDetailItemMapper {
 
-    fun Response?.getBeerDetailItemViewModel(eventNotifier: SelectActionEventNotifier): List<IBeerDetailViewModel> {
+    fun Response?.getBeerDetailItemViewModel(eventNotifier: SelectActionEventNotifier): BeerDetailItemViewModel? {
         val beer = this?.beer?.run {
             BeerDetailItemViewModel(
                 beer = getBeerItemViewModel(eventNotifier),
@@ -43,16 +43,21 @@ object BeerDetailItemMapper {
                     type = RelatedType.RANDOM,
                     eventNotifier = eventNotifier
                 ),
+                eventNotifier = eventNotifier
             )
         }
+        return beer
+    }
+
+    fun BeerDetailItemViewModel?.getDetailViewData(): List<IBeerDetailViewModel> {
 
         return mutableListOf<IBeerDetailViewModel>().apply {
-            beer?.let {
+            this@getDetailViewData?.let {
                 add(it.getInfo())
                 add(it.getReviewListItemViewModel(eventNotifier))
                 add(it.getRelatedListItemViewModel(eventNotifier, RelatedType.AROMA))
                 add(it.getRelatedListItemViewModel(eventNotifier, RelatedType.STYLE))
-                add(it.getRelatedListItemViewModel(eventNotifier,RelatedType.RANDOM))
+                add(it.getRelatedListItemViewModel(eventNotifier, RelatedType.RANDOM))
 
 //                if(it.getRelatedListItemViewModel(eventNotifier, RelatedType.AROMA).relatedBeerList.isNotEmpty()) {
 //                    add(it.getRelatedListItemViewModel(eventNotifier, RelatedType.AROMA))

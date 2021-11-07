@@ -65,6 +65,9 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
     }
+    lint {
+        isAbortOnError = false
+    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
