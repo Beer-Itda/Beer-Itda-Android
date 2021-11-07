@@ -20,8 +20,8 @@ plugins {
 }
 
 android {
-    compileSdkVersion(AndroidConfig.COMPILE_SDK_VERSION)
-    buildToolsVersion(AndroidConfig.BUILD_TOOLS_VERSION)
+    setCompileSdkVersion(AndroidConfig.COMPILE_SDK_VERSION)
+    buildToolsVersion = AndroidConfig.BUILD_TOOLS_VERSION
 
     signingConfigs {
         create("develop") {
@@ -34,8 +34,8 @@ android {
 
     defaultConfig {
         applicationId = AndroidConfig.APPLICATION_ID
-        minSdkVersion(AndroidConfig.MIN_SDK_VERSION)
-        targetSdkVersion(AndroidConfig.TARGET_SDK_VERSION)
+        minSdk = AndroidConfig.MIN_SDK_VERSION
+        targetSdk = AndroidConfig.TARGET_SDK_VERSION
         versionCode = AndroidConfig.VERSION_CODE
         versionName = AndroidConfig.VERSION_NAME
 
@@ -63,15 +63,15 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = AndroidConfig.JAVA_VERSION.toString()
     }
     lint {
         isAbortOnError = false
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = AndroidConfig.JAVA_VERSION
+        targetCompatibility = AndroidConfig.JAVA_VERSION
     }
 
     buildFeatures {
@@ -99,6 +99,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":data"))
+
     // Kotlin
     implementation(Libs.KOTLIN)
     implementation(Libs.COROUTINES_CORE)
