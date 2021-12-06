@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityMoreListBinding
-import com.ddd4.synesthesia.beer.ext.observeHandledEvent
-import com.ddd4.synesthesia.beer.ext.start
+import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
+import com.ddd4.synesthesia.beer.util.ext.start
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
-import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
+import com.hjiee.core.event.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.detail.view.BeerDetailActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.view.HomeStringProvider
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.entity.MoreListActionEntity
@@ -26,7 +26,6 @@ class MoreListActivity : BaseActivity<ActivityMoreListBinding>(R.layout.activity
 
     private val viewModel by viewModels<MoreListViewModel>()
     private val adapter by lazy { MoreListAdapter() }
-    private val type by lazy { intent.extras?.get(KEY_LIKE_TYPE) }
     private val title by lazy { intent.extras?.get(KEY_LIKE_TITLE) }
     private val endlessRecyclerViewScrollListener: EndlessRecyclerViewScrollListener by lazy {
         object : EndlessRecyclerViewScrollListener(binding.rvHomeLike.layoutManager) {
@@ -111,7 +110,6 @@ class MoreListActivity : BaseActivity<ActivityMoreListBinding>(R.layout.activity
         @JvmStatic
         fun start(
             fragment: Fragment,
-            sort: SortType?,
             type: HomeStringProvider.Code,
             title: String,
             requestCode: Int = REQ_CODE_HOME_LIKE
@@ -121,7 +119,6 @@ class MoreListActivity : BaseActivity<ActivityMoreListBinding>(R.layout.activity
                     fragment.context,
                     MoreListActivity::class.java
                 ).apply {
-                    putExtra(KEY_LIKE_SORT, sort)
                     putExtra(KEY_LIKE_TYPE, type)
                     putExtra(KEY_LIKE_TITLE, title)
                 }, requestCode

@@ -1,6 +1,6 @@
 package com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity
 
-import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
+import com.hjiee.core.event.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.large.StyleLargeItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleMiddleItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small.StyleSmallItemViewModel

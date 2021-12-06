@@ -6,11 +6,9 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.LinearLayout.HORIZONTAL
 import android.widget.LinearLayout.VERTICAL
-import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ddd4.synesthesia.beer.ext.toPx
 
 
 class RecyclerItemDecoration(

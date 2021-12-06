@@ -1,6 +1,11 @@
+import PropertiesExt.BASE_URL
+import PropertiesExt.getBaseUrl
+
 plugins {
     id("com.android.library")
     id("kotlin-android")
+    id("dagger.hilt.android.plugin")
+    kotlin("kapt")
 }
 
 android {
@@ -12,6 +17,8 @@ android {
         targetSdk = AndroidConfig.TARGET_SDK_VERSION
 
         testInstrumentationRunner = AndroidConfig.TEST_INSTRUMENTATION_RUNNER
+
+        resValue("string", BASE_URL, getBaseUrl())
     }
 
     buildTypes {
@@ -27,14 +34,33 @@ android {
     kotlinOptions {
         jvmTarget = AndroidConfig.JAVA_VERSION.toString()
     }
+    flavorDimensions("mode")
+    productFlavors {
+        create("playStore") {
+            dimension = "mode"
+        }
+        create("dev") {
+            dimension = "mode"
+        }
+    }
 }
 
 dependencies {
+    implementation(project(":core"))
 
-    implementation("androidx.core:core-ktx:1.3.2")
-    implementation("androidx.appcompat:appcompat:1.3.1")
-    implementation("com.google.android.material:material:1.4.0")
-    testImplementation("junit:junit:4.+")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    implementation(Libs.COROUTINES_CORE)
+    implementation(Libs.COROUTINES_ANDROID)
+    implementation(Libs.GSON)
+    implementation(Libs.HILT)
+    implementation(Libs.HILT_AAR)
+    kapt(Libs.HILT_ANNOTATION)
+    implementation(Libs.HILT_VIEWMODEL)
+    kapt(Libs.HILT_COMPILER)
+
+//    implementation("androidx.core:core-ktx:1.3.2")
+//    implementation("androidx.appcompat:appcompat:1.3.1")
+//    implementation("com.google.android.material:material:1.4.0")
+
+    testImplementation(TestLibs.JUNIT)
+    androidTestImplementation(TestLibs.ANDROID_X_JUNIT)
 }

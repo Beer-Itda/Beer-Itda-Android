@@ -5,10 +5,8 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.core.widget.addTextChangedListener
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityWriteNicknameBinding
-import com.ddd4.synesthesia.beer.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.nickname.viewmodel.NickNameViewModel
 import com.ddd4.synesthesia.beer.util.CustomAlertDialog

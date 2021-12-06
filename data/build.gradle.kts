@@ -1,6 +1,8 @@
 plugins {
     id("com.android.library")
     id("kotlin-android")
+    id("dagger.hilt.android.plugin")
+    kotlin("kapt")
 }
 
 android {
@@ -27,10 +29,36 @@ android {
     kotlinOptions {
         jvmTarget = AndroidConfig.JAVA_VERSION.toString()
     }
+    flavorDimensions("mode")
+    productFlavors {
+        create("playStore") {
+            dimension = "mode"
+        }
+        create("dev") {
+            dimension = "mode"
+        }
+    }
 }
 
 dependencies {
+    implementation(project(":core"))
     implementation(project(":domain"))
+
+    implementation(Libs.RETROFIT)
+    implementation(Libs.RETROFIT_GSON_CONVERTER)
+    implementation(Libs.OK_HTTP)
+    implementation(Libs.LOGGING_INTERCEPTOR)
+    implementation(Libs.GSON)
+    implementation(Libs.GLIDE)
+    implementation(Libs.TIMBER)
+
+    implementation(Libs.HILT)
+    implementation(Libs.HILT_AAR)
+    kapt(Libs.HILT_ANNOTATION)
+    implementation(Libs.HILT_VIEWMODEL)
+    kapt(Libs.HILT_COMPILER)
+
+    implementation(Libs.KAKAO)
 
     implementation("androidx.core:core-ktx:1.3.2")
     implementation("androidx.appcompat:appcompat:1.3.1")

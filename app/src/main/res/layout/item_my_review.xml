@@ -9,7 +9,7 @@
 
         <variable
             name="review"
-            type="com.ddd4.synesthesia.beer.data.model.Review" />
+            type="com.hjiee.domain.entity.DomainEntity.Review" />
 
     </data>
 

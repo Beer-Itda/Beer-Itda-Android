@@ -2,16 +2,14 @@ package com.ddd4.synesthesia.beer.presentation.ui.splash.viewmodel
 
 import androidx.hilt.lifecycle.ViewModelInject
 import com.ddd4.synesthesia.beer.R
-import com.ddd4.synesthesia.beer.domain.repository.LoginRepository
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
-import com.ddd4.synesthesia.beer.util.provider.INoticeStringResourceProvider.Code
-import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
-import com.ddd4.synesthesia.beer.util.provider.StringProvider
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
-import com.kakao.sdk.auth.model.OAuthToken
-import timber.log.Timber
+import com.hjiee.core.provider.INoticeStringResourceProvider.Code
+import com.hjiee.core.provider.SharedPreferenceProvider
+import com.hjiee.core.provider.StringProvider
+import com.hjiee.domain.repository.LoginRepository
 
 class SplashViewModel @ViewModelInject constructor(
     private val loginRepository: LoginRepository,
@@ -31,10 +29,10 @@ class SplashViewModel @ViewModelInject constructor(
         }
     }
 
-    fun tokenInfo(tokenInfo: ((OAuthToken?) -> Unit)? = null) = loginRepository.tokenInfo {
-        Timber.tag("tokenInfo").d("kakao token info : ${it?.accessToken}")
-        tokenInfo?.invoke(it)
-    }
+//    fun tokenInfo(tokenInfo: ((OAuthToken?) -> Unit)? = null) = loginRepository.tokenInfo {
+//        Timber.tag("tokenInfo").d("kakao token info : ${it?.accessToken}")
+//        tokenInfo?.invoke(it)
+//    }
 
     fun getRemoteConfig() {
         remoteConfig.fetchAndActivate().run {
@@ -50,16 +48,16 @@ class SplashViewModel @ViewModelInject constructor(
                     val releaseNote =
                         remoteConfig.getString(stringProvider.getString(Code.RELEASE_NOTE))
 
-                    preference.setPreference(stringProvider.getString(Code.NOTICE), notice)
-                    preference.setPreference(
+                    preference.setValue(stringProvider.getString(Code.NOTICE), notice)
+                    preference.setValue(
                         stringProvider.getString(Code.PRIVACY_POLICY),
                         privacyPolicy
                     )
-                    preference.setPreference(
+                    preference.setValue(
                         stringProvider.getString(Code.TERMS_OF_USE),
                         termsOfUse
                     )
-                    preference.setPreference(
+                    preference.setValue(
                         stringProvider.getString(Code.RELEASE_NOTE),
                         releaseNote
                     )

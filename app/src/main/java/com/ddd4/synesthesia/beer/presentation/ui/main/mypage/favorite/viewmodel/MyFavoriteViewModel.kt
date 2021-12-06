@@ -4,11 +4,11 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.ddd4.synesthesia.beer.data.model.Beer
-import com.ddd4.synesthesia.beer.domain.repository.BeerRepository
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
-import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
+import com.hjiee.domain.entity.DomainEntity.Beer
+import com.hjiee.domain.repository.BeerRepository
 import kotlinx.coroutines.launch
 
 class MyFavoriteViewModel @ViewModelInject constructor(
@@ -27,12 +27,12 @@ class MyFavoriteViewModel @ViewModelInject constructor(
 
     fun load() {
         viewModelScope.launch(errorHandler) {
-            _myFavorites.value = beerRepository.getFavorite().results?.map {
-                it.beer?.apply {
-                    setFavorite()
-                    eventNotifier = this@MyFavoriteViewModel
-                }
-            }?.toList().orEmpty()
+//            _myFavorites.value = beerRepository.getFavorite().results?.map {
+//                it.beer?.apply {
+//                    setFavorite()
+//                    eventNotifier = this@MyFavoriteViewModel
+//                }
+//            }?.toList().orEmpty()
             setRefresh(false)
         }
     }
@@ -44,8 +44,8 @@ class MyFavoriteViewModel @ViewModelInject constructor(
 
     private fun fetchFavorite(beer: Beer) {
         viewModelScope.launch(errorHandler) {
-            beer.updateFavorite()
-            beerRepository.postFavorite(beer.id, beer.isFavorite.get())
+//            beer.updateFavorite()
+//            beerRepository.postFavorite(beer.id, beer.isFavorite.get())
         }
     }
 

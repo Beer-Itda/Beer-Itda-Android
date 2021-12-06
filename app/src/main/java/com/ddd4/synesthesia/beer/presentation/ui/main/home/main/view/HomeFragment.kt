@@ -6,10 +6,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.FragmentHomeBinding
-import com.ddd4.synesthesia.beer.ext.observeHandledEvent
+import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.presentation.base.BaseFragment
-import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
-import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.hjiee.core.event.entity.ActionEntity
+import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.common.sort.view.SortDialog
 import com.ddd4.synesthesia.beer.presentation.ui.detail.view.BeerDetailActivity
@@ -20,7 +20,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.viewmodel.HomeVi
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.view.MoreListActivity
 import com.ddd4.synesthesia.beer.util.listener.EndlessRecyclerViewScrollListener
 import com.google.gson.Gson
-import com.hyden.ext.start
+import com.ddd4.synesthesia.beer.util.ext.start
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -59,9 +59,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 homeAdapter.clear()
                 homeAdapter.addAll(entity.beer)
             }
-            is HomeActionEntity.AppConfigSetting -> {
-                preference.setPreference("appConfig", Gson().toJson(entity.config))
-            }
+//            is HomeActionEntity.AppConfigSetting -> {
+//                preference.setPreference("appConfig", Gson().toJson(entity.config))
+//            }
             is HomeActionEntity.Refresh -> {
                 endlessRecyclerViewScrollListener.resetState()
             }
@@ -88,7 +88,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             is HomeSelectEntity.ClickTitle -> {
                 MoreListActivity.start(
                     fragment = this@HomeFragment,
-                    sort = entity.sort,
                     type = entity.type,
                     title = entity.title
                 )

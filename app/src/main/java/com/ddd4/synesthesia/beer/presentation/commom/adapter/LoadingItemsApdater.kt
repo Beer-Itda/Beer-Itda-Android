@@ -3,9 +3,9 @@ package com.ddd4.synesthesia.beer.presentation.commom.adapter
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import com.ddd4.synesthesia.beer.R
-import com.ddd4.synesthesia.beer.data.model.Beer
 import com.ddd4.synesthesia.beer.presentation.base.recyclerview.BaseRecyclerView
 import com.ddd4.synesthesia.beer.presentation.base.recyclerview.BaseViewType
+import com.hjiee.domain.entity.DomainEntity
 
 class LoadingItemsApdater(
     private val layoutId: Int,
@@ -40,7 +40,7 @@ class LoadingItemsApdater(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if ((list[position] as Beer).id == -1) {
+        return if ((list[position] as DomainEntity.Beer).id == -1) {
             BaseViewType.LOADING.ordinal
         } else {
             BaseViewType.ITEM.ordinal

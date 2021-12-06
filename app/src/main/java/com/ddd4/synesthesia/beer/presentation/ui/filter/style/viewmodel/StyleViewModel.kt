@@ -3,19 +3,18 @@ package com.ddd4.synesthesia.beer.presentation.ui.filter.style.viewmodel
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
-import com.ddd4.synesthesia.beer.data.Result
-import com.ddd4.synesthesia.beer.domain.usecase.filter.style.GetStyleUseCase
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
-import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FliterStringProvider
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.StyleProvider
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleClicklEntity
-import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.large.StyleLargeItemMapper
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.large.StyleLargeItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleMiddleItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small.StyleSmallItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.StyleViewState
+import com.hjiee.domain.NetworkResponse
+import com.hjiee.domain.usecase.filter.style.GetStyleUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
@@ -45,11 +44,11 @@ class StyleViewModel @ViewModelInject constructor(
         viewModelScope.launch(errorHandler) {
             styleUseCase.execute { response ->
                 when (response) {
-                    is Result.Success -> {
-                        allCategories = StyleLargeItemMapper.getStyles(
-                            list = response.data,
-                            eventNotifier = this@StyleViewModel
-                        )
+                    is NetworkResponse.Success -> {
+//                        allCategories = StyleLargeItemMapper.getStyles(
+//                            list = response.data,
+//                            eventNotifier = this@StyleViewModel
+//                        )
                         currentMiddleCategory.addAll(allCategories[0].middleCategories)
                         notifyActionEvent(StyleActionEntity.UpdateLarge(allCategories))
                         notifyActionEvent(StyleActionEntity.UpdateMiddle(currentMiddleCategory))
@@ -57,10 +56,10 @@ class StyleViewModel @ViewModelInject constructor(
                         initSelectedStyle()
                         statusSuccess()
                     }
-                    is Result.NoContents -> {
+                    is NetworkResponse.NoContents -> {
                         // do noting
                     }
-                    is Result.Error -> {
+                    is NetworkResponse.Error -> {
                         // TODO do something...
                     }
                 }

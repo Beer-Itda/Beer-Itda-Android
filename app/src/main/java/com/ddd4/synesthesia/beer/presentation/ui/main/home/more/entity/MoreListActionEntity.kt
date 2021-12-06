@@ -1,6 +1,6 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.home.more.entity
 
-import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
+import com.hjiee.core.event.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.item.IMoreListViewModel
 
 sealed class MoreListActionEntity : ActionEntity() {

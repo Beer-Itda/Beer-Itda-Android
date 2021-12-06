@@ -1,7 +1,7 @@
 package com.ddd4.synesthesia.beer.presentation.commom.entity
 
-import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
-import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.hjiee.core.event.entity.ActionEntity
+import com.hjiee.core.event.entity.ItemClickEntity
 
 interface HandleEvent {
     fun handleSelectEvent(entity: ItemClickEntity)

@@ -1,6 +1,7 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.home.main.item.parent.list
 
-import com.ddd4.synesthesia.beer.presentation.base.event.SelectActionEventNotifier
+import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModel
+import com.hjiee.core.event.SelectActionEventNotifier
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small.StyleSmallItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.entity.HomeActionEntity
@@ -11,17 +12,14 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.view.HomeStringP
 import com.ddd4.synesthesia.beer.util.sort.SortType
 
 class BeerListItemViewModel(
-    val sortType: SortType?,
     val type: HomeStringProvider.Code,
     val title: String,
-    val style: List<StyleSmallItemViewModel>,
-    val aroma: List<AromaItemViewModel>,
-    val beers: List<HomeBeerChildItemViewModel>,
+    val beers: List<HomeBeerChildItemViewModel> = emptyList(),
     val eventNotifier: SelectActionEventNotifier
 ) : IHomeItemViewModel {
 
     fun clickTitle() {
-        eventNotifier.notifySelectEvent(HomeSelectEntity.ClickTitle(sortType, type, title))
+        eventNotifier.notifySelectEvent(HomeSelectEntity.ClickTitle(type, title))
     }
 
     fun loadMore() {

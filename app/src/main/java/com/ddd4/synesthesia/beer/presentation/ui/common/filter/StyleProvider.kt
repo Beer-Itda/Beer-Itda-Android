@@ -1,10 +1,9 @@
 package com.ddd4.synesthesia.beer.presentation.ui.common.filter
 
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small.StyleSmallItemViewModel
-import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
 import com.google.gson.Gson
+import com.hjiee.core.provider.SharedPreferenceProvider
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
@@ -43,7 +42,7 @@ class StyleProvider @Inject constructor(
         property: KProperty<*>,
         value: List<StyleSmallItemViewModel>?
     ) {
-        preference.setPreference(KEY_EXTRA_FILTER_STYLE, Gson().toJson(value))
+        preference.setValue(KEY_EXTRA_FILTER_STYLE, Gson().toJson(value))
         channel.offer(value)
     }
 

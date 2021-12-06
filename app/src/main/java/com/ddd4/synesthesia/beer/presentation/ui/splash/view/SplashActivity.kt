@@ -4,11 +4,12 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivitySplashBinding
-import com.ddd4.synesthesia.beer.ext.start
+import com.ddd4.synesthesia.beer.util.ext.start
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.ui.login.view.LoginActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.view.MainActivity
 import com.ddd4.synesthesia.beer.presentation.ui.splash.viewmodel.SplashViewModel
+import com.hjiee.core.Consts.ACCESS_TOKEN
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,9 +24,9 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.getRemoteConfig()
-        viewModel.tokenInfo {
+//        viewModel.tokenInfo {
             startLogin()
-        }
+//        }
     }
 
     override fun onBackPressed() {
@@ -35,11 +36,13 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     private fun startLogin() {
         CoroutineScope(Dispatchers.IO).launch {
             delay(1500)
-            if (preference.getPreferenceString(getString(R.string.key_token)).isNullOrEmpty()) {
+//            preference.clear()
+            if (preference.getPreferenceString(ACCESS_TOKEN).isNullOrEmpty()) {
                 start<LoginActivity>(isFinish = true, isAnimation = true)
             } else {
                 start<MainActivity>(isFinish = true, isAnimation = true)
             }
+//            start<MainActivity>(isFinish = true, isAnimation = true)
             finish()
         }
     }

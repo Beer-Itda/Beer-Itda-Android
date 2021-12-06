@@ -9,9 +9,9 @@ import android.text.style.URLSpan
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.widget.TextView
-import com.ddd4.synesthesia.beer.ext.orZero
 import com.ddd4.synesthesia.beer.presentation.ui.webview.view.WebViewActivity
 import com.ddd4.synesthesia.beer.presentation.ui.webview.view.WebViewActivity.Companion.WEBVIEW_URL
+import com.hjiee.core.ext.orZero
 
 
 class HyperLinkMovement : MovementMethod {

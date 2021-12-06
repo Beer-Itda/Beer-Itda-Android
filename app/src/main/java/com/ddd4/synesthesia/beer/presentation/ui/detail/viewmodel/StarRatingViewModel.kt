@@ -3,10 +3,10 @@ package com.ddd4.synesthesia.beer.presentation.ui.detail.viewmodel
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.ddd4.synesthesia.beer.domain.repository.BeerRepository
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.detail.entity.StarRatingBottomClickEntity
 import com.ddd4.synesthesia.beer.util.SingleLiveEvent
+import com.hjiee.domain.repository.BeerRepository
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -26,7 +26,7 @@ class StarRatingViewModel @ViewModelInject constructor(
 
     fun postReview(id: Int) {
         viewModelScope.launch(handler) {
-            beerRepository.postReview(id, rating.value ?: 0.5f, review.value ?: "")
+//            beerRepository.postReview(id, rating.value ?: 0.5f, review.value ?: "")
             register.call()
         }
     }

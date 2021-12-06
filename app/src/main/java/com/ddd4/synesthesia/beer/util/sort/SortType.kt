@@ -2,7 +2,7 @@ package com.ddd4.synesthesia.beer.util.sort
 
 import android.content.Context
 import com.ddd4.synesthesia.beer.R
-import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
+import com.hjiee.core.provider.SharedPreferenceProvider
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
@@ -31,7 +31,7 @@ class SortImpl(val preference: SharedPreferenceProvider, context: Context) : Sor
     }
 
     override fun setValue(thisRef: Any, property: KProperty<*>, value: SortType) {
-        preference.setPreference(key, value.toString())
+        preference.setValue(key, value.toString())
         channel.offer(value)
     }
 

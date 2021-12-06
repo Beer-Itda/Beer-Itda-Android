@@ -12,12 +12,12 @@ import androidx.core.os.bundleOf
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.data.source.local.InfomationsData
 import com.ddd4.synesthesia.beer.databinding.ActivityMyPageSettingBinding
-import com.ddd4.synesthesia.beer.ext.observeHandledEvent
-import com.ddd4.synesthesia.beer.ext.showToast
-import com.ddd4.synesthesia.beer.ext.start
+import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
+import com.ddd4.synesthesia.beer.util.ext.showToast
+import com.ddd4.synesthesia.beer.util.ext.start
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
-import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
-import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.hjiee.core.event.entity.ActionEntity
+import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.login.view.LoginActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.model.SettingActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.model.SettingClickEntity
@@ -134,10 +134,10 @@ class SettingActivity :
             result = DialogInterface.OnClickListener { dialog, which ->
                 when (message) {
                     getString(R.string.logout_message) -> {
-                        viewModel.logout()
+//                        viewModel.logout()
                     }
                     getString(R.string.unlink_message) -> {
-                        viewModel.unlink()
+//                        viewModel.unlink()
                     }
                 }
             }

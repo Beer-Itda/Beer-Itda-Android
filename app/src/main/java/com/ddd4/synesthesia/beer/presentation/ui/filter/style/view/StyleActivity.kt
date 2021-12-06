@@ -7,10 +7,10 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityFilterStyleBinding
-import com.ddd4.synesthesia.beer.ext.observeHandledEvent
+import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
-import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
-import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.hjiee.core.event.entity.ActionEntity
+import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleClicklEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleMiddleItemViewHolder

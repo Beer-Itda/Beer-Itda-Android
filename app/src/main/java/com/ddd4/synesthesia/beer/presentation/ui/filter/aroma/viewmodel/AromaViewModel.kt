@@ -2,10 +2,8 @@ package com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.viewmodel
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
-import com.ddd4.synesthesia.beer.data.Result
-import com.ddd4.synesthesia.beer.domain.usecase.filter.aroma.GetAromaUseCase
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
-import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.AromaProvider
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FliterStringProvider
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaActionEntity
@@ -13,6 +11,9 @@ import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaClickE
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemMapper
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.view.AromaViewState
+import com.hjiee.domain.NetworkCallback
+import com.hjiee.domain.NetworkResponse
+import com.hjiee.domain.usecase.filter.aroma.GetAromaUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
@@ -35,7 +36,7 @@ class AromaViewModel @ViewModelInject constructor(
         viewModelScope.launch(errorHandler) {
             aromaUseCase.execute { response ->
                 when (response) {
-                    is Result.Success -> {
+                    is NetworkResponse.Success -> {
                         items = AromaItemMapper.get(
                             items = response.data,
                             eventNotifier = this@AromaViewModel
@@ -43,9 +44,9 @@ class AromaViewModel @ViewModelInject constructor(
                         initSelectedAroma()
                         notifyActionEvent(AromaActionEntity.UpdateList(items))
                     }
-                    is Result.NoContents -> {
+                    is NetworkResponse.NoContents -> {
                     }
-                    is Result.Error -> {
+                    is NetworkResponse.Error -> {
                     }
                 }
             }

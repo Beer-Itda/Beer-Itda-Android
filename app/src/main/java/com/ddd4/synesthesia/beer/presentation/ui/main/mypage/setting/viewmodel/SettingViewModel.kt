@@ -2,35 +2,35 @@ package com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.viewmodel
 
 import androidx.hilt.lifecycle.ViewModelInject
 import com.ddd4.synesthesia.beer.data.source.local.InfomationsData
-import com.ddd4.synesthesia.beer.domain.repository.LoginRepository
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.item.SettingItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.model.SettingActionEntity
-import com.ddd4.synesthesia.beer.util.AppConfig
+import com.hjiee.core.AppInfo
+import com.hjiee.domain.repository.LoginRepository
 
 
 class SettingViewModel @ViewModelInject constructor(
-    private val appConfig: AppConfig,
+    private val appInfo: AppInfo,
     private val loginRepository: LoginRepository,
 ) : BaseViewModel() {
 
-    val appVersion by lazy { appConfig.version }
+    val appVersion by lazy { appInfo.version }
 
     init {
         notifyActionEvent(SettingActionEntity.UpdateItem(generateInfoList()))
     }
 
-    fun logout() = loginRepository.logout {
-        if (it) {
-            SettingActionEntity.LogOut
-        }
-    }
-
-    fun unlink() = loginRepository.unlink {
-        if (it) {
-            SettingActionEntity.LogOut
-        }
-    }
+//    fun logout() = loginRepository.logout {
+//        if (it) {
+//            SettingActionEntity.LogOut
+//        }
+//    }
+//
+//    fun unlink() = loginRepository.unlink {
+//        if (it) {
+//            SettingActionEntity.LogOut
+//        }
+//    }
 
 
     private fun generateInfoList(): List<SettingItemViewModel> = arrayListOf(
@@ -90,7 +90,7 @@ class SettingViewModel @ViewModelInject constructor(
         SettingItemViewModel(
             InfomationsData.APP_VERSION.title,
             InfomationsData.APP_VERSION.type,
-            appConfig.version,
+            appInfo.version,
             eventNotifier = this@SettingViewModel
         ),
         // 로그아웃

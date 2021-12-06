@@ -1,8 +1,8 @@
 package com.ddd4.synesthesia.beer.presentation.ui.common.filter
 
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemViewModel
-import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
 import com.google.gson.Gson
+import com.hjiee.core.provider.SharedPreferenceProvider
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
@@ -43,7 +43,7 @@ class AromaProvider @Inject constructor(
         property: KProperty<*>,
         value: List<AromaItemViewModel>?
     ) {
-        preference.setPreference(KEY_EXTRA_FILTER_AROMA, Gson().toJson(value))
+        preference.setValue(KEY_EXTRA_FILTER_AROMA, Gson().toJson(value))
         channel.offer(value)
     }
 

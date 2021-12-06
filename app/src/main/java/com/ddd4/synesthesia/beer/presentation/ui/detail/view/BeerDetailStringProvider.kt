@@ -1,7 +1,7 @@
 package com.ddd4.synesthesia.beer.presentation.ui.detail.view
 
-import com.ddd4.synesthesia.beer.util.provider.IStringResourceProvider
-import com.ddd4.synesthesia.beer.util.provider.StringProvider
+import com.hjiee.core.provider.IStringResourceProvider
+import com.hjiee.core.provider.StringProvider
 import javax.inject.Inject
 
 class BeerDetailStringProvider @Inject constructor(

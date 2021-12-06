@@ -8,9 +8,9 @@ import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.Observer
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityMyReviewBinding
-import com.ddd4.synesthesia.beer.ext.observeHandledEvent
+import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
-import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.adapter.ItemsAdapter
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.review.viewmodel.MyReviewViewModel

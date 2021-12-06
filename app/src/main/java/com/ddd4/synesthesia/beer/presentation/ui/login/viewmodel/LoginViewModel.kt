@@ -2,18 +2,15 @@ package com.ddd4.synesthesia.beer.presentation.ui.login.viewmodel
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
-import com.ddd4.synesthesia.beer.domain.repository.LoginRepository
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.login.model.LoginActionEntity
 import com.ddd4.synesthesia.beer.util.SingleLiveEvent
-import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
-import com.google.firebase.crashlytics.FirebaseCrashlytics
-import com.kakao.sdk.auth.TokenManagerProvider
-import com.kakao.sdk.auth.model.OAuthToken
+import com.hjiee.core.Consts.ACCESS_TOKEN
+import com.hjiee.core.Consts.REFRESH_TOKEN
+import com.hjiee.core.provider.SharedPreferenceProvider
+import com.hjiee.domain.repository.LoginRepository
 import com.kakao.sdk.user.model.User
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
-import timber.log.Timber
-import java.util.*
 
 class LoginViewModel @ViewModelInject constructor(
     private val loginRepository: LoginRepository,
@@ -25,39 +22,47 @@ class LoginViewModel @ViewModelInject constructor(
 
     fun accessToken(code: String?) {
         viewModelScope.launch(errorHandler) {
-            loginRepository.accessToken(code) {
-                it?.run {
-                    TokenManagerProvider.instance.manager.setToken(
-                        OAuthToken(
-                            accessToken,
-                            Date(expiresIn.toLong()),
-                            refreshToken,
-                            Date(refreshTokenExpiresIn.toLong()),
-                            scope.split(",")
-                        )
-                    )
-                    accessToken.let { token ->
-                        preference.setPreference("token", token)
-                        login()
-                    }
-                }
-            }
+//            loginRepository.accessToken(code) {
+//                it?.run {
+//                    TokenManagerProvider.instance.manager.setToken(
+//                        OAuthToken(
+//                            accessToken,
+//                            Date(expiresIn.toLong()),
+//                            refreshToken,
+//                            Date(refreshTokenExpiresIn.toLong()),
+//                            scope.split(",")
+//                        )
+//                    )
+//                    accessToken.let { token ->
+//                        preference.setPreference("token", token)
+//                        login()
+//                    }
+//                }
+//            }
 
         }
     }
 
-    fun login() = loginRepository.login { user, error ->
-        user?.let {
-            FirebaseCrashlytics.getInstance().setUserId(user.id.toString())
-            isLoginSuccess.call(Pair(user, null))
-        } ?: kotlin.run { isLoginSuccess.call(Pair(null, error)) }
+    fun login(token: String) {
+        viewModelScope.launch(errorHandler) {
+            loginRepository.login(token).run {
+                preference.setValue(ACCESS_TOKEN, accessToken)
+                preference.setValue(REFRESH_TOKEN, refreshToken)
+                notifyActionEvent(LoginActionEntity.SuccessLogin)
+            }
+        }
     }
-
-    fun logout() = loginRepository.logout {
-        isLogoutSuccess.call(it)
-    }
-
-    fun unlink() = loginRepository.unlink {
-        isLogoutSuccess.call(it)
-    }
+//        user?.let {
+//            FirebaseCrashlytics.getInstance().setUserId(user.id.toString())
+//            isLoginSuccess.call(Pair(user, null))
+//        } ?: kotlin.run { isLoginSuccess.call(Pair(null, error)) }
+//    }
+//
+//    fun logout() = loginRepository.logout {
+//        isLogoutSuccess.call(it)
+//    }
+//
+//    fun unlink() = loginRepository.unlink {
+//        isLogoutSuccess.call(it)
+//    }
 }

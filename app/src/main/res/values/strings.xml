@@ -5,12 +5,6 @@
     <string name="nav_title_search">검색</string>
     <string name="nav_title_mypage">마이페이지</string>
 
-    <string name="use_notice_version">use_notice_version</string>
-    <string name="notice">notice</string>
-    <string name="privacy_policy">privacy_policy</string>
-    <string name="terms_of_use">terms_of_use</string>
-    <string name="release_note">release_note</string>
-
     <string name="key_id">id</string>
     <string name="key_beer">beer</string>
     <string name="key_token">token</string>
@@ -92,7 +86,7 @@
     <string name="home_title">오늘 당신의\n 비어있는 잔을 채워줄</string>
     <string name="home_filter">맥주 찾아보기</string>
     <string name="search_hint">검색어를 입력해주세요.</string>
-    <string name="error_message">잠시후 다시 시도해 주세요.</string>
+
     <string name="max_choice_count_style">최대 %d가지의 스타일을 선택할 수 있어요!</string>
     <string name="max_choice_count_aroma">최대 %d가지의 향을 선택할 수 있어요!</string>
     <string name="choice">선택하기</string>

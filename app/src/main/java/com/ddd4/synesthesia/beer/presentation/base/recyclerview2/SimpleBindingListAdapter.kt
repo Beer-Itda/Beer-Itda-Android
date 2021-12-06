@@ -6,9 +6,9 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.ddd4.synesthesia.beer.ext.createView
-import com.ddd4.synesthesia.beer.ext.orFalse
 import com.ddd4.synesthesia.beer.util.RecyclerDiffUtil
+import com.ddd4.synesthesia.beer.util.ext.createView
+import com.hjiee.core.ext.orFalse
 
 /**
  * viewType 이 1개 인 단순한 listAdapter
