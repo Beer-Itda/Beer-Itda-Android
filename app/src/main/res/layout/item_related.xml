@@ -50,7 +50,6 @@
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="12dp"
                 android:onClick="@{() -> viewModel.beer.clickFavorite()}"
-                android:src="@{viewModel.beer.isFavorite() ? @drawable/ic_btn_like : @drawable/ic_btn_like_unactive}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/ic_btn_like" />
@@ -81,7 +80,6 @@
                 android:layout_height="wrap_content"
                 android:drawablePadding="4dp"
                 android:fontFamily="@font/notosans_kr_bold"
-                android:text="@{@string/rate_unit_2(viewModel.beer.rateAvg)}"
                 android:textColor="@color/butterscotch"
                 android:textSize="14sp"
                 app:drawableStartCompat="@drawable/ic_rating_star"

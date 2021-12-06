@@ -77,7 +77,6 @@
             android:elevation="31dp"
             android:fontFamily="@font/notosans_kr_bold"
             android:gravity="center"
-            android:text="@{@string/rate_unit(beer.rateAvg)}"
             android:textColor="@color/butterscotch"
             app:layout_constraintBottom_toBottomOf="@+id/cv_beer"
             app:layout_constraintStart_toStartOf="parent"

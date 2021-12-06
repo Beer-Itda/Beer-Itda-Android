@@ -5,15 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.ddd4.synesthesia.beer.R
-import com.ddd4.synesthesia.beer.ext.dateFormat
-import com.ddd4.synesthesia.beer.ext.showSnackBar
-import com.ddd4.synesthesia.beer.ext.showToast
-import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
-import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.ddd4.synesthesia.beer.util.ext.dateFormat
+import com.ddd4.synesthesia.beer.util.ext.showSnackBar
+import com.ddd4.synesthesia.beer.util.ext.showToast
+import com.hjiee.core.event.entity.ActionEntity
+import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.entity.HandleEvent
 import com.ddd4.synesthesia.beer.presentation.ui.main.view.MainActivity
-import com.ddd4.synesthesia.beer.util.AppConfig
-import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
+import com.hjiee.core.AppInfo
+import com.hjiee.core.provider.SharedPreferenceProvider
 import javax.inject.Inject
 
 abstract class BaseActivity<B : ViewDataBinding>(
@@ -24,7 +24,7 @@ abstract class BaseActivity<B : ViewDataBinding>(
     lateinit var preference: SharedPreferenceProvider
 
     @Inject
-    lateinit var appConfig: AppConfig
+    lateinit var appInfo: AppInfo
     private var backKeyPressedTime = 0L
     lateinit var binding: B
 
@@ -71,8 +71,8 @@ abstract class BaseActivity<B : ViewDataBinding>(
                 false -> {
                     dateFormat().run {
                         binding.root.showSnackBar("최근 접속일 : ${it}")
-                        appConfig.lastVisitTime = it
-                        preference.setPreference(
+                        appInfo.lastVisitTime = it
+                        preference.setValue(
                             getString(R.string.key_recently_visit),
                             format(System.currentTimeMillis())
                         )
@@ -81,7 +81,7 @@ abstract class BaseActivity<B : ViewDataBinding>(
                 true -> {
                     dateFormat().run {
                         binding.root.showSnackBar("환영합니다")
-                        preference.setPreference(
+                        preference.setValue(
                             getString(R.string.key_recently_visit),
                             format(System.currentTimeMillis())
                         )

@@ -1,6 +1,6 @@
 package com.ddd4.synesthesia.beer.presentation.ui.common.review.model
 
-import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.hjiee.core.event.entity.ItemClickEntity
 
 sealed class ReviewItemSelectEntity : ItemClickEntity() {
     /** 맥주 리뷰쓰기 */

@@ -1,6 +1,6 @@
 package com.ddd4.synesthesia.beer.presentation.ui.common.related
 
-import com.ddd4.synesthesia.beer.presentation.base.event.SelectEventNotifier
+import com.hjiee.core.event.SelectEventNotifier
 import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModel
 
 class RelatedItemViewModel(

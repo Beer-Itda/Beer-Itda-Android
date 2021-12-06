@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import com.ddd4.synesthesia.beer.presentation.base.entity.ActionEntity
-import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.hjiee.core.event.entity.ActionEntity
+import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.entity.HandleEvent
-import com.ddd4.synesthesia.beer.util.provider.SharedPreferenceProvider
+import com.hjiee.core.provider.SharedPreferenceProvider
 import javax.inject.Inject
 
 abstract class BaseFragment<B : ViewDataBinding>(private val layoutId: Int) : Fragment(),

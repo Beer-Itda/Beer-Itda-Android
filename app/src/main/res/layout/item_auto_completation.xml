@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.ddd4.synesthesia.beer.data.model.Beer" />
+            type="com.hjiee.domain.entity.DomainEntity.Beer" />
 
     </data>
 
@@ -15,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?attr/selectableItemBackground"
-        android:onClick="@{() -> item.clickItem()}"
         android:paddingHorizontal="28dp">
 
         <ImageView
@@ -32,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingVertical="12dp"
-            android:text="@{item.name}"
+            android:text="@{item.krName}"
             android:layout_marginStart="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

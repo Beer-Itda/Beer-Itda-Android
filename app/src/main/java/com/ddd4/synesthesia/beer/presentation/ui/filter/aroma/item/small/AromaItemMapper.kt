@@ -1,6 +1,6 @@
 package com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small
 
-import com.ddd4.synesthesia.beer.presentation.base.event.SelectActionEventNotifier
+import com.hjiee.core.event.SelectActionEventNotifier
 
 object AromaItemMapper {
 

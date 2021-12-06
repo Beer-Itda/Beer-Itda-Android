@@ -6,17 +6,14 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.ddd4.synesthesia.beer.data.model.Beer
-import com.ddd4.synesthesia.beer.domain.repository.BeerRepository
-import com.ddd4.synesthesia.beer.ext.EventFlow
-import com.ddd4.synesthesia.beer.ext.GlobalEvent
-import com.ddd4.synesthesia.beer.ext.ObservableExt.ObservableString
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
-import com.ddd4.synesthesia.beer.presentation.base.entity.ItemClickEntity
+import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
+import com.ddd4.synesthesia.beer.util.ext.ObservableExt.ObservableString
+import com.hjiee.data.response.v2.BeerResponse
+import com.hjiee.domain.repository.BeerRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
@@ -30,8 +27,8 @@ class SearchViewModel @ViewModelInject constructor(
     val searchText = ObservableString()
     val isTemplateVisible = ObservableBoolean(false)
 
-    private val _beerList = MutableLiveData<List<Beer>?>()
-    val beerList: LiveData<List<Beer>?> get() = _beerList
+    private val _beerList = MutableLiveData<List<BeerResponse>?>()
+    val beerList: LiveData<List<BeerResponse>?> get() = _beerList
 
     val cursor = MutableLiveData(0)
 
@@ -50,18 +47,18 @@ class SearchViewModel @ViewModelInject constructor(
 
     private fun eventListen() {
         viewModelScope.launch(errorHandler) {
-            EventFlow.subscribe<GlobalEvent>().collect { event ->
-                when (event) {
-                    is GlobalEvent.Favorite -> {
-                        beerList.value?.filter {
-                            it.id == event.beerId
-                        }?.map {
-                            it.updateFavorite()
-                            it
-                        }
-                    }
-                }
-            }
+//            EventFlow.subscribe<GlobalEvent>().collect { event ->
+//                when (event) {
+//                    is GlobalEvent.Favorite -> {
+//                        beerList.value?.filter {
+//                            it.id == event.beerId
+//                        }?.map {
+//                            it.updateFavorite()
+//                            it
+//                        }
+//                    }
+//                }
+//            }
         }
     }
 
@@ -74,8 +71,8 @@ class SearchViewModel @ViewModelInject constructor(
         if (!isLoadMore.get()) {
             cursor.value?.let {
                 isLoadMore.set(true)
-                _beerList.value =
-                    _beerList.value?.toMutableList()?.apply { addAll(listOf(Beer(id = -1))) }
+//                _beerList.value =
+//                    _beerList.value?.toMutableList()?.apply { addAll(listOf(Beer(id = -1))) }
                 search()
             }
         }
@@ -95,42 +92,42 @@ class SearchViewModel @ViewModelInject constructor(
         }
         debounceJob = viewModelScope.launch(errorHandler) {
             delay(400L)
-            beerRepository.getSearch(
-                searchText.get().orEmpty(),
-                cursor.value
-            )?.result?.let { response ->
-                cursor.value = response.nextCursor
-                // 데이터 추가
-                if (isLoadMore.get()) {
-                    // 커서
-                    _beerList.value = (_beerList.value?.toMutableList()?.apply {
-                        _beerList.value?.let {
-                            if (it.isNotEmpty()) {
-                                removeAt(it.size - 1)
-                            }
-                        }
-                    })
-                    _beerList.value = (_beerList.value?.let { beers ->
-                        beers.toMutableList().apply {
-                            response.beers?.let { data ->
-                                val beers = data.map { beer ->
-                                    beer.setFavorite()
-                                    beer.eventNotifier = this@SearchViewModel
-                                    beer
-                                }
-                                addAll(beers)
-                            }
-                        }
-                    })
-                    isLoadMore.set(false)
-                } else {
-                    _beerList.value = response.beers?.map { beer ->
-                        beer.setFavorite()
-                        beer.eventNotifier = this@SearchViewModel
-                        beer
-                    }
-                }
-            }
+//            beerRepository.getSearch(
+//                searchText.get().orEmpty(),
+//                cursor.value
+//            )?.result?.let { response ->
+//                cursor.value = response.nextCursor
+//                // 데이터 추가
+//                if (isLoadMore.get()) {
+//                    // 커서
+//                    _beerList.value = (_beerList.value?.toMutableList()?.apply {
+//                        _beerList.value?.let {
+//                            if (it.isNotEmpty()) {
+//                                removeAt(it.size - 1)
+//                            }
+//                        }
+//                    })
+//                    _beerList.value = (_beerList.value?.let { beers ->
+//                        beers.toMutableList().apply {
+//                            response.beers?.let { data ->
+//                                val beers = data.map { beer ->
+//                                    beer.setFavorite()
+//                                    beer.eventNotifier = this@SearchViewModel
+//                                    beer
+//                                }
+//                                addAll(beers)
+//                            }
+//                        }
+//                    })
+//                    isLoadMore.set(false)
+//                } else {
+//                    _beerList.value = response.beers?.map { beer ->
+//                        beer.setFavorite()
+//                        beer.eventNotifier = this@SearchViewModel
+//                        beer
+//                    }
+//                }
+//            }
 
         }
     }
@@ -140,17 +137,17 @@ class SearchViewModel @ViewModelInject constructor(
         cursor.value = null
     }
 
-    private fun fetchFavorite(beer: Beer) {
+    private fun fetchFavorite(beer: BeerResponse) {
         viewModelScope.launch(errorHandler) {
-            beer.updateFavorite()
-            beerRepository.postFavorite(beer.id, beer.isFavorite.get())
+//            beer.updateFavorite()
+//            beerRepository.postFavorite(beer.id, beer.isFavorite.get())
         }
     }
 
     override fun handleSelectEvent(entity: ItemClickEntity) {
         when (entity) {
             is BeerClickEntity.SelectFavorite -> {
-                fetchFavorite(entity.beer)
+//                fetchFavorite(entity.beer)
             }
         }
     }

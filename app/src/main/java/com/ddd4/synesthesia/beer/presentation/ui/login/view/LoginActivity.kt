@@ -8,13 +8,16 @@ import androidx.core.text.HtmlCompat
 import androidx.lifecycle.Observer
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityLoginBinding
-import com.ddd4.synesthesia.beer.ext.showSnackBar
-import com.ddd4.synesthesia.beer.ext.showToast
-import com.ddd4.synesthesia.beer.ext.start
+import com.ddd4.synesthesia.beer.util.ext.showSnackBar
+import com.ddd4.synesthesia.beer.util.ext.showToast
+import com.ddd4.synesthesia.beer.util.ext.start
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
+import com.ddd4.synesthesia.beer.presentation.ui.login.model.LoginActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.login.viewmodel.LoginViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.view.MainActivity
 import com.ddd4.synesthesia.beer.util.HyperLinkMovement
+import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
+import com.hjiee.core.event.entity.ActionEntity
 import com.kakao.sdk.auth.LoginClient
 import com.kakao.sdk.auth.model.OAuthToken
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,8 +33,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             Timber.tag("tokenInfo").e(error)
             showToast(getString(R.string.fail_login))
         } else if (token != null) {
-            preference.setPreference(getString(R.string.key_token), token.accessToken)
-            loginViewModel.login()
+            Timber.tag("tokenInfo").d(token.accessToken)
+            loginViewModel.login(token.accessToken)
         }
     }
 
@@ -79,6 +82,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
     private fun startLogin() {
         // 카카오톡으로 로그인
+//        loginViewModel.login()
         LoginClient.instance.apply {
             if (isKakaoTalkLoginAvailable(this@LoginActivity)) {
                 loginWithKakaoTalk(context = this@LoginActivity, callback = callback)
@@ -98,9 +102,20 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                 start<MainActivity>(true)
             } ?: kotlin.run {
                 showToast("${getString(R.string.fail_login)}\n${it.second?.message}")
-                preference.remove(getString(R.string.key_token))
+                preference.clear()
             }
         })
+        observeHandledEvent(loginViewModel.event.action) {
+            handleActionEvent(it)
+        }
+    }
+
+    override fun handleActionEvent(entity: ActionEntity) {
+        when (entity) {
+            is LoginActionEntity.SuccessLogin -> {
+                start<MainActivity>()
+            }
+        }
     }
 
     companion object {

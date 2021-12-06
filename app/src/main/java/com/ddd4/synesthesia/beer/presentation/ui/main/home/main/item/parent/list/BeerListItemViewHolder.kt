@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.LayoutHomeBinding
-import com.ddd4.synesthesia.beer.ext.createView
+import com.ddd4.synesthesia.beer.util.ext.createView
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.item.HomeViewHolder
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.view.HomeListChildAdapter
 import com.ddd4.synesthesia.beer.util.listener.EndlessRecyclerViewScrollListener
@@ -42,6 +42,6 @@ class BeerListItemViewHolder(
             executePendingBindings()
         }
         adapter.clear()
-        adapter.addAll(viewModel.beers.orEmpty())
+        adapter.addAll(viewModel.beers)
     }
 }

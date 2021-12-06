@@ -9,7 +9,7 @@
 
         <import type="android.text.TextUtils" />
 
-        <import type="com.ddd4.synesthesia.beer.ext.ImageTransformType" />
+        <import type="com.ddd4.synesthesia.beer.util.ext.ImageTransformType" />
 
         <variable
             name="vm"

@@ -4,7 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ItemBeerCardBinding
-import com.ddd4.synesthesia.beer.ext.createView
+import com.ddd4.synesthesia.beer.util.ext.createView
 
 class RelatedItemViewViewHolder(
     itemView: View

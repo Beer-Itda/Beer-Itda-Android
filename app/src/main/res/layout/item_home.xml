@@ -11,7 +11,7 @@
 
         <variable
             name="beer"
-            type="com.ddd4.synesthesia.beer.data.model.Beer" />
+            type="com.hjiee.domain.entity.DomainEntity.Beer" />
 
         <variable
             name="createAt"
@@ -23,7 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:foreground="?attr/selectableItemBackground"
-        android:onClick="@{() -> beer.clickItem()}"
         android:paddingHorizontal="28dp">
 
         <ImageView
@@ -43,8 +42,6 @@
             android:layout_height="25dp"
             android:paddingEnd="8dp"
             android:paddingBottom="8dp"
-            android:onClick="@{() -> beer.clickFavorite()}"
-            android:src="@{beer.isFavorite() ? @drawable/ic_btn_like : @drawable/ic_btn_like_unactive}"
             app:layout_constraintStart_toStartOf="@+id/iv_beer_thumbnail"
             app:layout_constraintTop_toTopOf="@+id/iv_beer_thumbnail"
             tools:src="@drawable/ic_btn_like_unactive" />
@@ -59,7 +56,6 @@
             android:gravity="center_vertical"
             android:includeFontPadding="false"
             android:singleLine="true"
-            android:text="@{beer.beerStyle}"
             android:textColor="@color/butterscotch"
             android:textSize="13sp"
             app:layout_constraintEnd_toStartOf="@+id/tv_beer_rate"
@@ -76,7 +72,6 @@
             android:fontFamily="@font/notosans_kr_bold"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:text="@{@string/rate_unit(beer.rateAvg)}"
             android:textColor="@color/butterscotch"
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -91,7 +86,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/notosans_kr_regular"
             android:singleLine="true"
-            android:text="@{beer.name}"
+            android:text="@{beer.krName}"
             android:textColor="@color/white"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -125,7 +120,6 @@
             android:ellipsize="end"
             android:fontFamily="@font/notosans_kr_regular"
             android:singleLine="true"
-            android:text="@{beer.country}"
             android:textColor="@color/color_c8c8c8"
             android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@+id/tv_beer_abv"
@@ -158,7 +152,6 @@
                 android:id="@+id/chip_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:addChip="@{beer.aromas}"
                 app:singleLine="true" />
         </HorizontalScrollView>
 
