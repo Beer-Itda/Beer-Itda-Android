@@ -4,6 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.login.model.LoginActionEntity
+import com.ddd4.synesthesia.beer.util.NetworkStatus
 import com.ddd4.synesthesia.beer.util.SingleLiveEvent
 import com.hjiee.core.Consts.ACCESS_TOKEN
 import com.hjiee.core.Consts.REFRESH_TOKEN
@@ -44,11 +45,13 @@ class LoginViewModel @ViewModelInject constructor(
     }
 
     fun login(token: String) {
+        statusLoading()
         viewModelScope.launch(errorHandler) {
             loginRepository.login(token).run {
                 preference.setValue(ACCESS_TOKEN, accessToken)
                 preference.setValue(REFRESH_TOKEN, refreshToken)
                 notifyActionEvent(LoginActionEntity.SuccessLogin)
+                statusSuccess()
             }
         }
     }

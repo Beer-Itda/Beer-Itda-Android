@@ -3,6 +3,7 @@ package com.ddd4.synesthesia.beer.presentation.ui.login.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.Observer
@@ -12,6 +13,7 @@ import com.ddd4.synesthesia.beer.util.ext.showSnackBar
 import com.ddd4.synesthesia.beer.util.ext.showToast
 import com.ddd4.synesthesia.beer.util.ext.start
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
+import com.ddd4.synesthesia.beer.presentation.base.model.ErrorActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.login.model.LoginActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.login.viewmodel.LoginViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.view.MainActivity
@@ -42,21 +44,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         super.onCreate(savedInstanceState)
         initBind()
         initObserver()
-
-        message?.let {
-            binding.root.showSnackBar(it)
-        }
-        intent.data?.let {
-            it.query?.split("=")?.let { query ->
-                if (query.isNotEmpty()) {
-                    loginViewModel.accessToken(query[1])
-                }
-            }
-        }
+        redirectKakaoAccount()
     }
 
     override fun initBind() {
         binding.apply {
+            viewModel = loginViewModel
             tvLogin.setOnClickListener { startLogin() }
             with(tvLoginNotice) {
                 text = HtmlCompat.fromHtml(
@@ -82,12 +75,21 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
     private fun startLogin() {
         // 카카오톡으로 로그인
-//        loginViewModel.login()
         LoginClient.instance.apply {
             if (isKakaoTalkLoginAvailable(this@LoginActivity)) {
                 loginWithKakaoTalk(context = this@LoginActivity, callback = callback)
             } else {
                 loginWithKakaoAccount(this@LoginActivity, callback = callback)
+            }
+        }
+    }
+
+    private fun redirectKakaoAccount() {
+        intent.data?.let {
+            it.query?.split("=")?.let { query ->
+                if (query.isNotEmpty()) {
+                    loginViewModel.accessToken(query[1])
+                }
             }
         }
     }
@@ -114,6 +116,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         when (entity) {
             is LoginActionEntity.SuccessLogin -> {
                 start<MainActivity>()
+            }
+            is ErrorActionEntity.ShowErrorMessage -> {
+                showToast(entity.message)
             }
         }
     }

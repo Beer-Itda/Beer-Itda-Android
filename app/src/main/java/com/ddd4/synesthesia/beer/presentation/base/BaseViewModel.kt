@@ -3,6 +3,7 @@ package com.ddd4.synesthesia.beer.presentation.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ddd4.synesthesia.beer.presentation.base.model.ErrorActionEntity
 import com.hjiee.core.event.entity.ActionEntity
 import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.core.event.BaseEvent
@@ -20,11 +21,12 @@ abstract class BaseViewModel : ViewModel(), SelectActionEventNotifier {
     private val _throwable = MutableLiveData<ThrowEntity>()
     val throwable: LiveData<ThrowEntity> get() = _throwable
 
-    private val _networkStatus = MutableLiveData<NetworkStatus>()
+    private val _networkStatus = MutableLiveData(NetworkStatus.SUCCESS)
     val networkStatus: LiveData<NetworkStatus> get() = _networkStatus
 
     val errorHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
-        _networkStatus.value = NetworkStatus.FAILURE
+        statusFailure()
+        notifyActionEvent(ErrorActionEntity.ShowErrorMessage(throwable.message.orEmpty()))
         L.e(throwable = throwable)
     }
 

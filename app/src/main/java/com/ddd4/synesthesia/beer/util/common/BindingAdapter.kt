@@ -153,23 +153,17 @@ fun View.bindThrowable(entity: ThrowEntity?) {
 
 @BindingAdapter(value = ["visibility"])
 fun View.setVisibility(value: Boolean?) {
-    value?.let {
-        setVisible(value)
-    }
+    setVisible(value.orFalse())
 }
 
 @BindingAdapter(value = ["inVisibility"])
 fun View.setInVisibility(value: Boolean?) {
-    value?.let {
-        setVisible(value)
-    }
+    setVisible(value.orFalse())
 }
 
 @BindingAdapter(value = ["networkVisibility"])
 fun View.setNetworkVisibility(value: NetworkStatus?) {
-    value?.let {
-        setVisible(value != NetworkStatus.LOADING)
-    }
+    setVisible(value == NetworkStatus.LOADING)
 }
 
 @BindingAdapter(value = ["changeWidth", "changeHeight"])

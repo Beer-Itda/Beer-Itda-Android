@@ -7,6 +7,10 @@
 
         <import type="androidx.core.text.HtmlCompat" />
 
+        <variable
+            name="viewModel"
+            type="com.ddd4.synesthesia.beer.presentation.ui.login.viewmodel.LoginViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,5 +61,11 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_login"
             tools:text="카카오톡 로그인하기를 통해 로그인 하시면 서비스 이용약관과 개인정보처리방침에 동의한 것으로 간주됩니다." />
 
+        <include
+            android:id="@+id/include_loading"
+            layout="@layout/layout_loading"
+            app:networkVisibility="@{viewModel.networkStatus}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
