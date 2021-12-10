@@ -1,5 +1,7 @@
 package com.hjiee.data.di
 
+import com.hjiee.core.provider.StringProvider
+import com.hjiee.data.R
 import com.hjiee.data.api.BeerApi
 import com.hjiee.data.api.KakaoApi
 import com.hjiee.data.api.KakaoAuthApi
@@ -44,12 +46,13 @@ object NetworkModule {
     @Singleton
     @Named(PROVIDE_NAME_BEER)
     fun provideRetrofit(
+        stringProvider: StringProvider,
         @Named(PROVIDE_NAME_HEADERS) headers: Interceptor,
         @Named(PROVIDE_NAME_BODY_LOGGING) bodyLoggingInterceptor: HttpLoggingInterceptor,
         @Named(PROVIDE_NAME_HEADER_LOGGING) headerLoggingInterceptor: HttpLoggingInterceptor
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("application.getString(R.string.base_url)")
+            .baseUrl(stringProvider.getStringRes(R.string.base_url))
             .addConverterFactory(GsonConverterFactory.create())
             .client(
                 provideOkHttpClient(

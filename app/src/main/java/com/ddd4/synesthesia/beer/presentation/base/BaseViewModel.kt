@@ -12,7 +12,7 @@ import com.hjiee.core.event.SelectActionEventNotifier
 import com.hjiee.core.event.setHandledValue
 import com.ddd4.synesthesia.beer.presentation.commom.entity.ThrowEntity
 import com.ddd4.synesthesia.beer.util.NetworkStatus
-import com.ddd4.synesthesia.beer.util.log.L
+import com.hjiee.core.util.log.L
 import kotlinx.coroutines.CoroutineExceptionHandler
 import timber.log.Timber
 

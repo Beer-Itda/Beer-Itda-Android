@@ -5,16 +5,16 @@ import com.ddd4.synesthesia.beer.data.source.local.InfomationsData
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.item.SettingItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.model.SettingActionEntity
-import com.hjiee.core.AppInfo
+import com.hjiee.core.manager.VersionManager
 import com.hjiee.domain.repository.LoginRepository
 
 
 class SettingViewModel @ViewModelInject constructor(
-    private val appInfo: AppInfo,
+    private val versionManager: VersionManager,
     private val loginRepository: LoginRepository,
 ) : BaseViewModel() {
 
-    val appVersion by lazy { appInfo.version }
+    val appVersion by lazy { versionManager.version }
 
     init {
         notifyActionEvent(SettingActionEntity.UpdateItem(generateInfoList()))
@@ -90,7 +90,7 @@ class SettingViewModel @ViewModelInject constructor(
         SettingItemViewModel(
             InfomationsData.APP_VERSION.title,
             InfomationsData.APP_VERSION.type,
-            appInfo.version,
+            versionManager.version,
             eventNotifier = this@SettingViewModel
         ),
         // 로그아웃

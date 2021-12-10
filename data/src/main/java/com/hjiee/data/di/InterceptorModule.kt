@@ -2,6 +2,9 @@ package com.hjiee.data.di
 
 import com.hjiee.core.BuildConfig
 import com.hjiee.core.Consts
+import com.hjiee.core.Consts.ACCESS_TOKEN
+import com.hjiee.core.manager.VersionManager
+import com.hjiee.core.provider.SharedPreferenceProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,9 +25,12 @@ object InterceptorModule {
     @Provides
     @Singleton
     @Named(PROVIDE_NAME_HEADERS)
-    fun provideHeaders(): Interceptor {
-        val accessToken = ""
-        val version = ""
+    fun provideHeaders(
+        preference: SharedPreferenceProvider,
+        versionManager: VersionManager
+    ): Interceptor {
+        val accessToken = preference.getPreferenceString(ACCESS_TOKEN)
+        val version = versionManager.version
         return Interceptor { chain ->
             chain.run {
                 proceed(

@@ -1,7 +1,7 @@
 package com.hjiee.core.di
 
 import android.app.Application
-import com.hjiee.core.AppInfo
+import com.hjiee.core.manager.VersionManager
 import com.hjiee.core.provider.SharedPreferenceProvider
 import com.hjiee.core.provider.StringProvider
 import dagger.Module
@@ -20,8 +20,8 @@ object CoreModule {
     fun provideAppInfo(
         application: Application,
         sharedPreference: SharedPreferenceProvider
-    ): AppInfo {
-        return AppInfo(application, sharedPreference)
+    ): VersionManager {
+        return VersionManager(application, sharedPreference)
     }
 
     @Provides

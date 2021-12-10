@@ -12,7 +12,7 @@ import com.hjiee.core.event.entity.ActionEntity
 import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.entity.HandleEvent
 import com.ddd4.synesthesia.beer.presentation.ui.main.view.MainActivity
-import com.hjiee.core.AppInfo
+import com.hjiee.core.manager.VersionManager
 import com.hjiee.core.provider.SharedPreferenceProvider
 import javax.inject.Inject
 
@@ -24,7 +24,7 @@ abstract class BaseActivity<B : ViewDataBinding>(
     lateinit var preference: SharedPreferenceProvider
 
     @Inject
-    lateinit var appInfo: AppInfo
+    lateinit var versionManager: VersionManager
     private var backKeyPressedTime = 0L
     lateinit var binding: B
 
@@ -71,7 +71,7 @@ abstract class BaseActivity<B : ViewDataBinding>(
                 false -> {
                     dateFormat().run {
                         binding.root.showSnackBar("최근 접속일 : ${it}")
-                        appInfo.lastVisitTime = it
+                        versionManager.lastVisitTime = it
                         preference.setValue(
                             getString(R.string.key_recently_visit),
                             format(System.currentTimeMillis())

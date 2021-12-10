@@ -1,11 +1,11 @@
-package com.hjiee.core
+package com.hjiee.core.manager
 
 import android.content.Context
 import android.content.pm.PackageManager
 import com.hjiee.core.provider.SharedPreferenceProvider
 import javax.inject.Inject
 
-class AppInfo @Inject constructor(
+class VersionManager @Inject constructor(
     private val context: Context,
     private val sharedPreference: SharedPreferenceProvider
 ) {
@@ -17,7 +17,7 @@ class AppInfo @Inject constructor(
     val version
         get() = try {
             context.packageManager.getPackageInfo(context.packageName, 0).versionName
-        } catch (e: PackageManager.NameNotFoundException) {
+        } catch (e: Exception) {
             ""
         }
 
