@@ -1,7 +1,7 @@
-package com.ddd4.synesthesia.beer.util.log.timber
+package com.hjiee.core.util.log.timber
 
 import android.util.Log
-import com.ddd4.synesthesia.beer.util.log.CrashlyticsLog
+import com.hjiee.core.util.log.CrashlyticsLog
 import timber.log.Timber
 
 class CrashlyticsTree : Timber.Tree() {
@@ -11,9 +11,9 @@ class CrashlyticsTree : Timber.Tree() {
         if (priority == Log.ERROR) {
             CrashlyticsLog.recordException(
                 if (throwable != null) {
-                    Exception("[$tag] $message", throwable)
+                    StackTraceRecorder("[$tag] $message", throwable)
                 } else {
-                    Exception("[$tag] $message")
+                    StackTraceRecorder("[$tag] $message")
                 }
             )
         } else {

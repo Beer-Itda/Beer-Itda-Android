@@ -3,12 +3,13 @@ package com.ddd4.synesthesia.beer.presentation.ui.splash.viewmodel
 import androidx.hilt.lifecycle.ViewModelInject
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.hjiee.core.provider.INoticeStringResourceProvider.Code
 import com.hjiee.core.provider.SharedPreferenceProvider
 import com.hjiee.core.provider.StringProvider
+import com.hjiee.core.util.log.CrashlyticsLog
+import com.hjiee.core.util.log.L
 import com.hjiee.domain.repository.LoginRepository
 
 class SplashViewModel @ViewModelInject constructor(
@@ -62,27 +63,33 @@ class SplashViewModel @ViewModelInject constructor(
                         releaseNote
                     )
 
-                    FirebaseCrashlytics.getInstance().setCustomKey(
-                        stringProvider.getString(Code.USE_NOTICE_VERSION),
-                        useNoiceVersion
+                    CrashlyticsLog.setCustomKey(
+                        key = stringProvider.getString(Code.USE_NOTICE_VERSION),
+                        value = useNoiceVersion
                     )
-                    FirebaseCrashlytics.getInstance()
-                        .setCustomKey(stringProvider.getString(Code.NOTICE), notice)
-                    FirebaseCrashlytics.getInstance()
-                        .setCustomKey(stringProvider.getString(Code.PRIVACY_POLICY), privacyPolicy)
-                    FirebaseCrashlytics.getInstance()
-                        .setCustomKey(stringProvider.getString(Code.TERMS_OF_USE), termsOfUse)
-                    FirebaseCrashlytics.getInstance()
-                        .setCustomKey(stringProvider.getString(Code.RELEASE_NOTE), releaseNote)
-                    FirebaseCrashlytics.getInstance().log("completed $useNoiceVersion")
+                    CrashlyticsLog.setCustomKey(
+                        key = stringProvider.getString(Code.NOTICE),
+                        value = notice
+                    )
+                    CrashlyticsLog.setCustomKey(
+                        key = stringProvider.getString(Code.PRIVACY_POLICY),
+                        value = privacyPolicy
+                    )
+                    CrashlyticsLog.setCustomKey(
+                        key = stringProvider.getString(Code.TERMS_OF_USE),
+                        value = termsOfUse
+                    )
+                    CrashlyticsLog.setCustomKey(
+                        key = stringProvider.getString(Code.RELEASE_NOTE),
+                        value = releaseNote
+                    )
+                    L.d("completed $useNoiceVersion")
                 } else {
-                    FirebaseCrashlytics.getInstance()
-                        .recordException(Throwable("complete but task is fail"))
+                    L.e(Throwable("complete but task is fail"))
                 }
             }
             addOnFailureListener {
-                FirebaseCrashlytics.getInstance()
-                    .recordException(Throwable("remote config failure"))
+                L.e(Throwable("remote config failure"))
             }
         }
     }

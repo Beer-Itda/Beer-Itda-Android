@@ -1,13 +1,11 @@
 package com.ddd4.synesthesia.beer.presentation.base
 
 import android.app.Application
-import com.ddd4.synesthesia.beer.BuildConfig
 import com.ddd4.synesthesia.beer.R
-import com.ddd4.synesthesia.beer.util.log.L
-import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.hjiee.core.util.log.CrashlyticsLog
+import com.hjiee.core.util.log.L
 import com.kakao.sdk.common.KakaoSdk
 import dagger.hilt.android.HiltAndroidApp
-import timber.log.Timber
 
 
 @HiltAndroidApp
@@ -20,7 +18,7 @@ class BaseApplication : Application() {
         KakaoSdk.init(this@BaseApplication, getString(R.string.kakao))
 
         // Firebase 로그 초기화
-        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG)
+        CrashlyticsLog.init()
 
         // Timber 로그 초기화
         L.init()

@@ -49,4 +49,8 @@ dependencies {
     implementation(Libs.HILT_VIEWMODEL)
     kapt(Libs.HILT_COMPILER)
 
+    implementation(platform(Libs.FIREBASE))
+    implementation(Libs.FIREBASE_ANALYTICS)
+    implementation(Libs.FIREBASE_CRASHLYTICS)
+
 }

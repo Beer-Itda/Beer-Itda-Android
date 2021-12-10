@@ -1,7 +1,7 @@
-package com.ddd4.synesthesia.beer.util.log
+package com.hjiee.core.util.log
 
-import com.ddd4.synesthesia.beer.BuildConfig
-import com.ddd4.synesthesia.beer.util.log.timber.CrashlyticsTree
+import com.hjiee.core.BuildConfig
+import com.hjiee.core.util.log.timber.CrashlyticsTree
 import timber.log.Timber
 
 object L {
