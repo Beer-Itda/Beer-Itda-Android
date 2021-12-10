@@ -2,9 +2,11 @@ package com.hjiee.data.di
 
 import com.hjiee.core.provider.StringProvider
 import com.hjiee.data.R
+import com.hjiee.data.TokenAuthenticator
 import com.hjiee.data.api.BeerApi
 import com.hjiee.data.api.KakaoApi
 import com.hjiee.data.api.KakaoAuthApi
+import com.hjiee.data.di.AuthenticatorModule.PROVIDE_NAME_AUTHENTICATOR
 import com.hjiee.data.di.InterceptorModule.PROVIDE_NAME_BODY_LOGGING
 import com.hjiee.data.di.InterceptorModule.PROVIDE_NAME_HEADERS
 import com.hjiee.data.di.InterceptorModule.PROVIDE_NAME_HEADER_LOGGING
@@ -25,6 +27,7 @@ import javax.inject.Singleton
 object NetworkModule {
 
     const val PROVIDE_NAME_BEER = "provide_beer"
+    const val PROVIDE_NAME_BEER_REFRESH = "provide_beer_refresh"
     const val PROVIDE_NAME_KAKAO = "provide_kakao"
     const val PROVIDE_NAME_KAKAO_OAUTH = "provide_kakao_oauth"
 
@@ -33,13 +36,17 @@ object NetworkModule {
     fun provideOkHttpClient(
         @Named(PROVIDE_NAME_HEADERS) headers: Interceptor,
         @Named(PROVIDE_NAME_BODY_LOGGING) bodyLoggingInterceptor: HttpLoggingInterceptor,
-        @Named(PROVIDE_NAME_HEADER_LOGGING) headerLoggingInterceptor: HttpLoggingInterceptor
+        @Named(PROVIDE_NAME_HEADER_LOGGING) headerLoggingInterceptor: HttpLoggingInterceptor,
+        @Named(PROVIDE_NAME_AUTHENTICATOR) authenticator: TokenAuthenticator? = null
     ): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor(headers)
-            .addInterceptor(bodyLoggingInterceptor)
-            .addInterceptor(headerLoggingInterceptor)
-            .build()
+        return OkHttpClient.Builder().apply {
+            addInterceptor(headers)
+            addInterceptor(bodyLoggingInterceptor)
+            addInterceptor(headerLoggingInterceptor)
+            authenticator?.let {
+                authenticator(it)
+            }
+        }.build()
     }
 
     @Provides
@@ -49,7 +56,8 @@ object NetworkModule {
         stringProvider: StringProvider,
         @Named(PROVIDE_NAME_HEADERS) headers: Interceptor,
         @Named(PROVIDE_NAME_BODY_LOGGING) bodyLoggingInterceptor: HttpLoggingInterceptor,
-        @Named(PROVIDE_NAME_HEADER_LOGGING) headerLoggingInterceptor: HttpLoggingInterceptor
+        @Named(PROVIDE_NAME_HEADER_LOGGING) headerLoggingInterceptor: HttpLoggingInterceptor,
+        @Named(PROVIDE_NAME_AUTHENTICATOR) authenticator: TokenAuthenticator
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(stringProvider.getStringRes(R.string.base_url))
@@ -58,11 +66,13 @@ object NetworkModule {
                 provideOkHttpClient(
                     headers = headers,
                     bodyLoggingInterceptor = bodyLoggingInterceptor,
-                    headerLoggingInterceptor = headerLoggingInterceptor
+                    headerLoggingInterceptor = headerLoggingInterceptor,
+                    authenticator = authenticator
                 )
             )
             .build()
     }
+
 
     @Provides
     @Singleton

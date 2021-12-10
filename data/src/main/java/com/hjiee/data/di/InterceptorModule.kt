@@ -18,6 +18,10 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 object InterceptorModule {
 
+    const val EXTRA_HEADER_NAME_PLATFORM = "Platform"
+    const val EXTRA_HEADER_NAME_APP_VERSION = "AppVersion"
+    const val EXTRA_HEADER_NAME_AUTHORIZATION = "Authorization"
+    const val EXTRA_HEADER_NAME_BEARER = "Bearer"
     const val PROVIDE_NAME_HEADERS = "provide_headers"
     const val PROVIDE_NAME_BODY_LOGGING = "provide_body_logging_interceptor"
     const val PROVIDE_NAME_HEADER_LOGGING = "provide_header_logging_interceptor"
@@ -35,9 +39,9 @@ object InterceptorModule {
             chain.run {
                 proceed(
                     request().newBuilder().apply {
-                        addHeader("Platform", Consts.PLATFORM)
-                        addHeader("AppVersion", version)
-                        addHeader("Authorization", "Bearer $accessToken")
+                        addHeader(EXTRA_HEADER_NAME_PLATFORM, Consts.PLATFORM)
+                        addHeader(EXTRA_HEADER_NAME_APP_VERSION, version)
+                        addHeader(EXTRA_HEADER_NAME_AUTHORIZATION, "$EXTRA_HEADER_NAME_BEARER $accessToken")
                     }.build()
                 )
             }

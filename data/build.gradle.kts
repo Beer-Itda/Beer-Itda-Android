@@ -44,6 +44,10 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":domain"))
 
+
+    implementation(Libs.COROUTINES_CORE)
+    implementation(Libs.COROUTINES_ANDROID)
+
     implementation(Libs.RETROFIT)
     implementation(Libs.RETROFIT_GSON_CONVERTER)
     implementation(Libs.OK_HTTP)
