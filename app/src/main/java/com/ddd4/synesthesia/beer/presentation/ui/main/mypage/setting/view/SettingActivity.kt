@@ -12,19 +12,19 @@ import androidx.core.os.bundleOf
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.data.source.local.InfomationsData
 import com.ddd4.synesthesia.beer.databinding.ActivityMyPageSettingBinding
-import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
-import com.ddd4.synesthesia.beer.util.ext.showToast
-import com.ddd4.synesthesia.beer.util.ext.start
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
-import com.hjiee.core.event.entity.ActionEntity
-import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.login.view.LoginActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.model.SettingActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.model.SettingClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.viewmodel.SettingViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.webview.view.WebViewActivity
 import com.ddd4.synesthesia.beer.util.CustomAlertDialog
+import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
+import com.ddd4.synesthesia.beer.util.ext.showToast
+import com.ddd4.synesthesia.beer.util.ext.start
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import com.hjiee.core.event.entity.ActionEntity
+import com.hjiee.core.event.entity.ItemClickEntity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -66,7 +66,7 @@ class SettingActivity :
             }
             is SettingActionEntity.LogOut -> {
                 preference.clear()
-                LoginActivity.start(this@SettingActivity, getString(R.string.success_logout))
+                startActivity(LoginActivity.getIntent(this@SettingActivity))
             }
         }
     }

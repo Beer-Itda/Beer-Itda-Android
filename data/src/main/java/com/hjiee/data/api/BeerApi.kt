@@ -12,7 +12,7 @@ import retrofit2.http.*
 interface BeerApi {
 
     /**
-     * 카카오
+     * 카카오 로그인
      */
     @FormUrlEncoded
     @POST("api/v1/user/login/kakao")

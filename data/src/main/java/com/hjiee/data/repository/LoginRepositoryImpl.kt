@@ -1,6 +1,5 @@
 package com.hjiee.data.repository
 
-import com.hjiee.core.provider.SharedPreferenceProvider
 import com.hjiee.data.api.BeerApi
 import com.hjiee.data.api.KakaoApi
 import com.hjiee.data.api.KakaoAuthApi
@@ -11,12 +10,15 @@ import com.hjiee.domain.repository.LoginRepository
 class LoginRepositoryImpl(
     private val kakaoApi: KakaoApi,
     private val beerApi: BeerApi,
-    private val kakaoAuthApi: KakaoAuthApi,
-    private val preference: SharedPreferenceProvider
+    private val kakaoAuthApi: KakaoAuthApi
 ) : LoginRepository {
 
+    override suspend fun tokenInfo(code: String): TokenInfo {
+        return kakaoAuthApi.accessToken(code = code).toTokenInfo()
+    }
+
     override suspend fun login(token: String): TokenInfo {
-        return beerApi.kakaoLogin(token).toTokenInfo()
+        return beerApi.kakaoLogin(token = token).toTokenInfo()
     }
 
     //    override fun tokenInfo(tokenInfo: (OAuthToken?) -> Unit) {

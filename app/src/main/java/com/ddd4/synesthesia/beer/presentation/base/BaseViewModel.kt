@@ -27,7 +27,7 @@ abstract class BaseViewModel : ViewModel(), SelectActionEventNotifier {
     val errorHandler = CoroutineExceptionHandler { coroutineContext, throwable ->
         statusFailure()
         notifyActionEvent(ErrorActionEntity.ShowErrorMessage(throwable.message.orEmpty()))
-        L.e(throwable = throwable)
+        L.e(throwable)
     }
 
     protected open val _event: BaseEvent = BaseEvent()

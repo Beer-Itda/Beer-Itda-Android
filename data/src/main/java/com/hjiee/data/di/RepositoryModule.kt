@@ -1,11 +1,10 @@
 package com.hjiee.data.di
 
-import com.hjiee.core.provider.SharedPreferenceProvider
-import com.hjiee.data.repository.BeerRepositoryImpl
-import com.hjiee.data.repository.LoginRepositoryImpl
 import com.hjiee.data.api.BeerApi
 import com.hjiee.data.api.KakaoApi
 import com.hjiee.data.api.KakaoAuthApi
+import com.hjiee.data.repository.BeerRepositoryImpl
+import com.hjiee.data.repository.LoginRepositoryImpl
 import com.hjiee.domain.repository.BeerRepository
 import com.hjiee.domain.repository.LoginRepository
 import dagger.Module
@@ -23,10 +22,9 @@ object RepositoryModule {
     fun provideLoginRepository(
         kakaoApi: KakaoApi,
         beerApi: BeerApi,
-        kakaoAuthApi: KakaoAuthApi,
-        preference: SharedPreferenceProvider
+        kakaoAuthApi: KakaoAuthApi
     ): LoginRepository {
-        return LoginRepositoryImpl(kakaoApi,beerApi, kakaoAuthApi, preference)
+        return LoginRepositoryImpl(kakaoApi, beerApi, kakaoAuthApi)
     }
 
     @Provides

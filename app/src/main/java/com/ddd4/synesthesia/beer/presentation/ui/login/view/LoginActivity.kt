@@ -3,15 +3,10 @@ package com.ddd4.synesthesia.beer.presentation.ui.login.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.text.HtmlCompat
-import androidx.lifecycle.Observer
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityLoginBinding
-import com.ddd4.synesthesia.beer.util.ext.showSnackBar
-import com.ddd4.synesthesia.beer.util.ext.showToast
-import com.ddd4.synesthesia.beer.util.ext.start
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.base.model.ErrorActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.login.model.LoginActionEntity
@@ -19,6 +14,8 @@ import com.ddd4.synesthesia.beer.presentation.ui.login.viewmodel.LoginViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.view.MainActivity
 import com.ddd4.synesthesia.beer.util.HyperLinkMovement
 import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
+import com.ddd4.synesthesia.beer.util.ext.showToast
+import com.ddd4.synesthesia.beer.util.ext.start
 import com.hjiee.core.event.entity.ActionEntity
 import com.kakao.sdk.auth.LoginClient
 import com.kakao.sdk.auth.model.OAuthToken
@@ -30,7 +27,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
     private val loginViewModel by viewModels<LoginViewModel>()
     private val message by lazy { intent.getStringExtra(KEY_LOGIN) }
-    private val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+    private val kakaoTalkLoginCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
             Timber.tag("tokenInfo").e(error)
             showToast(getString(R.string.fail_login))
@@ -65,21 +62,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
-
     private fun startLogin() {
         // 카카오톡으로 로그인
         LoginClient.instance.apply {
             if (isKakaoTalkLoginAvailable(this@LoginActivity)) {
-                loginWithKakaoTalk(context = this@LoginActivity, callback = callback)
+                loginWithKakaoTalk(context = this@LoginActivity, callback = kakaoTalkLoginCallback)
             } else {
-                loginWithKakaoAccount(this@LoginActivity, callback = callback)
+                loginWithKakaoAccount(this@LoginActivity, callback = kakaoTalkLoginCallback)
             }
         }
     }
@@ -94,19 +83,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-    }
-
     override fun initObserver() {
-        loginViewModel.isLoginSuccess.observe(this@LoginActivity, Observer {
-            it.first?.let {
-                start<MainActivity>(true)
-            } ?: kotlin.run {
-                showToast("${getString(R.string.fail_login)}\n${it.second?.message}")
-                preference.clear()
-            }
-        })
         observeHandledEvent(loginViewModel.event.action) {
             handleActionEvent(it)
         }
@@ -127,10 +104,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         const val KEY_LOGIN = "login"
 
         @JvmStatic
-        fun start(context: Context, message: String) {
-            context.startActivity(Intent(context, LoginActivity::class.java).apply {
-                putExtra(KEY_LOGIN, message)
-            })
+        fun getIntent(context: Context): Intent {
+            return Intent(context, LoginActivity::class.java).apply {
+
+            }
         }
     }
 }

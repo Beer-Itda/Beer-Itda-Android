@@ -108,6 +108,13 @@ fun LoginResponse?.toTokenInfo() : DomainEntity.TokenInfo {
     )
 }
 
+fun TokenResponse?.toTokenInfo() : DomainEntity.TokenInfo {
+    return DomainEntity.TokenInfo(
+        accessToken = this?.accessToken.orEmpty(),
+        refreshToken = this?.refreshToken.orEmpty()
+    )
+}
+
 //fun List<Review>.toDomainEntity(): List<DomainEntity.Review> {
 //    return map {
 //        DomainEntity.Review(
