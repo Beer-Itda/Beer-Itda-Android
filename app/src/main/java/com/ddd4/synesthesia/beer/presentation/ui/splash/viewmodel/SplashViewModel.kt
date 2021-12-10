@@ -1,8 +1,10 @@
 package com.ddd4.synesthesia.beer.presentation.ui.splash.viewmodel
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.login.model.LoginActionEntity
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.hjiee.core.provider.INoticeStringResourceProvider.Code
@@ -10,10 +12,13 @@ import com.hjiee.core.provider.SharedPreferenceProvider
 import com.hjiee.core.provider.StringProvider
 import com.hjiee.core.util.log.CrashlyticsLog
 import com.hjiee.core.util.log.L
-import com.hjiee.domain.repository.LoginRepository
+import com.hjiee.domain.usecase.login.GetTokenUseCase
+import com.hjiee.domain.usecase.login.LoginUseCase
+import kotlinx.coroutines.launch
 
 class SplashViewModel @ViewModelInject constructor(
-    private val loginRepository: LoginRepository,
+    private val useCase: LoginUseCase,
+    private val tokenUseCase: GetTokenUseCase,
     private val preference: SharedPreferenceProvider,
     private val stringProvider: StringProvider
 ) : BaseViewModel() {
@@ -30,10 +35,23 @@ class SplashViewModel @ViewModelInject constructor(
         }
     }
 
-//    fun tokenInfo(tokenInfo: ((OAuthToken?) -> Unit)? = null) = loginRepository.tokenInfo {
-//        Timber.tag("tokenInfo").d("kakao token info : ${it?.accessToken}")
-//        tokenInfo?.invoke(it)
-//    }
+    suspend fun autoLogin() {
+        tokenUseCase.execute { accessToken ->
+            if (accessToken.isEmpty()) {
+                notifyActionEvent(LoginActionEntity.FailLogin)
+            } else {
+                viewModelScope.launch {
+                    runCatching {
+                        useCase.execute(accessToken)
+                    }.onSuccess {
+                        notifyActionEvent(LoginActionEntity.SuccessLogin)
+                    }.onFailure {
+                        notifyActionEvent(LoginActionEntity.FailLogin)
+                    }
+                }
+            }
+        }
+    }
 
     fun getRemoteConfig() {
         remoteConfig.fetchAndActivate().run {

@@ -10,4 +10,8 @@ class GetTokenUseCase @Inject constructor(
     suspend fun execute(code: String): DomainEntity.TokenInfo {
         return repository.tokenInfo(code)
     }
+
+    suspend fun execute(tokenInfo : (String) -> Unit) {
+        return repository.tokenInfo(tokenInfo)
+    }
 }

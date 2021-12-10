@@ -9,6 +9,7 @@ interface LoginRepository {
      * 카카오에서 token 정보를 가져온다
      */
     suspend fun tokenInfo(code: String): TokenInfo
+    suspend fun tokenInfo(tokenInfo : (String) -> Unit)
 
     /**
      * 로그인

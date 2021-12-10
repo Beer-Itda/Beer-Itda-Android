@@ -6,10 +6,13 @@ import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivitySplashBinding
 import com.ddd4.synesthesia.beer.util.ext.start
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
+import com.ddd4.synesthesia.beer.presentation.ui.login.model.LoginActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.login.view.LoginActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.view.MainActivity
 import com.ddd4.synesthesia.beer.presentation.ui.splash.viewmodel.SplashViewModel
+import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
 import com.hjiee.core.Consts.ACCESS_TOKEN
+import com.hjiee.core.event.entity.ActionEntity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,9 +27,27 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.getRemoteConfig()
-//        viewModel.tokenInfo {
-            startLogin()
-//        }
+        startLogin()
+        initObserver()
+    }
+
+    override fun initObserver() {
+        observeHandledEvent(viewModel.event.action) {
+            handleActionEvent(it)
+        }
+    }
+
+    override fun handleActionEvent(entity: ActionEntity) {
+        when (entity) {
+            is LoginActionEntity.SuccessLogin -> {
+//                startActivity(LoginActivity.getIntent(this@SplashActivity))
+//                finish()
+                start<MainActivity>(isFinish = true, isAnimation = true)
+            }
+            is LoginActionEntity.FailLogin -> {
+                start<LoginActivity>(isFinish = true, isAnimation = true)
+            }
+        }
     }
 
     override fun onBackPressed() {
@@ -37,13 +58,13 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         CoroutineScope(Dispatchers.IO).launch {
             delay(1500)
 //            preference.clear()
-            if (preference.getPreferenceString(ACCESS_TOKEN).isNullOrEmpty()) {
-                start<LoginActivity>(isFinish = true, isAnimation = true)
-            } else {
-                start<MainActivity>(isFinish = true, isAnimation = true)
-            }
+            viewModel.autoLogin()
+//            if (preference.getPreferenceString(ACCESS_TOKEN).isNullOrEmpty()) {
+//            } else {
+//                start<MainActivity>(isFinish = true, isAnimation = true)
+//            }
 //            start<MainActivity>(isFinish = true, isAnimation = true)
-            finish()
+//            finish()
         }
     }
 }

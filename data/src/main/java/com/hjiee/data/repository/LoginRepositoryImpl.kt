@@ -6,6 +6,8 @@ import com.hjiee.data.api.KakaoAuthApi
 import com.hjiee.data.mapper.toTokenInfo
 import com.hjiee.domain.entity.DomainEntity.TokenInfo
 import com.hjiee.domain.repository.LoginRepository
+import com.kakao.sdk.auth.TokenManagerProvider
+import com.kakao.sdk.user.UserApiClient
 
 class LoginRepositoryImpl(
     private val kakaoApi: KakaoApi,
@@ -25,20 +27,15 @@ class LoginRepositoryImpl(
         return beerApi.kakaoLogin(refreshToken).toTokenInfo()
     }
 
-    //    override fun tokenInfo(tokenInfo: (OAuthToken?) -> Unit) {
-//        UserApiClient.instance.accessTokenInfo { token, error ->
-//            if (error != null) {
-//                tokenInfo.invoke(null)
-//                preference.remove("token")
-//            } else if (token != null) {
-//                preference.setPreference(
-//                    "token",
-//                    TokenManagerProvider.instance.manager.getToken()?.accessToken
-//                )
-//                tokenInfo.invoke(TokenManagerProvider.instance.manager.getToken())
-//            }
-//        }
-//    }
+    override suspend fun tokenInfo(tokenInfo : (String) -> Unit) {
+        UserApiClient.instance.accessTokenInfo { token, error ->
+            if (error != null) {
+                tokenInfo.invoke("")
+            } else if (token != null) {
+                tokenInfo.invoke(TokenManagerProvider.instance.manager.getToken()?.accessToken.orEmpty())
+            }
+        }
+    }
 //
 //    override fun login(userInfo: (User?, Throwable?) -> Unit) {
 //        UserApiClient.instance.me { user, error ->
