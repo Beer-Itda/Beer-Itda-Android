@@ -25,10 +25,16 @@ class MyPageViewModel @ViewModelInject constructor(
 
 
     fun load() {
-        viewModelScope.launch(errorHandler) {
-            val user = userInfoUseCase.execute()
-            _userInfo.value = user
-            viewState.isRefresh.set(false)
+        viewModelScope.launch {
+            runCatching {
+                userInfoUseCase.execute()
+            }.mapCatching {
+                _userInfo.value = it
+            }.onSuccess {
+                viewState.isRefresh.set(false)
+            }.onFailure {
+                viewState.isRefresh.set(false)
+            }
         }
     }
 
