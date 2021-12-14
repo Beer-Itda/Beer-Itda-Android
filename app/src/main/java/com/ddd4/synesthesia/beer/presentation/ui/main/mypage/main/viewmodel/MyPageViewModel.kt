@@ -6,31 +6,35 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.entity.MyPageClickEntity
-import com.hjiee.domain.repository.BeerRepository
-import com.hjiee.domain.repository.LoginRepository
-import com.kakao.sdk.user.model.User
+import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.main.view.MyPageViewState
+import com.hjiee.domain.entity.DomainEntity
+import com.hjiee.domain.usecase.login.UserInfoUseCase
 import kotlinx.coroutines.launch
 
 class MyPageViewModel @ViewModelInject constructor(
-    private val loginRepository: LoginRepository,
-    private val beerRepository: BeerRepository
+    private val userInfoUseCase: UserInfoUseCase
 ) : BaseViewModel() {
 
-    private val _userInfo = MutableLiveData<User?>()
-    val userInfo: LiveData<User?> get() = _userInfo
+    private val _userInfo = MutableLiveData<DomainEntity.User?>()
+    val userInfo: LiveData<DomainEntity.User?> get() = _userInfo
 
     private val _nickName = MutableLiveData<String>()
     val nickName: LiveData<String> get() = _nickName
 
-//    private fun me() = loginRepository.me {
-//        _userInfo.value = it
-//    }
+    val viewState = MyPageViewState()
+
 
     fun load() {
-//        me()
         viewModelScope.launch(errorHandler) {
-//            _nickName.value = beerRepository.getUserInfo()?.nickname
+            val user = userInfoUseCase.execute()
+            _userInfo.value = user
+            viewState.isRefresh.set(false)
         }
+    }
+
+    fun refresh() {
+        viewState.isRefresh.set(true)
+        load()
     }
 
     fun updateUserInfo(nickName: String?) {

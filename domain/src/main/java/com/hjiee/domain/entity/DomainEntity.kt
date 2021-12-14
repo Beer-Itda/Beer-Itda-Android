@@ -55,11 +55,12 @@ sealed class DomainEntity {
     }
 
     class User(
-        val id: String,
-        val externalId: String,
-        val nickname: String,
-        val profileImage: String,
-        val thumbnailImage: String
+        val id: Int,
+        val email: String,
+        val nickName: String,
+        val reviewCount: Int,
+        val levelId: Int,
+        val profileImage: String
     )
 
     class StyleLargeCategory(

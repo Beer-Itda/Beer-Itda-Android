@@ -12,147 +12,154 @@
         <import type="com.ddd4.synesthesia.beer.util.ext.ImageTransformType" />
 
         <variable
-            name="vm"
+            name="viewModel"
             type="com.ddd4.synesthesia.beer.presentation.ui.main.mypage.main.viewmodel.MyPageViewModel" />
 
     </data>
 
-    <ScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        app:onRefreshListener="@{viewModel.refresh}"
+        app:refreshing="@{viewModel.viewState.isRefresh()}">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="@{TextUtils.isEmpty(vm.userInfo.kakaoAccount.profile.nickname) ? View.GONE : View.VISIBLE}">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-            <!--정보-->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/motion_base"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/color_1c1b21"
-                android:paddingBottom="30dp">
+                android:orientation="vertical">
 
-
-                <ImageView
-                    android:id="@+id/iv_setting"
-                    android:layout_width="wrap_content"
+                <!--정보-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/motion_base"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/background_ripple"
-                    android:padding="20dp"
-                    android:src="@drawable/ic_img_setting"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:background="@color/color_1c1b21"
+                    android:paddingBottom="30dp">
 
 
-                <ImageView
-                    android:id="@+id/iv_profile"
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="30dp"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/app_name"
-                    app:errorDrawable="@{@drawable/ic_img_profile_blank}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_setting"
-                    app:loadUrl="@{vm.userInfo.kakaoAccount.profile.profileImageUrl}"
-                    app:tranformType="@{ImageTransformType.CIRCLE}"
-                    tools:background="@drawable/ic_img_profile_blank" />
+                    <ImageView
+                        android:id="@+id/iv_setting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_ripple"
+                        android:padding="20dp"
+                        android:src="@drawable/ic_img_setting"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_level"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="보리"
-                    android:textColor="@color/butterscotch"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toTopOf="@+id/tv_name"
-                    app:layout_constraintStart_toEndOf="@+id/iv_profile"
-                    app:layout_constraintTop_toTopOf="@+id/iv_profile"
-                    app:layout_constraintVertical_chainStyle="spread_inside"
-                    tools:text="보리" />
 
+                    <ImageView
+                        android:id="@+id/iv_profile"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="30dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/app_name"
+                        app:errorDrawable="@{@drawable/ic_img_profile_blank}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_setting"
+                        app:loadUrl="@{viewModel.userInfo.profileImage}"
+                        app:tranformType="@{ImageTransformType.CIRCLE}"
+                        tools:background="@drawable/ic_img_profile_blank" />
+
+                    <TextView
+                        android:id="@+id/tv_level"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="보리"
+                        android:textColor="@color/butterscotch"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_name"
+                        app:layout_constraintStart_toEndOf="@+id/iv_profile"
+                        app:layout_constraintTop_toTopOf="@+id/iv_profile"
+                        app:layout_constraintVertical_chainStyle="spread_inside"
+                        tools:text="보리" />
+
+                    <include
+                        android:id="@+id/include_level_guide"
+                        layout="@layout/layout_level_guide"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_level"
+                        app:layout_constraintStart_toEndOf="@id/tv_level"
+                        app:layout_constraintTop_toTopOf="@id/tv_level" />
+
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="16dp"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLength="@integer/max_length"
+                        android:onClick="@{() -> viewModel.clickModify()}"
+                        android:singleLine="true"
+                        android:text="@{viewModel.userInfo.nickName}"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_email"
+                        app:layout_constraintStart_toEndOf="@+id/iv_profile"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_level"
+                        tools:text="공감각" />
+
+                    <ImageView
+                        android:id="@+id/iv_modify"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="16dp"
+                        android:onClick="@{() -> viewModel.clickModify()}"
+                        android:src="@drawable/ic_btn_name_edit"
+                        android:visibility="@{TextUtils.isEmpty(viewModel.userInfo.nickName) ? View.GONE : View.VISIBLE}"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_name"
+                        app:layout_constraintStart_toEndOf="@+id/tv_name"
+                        app:layout_constraintTop_toTopOf="@+id/tv_name" />
+
+
+                    <TextView
+                        android:id="@+id/tv_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@{viewModel.userInfo.email}"
+                        android:textColor="@color/color_8e8d94"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
+                        app:layout_constraintStart_toEndOf="@+id/iv_profile"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                        tools:text="android@google.com" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--별점과 리뷰-->
                 <include
-                    android:id="@+id/include_level_guide"
-                    layout="@layout/layout_level_guide"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/include_my_page_review"
+                    layout="@layout/layout_mypage_review"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_level"
-                    app:layout_constraintStart_toEndOf="@id/tv_level"
-                    app:layout_constraintTop_toTopOf="@id/tv_level" />
+                    android:layout_marginHorizontal="13dp"
+                    android:layout_marginTop="29dp"
+                    app:level="@{viewModel.userInfo.levelId}" />
 
-
-                <TextView
-                    android:id="@+id/tv_name"
-                    android:layout_width="wrap_content"
+                <!--찜한 맥주-->
+                <include
+                    android:id="@+id/include_my_page_favorite"
+                    layout="@layout/layout_mypage_favorite"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="16dp"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:maxLength="@integer/max_length"
-                    android:onClick="@{() -> vm.clickModify()}"
-                    android:singleLine="true"
-                    android:text="@{vm.nickName}"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/tv_email"
-                    app:layout_constraintStart_toEndOf="@+id/iv_profile"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_level"
-                    tools:text="공감각" />
-
-                <ImageView
-                    android:id="@+id/iv_modify"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="16dp"
-                    android:onClick="@{() -> vm.clickModify()}"
-                    android:src="@drawable/ic_btn_name_edit"
-                    android:visibility="@{TextUtils.isEmpty(vm.nickName) ? View.GONE : View.VISIBLE}"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_name"
-                    app:layout_constraintStart_toEndOf="@+id/tv_name"
-                    app:layout_constraintTop_toTopOf="@+id/tv_name" />
-
-
-                <TextView
-                    android:id="@+id/tv_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="@{vm.userInfo.kakaoAccount.email}"
-                    android:textColor="@color/color_8e8d94"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
-                    app:layout_constraintStart_toEndOf="@+id/iv_profile"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_name"
-                    tools:text="android@google.com" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!--별점과 리뷰-->
-            <include
-                android:id="@+id/include_my_page_review"
-                layout="@layout/layout_mypage_review"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="13dp"
-                android:layout_marginTop="29dp" />
-
-            <!--찜한 맥주-->
-            <include
-                android:id="@+id/include_my_page_favorite"
-                layout="@layout/layout_mypage_favorite"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="13dp"
-                android:layout_marginTop="29dp" />
-        </LinearLayout>
-    </ScrollView>
+                    android:layout_marginHorizontal="13dp"
+                    android:layout_marginTop="29dp" />
+            </LinearLayout>
+        </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

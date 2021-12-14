@@ -4,9 +4,8 @@ import com.hjiee.data.api.BeerApi
 import com.hjiee.data.mapper.toDomainEntity
 import com.hjiee.data.mapper.toDomainEntityAroma
 import com.hjiee.data.mapper.toDomainEntityList
-import com.hjiee.domain.entity.DomainEntity.Response
-import com.hjiee.domain.entity.DomainEntity.Beer
-import com.hjiee.domain.entity.DomainEntity.Beers
+import com.hjiee.data.mapper.toUserInfo
+import com.hjiee.domain.entity.DomainEntity.*
 import com.hjiee.domain.repository.BeerRepository
 import javax.inject.Inject
 
@@ -14,6 +13,10 @@ import javax.inject.Inject
 class BeerRepositoryImpl @Inject constructor(
     private val beerApi: BeerApi
 ) : BeerRepository {
+
+    override suspend fun getUserInfo(): User {
+        return beerApi.getUserInfo()?.data.toUserInfo()
+    }
 
     override suspend fun getBeers(): Response<Beers>? {
         return beerApi.getBeerList()?.toDomainEntityList()

@@ -37,7 +37,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     override fun initBind() {
         binding.run {
-            vm = viewModel
+            viewModel = this@MyPageFragment.viewModel
             binding.ivSetting.setOnClickListener { moveToSetting() }
             includeMyPageReview.container.setOnClickListener { moveToReview() }
             includeMyPageFavorite.container.setOnClickListener { moveToFavorite() }

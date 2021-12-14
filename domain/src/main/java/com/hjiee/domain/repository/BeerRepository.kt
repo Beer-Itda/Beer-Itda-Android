@@ -1,14 +1,14 @@
 package com.hjiee.domain.repository
 
-import com.hjiee.domain.entity.DomainEntity.Response
-import com.hjiee.domain.entity.DomainEntity.Beer
-import com.hjiee.domain.entity.DomainEntity.Beers
+import com.hjiee.domain.entity.DomainEntity.*
 
 interface BeerRepository {
     suspend fun getBeers(): Response<Beers>?
     suspend fun getBeerDetail(id: Int): Response<Beer>?
     suspend fun getStyleBeer(): Response<Beers>?
     suspend fun getAromaBeer(): Response<Beers>?
+    suspend fun getUserInfo(): User
+
 //    suspend fun getAppConfig(): AppConfig
 //    suspend fun getBeerList(
 //        sortType: String?,

@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="level"
+            type="Integer" />
     </data>
 
 
@@ -53,24 +56,26 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="27dp"
             android:max="5"
-            android:progress="4"
+            android:progress="@{level}"
             android:progressDrawable="@drawable/progress_bar_horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_description" />
+            app:layout_constraintTop_toBottomOf="@id/tv_description"
+            tools:progress="4" />
 
         <TextView
             android:id="@+id/tv_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
-            android:text="4/5"
+            android:text="@{@string/user_level(level,5)}"
             android:textColor="@color/white"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@id/progress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/progress"
-            tools:ignore="SmallSp" />
+            tools:ignore="SmallSp"
+            tools:text="4/5" />
 
         <TextView
             android:id="@+id/tv_more_level_step_start"

@@ -2,12 +2,8 @@ package com.hjiee.data.mapper
 
 import com.hjiee.core.ext.orFalse
 import com.hjiee.core.ext.orZero
-import com.hjiee.data.response.TokenResponse
-import com.hjiee.data.response.v2.AromasResponse
-import com.hjiee.data.response.v2.BeerResponse
-import com.hjiee.data.response.v2.BeersResponse
 import com.hjiee.data.response.common.EntityResponse
-import com.hjiee.data.response.v2.LoginResponse
+import com.hjiee.data.response.v2.*
 import com.hjiee.domain.entity.DomainEntity
 
 fun EntityResponse<BeerResponse>.toDomainEntity(): DomainEntity.Response<DomainEntity.Beer> {
@@ -25,7 +21,7 @@ fun EntityResponse<BeerResponse>.toDomainEntity(): DomainEntity.Response<DomainE
 }
 
 fun EntityResponse<BeersResponse>.toDomainEntityList(): DomainEntity.Response<DomainEntity.Beers> {
-    return DomainEntity.Response<DomainEntity.Beers>(
+    return DomainEntity.Response(
         isSuccess = isSuccess.orFalse(),
         message = message.orEmpty(),
         data = DomainEntity.Beers(
@@ -44,7 +40,7 @@ fun EntityResponse<BeersResponse>.toDomainEntityList(): DomainEntity.Response<Do
 }
 
 fun EntityResponse<AromasResponse>.toDomainEntityAroma(): DomainEntity.Response<DomainEntity.Beers> {
-    return DomainEntity.Response<DomainEntity.Beers>(
+    return DomainEntity.Response(
         isSuccess = isSuccess.orFalse(),
         message = message.orEmpty(),
         data = DomainEntity.Beers(
@@ -101,17 +97,21 @@ fun List<BeerResponse>?.toDomainEntity(): List<DomainEntity.Beer> {
     }.orEmpty()
 }
 
-fun LoginResponse?.toTokenInfo() : DomainEntity.TokenInfo {
+fun LoginResponse?.toTokenInfo(): DomainEntity.TokenInfo {
     return DomainEntity.TokenInfo(
         accessToken = this?.accessToken.orEmpty(),
         refreshToken = this?.refreshToken.orEmpty()
     )
 }
 
-fun TokenResponse?.toTokenInfo() : DomainEntity.TokenInfo {
-    return DomainEntity.TokenInfo(
-        accessToken = this?.accessToken.orEmpty(),
-        refreshToken = this?.refreshToken.orEmpty()
+fun UserResponse?.toUserInfo(): DomainEntity.User {
+    return DomainEntity.User(
+        id = this?.id.orZero(),
+        email = this?.email.orEmpty(),
+        nickName = this?.nickname.orEmpty(),
+        reviewCount = this?.reviewCount.orZero(),
+        levelId = this?.levelId.orZero(),
+        profileImage = "",
     )
 }
 

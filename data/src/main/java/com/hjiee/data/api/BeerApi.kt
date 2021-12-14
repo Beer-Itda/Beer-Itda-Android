@@ -1,12 +1,7 @@
 package com.hjiee.data.api
 
-import com.hjiee.data.response.common.Result
-import com.hjiee.data.response.v2.AromasResponse
-import com.hjiee.data.response.v2.BeerResponse
-import com.hjiee.data.response.v2.BeersResponse
 import com.hjiee.data.response.common.EntityResponse
-import com.hjiee.data.response.v2.LoginResponse
-import com.kakao.sdk.user.model.User
+import com.hjiee.data.response.v2.*
 import retrofit2.http.*
 
 interface BeerApi {
@@ -29,12 +24,6 @@ interface BeerApi {
     suspend fun refreshToken(
         @Field("refresh_token") token: String
     ): LoginResponse?
-
-//    /**
-//     * App Config
-//     */
-//    @GET("api/app-config")
-//    suspend fun getAppConfig(): Result<AppConfig>
 
     /**
      * 맥주 리스트
@@ -69,6 +58,17 @@ interface BeerApi {
         @Query("user_id") userId: Int
     ): EntityResponse<AromasResponse>?
 
+    /**
+     * 유저 정보
+     */
+    @GET("api/v1/user/info")
+    suspend fun getUserInfo(): EntityResponse<UserResponse>?
+
+//    /**
+//     * App Config
+//     */
+//    @GET("api/app-config")
+//    suspend fun getAppConfig(): Result<AppConfig>
 
 //    /**
 //     * 맥주 검색
@@ -79,31 +79,25 @@ interface BeerApi {
 //        @Query("cursor") nextCursor: Int?
 //    ): Result<Response>?
 
-    /**
-     * 유저 정보
-     */
-    @GET("api/user")
-    suspend fun getUserInfo(): Result<User>?
-
-    /**
-     * 유저 정보 업데이트
-     */
-    @FormUrlEncoded
-    @POST("api/user/update")
-    suspend fun postUserInfo(
-        @Field("nickname") nickName: String?
-    )
-
-    /**
-     * 리뷰 등록
-     */
-    @FormUrlEncoded
-    @POST("api/review")
-    suspend fun postReview(
-        @Field("beer_id") id: Int,
-        @Field("ratio") ratio: Float,
-        @Field("content") content: String?
-    )
+//    /**
+//     * 유저 정보 업데이트
+//     */
+//    @FormUrlEncoded
+//    @POST("api/user/update")
+//    suspend fun postUserInfo(
+//        @Field("nickname") nickName: String?
+//    )
+//
+//    /**
+//     * 리뷰 등록
+//     */
+//    @FormUrlEncoded
+//    @POST("api/review")
+//    suspend fun postReview(
+//        @Field("beer_id") id: Int,
+//        @Field("ratio") ratio: Float,
+//        @Field("content") content: String?
+//    )
 
 //    /**
 //     * 리뷰
@@ -111,15 +105,15 @@ interface BeerApi {
 //    @GET("api/review")
 //    suspend fun getReview(): Results<Review>
 
-    /**
-     * 즐겨찾기 등록/삭제
-     */
-    @FormUrlEncoded
-    @POST("api/favorite")
-    suspend fun postFavorite(
-        @Field("beer_id") id: Int,
-        @Field("flag") flag: Boolean
-    )
+//    /**
+//     * 즐겨찾기 등록/삭제
+//     */
+//    @FormUrlEncoded
+//    @POST("api/favorite")
+//    suspend fun postFavorite(
+//        @Field("beer_id") id: Int,
+//        @Field("flag") flag: Boolean
+//    )
 
 //    /**
 //     * 내가 즐겨찾기한 맥주 리스트
