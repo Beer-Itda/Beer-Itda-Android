@@ -2,7 +2,6 @@ package com.hjiee.data.repository
 
 import com.hjiee.data.api.BeerApi
 import com.hjiee.data.api.KakaoApi
-import com.hjiee.data.api.KakaoAuthApi
 import com.hjiee.data.mapper.toTokenInfo
 import com.hjiee.domain.entity.DomainEntity.TokenInfo
 import com.hjiee.domain.repository.LoginRepository
@@ -11,13 +10,8 @@ import com.kakao.sdk.user.UserApiClient
 
 class LoginRepositoryImpl(
     private val kakaoApi: KakaoApi,
-    private val beerApi: BeerApi,
-    private val kakaoAuthApi: KakaoAuthApi
+    private val beerApi: BeerApi
 ) : LoginRepository {
-
-    override suspend fun tokenInfo(code: String): TokenInfo {
-        return kakaoAuthApi.accessToken(code = code).toTokenInfo()
-    }
 
     override suspend fun login(token: String): TokenInfo {
         return beerApi.kakaoLogin(token = token).toTokenInfo()

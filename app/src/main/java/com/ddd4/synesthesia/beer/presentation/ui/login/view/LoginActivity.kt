@@ -41,7 +41,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         super.onCreate(savedInstanceState)
         initBind()
         initObserver()
-        redirectKakaoAccount()
     }
 
     override fun initBind() {
@@ -69,16 +68,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                 loginWithKakaoTalk(context = this@LoginActivity, callback = kakaoTalkLoginCallback)
             } else {
                 loginWithKakaoAccount(this@LoginActivity, callback = kakaoTalkLoginCallback)
-            }
-        }
-    }
-
-    private fun redirectKakaoAccount() {
-        intent.data?.let {
-            it.query?.split("=")?.let { query ->
-                if (query.isNotEmpty()) {
-                    loginViewModel.accessToken(query[1])
-                }
             }
         }
     }

@@ -2,7 +2,6 @@ package com.hjiee.data.di
 
 import com.hjiee.data.api.BeerApi
 import com.hjiee.data.api.KakaoApi
-import com.hjiee.data.api.KakaoAuthApi
 import com.hjiee.data.repository.BeerRepositoryImpl
 import com.hjiee.data.repository.LoginRepositoryImpl
 import com.hjiee.domain.repository.BeerRepository
@@ -21,10 +20,9 @@ object RepositoryModule {
     @Singleton
     fun provideLoginRepository(
         kakaoApi: KakaoApi,
-        beerApi: BeerApi,
-        kakaoAuthApi: KakaoAuthApi
+        beerApi: BeerApi
     ): LoginRepository {
-        return LoginRepositoryImpl(kakaoApi, beerApi, kakaoAuthApi)
+        return LoginRepositoryImpl(kakaoApi, beerApi)
     }
 
     @Provides

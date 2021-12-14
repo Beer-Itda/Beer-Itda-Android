@@ -1,16 +1,12 @@
 package com.hjiee.data.di
 
-import android.content.Context
 import com.hjiee.core.provider.SharedPreferenceProvider
 import com.hjiee.core.provider.StringProvider
 import com.hjiee.data.R
 import com.hjiee.data.TokenAuthenticator
 import com.hjiee.data.api.BeerApi
 import com.hjiee.data.api.KakaoApi
-import com.hjiee.data.api.KakaoAuthApi
 import com.hjiee.data.di.NetworkModule.PROVIDE_NAME_BEER_REFRESH
-import com.hjiee.data.di.NetworkModule.PROVIDE_NAME_KAKAO
-import com.hjiee.data.di.NetworkModule.PROVIDE_NAME_KAKAO_OAUTH
 import com.hjiee.data.repository.LoginRepositoryImpl
 import com.hjiee.domain.usecase.login.RefreshTokenUseCase
 import dagger.Module
@@ -36,15 +32,13 @@ object AuthenticatorModule {
     fun provideAuthenticator(
         preference: SharedPreferenceProvider,
         @Named(PROVIDE_NAME_BEER_REFRESH) beerApi: BeerApi,
-        kakaoApi: KakaoApi,
-        kakaoAuthApi: KakaoAuthApi
+        kakaoApi: KakaoApi
     ): TokenAuthenticator {
         return TokenAuthenticator(
             useCase = RefreshTokenUseCase(
                 repository = LoginRepositoryImpl(
                     beerApi = beerApi,
-                    kakaoApi = kakaoApi,
-                    kakaoAuthApi = kakaoAuthApi
+                    kakaoApi = kakaoApi
                 )
             ),
             preference = preference

@@ -5,7 +5,6 @@ import com.hjiee.data.R
 import com.hjiee.data.TokenAuthenticator
 import com.hjiee.data.api.BeerApi
 import com.hjiee.data.api.KakaoApi
-import com.hjiee.data.api.KakaoAuthApi
 import com.hjiee.data.di.AuthenticatorModule.PROVIDE_NAME_AUTHENTICATOR
 import com.hjiee.data.di.InterceptorModule.PROVIDE_NAME_BODY_LOGGING
 import com.hjiee.data.di.InterceptorModule.PROVIDE_NAME_HEADERS
@@ -111,25 +110,6 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    @Named(PROVIDE_NAME_KAKAO_OAUTH)
-    fun provideKakaoAuthRetrofit(
-        @Named(PROVIDE_NAME_BODY_LOGGING) bodyLoggingInterceptor: HttpLoggingInterceptor,
-        @Named(PROVIDE_NAME_HEADER_LOGGING) headerLoggingInterceptor: HttpLoggingInterceptor
-    ): Retrofit {
-        return Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://kauth.kakao.com")
-            .client(
-                provideKakaoOAuthOkHttpClient(
-                    bodyLoggingInterceptor = bodyLoggingInterceptor,
-                    headerLoggingInterceptor = headerLoggingInterceptor
-                )
-            )
-            .build()
-    }
-
-    @Provides
-    @Singleton
     @Named(PROVIDE_NAME_KAKAO)
     fun provideKakaoRetrofit(
         @Named(PROVIDE_NAME_BODY_LOGGING) bodyLoggingInterceptor: HttpLoggingInterceptor,
@@ -147,13 +127,6 @@ object NetworkModule {
             .build()
     }
 
-    @Provides
-    @Singleton
-    fun provideKakaoAuthService(
-        @Named(PROVIDE_NAME_KAKAO_OAUTH) retrofit: Retrofit
-    ): KakaoAuthApi {
-        return retrofit.create(KakaoAuthApi::class.java)
-    }
 
     @Provides
     @Singleton
