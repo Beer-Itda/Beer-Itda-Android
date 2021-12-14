@@ -1,17 +1,22 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.viewmodel
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.data.source.local.InfomationsData
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.item.SettingItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.model.SettingActionEntity
 import com.hjiee.core.manager.VersionManager
+import com.hjiee.core.provider.SharedPreferenceProvider
 import com.hjiee.domain.repository.LoginRepository
+import com.hjiee.domain.usecase.login.LogoutUseCase
+import kotlinx.coroutines.launch
 
 
 class SettingViewModel @ViewModelInject constructor(
     private val versionManager: VersionManager,
-    private val loginRepository: LoginRepository,
+    private val logoutUseCase: LogoutUseCase,
+    private val preference: SharedPreferenceProvider
 ) : BaseViewModel() {
 
     val appVersion by lazy { versionManager.version }
@@ -31,6 +36,18 @@ class SettingViewModel @ViewModelInject constructor(
 //            SettingActionEntity.LogOut
 //        }
 //    }
+
+    fun logOut() {
+        viewModelScope.launch {
+            runCatching {
+                logoutUseCase.execute(
+                    success = {
+                        notifyActionEvent(SettingActionEntity.LogOut)
+                    }
+                )
+            }
+        }
+    }
 
 
     private fun generateInfoList(): List<SettingItemViewModel> = arrayListOf(

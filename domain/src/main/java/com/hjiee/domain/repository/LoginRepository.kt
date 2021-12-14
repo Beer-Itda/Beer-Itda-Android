@@ -16,10 +16,14 @@ interface LoginRepository {
     suspend fun login(accessToken: String): TokenInfo
 
     /**
+     * 로그아웃
+     */
+    suspend fun logout(isSuccess : (Boolean) -> Unit)
+
+    /**
      * refresh
      */
     suspend fun refreshToken(refreshToken: String): TokenInfo
-//    fun logout(isSuccess: (Boolean) -> Unit)
 //    fun unlink(isSuccess: (Boolean) -> Unit)
 //    fun me(userInfo: (User?) -> Unit)
 }

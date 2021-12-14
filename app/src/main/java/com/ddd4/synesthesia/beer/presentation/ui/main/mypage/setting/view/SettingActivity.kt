@@ -134,7 +134,7 @@ class SettingActivity :
             result = DialogInterface.OnClickListener { dialog, which ->
                 when (message) {
                     getString(R.string.logout_message) -> {
-//                        viewModel.logout()
+                        viewModel.logOut()
                     }
                     getString(R.string.unlink_message) -> {
 //                        viewModel.unlink()

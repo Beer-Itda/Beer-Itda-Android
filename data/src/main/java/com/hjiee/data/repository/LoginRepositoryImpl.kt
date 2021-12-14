@@ -17,11 +17,17 @@ class LoginRepositoryImpl(
         return beerApi.kakaoLogin(token = token).toTokenInfo()
     }
 
+    override suspend fun logout(isSuccess: (Boolean) -> Unit) {
+        UserApiClient.instance.logout { error ->
+            isSuccess(error == null)
+        }
+    }
+
     override suspend fun refreshToken(refreshToken: String): TokenInfo {
         return beerApi.kakaoLogin(refreshToken).toTokenInfo()
     }
 
-    override suspend fun tokenInfo(tokenInfo : (String) -> Unit) {
+    override suspend fun tokenInfo(tokenInfo: (String) -> Unit) {
         UserApiClient.instance.accessTokenInfo { token, error ->
             if (error != null) {
                 tokenInfo.invoke("")

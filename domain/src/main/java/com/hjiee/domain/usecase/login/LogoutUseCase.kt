@@ -6,7 +6,16 @@ import javax.inject.Inject
 class LogoutUseCase @Inject constructor(
     private val repository: LoginRepository
 ) {
-    fun execute() {
-
+    suspend fun execute(
+        success: (() -> Unit)? = null,
+        failure: (() -> Unit)? = null
+    ) {
+        repository.logout {
+            if (it) {
+                success?.invoke()
+            } else {
+                failure?.invoke()
+            }
+        }
     }
 }
