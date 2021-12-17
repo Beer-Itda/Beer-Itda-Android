@@ -48,6 +48,11 @@ abstract class BaseActivity<B : ViewDataBinding>(
 
     }
 
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+    }
+
     fun isInTimeInput(finish: (() -> Unit)? = null): Boolean {
         if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
             backKeyPressedTime = System.currentTimeMillis()
@@ -91,9 +96,19 @@ abstract class BaseActivity<B : ViewDataBinding>(
         }
     }
 
+    /**
+     * 초기화 로직
+     */
     open fun initBind() {}
+
+    /**
+     * 뷰모델에서 옵저빙 초기화 로직
+     */
     open fun initObserver() {}
 
+    /**
+     * 옵저빙한 로직을 처리하는 로직
+     */
     override fun handleSelectEvent(entity: ItemClickEntity) {}
     override fun handleActionEvent(entity: ActionEntity) {}
 }

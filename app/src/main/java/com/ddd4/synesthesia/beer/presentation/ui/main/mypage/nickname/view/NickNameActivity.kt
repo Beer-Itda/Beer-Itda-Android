@@ -71,11 +71,13 @@ class NickNameActivity :
     companion object {
         const val KEY_NICKNAME = "nickname"
 
-        @JvmStatic
-        fun start(context: Context, nickname: String) {
-            context.startActivity(Intent(context, NickNameActivity::class.java).apply {
-                putExtra(KEY_NICKNAME, nickname)
-            })
+        fun getIntent(
+            context: Context,
+            nickName: String?
+        ): Intent {
+            return Intent(context, NickNameActivity::class.java).apply {
+                putExtra(KEY_NICKNAME, nickName)
+            }
         }
     }
 }

@@ -15,6 +15,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.nickname.view.NickN
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.review.view.MyReviewActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.view.SettingActivity
 import com.ddd4.synesthesia.beer.util.ext.start
+import com.hjiee.core.util.log.L
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -53,8 +54,24 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
     override fun handleSelectEvent(entity: ItemClickEntity) {
         when (entity) {
             is MyPageClickEntity.Modify -> {
-                NickNameActivity.start(requireContext(), binding.tvName.text.toString())
+                moveToNickName()
             }
+        }
+    }
+
+    /**
+     * 닉네임 변경
+     */
+    private fun moveToNickName() {
+        runCatching {
+            start<NickNameActivity>(
+                intent = NickNameActivity.getIntent(
+                    context = requireContext(),
+                    nickName = binding.tvName.text.toString()
+                )
+            )
+        }.onFailure {
+            L.e(it)
         }
     }
 
@@ -62,21 +79,33 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
      * 설정
      */
     private fun moveToSetting() {
-        start(intent = SettingActivity.getIntent(requireContext()))
+        runCatching {
+            start<SettingActivity>()
+        }.onFailure {
+            L.e(it)
+        }
     }
 
     /**
      * 별점과 리뷰
      */
     private fun moveToReview() {
-        start(intent = MyReviewActivity.getIntent(requireContext()))
+        runCatching {
+            start<MyReviewActivity>()
+        }.onFailure {
+            L.e(it)
+        }
     }
 
     /**
      * 찜한 맥주
      */
     private fun moveToFavorite() {
-        start(intent = MyFavoriteActivity.getIntent(requireContext()))
+        runCatching {
+            start<MyFavoriteActivity>()
+        }.onFailure {
+            L.e(it)
+        }
     }
 
 }

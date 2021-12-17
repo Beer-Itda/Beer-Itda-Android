@@ -65,10 +65,7 @@ class AromaActivity : BaseActivity<ActivityFilterAromaBinding>(R.layout.activity
                 selectedListAdapter.addAll(entity.list, true)
             }
             is AromaActionEntity.SelectDone -> {
-                start(
-                    intent = StyleActivity.getIntent(this),
-                    isFinish = true
-                )
+                start<StyleActivity>()
             }
         }
     }

@@ -1,8 +1,6 @@
 package com.ddd4.synesthesia.beer.util.ext
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -10,9 +8,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.ddd4.synesthesia.beer.R
-import com.hjiee.core.Consts.DEFAULT_REQ_CODE
-import com.hjiee.core.ext.orFalse
-import com.hjiee.core.ext.orZero
 
 fun Context.versionName(): String =
     packageManager.getPackageInfo(packageName, 0).versionName
@@ -89,28 +84,4 @@ fun Context.showNoticeDialog(
             result?.invoke()
         }
     }.show()
-}
-
-fun Context.start(
-    intent: Intent,
-    requestCode: Int? = DEFAULT_REQ_CODE,
-    isFinish: Boolean? = false,
-    isAnimation: Boolean? = true
-) {
-
-
-    when (this) {
-        is Activity -> {
-            startActivityForResult(intent, requestCode.orZero())
-            if (isAnimation.orFalse()) {
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-            }
-            if (isFinish.orFalse()) {
-                finish()
-            }
-        }
-        else -> {
-            startActivity(intent)
-        }
-    }
 }

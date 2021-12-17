@@ -57,28 +57,31 @@ class HyperLinkMovement : MovementMethod {
                 if (action == MotionEvent.ACTION_UP) {
                     // do whatever else you want here on link being clicked
                     widget?.context?.run {
-                        Intent(this, WebViewActivity::class.java).let { intent ->
-                            (link?.get(0) as? URLSpan)?.url?.let { url ->
-                                intent.putExtra(WEBVIEW_URL, url)
-                                startActivity(intent)
-                            }
+                        (link?.get(0) as? URLSpan)?.url?.let { url ->
+                            startActivity(
+                                WebViewActivity.getIntent(
+                                    context = this,
+                                    url = url
+                                )
+                            )
                         }
                     }
-                    Selection.removeSelection(buffer)
-                } else if (action == MotionEvent.ACTION_DOWN) {
-                    Selection.setSelection(
-                        buffer,
-                        buffer?.getSpanStart(link?.get(0)).orZero(),
-                        buffer?.getSpanEnd(link?.get(0)).orZero()
-                    )
                 }
-                return true
-            } else {
                 Selection.removeSelection(buffer)
+            } else if (action == MotionEvent.ACTION_DOWN) {
+                Selection.setSelection(
+                    buffer,
+                    buffer?.getSpanStart(link?.get(0)).orZero(),
+                    buffer?.getSpanEnd(link?.get(0)).orZero()
+                )
             }
+            return true
+        } else {
+            Selection.removeSelection(buffer)
         }
         return false
     }
+
 
     override fun onGenericMotionEvent(p0: TextView?, p1: Spannable?, p2: MotionEvent?): Boolean {
         return false

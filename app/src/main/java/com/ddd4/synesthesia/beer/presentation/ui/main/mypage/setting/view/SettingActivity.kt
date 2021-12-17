@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.core.os.bundleOf
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.data.source.local.InfomationsData
 import com.ddd4.synesthesia.beer.databinding.ActivityMyPageSettingBinding
@@ -66,7 +65,7 @@ class SettingActivity :
             }
             is SettingActionEntity.LogOut -> {
                 preference.clear()
-                startActivity(LoginActivity.getIntent(this@SettingActivity))
+                start<LoginActivity>(LoginActivity.getIntent(this))
             }
         }
     }
@@ -95,7 +94,7 @@ class SettingActivity :
             }
             // 오픈소스 라이브러리
             InfomationsData.OPEN_SOURCE_LIB.title -> {
-                start<OssLicensesMenuActivity>(false)
+                start<OssLicensesMenuActivity>()
             }
             // 플레이 스토어 평가
             InfomationsData.PLAY_STORE.title -> {
@@ -149,13 +148,9 @@ class SettingActivity :
      */
     private fun moveToTermsOfUse() {
         start<WebViewActivity>(
-            false,
-            bundleOf(
-                WebViewActivity.WEBVIEW_URL to preference.getPreferenceString(
-                    getString(
-                        R.string.terms_of_use
-                    )
-                )
+            WebViewActivity.getIntent(
+                context = this,
+                url = preference.getPreferenceString(getString(R.string.terms_of_use))
             )
         )
     }
@@ -165,13 +160,9 @@ class SettingActivity :
      */
     private fun moveToPrivacyPolicy() {
         start<WebViewActivity>(
-            false,
-            bundleOf(
-                WebViewActivity.WEBVIEW_URL to preference.getPreferenceString(
-                    getString(
-                        R.string.privacy_policy
-                    )
-                )
+            WebViewActivity.getIntent(
+                context = this,
+                url = preference.getPreferenceString(getString(R.string.privacy_policy))
             )
         )
     }
@@ -181,8 +172,10 @@ class SettingActivity :
      */
     private fun moveToNotice() {
         start<WebViewActivity>(
-            false,
-            bundleOf(WebViewActivity.WEBVIEW_URL to preference.getPreferenceString(getString(R.string.notice)))
+            WebViewActivity.getIntent(
+                context = this,
+                url = preference.getPreferenceString(getString(R.string.notice))
+            )
         )
     }
 
@@ -222,13 +215,9 @@ class SettingActivity :
      */
     private fun moveToReleaseNote() {
         start<WebViewActivity>(
-            false,
-            bundleOf(
-                WebViewActivity.WEBVIEW_URL to preference.getPreferenceString(
-                    getString(
-                        R.string.release_note
-                    )
-                )
+            WebViewActivity.getIntent(
+                context = this,
+                url = preference.getPreferenceString(getString(R.string.release_note))
             )
         )
     }

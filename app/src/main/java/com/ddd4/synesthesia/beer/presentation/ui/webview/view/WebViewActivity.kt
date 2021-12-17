@@ -1,19 +1,19 @@
 package com.ddd4.synesthesia.beer.presentation.ui.webview.view
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.webkit.WebSettings
 import android.webkit.WebViewClient
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityWebviewBinding
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
+import com.ddd4.synesthesia.beer.presentation.ui.detail.view.BeerDetailActivity
+import com.ddd4.synesthesia.beer.util.KEY_BEER_ID
 import kotlinx.android.synthetic.main.activity_webview.*
 
 
 class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_webview) {
-
-    companion object {
-        const val WEBVIEW_URL = "webview_url"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +48,19 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_w
             }
             false -> {
                 finish()
+            }
+        }
+    }
+
+    companion object {
+        const val WEBVIEW_URL = "webview_url"
+
+        fun getIntent(
+            context: Context,
+            url: String?
+        ): Intent {
+            return Intent(context, BeerDetailActivity::class.java).apply {
+                putExtra(WEBVIEW_URL, url)
             }
         }
     }

@@ -21,6 +21,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.view.MoreListAct
 import com.ddd4.synesthesia.beer.util.listener.EndlessRecyclerViewScrollListener
 import com.google.gson.Gson
 import com.ddd4.synesthesia.beer.util.ext.start
+import com.hjiee.core.util.log.L
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -78,7 +79,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             }
             is HomeSelectEntity.ClickFilter -> {
                 context?.let {
-                    start(intent = AromaActivity.getIntent(it))
+                    start<AromaActivity>()
                 }
             }
             is HomeSelectEntity.Sort -> {
@@ -86,11 +87,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 bottom.show(this@HomeFragment.parentFragmentManager, bottom.tag)
             }
             is HomeSelectEntity.ClickTitle -> {
-                MoreListActivity.start(
-                    fragment = this@HomeFragment,
-                    type = entity.type,
-                    title = entity.title
-                )
+                runCatching {
+                    start<MoreListActivity>(
+                        intent = MoreListActivity.getIntent(
+                            context = requireContext(),
+                            type = entity.type,
+                            title = entity.title
+                        )
+                    )
+                }.onFailure {
+                    L.e(it)
+                }
             }
             is BeerClickEntity.SelectItem -> {
                 moveToDetail(entity.beer.id)
@@ -103,7 +110,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private fun moveToDetail(beerId: Int) {
         context?.let {
-            start(intent = BeerDetailActivity.getIntent(it, beerId))
+            start<BeerDetailActivity>(intent = BeerDetailActivity.getIntent(it, beerId))
         }
     }
 

@@ -1,24 +1,21 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.home.more.view
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityMoreListBinding
-import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
-import com.ddd4.synesthesia.beer.util.ext.start
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
-import com.hjiee.core.event.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.detail.view.BeerDetailActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.view.HomeStringProvider
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.entity.MoreListActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.viewmodel.MoreListViewModel
+import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
+import com.ddd4.synesthesia.beer.util.ext.start
 import com.ddd4.synesthesia.beer.util.listener.EndlessRecyclerViewScrollListener
-import com.ddd4.synesthesia.beer.util.sort.SortType
+import com.hjiee.core.event.entity.ActionEntity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -68,7 +65,7 @@ class MoreListActivity : BaseActivity<ActivityMoreListBinding>(R.layout.activity
                 endlessRecyclerViewScrollListener.resetState()
             }
             is MoreListActionEntity.MoveToDetail -> {
-                start(intent = BeerDetailActivity.getIntent(this, entity.id))
+                start<BeerDetailActivity>(intent = BeerDetailActivity.getIntent(this, entity.id))
             }
         }
     }
@@ -79,50 +76,16 @@ class MoreListActivity : BaseActivity<ActivityMoreListBinding>(R.layout.activity
         const val KEY_LIKE_TYPE = "home_like_type"
         const val KEY_LIKE_TITLE = "home_like_title"
 
-        @JvmStatic
-        fun start(
+        fun getIntent(
             context: Context,
             type: HomeStringProvider.Code,
-            title: String,
-            requestCode: Int = REQ_CODE_HOME_LIKE
-        ) {
-            when (context) {
-                is Activity -> {
-                    context.startActivityForResult(
-                        Intent(
-                            context,
-                            MoreListActivity::class.java
-                        ).apply {
-                            putExtra(KEY_LIKE_TYPE, type)
-                            putExtra(KEY_LIKE_TITLE, title)
-                        }, requestCode
-                    )
-                }
-                else -> {
-                    context.startActivity(Intent(context, MoreListActivity::class.java).apply {
-                        putExtra(KEY_LIKE_TYPE, type)
-                        putExtra(KEY_LIKE_TITLE, title)
-                    })
-                }
+            title: String
+        ): Intent {
+            return Intent(context, MoreListActivity::class.java).apply {
+                putExtra(KEY_LIKE_TYPE, type)
+                putExtra(KEY_LIKE_TITLE, title)
             }
         }
 
-        @JvmStatic
-        fun start(
-            fragment: Fragment,
-            type: HomeStringProvider.Code,
-            title: String,
-            requestCode: Int = REQ_CODE_HOME_LIKE
-        ) {
-            fragment.startActivityForResult(
-                Intent(
-                    fragment.context,
-                    MoreListActivity::class.java
-                ).apply {
-                    putExtra(KEY_LIKE_TYPE, type)
-                    putExtra(KEY_LIKE_TITLE, title)
-                }, requestCode
-            )
-        }
     }
 }

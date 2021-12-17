@@ -94,7 +94,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         when (entity) {
             is BeerClickEntity.SelectItem -> {
                 context?.let {
-                    start(intent = BeerDetailActivity.getIntent(it, entity.beer.id))
+                    start<BeerDetailActivity>(intent = BeerDetailActivity.getIntent(it, entity.beer.id))
                 }
             }
         }

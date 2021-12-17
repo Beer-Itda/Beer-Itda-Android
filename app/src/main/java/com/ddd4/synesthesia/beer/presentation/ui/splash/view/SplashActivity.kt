@@ -40,12 +40,12 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     override fun handleActionEvent(entity: ActionEntity) {
         when (entity) {
             is LoginActionEntity.SuccessLogin -> {
-//                startActivity(LoginActivity.getIntent(this@SplashActivity))
-//                finish()
-                start<MainActivity>(isFinish = true, isAnimation = true)
+                start<MainActivity>()
+                finish()
             }
             is LoginActionEntity.FailLogin -> {
-                start<LoginActivity>(isFinish = true, isAnimation = true)
+                start<LoginActivity>()
+                finish()
             }
         }
     }
@@ -57,14 +57,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     private fun startLogin() {
         CoroutineScope(Dispatchers.IO).launch {
             delay(1500)
-//            preference.clear()
             viewModel.autoLogin()
-//            if (preference.getPreferenceString(ACCESS_TOKEN).isNullOrEmpty()) {
-//            } else {
-//                start<MainActivity>(isFinish = true, isAnimation = true)
-//            }
-//            start<MainActivity>(isFinish = true, isAnimation = true)
-//            finish()
         }
     }
 }
