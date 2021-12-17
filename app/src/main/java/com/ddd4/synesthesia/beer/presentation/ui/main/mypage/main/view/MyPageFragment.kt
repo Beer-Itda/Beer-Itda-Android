@@ -42,6 +42,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             binding.ivSetting.setOnClickListener { moveToSetting() }
             includeMyPageReview.container.setOnClickListener { moveToReview() }
             includeMyPageFavorite.container.setOnClickListener { moveToFavorite() }
+            includeMyPageLevelGuide.container.setOnClickListener { moveToLevelGuide() }
         }
     }
 
@@ -55,6 +56,9 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         when (entity) {
             is MyPageClickEntity.Modify -> {
                 moveToNickName()
+            }
+            is MyPageClickEntity.Profile -> {
+
             }
         }
     }
@@ -92,6 +96,17 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
     private fun moveToReview() {
         runCatching {
             start<MyReviewActivity>()
+        }.onFailure {
+            L.e(it)
+        }
+    }
+
+    /**
+     * 등급 가이드
+     */
+    private fun moveToLevelGuide() {
+        runCatching {
+
         }.onFailure {
             L.e(it)
         }

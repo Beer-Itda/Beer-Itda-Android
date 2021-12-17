@@ -54,6 +54,10 @@ class MyPageViewModel @ViewModelInject constructor(
         notifySelectEvent(MyPageClickEntity.Modify)
     }
 
+    fun clickProfile() {
+        notifySelectEvent(MyPageClickEntity.Profile)
+    }
+
     override fun onCleared() {
         super.onCleared()
     }
