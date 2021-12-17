@@ -115,17 +115,16 @@ fun UserResponse?.toUserInfo(): DomainEntity.User {
     )
 }
 
-//fun List<Review>.toDomainEntity(): List<DomainEntity.Review> {
-//    return map {
-//        DomainEntity.Review(
-//            userId = it.userId.orZero(),
-//            nickName = it.nickname.orEmpty(),
-//            ratio = it.ratio.orZero(),
-//            time = it.date?.time.orZero(),
-//            beer = it.beer?.toDomainEntity(),
-//            content = it.content.orEmpty()
-//        ).apply {
-//            createdAt = SimpleDateFormat("yyyy. MM. dd").format(it.date)
-//        }
-//    }
-//}
+fun List<ReviewResponse>?.toReviewList(): List<DomainEntity.Review> {
+    return this?.map {
+        DomainEntity.Review(
+            beerId = it.beerId.orZero(),
+            content = it.content.orEmpty(),
+            reviewId = it.reviewId.orZero(),
+            star = it.star.orZero(),
+            userId = it.userId.orEmpty(),
+            createdDate = it.createdAt.orEmpty(),
+            updatedDate = it.updatedAt.orEmpty(),
+        )
+    }.orEmpty()
+}

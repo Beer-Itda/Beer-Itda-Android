@@ -38,7 +38,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/tv_user_name"
             app:layout_constraintStart_toEndOf="@+id/tv_user_name"
             app:layout_constraintTop_toTopOf="@+id/tv_user_name"
-            app:rate="@{review.ratio}" />
+            app:rate="@{review.star}" />
 
         <TextView
             android:id="@+id/tv_date"

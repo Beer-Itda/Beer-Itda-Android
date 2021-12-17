@@ -63,6 +63,12 @@ interface BeerApi {
     @GET("api/v1/user/info")
     suspend fun getUserInfo(): EntityResponse<UserResponse>?
 
+    /**
+     * 내가 작성한 리뷰
+     */
+    @GET("api/v1/review")
+    suspend fun getMyReview(): List<ReviewResponse>?
+
 //    /**
 //     * App Config
 //     */

@@ -1,5 +1,6 @@
 package com.hjiee.domain.entity
 
+import java.text.SimpleDateFormat
 import java.util.*
 
 sealed class DomainEntity {
@@ -44,14 +45,17 @@ sealed class DomainEntity {
     )
 
     class Review(
-        val userId: Int,
-        val nickName: String,
-        val ratio: Float,
-        val time: Long,
-        val beer: Beer?,
-        val content: String
+        val beerId: Int,
+        val content: String,
+        val reviewId: Int,
+        val star: Float,
+        val userId: String,
+        createdDate: String,
+        updatedDate: String
     ) {
-        var createdAt: String = ""
+        val createdAt: String = SimpleDateFormat("yyyy. MM. dd").format(createdDate)
+        val updatedAt: String = SimpleDateFormat("yyyy. MM. dd").format(updatedDate)
+
     }
 
     class User(
