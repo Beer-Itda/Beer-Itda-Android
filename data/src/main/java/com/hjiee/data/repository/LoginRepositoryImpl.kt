@@ -24,7 +24,7 @@ class LoginRepositoryImpl(
     }
 
     override suspend fun refreshToken(refreshToken: String): TokenInfo {
-        return beerApi.kakaoLogin(refreshToken).toTokenInfo()
+        return beerApi.refreshToken(refreshToken).toTokenInfo()
     }
 
     override suspend fun tokenInfo(tokenInfo: (String) -> Unit) {

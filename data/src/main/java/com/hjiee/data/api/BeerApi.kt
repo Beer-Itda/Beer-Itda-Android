@@ -16,11 +16,10 @@ interface BeerApi {
     ): LoginResponse?
 
     /**
-     * TODO url 변경 필요
      * refresh token 갱신
      */
     @FormUrlEncoded
-    @POST("api/v1/user/login/kakao")
+    @POST("api/v1/user/token")
     suspend fun refreshToken(
         @Field("refresh_token") token: String
     ): LoginResponse?
