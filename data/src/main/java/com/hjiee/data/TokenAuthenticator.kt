@@ -5,14 +5,12 @@ import com.hjiee.core.provider.SharedPreferenceProvider
 import com.hjiee.data.di.InterceptorModule.EXTRA_HEADER_NAME_AUTHORIZATION
 import com.hjiee.data.di.InterceptorModule.EXTRA_HEADER_NAME_BEARER
 import com.hjiee.domain.usecase.login.RefreshTokenUseCase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
+import java.lang.Exception
 
 class TokenAuthenticator(
     private val useCase: RefreshTokenUseCase,
@@ -29,10 +27,17 @@ class TokenAuthenticator(
             return getRequest(response, token)
         }
         return null
-    }
+    } 
 
     private suspend inline fun getNewDeviceToken(token: String): String? {
-        return GlobalScope.async(Dispatchers.Default) { useCase.execute(token) }.await().accessToken
+        var accessToken = ""
+        runCatching {
+            accessToken = GlobalScope.async {
+                useCase.execute(token)
+            }.await().accessToken
+        }
+
+        return accessToken
     }
 
 
