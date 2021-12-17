@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
+import com.ddd4.synesthesia.beer.presentation.ui.main.search.model.SearchSelectEvent
 import com.ddd4.synesthesia.beer.util.ext.ObservableExt.ObservableString
 import com.hjiee.data.response.v2.BeerResponse
 import com.hjiee.domain.repository.BeerRepository
@@ -150,6 +151,14 @@ class SearchViewModel @ViewModelInject constructor(
 //                fetchFavorite(entity.beer)
             }
         }
+    }
+
+    fun clickInquire() {
+        notifySelectEvent(SearchSelectEvent.Inquire)
+    }
+
+    fun clickSearch() {
+        isTemplateVisible.set(true)
     }
 
     override fun onCleared() {

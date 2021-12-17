@@ -15,9 +15,11 @@ import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.adapter.LoadingItemsApdater
 import com.ddd4.synesthesia.beer.presentation.ui.detail.view.BeerDetailActivity
+import com.ddd4.synesthesia.beer.presentation.ui.main.search.model.SearchSelectEvent
 import com.ddd4.synesthesia.beer.presentation.ui.main.search.viewmodel.SearchViewModel
 import com.ddd4.synesthesia.beer.util.listener.EndlessRecyclerViewScrollListener
 import com.ddd4.synesthesia.beer.util.ext.start
+import com.hjiee.core.util.log.L
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -61,16 +63,15 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
             }
 
         binding.apply {
-            vm = viewModel
+            viewModel = this@SearchFragment.viewModel
             titleAdapter = this@SearchFragment.titleAdapter
             imageAdapter = this@SearchFragment.imageAdapter
-            ibSearch.setOnClickListener { viewModel.isTemplateVisible.set(true) }
             ibClear.setOnClickListener {
-                viewModel.clearText()
+                this@SearchFragment.viewModel.clearText()
                 context?.showKeyboard(etSearch)
             }
-            srvSearchImage.setOnRefreshListener { viewModel.refresh() }
-            srvSearchTitle.setOnRefreshListener { viewModel.refresh() }
+            srvSearchImage.setOnRefreshListener { this@SearchFragment.viewModel.refresh() }
+            srvSearchTitle.setOnRefreshListener { this@SearchFragment.viewModel.refresh() }
             rvOnlyTitle.addOnScrollListener(titleEndlessScroll)
             rvWithImage.addOnScrollListener(imageEndlessScroll)
         }
@@ -93,9 +94,19 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     override fun handleSelectEvent(entity: ItemClickEntity) {
         when (entity) {
             is BeerClickEntity.SelectItem -> {
-                context?.let {
-                    start<BeerDetailActivity>(intent = BeerDetailActivity.getIntent(it, entity.beer.id))
+                runCatching {
+                    start<BeerDetailActivity>(
+                        intent = BeerDetailActivity.getIntent(
+                            context = requireContext(),
+                            beerId = entity.beer.id
+                        )
+                    )
+                }.onFailure {
+                    L.e(it)
                 }
+            }
+            is SearchSelectEvent.Inquire -> {
+
             }
         }
     }
