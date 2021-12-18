@@ -1,7 +1,9 @@
 package com.hjiee.data
 
+import com.hjiee.core.Consts.ACCESS_TOKEN
 import com.hjiee.core.Consts.REFRESH_TOKEN
 import com.hjiee.core.provider.SharedPreferenceProvider
+import com.hjiee.core.util.log.L
 import com.hjiee.data.di.InterceptorModule.EXTRA_HEADER_NAME_AUTHORIZATION
 import com.hjiee.data.di.InterceptorModule.EXTRA_HEADER_NAME_BEARER
 import com.hjiee.domain.usecase.login.RefreshTokenUseCase
@@ -27,7 +29,7 @@ class TokenAuthenticator(
             return getRequest(response, token)
         }
         return null
-    } 
+    }
 
     private suspend inline fun getNewDeviceToken(token: String): String? {
         var accessToken = ""
@@ -35,6 +37,10 @@ class TokenAuthenticator(
             accessToken = GlobalScope.async {
                 useCase.execute(token)
             }.await().accessToken
+        }.onSuccess {
+            preference.setValue(ACCESS_TOKEN, accessToken)
+        }.onFailure {
+            L.e(it)
         }
 
         return accessToken
