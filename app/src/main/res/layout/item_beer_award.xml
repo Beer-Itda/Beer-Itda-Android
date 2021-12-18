@@ -19,8 +19,9 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Beer Award"
-            android:textSize="25sp"
+            android:text="@string/beeritda_award"
+            android:textSize="26sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Beer Award" />
@@ -30,7 +31,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="한 달 동안 리뷰를 가장 많이 받은 맥주에요"
+            android:text="@string/beeritda_award_description"
+            android:textColor="@color/color_8e8d94"
             android:textSize="13sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
@@ -40,62 +42,94 @@
             android:id="@+id/cv_beer"
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:layout_marginVertical="18dp"
-            android:backgroundTint="@color/color_1c1b21"
-            android:elevation="50dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/butterscotch"
             android:onClick="@{() -> beer.clickItem()}"
-            app:cardCornerRadius="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:cardCornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_description">
+
 
             <ImageView
                 android:id="@+id/iv_beer"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
                 android:background="@android:color/transparent"
+                android:elevation="2dp"
                 android:scaleType="centerCrop"
                 app:errorDrawable="@{@drawable/beer}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/cv_beer"
+                app:layout_constraintEnd_toEndOf="@+id/cv_beer"
+                app:layout_constraintStart_toStartOf="@+id/cv_beer"
+                app:layout_constraintTop_toTopOf="@+id/cv_beer"
                 app:loadUrl="@{beer.thumbnailImage}"
                 tools:src="@drawable/beer" />
         </androidx.cardview.widget.CardView>
 
-
         <TextView
-            android:id="@+id/tv_beer_rate"
+            android:id="@+id/tv_monthly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:drawableStart="@drawable/ic_rating_star"
-            android:drawablePadding="4dp"
-            android:elevation="31dp"
-            android:fontFamily="@font/notosans_kr_bold"
-            android:gravity="center"
-            android:textColor="@color/butterscotch"
-            app:layout_constraintBottom_toBottomOf="@+id/cv_beer"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:elevation="2dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/monthly_favorite_beer"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/cv_beer"
             app:layout_constraintTop_toTopOf="@+id/cv_beer"
-            tools:text="3.5점" />
+            tools:text="@string/monthly_favorite_beer" />
+
+        <View
+            android:id="@+id/view_under_line"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/white"
+            android:elevation="2dp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_monthly"
+            app:layout_constraintStart_toStartOf="@+id/tv_monthly"
+            app:layout_constraintTop_toBottomOf="@+id/tv_monthly" />
+
 
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="40dp"
             android:elevation="31dp"
             android:ellipsize="end"
             android:fontFamily="@font/notosans_kr_regular"
             android:singleLine="true"
             android:text="@{beer.name}"
-            app:layout_constraintStart_toStartOf="@+id/tv_beer_rate"
-            app:layout_constraintTop_toBottomOf="@+id/tv_beer_rate"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/tv_monthly"
+            app:layout_constraintTop_toBottomOf="@+id/view_under_line"
             tools:text="한강맥주" />
+
+        <TextView
+            android:id="@+id/tv_beer_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/ic_rating_star"
+            android:drawablePadding="4dp"
+            android:drawableTint="@color/white"
+            android:elevation="2dp"
+            android:fontFamily="@font/notosans_kr_bold"
+            android:gravity="center"
+            android:text="@{@string/rate_unit_2(beer.starAvg)}"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@+id/tv_monthly"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name"
+            tools:text="3.5점" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

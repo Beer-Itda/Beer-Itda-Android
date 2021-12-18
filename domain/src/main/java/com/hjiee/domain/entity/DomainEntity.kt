@@ -16,7 +16,7 @@ sealed class DomainEntity {
     data class Response<ELEMENT>(
         val isSuccess: Boolean,
         val message: String,
-        val data: ELEMENT?
+        val data: ELEMENT
     )
 
     data class Beers(
@@ -28,6 +28,7 @@ sealed class DomainEntity {
         val id: Int,
         val abv: Float,
         val krName: String,
+        val starAvg: Float,
         val engName: String,
         val thumbnailImage: String
 //        val aromas: List<String>,

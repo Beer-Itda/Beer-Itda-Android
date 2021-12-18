@@ -18,7 +18,7 @@ class BeerAwardItemViewHolder(
 
     override fun onBind(viewModel: BeerAwardItemViewModel, position: Int) {
         binding?.run {
-            beer = viewModel.beer.data
+            beer = viewModel.beer
             executePendingBindings()
         }
     }

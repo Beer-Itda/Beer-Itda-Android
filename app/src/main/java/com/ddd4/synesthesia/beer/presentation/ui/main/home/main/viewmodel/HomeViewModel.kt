@@ -10,26 +10,24 @@ import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.hjiee.core.event.entity.ActionEntity
 import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
-import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModelMapper.getBeerItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.AromaProvider
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.StyleProvider
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.entity.HomeActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.entity.HomeSelectEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.item.IHomeItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.item.parent.award.BeerAwardItemViewModel
-import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.item.parent.award.BeerAwardModelMapper
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.item.parent.list.BeerListItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.item.parent.list.BeerListModelMapper.getMapper
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.view.HomeStringProvider
 import com.ddd4.synesthesia.beer.util.ext.EventFlow
 import com.ddd4.synesthesia.beer.util.ext.GlobalEvent
 import com.ddd4.synesthesia.beer.util.sort.SortType
+import com.hjiee.core.util.log.L
 import com.hjiee.domain.entity.DomainEntity.Beer
-import com.hjiee.domain.repository.BeerRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlin.random.Random
 
 @ExperimentalCoroutinesApi
 class HomeViewModel @ViewModelInject constructor(
@@ -101,10 +99,18 @@ class HomeViewModel @ViewModelInject constructor(
         if (_isLoadMore.value == false) {
             statusLoading()
         }
-        viewModelScope.launch(errorHandler) {
-//            awardBeer = fetchAward()
+        viewModelScope.launch {
+            runCatching {
+                awardBeer = fetchAward()
+                aromaBeer = fetchAroma()
+
+            }.onSuccess {
+
+            }.onFailure {
+                L.e(it)
+            }
+
 //            styleBeer = fetchStyle()
-            aromaBeer = fetchAroma()
 //            recommendBeer = fetchRecommend()
 
             beerItems.clear()
@@ -135,25 +141,12 @@ class HomeViewModel @ViewModelInject constructor(
         }
     }
 
-//    private suspend fun fetchAward(): BeerAwardItemViewModel? {
-//        val awardResponse = beerRepository.getPopularBeer()?.beers
-//            .orEmpty()
-//            .getMapper(
-//                sortType = _sortType.value,
-//                type = HomeStringProvider.Code.STYLE,
-//                title = stringProvider.getStringRes(HomeStringProvider.Code.STYLE),
-//                eventNotifier = this@HomeViewModel
-//            )
-//
-//        val randomIndex = Random.nextInt(awardResponse.beers.size)
-//        return awardResponse.beers[randomIndex]
-//            .let {
-//                BeerAwardModelMapper.getMapper(
-//                    it.data.apply {
-//                        eventNotifier = this@HomeViewModel
-//                    })
-//            }
-//    }
+    private suspend fun fetchAward(): BeerAwardItemViewModel {
+        val awardBeer = useCase.awardBeer.execute()
+        return BeerAwardItemViewModel(
+            beer = awardBeer.getBeerItemViewModel(this@HomeViewModel)
+        )
+    }
 
 //    private suspend fun fetchStyle(): BeerListItemViewModel {
 //        return useCase.getSelectStyleBeerUseCase(
@@ -175,22 +168,10 @@ class HomeViewModel @ViewModelInject constructor(
         return useCase.getSelectedAromaBeerUseCase.execute(
             eventNotifier = this@HomeViewModel
         ).getMapper(
-                title = stringProvider.getStringRes(HomeStringProvider.Code.AROMA),
-                type = HomeStringProvider.Code.AROMA,
-                eventNotifier = this@HomeViewModel
-            )
-//        return null
-//        return useCase.getSelectAromaBeerUseCase(
-//            sortType = _sortType.value?.value,
-//            aroma = aromaProvider.getNames(),
-//            cursor = cursor.value
-//        )?.beers.orEmpty().getMapper(
-//            sortType = _sortType.value,
-//            type = HomeStringProvider.Code.AROMA,
-//            aroma = aromaProvider.data,
-//            title = stringProvider.getStringRes(HomeStringProvider.Code.AROMA),
-//            eventNotifier = this@HomeViewModel
-//        )
+            title = stringProvider.getStringRes(HomeStringProvider.Code.AROMA),
+            type = HomeStringProvider.Code.AROMA,
+            eventNotifier = this@HomeViewModel
+        )
     }
 //
 //    private suspend fun fetchRecommend(): BeerListItemViewModel {

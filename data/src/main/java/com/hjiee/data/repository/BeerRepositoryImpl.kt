@@ -16,23 +16,27 @@ class BeerRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getBeers(): Response<Beers>? {
-        return beerApi.getBeerList()?.toDomainEntityList()
+        return beerApi.getBeerList()?.toBeerList()
     }
 
     override suspend fun getBeerDetail(id: Int): Response<Beer>? {
-        return beerApi.getBeer(id)?.toDomainEntity()
+        return beerApi.getBeer(id)?.toBeer()
     }
 
     override suspend fun getStyleBeer(): Response<Beers>? {
-        return beerApi.getSelectedStyleBeer(1)?.toDomainEntityList()
+        return beerApi.getSelectedStyleBeer(1)?.toBeerList()
     }
 
     override suspend fun getAromaBeer(): Response<Beers>? {
-        return beerApi.getSelectedAromaBeer(1)?.toDomainEntityAroma()
+        return beerApi.getSelectedAromaBeer(1)?.toSelectedBeerFromAroma()
     }
 
     override suspend fun getMyReview(): List<Review> {
         return beerApi.getMyReview().toReviewList()
+    }
+
+    override suspend fun getBeerAward(): Response<Beer>? {
+        return beerApi.getBeerAward()?.toAwardBeer()
     }
 
     //    override suspend fun getAppConfig(): Result<AppConfig> {

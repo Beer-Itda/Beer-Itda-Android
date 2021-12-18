@@ -6,7 +6,7 @@ import com.hjiee.domain.usecase.beer.GetSelectedStyleBeerUseCase
 import javax.inject.Inject
 
 class HomeUseCaseGroup @Inject constructor(
-    val getAwardBeerUseCase: GetAwardBeerUseCase,
+    val awardBeer: GetAwardBeerUseCase,
     val getSelectedStyleBeerUseCase: GetSelectedStyleBeerUseCase,
     val getSelectedAromaBeerUseCase: GetSelectedAromaBeerUseCase
 )

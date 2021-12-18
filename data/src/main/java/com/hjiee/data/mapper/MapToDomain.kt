@@ -6,7 +6,7 @@ import com.hjiee.data.response.common.EntityResponse
 import com.hjiee.data.response.v2.*
 import com.hjiee.domain.entity.DomainEntity
 
-fun EntityResponse<BeerResponse>.toDomainEntity(): DomainEntity.Response<DomainEntity.Beer> {
+fun EntityResponse<BeerResponse>.toBeer(): DomainEntity.Response<DomainEntity.Beer> {
     return DomainEntity.Response(
         isSuccess = isSuccess.orFalse(),
         message = message.orEmpty(),
@@ -16,11 +16,12 @@ fun EntityResponse<BeerResponse>.toDomainEntity(): DomainEntity.Response<DomainE
             krName = data?.krName.orEmpty(),
             engName = data?.engName.orEmpty(),
             thumbnailImage = data?.thumbnailImage.orEmpty(),
+            starAvg = data?.starAvg.orZero()
         )
     )
 }
 
-fun EntityResponse<BeersResponse>.toDomainEntityList(): DomainEntity.Response<DomainEntity.Beers> {
+fun EntityResponse<BeersResponse>.toBeerList(): DomainEntity.Response<DomainEntity.Beers> {
     return DomainEntity.Response(
         isSuccess = isSuccess.orFalse(),
         message = message.orEmpty(),
@@ -32,6 +33,7 @@ fun EntityResponse<BeersResponse>.toDomainEntityList(): DomainEntity.Response<Do
                     krName = it.krName.orEmpty(),
                     engName = it.engName.orEmpty(),
                     thumbnailImage = it.thumbnailImage.orEmpty(),
+                    starAvg = it.starAvg.orZero()
                 )
             }.orEmpty(),
             cursor = DomainEntity.Cursor(data?.cursor?.cursor.orZero())
@@ -39,7 +41,7 @@ fun EntityResponse<BeersResponse>.toDomainEntityList(): DomainEntity.Response<Do
     )
 }
 
-fun EntityResponse<AromasResponse>.toDomainEntityAroma(): DomainEntity.Response<DomainEntity.Beers> {
+fun EntityResponse<AromasResponse>.toSelectedBeerFromAroma(): DomainEntity.Response<DomainEntity.Beers> {
     return DomainEntity.Response(
         isSuccess = isSuccess.orFalse(),
         message = message.orEmpty(),
@@ -51,6 +53,7 @@ fun EntityResponse<AromasResponse>.toDomainEntityAroma(): DomainEntity.Response<
                     krName = it.krName.orEmpty(),
                     engName = it.engName.orEmpty(),
                     thumbnailImage = it.thumbnailImage.orEmpty(),
+                    starAvg = it.starAvg.orZero()
                 )
             }.orEmpty(),
             cursor = DomainEntity.Cursor(data?.cursor?.cursor.orZero())
@@ -58,14 +61,30 @@ fun EntityResponse<AromasResponse>.toDomainEntityAroma(): DomainEntity.Response<
     )
 }
 
+fun EntityResponse<AwardResponse>.toAwardBeer(): DomainEntity.Response<DomainEntity.Beer> {
+    return DomainEntity.Response(
+        isSuccess = isSuccess.orFalse(),
+        message = message.orEmpty(),
+        data = DomainEntity.Beer(
+            id = data?.beer?.id.orZero(),
+            abv = data?.beer?.starAvg.orZero(),
+            krName = data?.beer?.krName.orEmpty(),
+            engName = data?.beer?.engName.orEmpty(),
+            thumbnailImage = data?.beer?.thumbnailImage.orEmpty(),
+            starAvg = data?.beer?.starAvg.orZero()
+        )
+    )
+}
 
-fun BeerResponse.toDomainEntity(): DomainEntity.Beer {
+
+fun BeerResponse.toBeer(): DomainEntity.Beer {
     return DomainEntity.Beer(
         id = id.orZero(),
         krName = krName.orEmpty(),
         abv = starAvg.orZero(),
         engName = engName.orEmpty(),
-        thumbnailImage = thumbnailImage.orEmpty()
+        thumbnailImage = thumbnailImage.orEmpty(),
+        starAvg = starAvg.orZero()
 //        aromas = aromas.orEmpty(),
 //        beerStyle = beerStyle.orEmpty(),
 //        brewery = brewery.orEmpty(),
@@ -77,14 +96,15 @@ fun BeerResponse.toDomainEntity(): DomainEntity.Beer {
     )
 }
 
-fun List<BeerResponse>?.toDomainEntity(): List<DomainEntity.Beer> {
+fun List<BeerResponse>?.toBeer(): List<DomainEntity.Beer> {
     return this?.map {
         DomainEntity.Beer(
             id = it.id.orZero(),
             krName = it.krName.orEmpty(),
             abv = it.starAvg.orZero(),
             engName = it.engName.orEmpty(),
-            thumbnailImage = it.thumbnailImage.orEmpty()
+            thumbnailImage = it.thumbnailImage.orEmpty(),
+            starAvg = it.starAvg.orZero()
 //        aromas = aromas.orEmpty(),
 //        beerStyle = beerStyle.orEmpty(),
 //        brewery = brewery.orEmpty(),

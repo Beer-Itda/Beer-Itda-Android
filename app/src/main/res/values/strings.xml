@@ -104,4 +104,7 @@
     <string name="liked_beer">찜한 맥주</string>
     <string name="level_guide">등급 가이드</string>
     <string name="beeritda_inquire">비어있다에 문의하기</string>
+    <string name="beeritda_award">Beer Award</string>
+    <string name="beeritda_award_description">한 달 동안 리뷰를 가장 많이 받은 맥주예요</string>
+    <string name="monthly_favorite_beer">월간 인기 맥주</string>
 </resources>

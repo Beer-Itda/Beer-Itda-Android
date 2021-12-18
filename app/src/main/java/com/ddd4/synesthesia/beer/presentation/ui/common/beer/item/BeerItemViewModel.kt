@@ -14,7 +14,7 @@ class BeerItemViewModel(
 //    val country: String,
     val imageUrl: List<String>? = emptyList(),
     val name: String,
-//    val rateAvg: Float,
+    val starAvg: Float,
     val reviews: List<DomainEntity.Review>? = emptyList(),
     val thumbnailImage: String,
 //    initFavorite: Boolean,

@@ -54,7 +54,7 @@ interface BeerApi {
      */
     @GET("api/v1/beer/aroma")
     suspend fun getSelectedAromaBeer(
-        @Query("user_id") userId: Int
+        @Query("cursor") cursor: Int = 1
     ): EntityResponse<AromasResponse>?
 
     /**
@@ -68,6 +68,12 @@ interface BeerApi {
      */
     @GET("api/v1/review")
     suspend fun getMyReview(): List<ReviewResponse>?
+
+    /**
+     * 월간 인기 맥주
+     */
+    @GET("api/v1/beer/monthly")
+    suspend fun getBeerAward(): EntityResponse<AwardResponse>?
 
 //    /**
 //     * App Config
