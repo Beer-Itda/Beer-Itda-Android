@@ -59,7 +59,7 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_w
             context: Context,
             url: String?
         ): Intent {
-            return Intent(context, BeerDetailActivity::class.java).apply {
+            return Intent(context, WebViewActivity::class.java).apply {
                 putExtra(WEBVIEW_URL, url)
             }
         }
