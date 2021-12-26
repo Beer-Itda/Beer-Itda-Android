@@ -42,6 +42,7 @@ class SettingViewModel @ViewModelInject constructor(
             runCatching {
                 logoutUseCase.execute(
                     success = {
+                        preference.clear()
                         notifyActionEvent(SettingActionEntity.LogOut)
                     }
                 )

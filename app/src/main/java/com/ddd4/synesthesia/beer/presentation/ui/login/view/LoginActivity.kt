@@ -92,10 +92,23 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     companion object {
         const val KEY_LOGIN = "login"
 
+        /**
+         * 비회원 로그인 후 로그인처리가 필요할때 사용
+         */
         @JvmStatic
         fun getIntent(context: Context): Intent {
             return Intent(context, LoginActivity::class.java).apply {
 
+            }
+        }
+
+        /**
+         * 로그아웃, 회원탈퇴시 사용
+         */
+        @JvmStatic
+        fun getTaskIntent(context: Context): Intent {
+            return Intent(context, LoginActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK
             }
         }
     }

@@ -34,7 +34,8 @@
     <string name="review_fail_message">리뷰등록에 실패하였습니다.</string>
     <string name="not_modified">변경사항이 없습니다.</string>
     <string name="logout_message">로그아웃 하시겠습니까?</string>
-    <string name="unlink_message">회원탈퇴 하시겠습니까?</string>
+    <string name="unlink_message">탈퇴 시 회원님의 계정에 저장된 모든 정보가 삭제됩니다.</string>
+    <string name="delete_account">회원탈퇴</string>
     <string name="rate_unit">%,.1f점</string>
     <string name="rate_unit_2">%,.1f</string>
     <string name="abv">%,.1f%%</string>
@@ -107,4 +108,9 @@
     <string name="beeritda_award">Beer Award</string>
     <string name="beeritda_award_description">한 달 동안 리뷰를 가장 많이 받은 맥주예요</string>
     <string name="monthly_favorite_beer">월간 인기 맥주</string>
+    <string name="delete_warning_title">탈퇴 시 주의사항</string>
+    <string name="delete_warning_description">회원탈퇴 시 현재 회원님의 계정에 저장된 모든 정보는 여구적으로 삭제되며, 다시는 복구할 수 없습니다.</string>
+    <string name="delete_warning_description_agree">위 내용을 숙지하였으며, 동의합니다.</string>
+    <string name="delete_success">회원탈퇴 되었습니다.</string>
+    <string name="delete_fail">회원탈퇴에 실패하였습니다. 잠시후 다시 시도해 주세요</string>
 </resources>

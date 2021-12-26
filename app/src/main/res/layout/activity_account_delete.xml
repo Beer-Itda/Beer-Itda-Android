@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.ddd4.synesthesia.beer.presentation.ui.main.mypage.delete.viewmodel.MyAccountDeleteViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/include_toolbar"
+            layout="@layout/layout_global_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@{@string/delete_account}" />
+
+
+        <TextView
+            android:id="@+id/tv_warning_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/delete_warning_title"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/include_toolbar" />
+
+        <TextView
+            android:id="@+id/tv_warning_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="@string/delete_warning_description"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_warning_title"
+            app:layout_constraintStart_toStartOf="@+id/tv_warning_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_warning_title" />
+
+        <CheckBox
+            android:id="@+id/cb_warning_description_agree"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:buttonTint="@color/butterscotch"
+            android:checked="@={viewModel.viewState.isAgreement()}"
+            android:paddingStart="12dp"
+            android:text="@string/delete_warning_description_agree"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_warning_title"
+            app:layout_constraintStart_toStartOf="@+id/tv_warning_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_warning_description" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@{viewModel.viewState.isAgreement() ? @color/butterscotch : @color/color_39393b}"
+            android:enabled="@{viewModel.viewState.isAgreement()}"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.clickDeleteAccount()}"
+            android:padding="24dp"
+            android:text="@string/delete_account"
+            android:textColor="@{viewModel.viewState.isAgreement() ? @color/white : @color/color_8e8d94}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:background="@color/color_39393b"
+            tools:textColor="@color/color_8e8d94" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

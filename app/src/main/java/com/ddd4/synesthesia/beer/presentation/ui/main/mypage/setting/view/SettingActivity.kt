@@ -13,6 +13,7 @@ import com.ddd4.synesthesia.beer.data.source.local.InfomationsData
 import com.ddd4.synesthesia.beer.databinding.ActivityMyPageSettingBinding
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.ui.login.view.LoginActivity
+import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.delete.view.MyAccountDeleteActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.model.SettingActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.model.SettingClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.viewmodel.SettingViewModel
@@ -65,7 +66,7 @@ class SettingActivity :
             }
             is SettingActionEntity.LogOut -> {
                 preference.clear()
-                start<LoginActivity>(LoginActivity.getIntent(this))
+                start<LoginActivity>(LoginActivity.getTaskIntent(this))
             }
         }
     }
@@ -114,7 +115,8 @@ class SettingActivity :
             }
             // 회원탈퇴
             InfomationsData.UNLINK.title -> {
-                unConnected(getString(R.string.unlink_message))
+                start<MyAccountDeleteActivity>()
+//                unConnected(getString(R.string.unlink_message))
             }
             // 알림설정
             InfomationsData.PUSH.title -> {

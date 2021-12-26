@@ -36,7 +36,18 @@ class LoginRepositoryImpl(
             }
         }
     }
-//
+
+    override suspend fun deleteAccount(isSuccess: (Boolean) -> Unit) {
+        UserApiClient.instance.unlink { error ->
+            if (error != null) {
+                isSuccess.invoke(false)
+            } else {
+                isSuccess.invoke(true)
+            }
+        }
+    }
+
+    //
 //    override fun login(userInfo: (User?, Throwable?) -> Unit) {
 //        UserApiClient.instance.me { user, error ->
 //            if (error != null) {

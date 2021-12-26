@@ -24,6 +24,11 @@ interface LoginRepository {
      * refresh
      */
     suspend fun refreshToken(refreshToken: String): TokenInfo
+
+    /**
+     * 회원 탈퇴
+     */
+    suspend fun deleteAccount(isSuccess: (Boolean) -> Unit)
 //    fun unlink(isSuccess: (Boolean) -> Unit)
 //    fun me(userInfo: (User?) -> Unit)
 }
