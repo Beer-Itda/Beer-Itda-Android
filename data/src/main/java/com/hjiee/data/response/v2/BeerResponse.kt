@@ -4,14 +4,24 @@ import com.google.gson.annotations.SerializedName
 import com.hjiee.domain.entity.DomainEntity
 
 data class BeerResponse(
-    @SerializedName("e_name")
-    val engName: String?,
     @SerializedName("id")
     val id: Int?,
+    @SerializedName("brewery")
+    val brewery: String?,
+    @SerializedName("country")
+    val country: String?,
+    @SerializedName("e_name")
+    val nameForEnglish: String?,
+    @SerializedName("heart")
+    val isFavorite: Boolean?,
     @SerializedName("k_name")
-    val krName: String?,
+    val nameForKorean: String?,
     @SerializedName("star_avg")
     val starAvg: Float?,
+    @SerializedName("style")
+    val style: String?,
     @SerializedName("thumbnail_image")
     val thumbnailImage: String?
-) : DomainEntity.BeerItem
+//    @SerializedName("aroma")
+//    val aroma: List<String>?,
+)

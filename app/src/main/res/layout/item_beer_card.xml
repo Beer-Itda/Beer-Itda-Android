@@ -64,7 +64,7 @@
                 android:fontFamily="@font/notosans_kr_regular"
                 android:gravity="center"
                 android:singleLine="true"
-                android:text="@{beer.name}"
+                android:text="@{beer.nameForKorean}"
                 app:layout_constraintBottom_toTopOf="@+id/tv_beer_rate"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -15,9 +15,7 @@ object BeerListModelMapper {
     ): BeerListItemViewModel {
         val list = this.map {
             HomeBeerChildItemViewModel(
-                it.getBeerItemViewModel(
-                    eventNotifier = eventNotifier
-                )
+                it.getBeerItemViewModel(eventNotifier)
             )
         }
 

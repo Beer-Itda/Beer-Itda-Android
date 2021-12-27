@@ -36,10 +36,10 @@ interface BeerApi {
     /**
      * 맥주 상세
      */
-    @GET("api/v1/beer/detail")
-    suspend fun getBeer(
-        @Query("id") id: Int
-    ): EntityResponse<BeerResponse>?
+    @GET("api/v1/beer/detail/{beerId}")
+    suspend fun getBeerDetail(
+        @Path("beerId") id: Int
+    ): EntityResponse<BeerDetailResponse>?
 
     /**
      * 내가 선택한 스타일의 맥주

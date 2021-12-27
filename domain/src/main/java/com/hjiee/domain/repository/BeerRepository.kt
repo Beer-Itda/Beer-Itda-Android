@@ -5,7 +5,7 @@ import com.hjiee.domain.entity.DomainEntity.*
 interface BeerRepository {
     suspend fun getBeerAward(): Response<Beer>?
     suspend fun getBeers(): Response<Beers>?
-    suspend fun getBeerDetail(id: Int): Response<Beer>?
+    suspend fun getBeerDetail(id: Int): Response<BeerDetail>?
     suspend fun getStyleBeer(): Response<Beers>?
     suspend fun getAromaBeer(): Response<Beers>?
     suspend fun getUserInfo(): User

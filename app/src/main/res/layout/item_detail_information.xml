@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/notosans_kr_regular"
-            android:text="@{viewModel.beer.name}"
+            android:text="@{viewModel.beer.nameForKorean}"
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="@+id/tv_beer_style"
             app:layout_constraintTop_toBottomOf="@+id/tv_beer_style"

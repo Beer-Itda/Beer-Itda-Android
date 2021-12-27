@@ -6,85 +6,98 @@ import com.hjiee.data.response.common.EntityResponse
 import com.hjiee.data.response.v2.*
 import com.hjiee.domain.entity.DomainEntity
 
-fun EntityResponse<BeerResponse>.toBeer(): DomainEntity.Response<DomainEntity.Beer> {
+fun EntityResponse<BeerDetailResponse>?.toBeerDetail(): DomainEntity.Response<DomainEntity.BeerDetail> {
     return DomainEntity.Response(
-        isSuccess = isSuccess.orFalse(),
-        message = message.orEmpty(),
-        data = DomainEntity.Beer(
-            id = data?.id.orZero(),
-            abv = data?.starAvg.orZero(),
-            krName = data?.krName.orEmpty(),
-            engName = data?.engName.orEmpty(),
-            thumbnailImage = data?.thumbnailImage.orEmpty(),
-            starAvg = data?.starAvg.orZero()
+        isSuccess = this?.isSuccess.orFalse(),
+        message = this?.message.orEmpty(),
+        data = DomainEntity.BeerDetail(
+            beer = this?.data?.beerDetail?.toBeer(),
+            relatedAromaBeer = this?.data?.sameAromaBeers?.toBeer().orEmpty(),
+            relatedStyleBeer = this?.data?.sameStyleBeers?.toBeer().orEmpty()
         )
     )
 }
 
-fun EntityResponse<BeersResponse>.toBeerList(): DomainEntity.Response<DomainEntity.Beers> {
+fun EntityResponse<BeerResponse>?.toBeer(): DomainEntity.Response<DomainEntity.Beer> {
     return DomainEntity.Response(
-        isSuccess = isSuccess.orFalse(),
-        message = message.orEmpty(),
+        isSuccess = this?.isSuccess.orFalse(),
+        message = this?.message.orEmpty(),
+        data = DomainEntity.Beer(
+            id = this?.data?.id.orZero(),
+            abv = this?.data?.starAvg.orZero(),
+            nameForKorean = this?.data?.nameForKorean.orEmpty(),
+            nameForEnglish = this?.data?.nameForEnglish.orEmpty(),
+            thumbnailImage = this?.data?.thumbnailImage.orEmpty(),
+            starAvg = this?.data?.starAvg.orZero()
+        )
+    )
+}
+
+
+fun EntityResponse<BeersResponse>?.toBeerList(): DomainEntity.Response<DomainEntity.Beers> {
+    return DomainEntity.Response(
+        isSuccess = this?.isSuccess.orFalse(),
+        message = this?.message.orEmpty(),
         data = DomainEntity.Beers(
-            beers = data?.beers?.map {
+            beers = this?.data?.beers?.map {
                 DomainEntity.Beer(
                     id = it.id.orZero(),
                     abv = it.starAvg.orZero(),
-                    krName = it.krName.orEmpty(),
-                    engName = it.engName.orEmpty(),
+                    nameForKorean = it.nameForKorean.orEmpty(),
+                    nameForEnglish = it.nameForEnglish.orEmpty(),
                     thumbnailImage = it.thumbnailImage.orEmpty(),
                     starAvg = it.starAvg.orZero()
                 )
             }.orEmpty(),
-            cursor = DomainEntity.Cursor(data?.cursor?.cursor.orZero())
+            cursor = DomainEntity.Cursor(this?.data?.cursor?.cursor.orZero())
         )
     )
 }
 
-fun EntityResponse<AromasResponse>.toSelectedBeerFromAroma(): DomainEntity.Response<DomainEntity.Beers> {
+fun EntityResponse<AromasResponse>?.toSelectedBeerFromAroma(): DomainEntity.Response<DomainEntity.Beers> {
     return DomainEntity.Response(
-        isSuccess = isSuccess.orFalse(),
-        message = message.orEmpty(),
+        isSuccess = this?.isSuccess.orFalse(),
+        message = this?.message.orEmpty(),
         data = DomainEntity.Beers(
-            beers = data?.beers?.map {
+            beers = this?.data?.beers?.map {
                 DomainEntity.Beer(
                     id = it.id.orZero(),
                     abv = it.starAvg.orZero(),
-                    krName = it.krName.orEmpty(),
-                    engName = it.engName.orEmpty(),
+                    nameForKorean = it.nameForKorean.orEmpty(),
+                    nameForEnglish = it.nameForEnglish.orEmpty(),
                     thumbnailImage = it.thumbnailImage.orEmpty(),
                     starAvg = it.starAvg.orZero()
                 )
             }.orEmpty(),
-            cursor = DomainEntity.Cursor(data?.cursor?.cursor.orZero())
+            cursor = DomainEntity.Cursor(this?.data?.cursor?.cursor.orZero())
         )
     )
 }
 
-fun EntityResponse<AwardResponse>.toAwardBeer(): DomainEntity.Response<DomainEntity.Beer> {
+fun EntityResponse<AwardResponse>?.toAwardBeer(): DomainEntity.Response<DomainEntity.Beer> {
     return DomainEntity.Response(
-        isSuccess = isSuccess.orFalse(),
-        message = message.orEmpty(),
+        isSuccess = this?.isSuccess.orFalse(),
+        message = this?.message.orEmpty(),
         data = DomainEntity.Beer(
-            id = data?.beer?.id.orZero(),
-            abv = data?.beer?.starAvg.orZero(),
-            krName = data?.beer?.krName.orEmpty(),
-            engName = data?.beer?.engName.orEmpty(),
-            thumbnailImage = data?.beer?.thumbnailImage.orEmpty(),
-            starAvg = data?.beer?.starAvg.orZero()
+            id = this?.data?.beer?.id.orZero(),
+            abv = this?.data?.beer?.starAvg.orZero(),
+            nameForKorean = this?.data?.beer?.nameForKorean.orEmpty(),
+            nameForEnglish = this?.data?.beer?.nameForEnglish.orEmpty(),
+            thumbnailImage = this?.data?.beer?.thumbnailImage.orEmpty(),
+            starAvg = this?.data?.beer?.starAvg.orZero()
         )
     )
 }
 
 
-fun BeerResponse.toBeer(): DomainEntity.Beer {
+fun BeerResponse?.toBeer(): DomainEntity.Beer {
     return DomainEntity.Beer(
-        id = id.orZero(),
-        krName = krName.orEmpty(),
-        abv = starAvg.orZero(),
-        engName = engName.orEmpty(),
-        thumbnailImage = thumbnailImage.orEmpty(),
-        starAvg = starAvg.orZero()
+        id = this?.id.orZero(),
+        nameForKorean = this?.nameForKorean.orEmpty(),
+        abv = this?.starAvg.orZero(),
+        nameForEnglish = this?.nameForEnglish.orEmpty(),
+        thumbnailImage = this?.thumbnailImage.orEmpty(),
+        starAvg = this?.starAvg.orZero()
 //        aromas = aromas.orEmpty(),
 //        beerStyle = beerStyle.orEmpty(),
 //        brewery = brewery.orEmpty(),
@@ -100,9 +113,9 @@ fun List<BeerResponse>?.toBeer(): List<DomainEntity.Beer> {
     return this?.map {
         DomainEntity.Beer(
             id = it.id.orZero(),
-            krName = it.krName.orEmpty(),
+            nameForKorean = it.nameForKorean.orEmpty(),
             abv = it.starAvg.orZero(),
-            engName = it.engName.orEmpty(),
+            nameForEnglish = it.nameForEnglish.orEmpty(),
             thumbnailImage = it.thumbnailImage.orEmpty(),
             starAvg = it.starAvg.orZero()
 //        aromas = aromas.orEmpty(),

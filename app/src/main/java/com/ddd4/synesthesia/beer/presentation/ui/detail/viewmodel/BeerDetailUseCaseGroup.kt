@@ -4,6 +4,6 @@ import com.hjiee.domain.usecase.beer.detail.GetBeerDetailUseCase
 import javax.inject.Inject
 
 class BeerDetailUseCaseGroup @Inject constructor(
-    val getBeerDetailUseCase: GetBeerDetailUseCase
+    val getBeerDetail: GetBeerDetailUseCase
 ) {
 }

@@ -1,19 +1,23 @@
 //package com.ddd4.synesthesia.beer.presentation.ui.detail.item.review
 //
-//import com.ddd4.synesthesia.beer.presentation.base.event.SelectEventNotifier
+//import com.ddd4.synesthesia.beer.presentation.ui.common.review.ReviewItemViewModel
+//import com.hjiee.core.event.SelectEventNotifier
+//import com.hjiee.domain.entity.DomainEntity
 //
 //object BeerDetailReviewMapper {
 //
-//    fun BeerDetailItemViewModel.getReviewListItemViewModel(eventNotifier: SelectEventNotifier): BeerDetailReviewListViewModel {
+//    fun DomainEntity.BeerDetail?.getReviewListItemViewModel(
+//        eventNotifier: SelectEventNotifier
+//    ): BeerDetailReviewListViewModel {
 //        return BeerDetailReviewListViewModel(
-//            item = this,
+////            item = this,
 //            review = null,
 ////            review = beer.reviews?.getReviewItemViewModel()?.take(5).orEmpty(),
 //            myReview = ReviewItemViewModel(
-//                reviewId = myReview?.reviewId.orZero(),
-//                writerNickName = myReview?.writerNickName.orEmpty(),
-//                ratio = myReview?.ratio.orDefault(0.5f),
-//                content = myReview?.content.orEmpty(),
+////                reviewId = myReview?.reviewId.orZero(),
+////                writerNickName = myReview?.writerNickName.orEmpty(),
+////                ratio = myReview?.ratio.orDefault(0.5f),
+////                content = myReview?.content.orEmpty(),
 //                createdAt = "",
 //            ),
 //            eventNotifier = eventNotifier

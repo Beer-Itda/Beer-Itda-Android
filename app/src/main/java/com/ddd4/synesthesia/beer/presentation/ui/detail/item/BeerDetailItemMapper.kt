@@ -1,3 +1,10 @@
+import com.ddd4.synesthesia.beer.presentation.ui.common.related.RelatedType
+import com.ddd4.synesthesia.beer.presentation.ui.detail.item.IBeerDetailViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.detail.item.info.BeerDetailInfoItemViewModelMapper.getInfo
+import com.ddd4.synesthesia.beer.presentation.ui.detail.item.related.BeerDetailRelatedMapper.getRelatedListItemViewModel
+import com.hjiee.core.event.SelectEventNotifier
+import com.hjiee.domain.entity.DomainEntity
+
 //package com.ddd4.synesthesia.beer.presentation.ui.detail.item
 //
 //import com.ddd4.synesthesia.beer.data.model.Response
@@ -10,8 +17,8 @@
 //import com.hjiee.core.ext.orZero
 //import com.hjiee.data.response.model.Response
 //
-//object BeerDetailItemMapper {
-//
+object BeerDetailItemMapper {
+    //
 //    fun Response?.getBeerDetailItemViewModel(eventNotifier: SelectActionEventNotifier): BeerDetailItemViewModel? {
 //        val beer = this?.beer?.run {
 //            BeerDetailItemViewModel(
@@ -47,26 +54,28 @@
 //        return beer
 //    }
 //
-//    fun BeerDetailItemViewModel?.getDetailViewData(): List<IBeerDetailViewModel> {
-//
-//        return mutableListOf<IBeerDetailViewModel>().apply {
-//            this@getDetailViewData?.let {
-//                add(it.getInfo())
+    fun DomainEntity.BeerDetail?.getDetailViewData(
+        eventNotifier: SelectEventNotifier
+    ): List<IBeerDetailViewModel> {
+
+        return mutableListOf<IBeerDetailViewModel>().apply {
+            this@getDetailViewData?.let {
+                add(it.getInfo(eventNotifier = eventNotifier))
 //                add(it.getReviewListItemViewModel(eventNotifier))
-//                add(it.getRelatedListItemViewModel(eventNotifier, RelatedType.AROMA))
-//                add(it.getRelatedListItemViewModel(eventNotifier, RelatedType.STYLE))
-//                add(it.getRelatedListItemViewModel(eventNotifier, RelatedType.RANDOM))
-//
-////                if(it.getRelatedListItemViewModel(eventNotifier, RelatedType.AROMA).relatedBeerList.isNotEmpty()) {
-////                    add(it.getRelatedListItemViewModel(eventNotifier, RelatedType.AROMA))
-////                }
-////                if(it.getRelatedListItemViewModel(eventNotifier, RelatedType.STYLE).relatedBeerList.isNotEmpty()) {
-////                    add(it.getRelatedListItemViewModel(eventNotifier, RelatedType.STYLE))
-////                }
-////                if(it.getRelatedListItemViewModel(eventNotifier, RelatedType.RANDOM).relatedBeerList.isNotEmpty()) {
-////                    add(it.getRelatedListItemViewModel(eventNotifier,RelatedType.RANDOM))
-////                }
-//            }
-//        }
-//    }
-//}
+                add(it.getRelatedListItemViewModel(type = RelatedType.AROMA, eventNotifier = eventNotifier))
+                add(it.getRelatedListItemViewModel(type = RelatedType.STYLE, eventNotifier = eventNotifier))
+                add(it.getRelatedListItemViewModel(type = RelatedType.RANDOM, eventNotifier = eventNotifier))
+
+//                if(it.getRelatedListItemViewModel(eventNotifier, RelatedType.AROMA).relatedBeerList.isNotEmpty()) {
+//                    add(it.getRelatedListItemViewModel(eventNotifier, RelatedType.AROMA))
+//                }
+//                if(it.getRelatedListItemViewModel(eventNotifier, RelatedType.STYLE).relatedBeerList.isNotEmpty()) {
+//                    add(it.getRelatedListItemViewModel(eventNotifier, RelatedType.STYLE))
+//                }
+//                if(it.getRelatedListItemViewModel(eventNotifier, RelatedType.RANDOM).relatedBeerList.isNotEmpty()) {
+//                    add(it.getRelatedListItemViewModel(eventNotifier,RelatedType.RANDOM))
+//                }
+            }
+        }
+    }
+}

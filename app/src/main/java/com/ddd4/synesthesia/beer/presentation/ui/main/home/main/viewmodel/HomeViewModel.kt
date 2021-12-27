@@ -75,7 +75,7 @@ class HomeViewModel @ViewModelInject constructor(
                         styleBeer?.beers?.filter {
                             it.data.id == event.beerId
                         }?.map {
-                            it.data.updateFavorite()
+//                            it.data.updateFavorite()
                         }
                     }
                 }

@@ -5,4 +5,5 @@ import com.ddd4.synesthesia.beer.presentation.ui.detail.item.IBeerDetailViewMode
 
 sealed class BeerDetailActionEntity : ActionEntity() {
     class UpdateUi(val items: List<IBeerDetailViewModel>) : BeerDetailActionEntity()
+    object LoadFail : BeerDetailActionEntity()
 }

@@ -1,28 +1,29 @@
 package com.ddd4.synesthesia.beer.presentation.ui.common.beer.item
 
 import com.hjiee.core.event.SelectActionEventNotifier
-import com.hjiee.core.ext.orZero
+import com.hjiee.core.event.SelectEventNotifier
 import com.hjiee.domain.entity.DomainEntity
 
 object BeerItemViewModelMapper {
 
-    fun DomainEntity.Beer?.getBeerItemViewModel(eventNotifier: SelectActionEventNotifier): BeerItemViewModel {
+    fun DomainEntity.Beer?.getBeerItemViewModel(
+        eventNotifier: SelectEventNotifier
+    ): BeerItemViewModel {
         return if (this == null) {
-            getNullBeerItem(eventNotifier)
+            getNullBeerItem()
         } else {
             BeerItemViewModel(
-                alcoholByVolume = abv.orZero(),
-//                aromas = aromas.orEmpty(),
-//                beerStyle = beerStyle.orEmpty(),
-//                brewery = brewery.orEmpty(),
-//                country = country.orEmpty(),
+                alcoholByVolume = abv,
+                style = style,
+                brewery = brewery,
+                country = country,
                 id = id,
-//                imageUrl = imageUrl.orEmpty(),
-                name = krName,
-                starAvg = starAvg.orZero(),
-//                reviews = reviews.orEmpty(),
+                nameForKorean = nameForKorean,
+                nameForEnglish = nameForEnglish,
+                starAvg = starAvg,
+                reviews = emptyList(),
                 thumbnailImage = thumbnailImage,
-//                initFavorite = favoriteFlag.orFalse(),
+                initFavorite = isFavorite,
                 eventNotifier = eventNotifier
             )
         }
@@ -48,20 +49,21 @@ object BeerItemViewModelMapper {
 //        }
 //    }
 
-    private fun getNullBeerItem(eventNotifier: SelectActionEventNotifier): BeerItemViewModel =
+    private fun getNullBeerItem(): BeerItemViewModel =
         BeerItemViewModel(
             alcoholByVolume = 0f,
             aromas = emptyList(),
-//            beerStyle = "",
-//            brewery = "",
-//            country = "",
+            style = "",
+            brewery = "",
+            country = "",
             id = 0,
             imageUrl = emptyList(),
-            name = "",
+            nameForKorean = "",
+            nameForEnglish = "",
             starAvg = 0f,
             reviews = emptyList(),
             thumbnailImage = "",
-//            initFavorite = false,
-            eventNotifier = eventNotifier
+            initFavorite = false,
+            eventNotifier = null
         )
 }

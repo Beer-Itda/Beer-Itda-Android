@@ -3,6 +3,7 @@ package com.ddd4.synesthesia.beer.presentation.ui.detail.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityBeerDetailBinding
@@ -59,6 +60,9 @@ class BeerDetailActivity : BaseActivity<ActivityBeerDetailBinding>(R.layout.acti
             is BeerDetailActionEntity.UpdateUi -> {
                 detailAdapter.clear()
                 detailAdapter.addAll(entity.items)
+            }
+            is BeerDetailActionEntity.LoadFail -> {
+                Toast.makeText(this, "실패", Toast.LENGTH_SHORT).show()
             }
         }
     }

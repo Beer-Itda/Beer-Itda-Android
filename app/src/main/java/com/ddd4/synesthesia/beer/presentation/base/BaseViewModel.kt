@@ -47,7 +47,7 @@ abstract class BaseViewModel : ViewModel(), SelectActionEventNotifier {
         _event._select.setHandledValue(entity)
     }
 
-    protected fun throwMessage(message: String, isFinish: Boolean) {
+    protected fun throwMessage(message: String, isFinish: Boolean = false) {
         _throwable.value = ThrowEntity(message, isFinish)
     }
 

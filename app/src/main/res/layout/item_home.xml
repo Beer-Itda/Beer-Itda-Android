@@ -86,7 +86,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/notosans_kr_regular"
             android:singleLine="true"
-            android:text="@{beer.krName}"
+            android:text="@{beer.nameForKorean}"
             android:textColor="@color/white"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"

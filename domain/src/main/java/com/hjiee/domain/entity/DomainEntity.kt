@@ -4,10 +4,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 sealed class DomainEntity {
-    interface BeerItem {
-
-    }
-
     data class TokenInfo(
         val accessToken: String,
         val refreshToken: String
@@ -27,18 +23,23 @@ sealed class DomainEntity {
     data class Beer(
         val id: Int,
         val abv: Float,
-        val krName: String,
+        val nameForKorean: String,
+        val nameForEnglish: String,
         val starAvg: Float,
-        val engName: String,
-        val thumbnailImage: String
+        val thumbnailImage: String,
+        val isFavorite: Boolean = false,
+        val brewery: String = "",
+        val country: String = "",
+        val style: String = ""
 //        val aromas: List<String>,
-//        val beerStyle: String,
-//        val brewery: String,
-//        val country: String,
-//        val imageUrl: List<String>,
 //        val rateAvg: Float,
 //        val reviewList: List<Review>,
-//        val isFavorite: Boolean
+    )
+
+    data class BeerDetail(
+        val beer: Beer?,
+        val relatedStyleBeer: List<Beer>,
+        val relatedAromaBeer: List<Beer>
     )
 
     data class Cursor(

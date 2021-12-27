@@ -106,7 +106,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/notosans_kr_regular"
             android:singleLine="true"
-            android:text="@{beer.name}"
+            android:text="@{beer.nameForEnglish}"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/tv_monthly"

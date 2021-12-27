@@ -2,18 +2,10 @@ package com.ddd4.synesthesia.beer.presentation.ui.common.related
 
 import com.hjiee.core.event.SelectEventNotifier
 import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModel
+import com.hjiee.domain.entity.DomainEntity
 
 class RelatedItemViewModel(
     val beer: BeerItemViewModel,
-    val abv: Float,
-    val aroma: List<String>,
-    val beerStyle: String,
-    val brewery: String,
-    val country: String,
-    val id: Int,
-    val name: String,
-    val rateAvg: Float,
-    val thumbnailImage: String,
     val type: RelatedType,
     val eventNotifier: SelectEventNotifier
 ) : IRelatedListViewModel {
