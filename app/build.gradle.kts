@@ -52,7 +52,6 @@ android {
             isMinifyEnabled = false
             isDebuggable = false
             proguardFiles("proguard-android-optimize.txt", "proguard-rules.pro")
-            signingConfig = signingConfigs.getByName("develop")
             multiDexEnabled = true
         }
 
