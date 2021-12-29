@@ -1,6 +1,5 @@
 package com.ddd4.synesthesia.beer.util
 
-import android.content.Intent
 import android.text.Selection
 import android.text.Spannable
 import android.text.method.MovementMethod
@@ -10,7 +9,7 @@ import android.view.KeyEvent
 import android.view.MotionEvent
 import android.widget.TextView
 import com.ddd4.synesthesia.beer.presentation.ui.webview.view.WebViewActivity
-import com.ddd4.synesthesia.beer.presentation.ui.webview.view.WebViewActivity.Companion.WEBVIEW_URL
+import com.hjiee.core.ext.orFalse
 import com.hjiee.core.ext.orZero
 
 
@@ -53,7 +52,7 @@ class HyperLinkMovement : MovementMethod {
             val link = buffer?.getSpans(off.orZero(), off.orZero(), ClickableSpan::class.java)
 
 
-            if (link?.size != 0) {
+            if (link?.isNotEmpty().orFalse()) {
                 if (action == MotionEvent.ACTION_UP) {
                     // do whatever else you want here on link being clicked
                     widget?.context?.run {
@@ -66,15 +65,16 @@ class HyperLinkMovement : MovementMethod {
                             )
                         }
                     }
+                } else if (action == MotionEvent.ACTION_DOWN) {
+                    Selection.setSelection(
+                        buffer,
+                        buffer?.getSpanStart(link?.get(0)).orZero(),
+                        buffer?.getSpanEnd(link?.get(0)).orZero()
+                    )
                 }
                 Selection.removeSelection(buffer)
-            } else if (action == MotionEvent.ACTION_DOWN) {
-                Selection.setSelection(
-                    buffer,
-                    buffer?.getSpanStart(link?.get(0)).orZero(),
-                    buffer?.getSpanEnd(link?.get(0)).orZero()
-                )
             }
+
             return true
         } else {
             Selection.removeSelection(buffer)
