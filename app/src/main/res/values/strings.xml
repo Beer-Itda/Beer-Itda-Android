@@ -16,6 +16,8 @@
     <string name="key_data">data_of</string>
     <string name="key_callback">calback</string>
     <string name="key_review">review</string>
+    <string name="update">업데이트</string>
+    <string name="no_update">계속사용</string>
     <string name="ok">확인</string>
     <string name="cancel">취소</string>
     <string name="complete">완료</string>
@@ -113,4 +115,9 @@
     <string name="delete_warning_description_agree">위 내용을 숙지하였으며, 동의합니다.</string>
     <string name="delete_success">회원탈퇴 되었습니다.</string>
     <string name="delete_fail">회원탈퇴에 실패하였습니다. 잠시후 다시 시도해 주세요</string>
+    <string name="force_update_title">필수 업데이트</string>
+    <string name="force_update">새로운 버전이 있습니다.\n업데이트 후 이용해 주세요.</string>
+    <string name="recommend_update_title">권장 업데이트</string>
+    <string name="recommend_update">새로운 버전이 있습니다.\n업데이트 하시겠습니까?</string>
+    <string name="current_version">현재버전</string>
 </resources>

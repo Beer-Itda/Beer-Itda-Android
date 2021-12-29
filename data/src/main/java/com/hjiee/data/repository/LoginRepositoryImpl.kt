@@ -27,7 +27,7 @@ class LoginRepositoryImpl(
         return beerApi.refreshToken(refreshToken).toTokenInfo()
     }
 
-    override suspend fun tokenInfo(tokenInfo: (String) -> Unit) {
+    override fun tokenInfo(tokenInfo: (String) -> Unit) {
         UserApiClient.instance.accessTokenInfo { token, error ->
             if (error != null) {
                 tokenInfo.invoke("")

@@ -7,7 +7,7 @@ class GetTokenUseCase @Inject constructor(
     private val repository: LoginRepository
 ) {
 
-    suspend fun execute(tokenInfo : (String) -> Unit) {
+    fun execute(tokenInfo : (String) -> Unit) {
         return repository.tokenInfo(tokenInfo)
     }
 }

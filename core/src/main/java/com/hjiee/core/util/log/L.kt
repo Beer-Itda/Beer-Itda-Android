@@ -74,6 +74,13 @@ object L {
     }
 
     fun e(
+        throwable: Throwable?,
+        message: String?
+    ) {
+        Timber.e(throwable, message)
+    }
+
+    fun e(
         tag: String,
         throwable: Throwable?
     ) {

@@ -52,5 +52,8 @@ dependencies {
     implementation(platform(Libs.FIREBASE))
     implementation(Libs.FIREBASE_ANALYTICS)
     implementation(Libs.FIREBASE_CRASHLYTICS)
+    implementation(Libs.FIREBASE_REMOTE_CONFIG)
+
+    testImplementation(TestLibs.JUNIT)
 
 }

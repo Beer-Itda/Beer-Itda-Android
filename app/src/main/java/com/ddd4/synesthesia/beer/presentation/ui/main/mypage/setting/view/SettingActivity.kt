@@ -224,19 +224,6 @@ class SettingActivity :
         )
     }
 
-    /**
-     * 구글 플레이 스토어
-     */
-    private fun moveToPlayStore() {
-        try {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(resources.getString(R.string.play_store_market))
-            startActivity(intent)
-        } catch (e: ActivityNotFoundException) {
-            showToast(resources.getString(R.string.not_installed_play_store))
-        }
-    }
-
     companion object {
 
         fun getIntent(context: Context): Intent {

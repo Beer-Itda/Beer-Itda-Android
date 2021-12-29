@@ -1,5 +1,8 @@
 package com.ddd4.synesthesia.beer.presentation.base
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -93,6 +96,19 @@ abstract class BaseActivity<B : ViewDataBinding>(
                     }
                 }
             }
+        }
+    }
+
+    /**
+     * 구글 플레이 스토어
+     */
+    fun moveToPlayStore() {
+        try {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(resources.getString(R.string.play_store_market))
+            startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            showToast(resources.getString(R.string.not_installed_play_store))
         }
     }
 

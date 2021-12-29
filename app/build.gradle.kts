@@ -138,8 +138,6 @@ dependencies {
     implementation(Libs.KAKAO)
     implementation(Libs.RANGE_SEEK_BAR)
 
-    implementation(Libs.FIREBASE_REMOTE_CONFIG)
-
     implementation(Libs.LICENSES)
 
     //
