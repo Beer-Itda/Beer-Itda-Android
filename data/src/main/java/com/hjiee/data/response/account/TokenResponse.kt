@@ -1,4 +1,4 @@
-package com.hjiee.data.response
+package com.hjiee.data.response.account
 
 import com.google.gson.annotations.SerializedName
 

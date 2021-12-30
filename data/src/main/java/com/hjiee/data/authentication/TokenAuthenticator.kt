@@ -1,4 +1,4 @@
-package com.hjiee.data
+package com.hjiee.data.authentication
 
 import com.hjiee.core.Consts.ACCESS_TOKEN
 import com.hjiee.core.Consts.REFRESH_TOKEN
@@ -12,7 +12,6 @@ import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
-import java.lang.Exception
 
 class TokenAuthenticator(
     private val useCase: RefreshTokenUseCase,
