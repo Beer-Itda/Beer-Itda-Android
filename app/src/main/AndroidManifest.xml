@@ -82,7 +82,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".presentation.ui.main.mypage.review.view.MyReviewActivity"
+            android:name=".presentation.ui.main.mypage.myreview.view.MyReviewActivity"
             android:screenOrientation="portrait" />
 
         <activity

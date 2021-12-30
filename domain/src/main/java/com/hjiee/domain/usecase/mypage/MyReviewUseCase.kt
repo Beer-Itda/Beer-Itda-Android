@@ -7,7 +7,7 @@ import javax.inject.Inject
 class MyReviewUseCase @Inject constructor(
     private val repository: BeerRepository
 ) {
-    suspend fun execute(): List<DomainEntity.Review> {
+    suspend fun execute(): List<DomainEntity.MyReview> {
         return repository.getMyReview()
     }
 }

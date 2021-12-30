@@ -67,7 +67,7 @@ interface BeerApi {
      * 내가 작성한 리뷰
      */
     @GET("api/v1/review")
-    suspend fun getMyReview(): List<ReviewResponse>?
+    suspend fun getMyReview(): MyReviewListResponse?
 
     /**
      * 월간 인기 맥주

@@ -161,3 +161,25 @@ fun List<ReviewResponse>?.toReviewList(): List<DomainEntity.Review> {
         )
     }.orEmpty()
 }
+
+
+fun ReviewResponse?.toReview(): DomainEntity.Review {
+    return DomainEntity.Review(
+        beerId = this?.beerId.orZero(),
+        content = this?.content.orEmpty(),
+        reviewId = this?.reviewId.orZero(),
+        star = this?.star.orZero(),
+        userId = this?.userId.orEmpty(),
+        createdDate = this?.createdAt.orEmpty(),
+        updatedDate = this?.updatedAt.orEmpty(),
+    )
+}
+
+fun MyReviewListResponse?.toMyReviewList(): List<DomainEntity.MyReview> {
+    return this?.myReview?.map {
+        DomainEntity.MyReview(
+            beer = it.beer.toBeer(),
+            review = it.review.toReview()
+        )
+    }.orEmpty()
+}

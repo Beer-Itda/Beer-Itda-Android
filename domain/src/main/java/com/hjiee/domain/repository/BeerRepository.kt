@@ -9,7 +9,7 @@ interface BeerRepository {
     suspend fun getStyleBeer(): Response<Beers>?
     suspend fun getAromaBeer(): Response<Beers>?
     suspend fun getUserInfo(): User
-    suspend fun getMyReview(): List<Review>
+    suspend fun getMyReview(): List<MyReview>
 
 //    suspend fun getAppConfig(): AppConfig
 //    suspend fun getBeerList(
