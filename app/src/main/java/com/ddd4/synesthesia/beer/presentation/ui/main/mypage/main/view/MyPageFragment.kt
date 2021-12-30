@@ -5,16 +5,16 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.FragmentMyPageBinding
-import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.presentation.base.BaseFragment
-import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.entity.MyPageClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.favorite.view.MyFavoriteActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.main.viewmodel.MyPageViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.myreview.view.MyReviewActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.nickname.view.NickNameActivity
-import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.review.view.MyReviewActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.view.SettingActivity
+import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.util.ext.start
+import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.core.util.log.L
 import dagger.hilt.android.AndroidEntryPoint
 

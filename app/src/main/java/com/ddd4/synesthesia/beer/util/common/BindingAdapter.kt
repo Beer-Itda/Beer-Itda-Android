@@ -7,18 +7,22 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd4.synesthesia.beer.R
-import com.hjiee.core.ext.*
 import com.ddd4.synesthesia.beer.presentation.commom.entity.ThrowEntity
 import com.ddd4.synesthesia.beer.util.NetworkStatus
 import com.ddd4.synesthesia.beer.util.decoration.HorizontalItemSpaceDecoration
 import com.ddd4.synesthesia.beer.util.decoration.RecyclerItemDecoration
 import com.ddd4.synesthesia.beer.util.decoration.VerticalItemSpaceDecoration
-import com.ddd4.synesthesia.beer.util.ext.*
+import com.ddd4.synesthesia.beer.util.ext.setVisible
+import com.ddd4.synesthesia.beer.util.ext.showNoticeDialog
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
 import com.google.android.material.chip.ChipGroup
+import com.hjiee.core.ext.dp
+import com.hjiee.core.ext.orFalse
+import com.hjiee.core.ext.orZero
+import com.hjiee.core.ext.toPx
 
 
 @BindingAdapter(value = ["addChip"], requireAll = false)
@@ -50,25 +54,19 @@ fun decoration(
 ) {
     verticalSpace?.let {
         RecyclerItemDecoration(
-            space = space?.toFloat()?.toPx(recyclerview.context) ?: 0,
-            verticalSpace = verticalSpace.toFloat().toPx(
-                recyclerview.context
-            )
-        )
-            .run {
-                recyclerview.addItemDecoration(this)
-            }
+            space = space?.toFloat()?.toPx(recyclerview.context).orZero(),
+            verticalSpace = verticalSpace.toFloat().toPx(recyclerview.context)
+        ).run {
+            recyclerview.addItemDecoration(this)
+        }
     }
     horizontalSpace?.let {
         RecyclerItemDecoration(
-            space = space?.toFloat()?.toPx(recyclerview.context) ?: 0,
-            horizontalSpace = horizontalSpace.toFloat().toPx(
-                recyclerview.context
-            )
-        )
-            .run {
-                recyclerview.addItemDecoration(this)
-            }
+            space = space?.toFloat()?.toPx(recyclerview.context).orZero(),
+            horizontalSpace = horizontalSpace.toFloat().toPx(recyclerview.context)
+        ).run {
+            recyclerview.addItemDecoration(this)
+        }
     }
 }
 

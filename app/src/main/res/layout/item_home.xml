@@ -5,10 +5,6 @@
 
     <data>
 
-        <import type="android.view.View" />
-
-        <import type="android.text.TextUtils" />
-
         <variable
             name="beer"
             type="com.hjiee.domain.entity.DomainEntity.Beer" />
@@ -20,140 +16,111 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:foreground="?attr/selectableItemBackground"
-        android:paddingHorizontal="28dp">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/iv_beer_thumbnail"
-            android:layout_width="80dp"
-            android:layout_height="110dp"
-            android:background="@android:color/transparent"
-            android:scaleType="centerCrop"
-            app:errorDrawable="@{@drawable/beer}"
+        <FrameLayout
+            android:id="@+id/fl_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_round_12"
+            android:backgroundTint="@color/color_1c1b21"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:loadUrl="@{beer.thumbnailImage}"
-            tools:src="@drawable/beer" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="8dp"
-            app:layout_constraintStart_toStartOf="@+id/iv_beer_thumbnail"
-            app:layout_constraintTop_toTopOf="@+id/iv_beer_thumbnail"
-            tools:src="@drawable/ic_btn_like_unactive" />
+            <ImageView
+                android:id="@+id/iv_beer_thumbnail"
+                android:layout_width="36dp"
+                android:layout_height="73dp"
+                android:background="@android:color/transparent"
+                android:scaleType="centerCrop"
+                app:errorDrawable="@{@drawable/beer}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:loadUrl="@{beer.thumbnailImage}"
+                tools:src="@drawable/beer" />
+        </FrameLayout>
 
         <TextView
             android:id="@+id/tv_beer_style"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="16dp"
             android:ellipsize="end"
             android:fontFamily="@font/notosans_kr_regular"
             android:gravity="center_vertical"
             android:includeFontPadding="false"
             android:singleLine="true"
+            android:text="@{beer.style}"
             android:textColor="@color/butterscotch"
             android:textSize="13sp"
-            app:layout_constraintEnd_toStartOf="@+id/tv_beer_rate"
-            app:layout_constraintStart_toEndOf="@id/iv_beer_thumbnail"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="맥주스타일" />
-
-        <TextView
-            android:id="@+id/tv_beer_rate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_rating_star"
-            android:drawablePadding="4dp"
-            android:fontFamily="@font/notosans_kr_bold"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:textColor="@color/butterscotch"
-            android:textSize="13sp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_beer_name_korean"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_beer_style"
-            tools:text="5.0" />
+            app:layout_constraintStart_toEndOf="@id/fl_container"
+            app:layout_constraintTop_toTopOf="@+id/fl_container"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:visibility="@{beer.style.length() != 0}"
+            tools:text="Golden Ale" />
 
         <TextView
-            android:id="@+id/tv_beer_name"
+            android:id="@+id/tv_beer_name_korean"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:ellipsize="end"
             android:fontFamily="@font/notosans_kr_regular"
             android:singleLine="true"
             android:text="@{beer.nameForKorean}"
             android:textColor="@color/white"
-            android:textSize="15sp"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_beer_name_english"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/tv_beer_style"
+            app:layout_constraintStart_toEndOf="@id/fl_container"
             app:layout_constraintTop_toBottomOf="@id/tv_beer_style"
-            tools:text="맥주 이름" />
+            app:visibility="@{beer.nameForKorean.length() != 0}"
+            tools:text="한강맥주" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/notosans_kr_medium"
-            android:text="@{createAt}"
-            android:textColor="@color/color_c8c8c8"
-            android:textSize="12sp"
-            android:visibility="@{TextUtils.isEmpty(createAt) ? View.GONE : View.VISIBLE }"
-            app:layout_constraintStart_toStartOf="@+id/tv_beer_country"
-            app:layout_constraintTop_toTopOf="@+id/tv_beer_country"
-            tools:text="2020. 10. 10" />
-
-        <androidx.constraintlayout.widget.Group
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="@{TextUtils.isEmpty(createAt) ? View.VISIBLE : View.INVISIBLE }"
-            app:constraint_referenced_ids="tv_beer_country,tv_beer_abv" />
-
-        <TextView
-            android:id="@+id/tv_beer_country"
+            android:id="@+id/tv_beer_name_english"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
             android:ellipsize="end"
             android:fontFamily="@font/notosans_kr_regular"
             android:singleLine="true"
-            android:textColor="@color/color_c8c8c8"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toStartOf="@+id/tv_beer_abv"
-            app:layout_constraintStart_toStartOf="@id/tv_beer_style"
-            app:layout_constraintTop_toBottomOf="@id/tv_beer_name"
-            tools:text="대한민국" />
+            android:text="@{beer.nameForEnglish}"
+            android:textColor="@color/color_8e8d94"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_beer_rate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fl_container"
+            app:layout_constraintTop_toBottomOf="@id/tv_beer_name_korean"
+            app:visibility="@{beer.nameForEnglish.length() != 0}"
+            tools:text="hangang beer" />
 
         <TextView
-            android:id="@+id/tv_beer_abv"
+            android:id="@+id/tv_beer_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/notosans_kr_regular"
-            android:text="@{@string/abv(beer.abv)}"
-            android:textColor="@color/color_c8c8c8"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_beer_country"
-            tools:text="4.9%" />
-
-        <HorizontalScrollView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_8"
-            android:scrollbars="none"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/tv_beer_style"
-            app:layout_constraintTop_toBottomOf="@id/tv_beer_country">
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chip_group"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:singleLine="true" />
-        </HorizontalScrollView>
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/ic_rating_star"
+            android:drawablePadding="4dp"
+            android:fontFamily="@font/notosans_kr_bold"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@{@string/rate_unit_2(beer.starAvg)}"
+            android:textColor="@color/butterscotch"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/fl_container"
+            app:layout_constraintStart_toEndOf="@id/fl_container"
+            app:layout_constraintTop_toBottomOf="@+id/tv_beer_name_english"
+            tools:text="5.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
