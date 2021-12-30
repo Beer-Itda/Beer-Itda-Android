@@ -1,5 +1,6 @@
 package com.hjiee.domain.usecase.login
 
+import android.util.Log
 import com.hjiee.core.Consts
 import com.hjiee.core.provider.SharedPreferenceProvider
 import com.hjiee.domain.entity.DomainEntity
@@ -13,6 +14,7 @@ class LoginUseCase @Inject constructor(
     suspend fun execute(accessToken: String): DomainEntity.TokenInfo {
         val tokenInfo = repository.login(accessToken)
         preference.setValue(Consts.ACCESS_TOKEN, tokenInfo.accessToken)
+        Log.e("tokenInfo","${tokenInfo.accessToken}")
         preference.setValue(Consts.REFRESH_TOKEN, tokenInfo.refreshToken)
         return tokenInfo
     }

@@ -3,9 +3,10 @@ package com.hjiee.data.di
 import com.hjiee.core.provider.SharedPreferenceProvider
 import com.hjiee.core.provider.StringProvider
 import com.hjiee.data.R
-import com.hjiee.data.TokenAuthenticator
 import com.hjiee.data.api.BeerApi
 import com.hjiee.data.api.KakaoApi
+import com.hjiee.data.authentication.AuthenticationInterceptor
+import com.hjiee.data.authentication.TokenAuthenticator
 import com.hjiee.data.di.NetworkModule.PROVIDE_NAME_BEER_REFRESH
 import com.hjiee.data.repository.LoginRepositoryImpl
 import com.hjiee.domain.usecase.login.RefreshTokenUseCase
@@ -13,7 +14,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
-import okhttp3.Interceptor
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -50,7 +50,7 @@ object AuthenticatorModule {
     @Named(PROVIDE_NAME_BEER_REFRESH)
     fun provideRetrofit(
         stringProvider: StringProvider,
-        @Named(InterceptorModule.PROVIDE_NAME_HEADERS) headers: Interceptor,
+        @Named(InterceptorModule.PROVIDE_NAME_HEADERS) headers: AuthenticationInterceptor,
         @Named(InterceptorModule.PROVIDE_NAME_BODY_LOGGING) bodyLoggingInterceptor: HttpLoggingInterceptor,
         @Named(InterceptorModule.PROVIDE_NAME_HEADER_LOGGING) headerLoggingInterceptor: HttpLoggingInterceptor,
     ): BeerApi {

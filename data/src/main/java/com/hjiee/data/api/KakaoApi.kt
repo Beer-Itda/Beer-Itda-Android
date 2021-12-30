@@ -1,6 +1,6 @@
 package com.hjiee.data.api
 
-import com.hjiee.data.response.LogoutResponse
+import com.hjiee.data.response.account.LogoutResponse
 import retrofit2.http.POST
 
 interface KakaoApi {

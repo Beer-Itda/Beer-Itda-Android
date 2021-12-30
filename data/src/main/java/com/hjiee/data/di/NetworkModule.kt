@@ -2,9 +2,10 @@ package com.hjiee.data.di
 
 import com.hjiee.core.provider.StringProvider
 import com.hjiee.data.R
-import com.hjiee.data.TokenAuthenticator
 import com.hjiee.data.api.BeerApi
 import com.hjiee.data.api.KakaoApi
+import com.hjiee.data.authentication.AuthenticationInterceptor
+import com.hjiee.data.authentication.TokenAuthenticator
 import com.hjiee.data.di.AuthenticatorModule.PROVIDE_NAME_AUTHENTICATOR
 import com.hjiee.data.di.InterceptorModule.PROVIDE_NAME_BODY_LOGGING
 import com.hjiee.data.di.InterceptorModule.PROVIDE_NAME_HEADERS
@@ -33,7 +34,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(
-        @Named(PROVIDE_NAME_HEADERS) headers: Interceptor,
+        @Named(PROVIDE_NAME_HEADERS) headers: AuthenticationInterceptor,
         @Named(PROVIDE_NAME_BODY_LOGGING) bodyLoggingInterceptor: HttpLoggingInterceptor,
         @Named(PROVIDE_NAME_HEADER_LOGGING) headerLoggingInterceptor: HttpLoggingInterceptor,
         @Named(PROVIDE_NAME_AUTHENTICATOR) authenticator: TokenAuthenticator? = null
@@ -53,7 +54,7 @@ object NetworkModule {
     @Named(PROVIDE_NAME_BEER)
     fun provideRetrofit(
         stringProvider: StringProvider,
-        @Named(PROVIDE_NAME_HEADERS) headers: Interceptor,
+        @Named(PROVIDE_NAME_HEADERS) headers: AuthenticationInterceptor,
         @Named(PROVIDE_NAME_BODY_LOGGING) bodyLoggingInterceptor: HttpLoggingInterceptor,
         @Named(PROVIDE_NAME_HEADER_LOGGING) headerLoggingInterceptor: HttpLoggingInterceptor,
         @Named(PROVIDE_NAME_AUTHENTICATOR) authenticator: TokenAuthenticator

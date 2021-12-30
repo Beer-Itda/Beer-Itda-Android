@@ -1,15 +1,13 @@
 package com.hjiee.data.di
 
 import com.hjiee.core.BuildConfig
-import com.hjiee.core.Consts
-import com.hjiee.core.Consts.ACCESS_TOKEN
 import com.hjiee.core.manager.VersionManager
 import com.hjiee.core.provider.SharedPreferenceProvider
+import com.hjiee.data.authentication.AuthenticationInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
-import okhttp3.Interceptor
 import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Named
 import javax.inject.Singleton
@@ -32,20 +30,11 @@ object InterceptorModule {
     fun provideHeaders(
         preference: SharedPreferenceProvider,
         versionManager: VersionManager
-    ): Interceptor {
-        val accessToken = preference.getPreferenceString(ACCESS_TOKEN)
-        val version = versionManager.version
-        return Interceptor { chain ->
-            chain.run {
-                proceed(
-                    request().newBuilder().apply {
-                        addHeader(EXTRA_HEADER_NAME_PLATFORM, Consts.PLATFORM)
-                        addHeader(EXTRA_HEADER_NAME_APP_VERSION, version)
-                        addHeader(EXTRA_HEADER_NAME_AUTHORIZATION, "$EXTRA_HEADER_NAME_BEARER $accessToken")
-                    }.build()
-                )
-            }
-        }
+    ): AuthenticationInterceptor {
+        return AuthenticationInterceptor(
+            preference = preference,
+            versionManager = versionManager
+        )
     }
 
     @Provides
