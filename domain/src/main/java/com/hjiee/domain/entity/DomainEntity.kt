@@ -2,6 +2,7 @@ package com.hjiee.domain.entity
 
 import java.text.SimpleDateFormat
 
+
 sealed class DomainEntity {
     data class TokenInfo(
         val accessToken: String,
@@ -59,12 +60,14 @@ sealed class DomainEntity {
         createdDate: String,
         updatedDate: String
     ) {
-        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
 
+        private val formatDate = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        private val formatString = SimpleDateFormat("yyyy. MM. dd")
+        private val parsedCreatedDate = formatDate.parse(createdDate)
+        private val parsedUpdatedDate = formatDate.parse(updatedDate)
 
-        val createdAt: String = ""
-//        val updatedAt: String = SimpleDateFormat("yyyy. MM. dd").format(updatedDate)
-        val updatedAt: String = ""
+        val createdAt: String = formatString.format(parsedCreatedDate)
+        val updatedAt: String = formatString.format(parsedUpdatedDate)
     }
 
     class User(

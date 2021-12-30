@@ -9,9 +9,6 @@
             name="beer"
             type="com.hjiee.domain.entity.DomainEntity.Beer" />
 
-        <variable
-            name="createAt"
-            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
