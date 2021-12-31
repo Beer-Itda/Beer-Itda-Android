@@ -2,6 +2,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.common.related.RelatedType
 import com.ddd4.synesthesia.beer.presentation.ui.detail.item.IBeerDetailViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.detail.item.info.BeerDetailInfoItemViewModelMapper.getInfo
 import com.ddd4.synesthesia.beer.presentation.ui.detail.item.related.BeerDetailRelatedMapper.getRelatedListItemViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.detail.item.review.BeerDetailReviewMapper.getReviewListItemViewModel
 import com.hjiee.core.event.SelectEventNotifier
 import com.hjiee.domain.entity.DomainEntity
 
@@ -61,7 +62,7 @@ object BeerDetailItemMapper {
         return mutableListOf<IBeerDetailViewModel>().apply {
             this@getDetailViewData?.let {
                 add(it.getInfo(eventNotifier = eventNotifier))
-//                add(it.getReviewListItemViewModel(eventNotifier))
+                add(it.getReviewListItemViewModel(eventNotifier = eventNotifier))
                 add(it.getRelatedListItemViewModel(type = RelatedType.AROMA, eventNotifier = eventNotifier))
                 add(it.getRelatedListItemViewModel(type = RelatedType.STYLE, eventNotifier = eventNotifier))
                 add(it.getRelatedListItemViewModel(type = RelatedType.RANDOM, eventNotifier = eventNotifier))

@@ -3,8 +3,6 @@ package com.ddd4.synesthesia.beer.presentation.ui.detail.viewmodel
 import BeerDetailItemMapper.getDetailViewData
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
@@ -24,18 +22,17 @@ class BeerDetailViewModel @ViewModelInject constructor(
 
     private val beerId by lazy { (savedState.get(KEY_BEER_ID) as? Int).orZero() }
 
-    private val _item = MutableLiveData<List<IBeerDetailViewModel>>()
-    val item: LiveData<List<IBeerDetailViewModel>> get() = _item
+    private var item: List<IBeerDetailViewModel> = emptyList()
 
     fun load() {
         statusLoading()
         viewModelScope.launch {
             runCatching {
-                _item.value = useCase.getBeerDetail.execute(beerId)
+                item = useCase.getBeerDetail.execute(beerId)
                     .getDetailViewData(this@BeerDetailViewModel)
             }.onSuccess {
                 statusSuccess()
-                notifyActionEvent(BeerDetailActionEntity.UpdateUi(_item.value.orEmpty()))
+                notifyActionEvent(BeerDetailActionEntity.UpdateUi(item))
             }.onFailure {
                 statusFailure()
                 throwMessage(stringProvider.getError(), true)
@@ -65,9 +62,5 @@ class BeerDetailViewModel @ViewModelInject constructor(
 
     fun clickReviewAll() {
         notifySelectEvent(BeerDetailItemSelectEntity.ReviewAll)
-    }
-
-    fun clickStarRate() {
-        notifySelectEvent(BeerDetailItemSelectEntity.StarRate)
     }
 }

@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="review"
+            name="item"
             type="com.ddd4.synesthesia.beer.presentation.ui.common.review.ReviewItemViewModel" />
     </data>
 
@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="@{review.writerNickName}"
+            android:text="@{item.writerNickName}"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +39,7 @@
             android:numStars="5"
             android:progressBackgroundTint="@color/shark"
             android:progressTint="@color/butterscotch"
-            android:rating="@{review.ratio}"
+            android:rating="@{item.review.star}"
             android:secondaryProgressTint="@color/butterscotch"
             android:stepSize="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +52,7 @@
             android:layout_marginStart="8dp"
             android:ellipsize="end"
             android:gravity="center"
-            android:text="@{@string/rate_unit_2(review.ratio)}"
+            android:text="@{@string/rate_unit_2(item.review.star)}"
             android:textColor="@color/butterscotch"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/rb_beer_rate"
@@ -65,7 +65,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@{review.content}"
+            android:text="@{item.review.content}"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:singleLine="true"
-            android:text="@{review.createdAt}"
+            android:text="@{item.review.createdAt}"
             android:textColor="@color/color_8e8d94"
             android:textSize="11sp"
             app:layout_constraintTop_toBottomOf="@+id/tv_review_content"

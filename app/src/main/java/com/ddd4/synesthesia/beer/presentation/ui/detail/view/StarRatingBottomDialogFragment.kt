@@ -12,8 +12,6 @@ import androidx.lifecycle.Observer
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.LayoutBottomStarRatingBinding
 import com.ddd4.synesthesia.beer.presentation.base.BaseBottomSheetDialogFragment
-import com.hjiee.core.event.entity.ActionEntity
-import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.detail.entity.StarRatingBottomClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.detail.viewmodel.StarRatingViewModel
 import com.ddd4.synesthesia.beer.util.CustomAlertDialog
@@ -23,6 +21,8 @@ import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.util.ext.showToast
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.hjiee.core.event.entity.ActionEntity
+import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.core.ext.*
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -167,9 +167,9 @@ class StarRatingBottomDialogFragment :
 
         fun getBundle(
             beerId: Int,
-            reviewContent: String?,
-            reviewRatio: Float?,
-            isFirstWrite: Boolean?
+            reviewContent: String? = null,
+            reviewRatio: Float? = null,
+            isFirstWrite: Boolean? = null
         ): Bundle {
             return Bundle().apply {
                 putInt(KEY_BEER_ID, beerId)

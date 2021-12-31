@@ -17,7 +17,7 @@ class ReviewItemViewViewHolder(
 
     override fun onBind(viewModel: ReviewItemViewModel, position: Int) {
         binding?.run {
-            this.review = viewModel
+            this.item = viewModel
             executePendingBindings()
         }
     }

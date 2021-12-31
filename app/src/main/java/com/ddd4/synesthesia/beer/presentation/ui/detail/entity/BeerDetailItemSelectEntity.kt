@@ -9,6 +9,4 @@ sealed class BeerDetailItemSelectEntity : ItemClickEntity() {
     /** 리뷰 전체보기 */
     object ReviewAll : BeerDetailItemSelectEntity()
 
-    /** 별점 남기기 */
-    object StarRate : BeerDetailItemSelectEntity()
 }

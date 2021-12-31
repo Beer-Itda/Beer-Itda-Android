@@ -120,4 +120,5 @@
     <string name="recommend_update_title">권장 업데이트</string>
     <string name="recommend_update">새로운 버전이 있습니다.\n업데이트 하시겠습니까?</string>
     <string name="current_version">현재버전</string>
+    <string name="empty_review">아직 작성된 리뷰가 없어요 첫 리뷰를 남겨보세요!</string>
 </resources>

@@ -1,11 +1,12 @@
 package com.ddd4.synesthesia.beer.presentation.ui.common.review
 
+import com.hjiee.core.event.SelectEventNotifier
+import com.hjiee.domain.entity.DomainEntity
+
 class ReviewItemViewModel(
-    val reviewId: Int,
-    val writerNickName: String,
-    val ratio: Float,
-    val content: String,
-    val createdAt: String
+    val review: DomainEntity.Review?,
+    val writerNickName: String = "",
+    eventNotifier: SelectEventNotifier
 ) : IReviewListViewModel {
 
 }

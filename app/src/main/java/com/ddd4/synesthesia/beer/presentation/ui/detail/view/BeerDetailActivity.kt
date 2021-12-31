@@ -7,10 +7,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityBeerDetailBinding
-import com.hjiee.core.ext.*
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
-import com.hjiee.core.event.entity.ActionEntity
-import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.common.review.model.ReviewItemSelectEntity
 import com.ddd4.synesthesia.beer.presentation.ui.detail.adapter.DetailAdapter
@@ -21,6 +18,9 @@ import com.ddd4.synesthesia.beer.presentation.ui.detail.viewmodel.BeerDetailView
 import com.ddd4.synesthesia.beer.presentation.ui.review.view.ReviewListActivity
 import com.ddd4.synesthesia.beer.util.KEY_BEER_ID
 import com.ddd4.synesthesia.beer.util.ext.*
+import com.hjiee.core.event.entity.ActionEntity
+import com.hjiee.core.event.entity.ItemClickEntity
+import com.hjiee.core.ext.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,6 +28,7 @@ class BeerDetailActivity : BaseActivity<ActivityBeerDetailBinding>(R.layout.acti
 
     private val detailViewModel by viewModels<BeerDetailViewModel>()
     private val detailAdapter by lazy { DetailAdapter() }
+    private val beerId by lazy { (intent.getStringExtra(KEY_BEER_ID) as? Int).orZero() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,16 +74,8 @@ class BeerDetailActivity : BaseActivity<ActivityBeerDetailBinding>(R.layout.acti
                 start<BeerDetailActivity>(intent = getIntent(this, entity.beer.id.orZero()))
             }
             is BeerDetailItemSelectEntity.ReviewAll -> {
-//                start(
-//                    intent = ReviewListActivity.getIntent(
-//                        this,
-//                        detailViewModel.item.value?.beer?.reviews?.toTypedArray()
-//                    )
-//                )
+                start<ReviewListActivity>()
             }
-//            is BeerDetailItemSelectEntity.StarRate -> {
-//                showStarRatingView()
-//            }
             is ReviewItemSelectEntity.WriteReview -> {
                 showStarRatingView()
             }
@@ -91,12 +84,12 @@ class BeerDetailActivity : BaseActivity<ActivityBeerDetailBinding>(R.layout.acti
 
     private fun showStarRatingView() {
         StarRatingBottomDialogFragment().run {
-//            this@run.arguments = getBundle(
-//                beerId = detailViewModel.item.value?.beer?.id.orZero(),
+            this@run.arguments = getBundle(
+                beerId = beerId
 //                reviewContent = detailViewModel.item.value?.myReview?.content,
 //                reviewRatio = detailViewModel.item.value?.myReview?.ratio.orDefault(0.5f),
 //                isFirstWrite = detailViewModel.item.value?.myReview?.reviewId.orZero() == 0
-//            )
+            )
             showDialog(this@BeerDetailActivity.supportFragmentManager) {
                 detailViewModel.load()
                 context?.showToast(getString(R.string.registered_review))
