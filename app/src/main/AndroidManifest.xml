@@ -32,6 +32,7 @@
 
         <activity
             android:name="com.ddd4.synesthesia.beer.presentation.ui.login.view.LoginActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <activity

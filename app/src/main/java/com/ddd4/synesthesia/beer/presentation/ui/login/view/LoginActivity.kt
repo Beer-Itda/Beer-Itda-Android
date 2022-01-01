@@ -83,6 +83,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         when (entity) {
             is LoginActionEntity.SuccessLogin -> {
                 start<MainActivity>()
+                finish()
             }
             is ErrorActionEntity.ShowErrorMessage -> {
                 showToast(entity.message)
@@ -109,7 +110,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         @JvmStatic
         fun getTaskIntent(context: Context): Intent {
             return Intent(context, LoginActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
         }
     }

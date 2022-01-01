@@ -8,6 +8,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.item.Settin
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.model.SettingActionEntity
 import com.hjiee.core.manager.VersionManager
 import com.hjiee.core.provider.SharedPreferenceProvider
+import com.hjiee.core.provider.StringProvider
 import com.hjiee.domain.usecase.login.LogoutUseCase
 import kotlinx.coroutines.launch
 
@@ -15,6 +16,7 @@ import kotlinx.coroutines.launch
 class SettingViewModel @ViewModelInject constructor(
     private val versionManager: VersionManager,
     private val logoutUseCase: LogoutUseCase,
+    private val stringProvider: StringProvider,
     private val preference: SharedPreferenceProvider
 ) : BaseViewModel() {
 
@@ -43,6 +45,9 @@ class SettingViewModel @ViewModelInject constructor(
                     success = {
                         preference.clear()
                         notifyActionEvent(SettingActionEntity.LogOut)
+                    },
+                    failure = {
+                        throwMessage(stringProvider.getError())
                     }
                 )
             }

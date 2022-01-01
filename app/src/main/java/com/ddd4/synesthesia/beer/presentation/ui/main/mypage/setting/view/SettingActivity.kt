@@ -55,6 +55,11 @@ class SettingActivity :
         observeHandledEvent(viewModel.event.select) {
             handleSelectEvent(it)
         }
+        observeHandledEvent(viewModel.event.throwable) {
+            if(it.first.message.isNullOrEmpty().not()) {
+                showToast(it.first.message.orEmpty())
+            }
+        }
     }
 
     override fun handleActionEvent(entity: ActionEntity) {
