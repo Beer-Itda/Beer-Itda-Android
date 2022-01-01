@@ -3,7 +3,6 @@ package com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.viewmodel
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
-import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.AromaProvider
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FliterStringProvider
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaActionEntity
@@ -11,7 +10,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaClickE
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemMapper
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.view.AromaViewState
-import com.hjiee.domain.NetworkCallback
+import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.domain.NetworkResponse
 import com.hjiee.domain.usecase.filter.aroma.GetAromaUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi

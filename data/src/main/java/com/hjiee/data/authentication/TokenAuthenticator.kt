@@ -7,7 +7,10 @@ import com.hjiee.core.util.log.L
 import com.hjiee.data.di.InterceptorModule.EXTRA_HEADER_NAME_AUTHORIZATION
 import com.hjiee.data.di.InterceptorModule.EXTRA_HEADER_NAME_BEARER
 import com.hjiee.domain.usecase.login.RefreshTokenUseCase
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Response

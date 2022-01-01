@@ -1,13 +1,10 @@
 package com.ddd4.synesthesia.beer.presentation.ui.splash.view
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivitySplashBinding
-import com.ddd4.synesthesia.beer.util.ext.start
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.ui.login.model.LoginActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.login.view.LoginActivity
@@ -15,14 +12,9 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.view.MainActivity
 import com.ddd4.synesthesia.beer.presentation.ui.splash.model.SplashActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.splash.viewmodel.SplashViewModel
 import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
-import com.ddd4.synesthesia.beer.util.ext.showNoticeDialog
-import com.hjiee.core.Consts.ACCESS_TOKEN
+import com.ddd4.synesthesia.beer.util.ext.start
 import com.hjiee.core.event.entity.ActionEntity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {

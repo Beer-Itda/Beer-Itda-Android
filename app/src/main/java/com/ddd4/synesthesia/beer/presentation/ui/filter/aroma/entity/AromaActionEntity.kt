@@ -1,7 +1,7 @@
 package com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity
 
-import com.hjiee.core.event.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemViewModel
+import com.hjiee.core.event.entity.ActionEntity
 
 sealed class AromaActionEntity : ActionEntity() {
     class ShowToast(val message: String) : AromaActionEntity()

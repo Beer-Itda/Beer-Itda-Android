@@ -1,6 +1,5 @@
 package com.ddd4.synesthesia.beer.presentation.ui.common.beer.item
 
-import com.hjiee.core.event.SelectActionEventNotifier
 import com.hjiee.core.event.SelectEventNotifier
 import com.hjiee.domain.entity.DomainEntity
 

@@ -7,9 +7,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.LayoutBottomSortBinding
-import com.ddd4.synesthesia.beer.util.ext.updateTypeface
 import com.ddd4.synesthesia.beer.presentation.base.BaseBottomSheetDialogFragment
 import com.ddd4.synesthesia.beer.presentation.ui.common.sort.viewmodel.SortViewModel
+import com.ddd4.synesthesia.beer.util.ext.updateTypeface
 import com.ddd4.synesthesia.beer.util.sort.SortType
 import dagger.hilt.android.AndroidEntryPoint
 

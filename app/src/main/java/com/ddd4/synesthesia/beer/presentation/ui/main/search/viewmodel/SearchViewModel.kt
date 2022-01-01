@@ -7,10 +7,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
-import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.search.model.SearchSelectEvent
 import com.ddd4.synesthesia.beer.util.ext.ObservableExt.ObservableString
+import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.data.response.v2.BeerResponse
 import com.hjiee.domain.repository.BeerRepository
 import kotlinx.coroutines.Job

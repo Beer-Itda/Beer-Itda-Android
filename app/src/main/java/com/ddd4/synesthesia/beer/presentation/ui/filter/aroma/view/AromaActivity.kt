@@ -7,15 +7,15 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityFilterAromaBinding
-import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
-import com.ddd4.synesthesia.beer.util.ext.start
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
-import com.hjiee.core.event.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.view.adapter.AromaListAdapter
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.view.adapter.AromaSelectedListAdapter
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.viewmodel.AromaViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.StyleActivity
+import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
+import com.ddd4.synesthesia.beer.util.ext.start
+import com.hjiee.core.event.entity.ActionEntity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

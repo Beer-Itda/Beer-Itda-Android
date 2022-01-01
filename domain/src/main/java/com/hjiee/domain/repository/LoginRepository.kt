@@ -1,8 +1,6 @@
 package com.hjiee.domain.repository
 
 import com.hjiee.domain.entity.DomainEntity.TokenInfo
-import com.hjiee.domain.entity.DomainEntity.Token
-import com.hjiee.domain.entity.DomainEntity.User
 
 interface LoginRepository {
     /**

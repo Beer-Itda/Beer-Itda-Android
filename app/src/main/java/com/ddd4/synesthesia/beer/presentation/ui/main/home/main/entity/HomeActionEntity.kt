@@ -1,7 +1,7 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.home.main.entity
 
-import com.hjiee.core.event.entity.ActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.item.IHomeItemViewModel
+import com.hjiee.core.event.entity.ActionEntity
 
 sealed class HomeActionEntity : ActionEntity() {
     object Refresh : HomeActionEntity()

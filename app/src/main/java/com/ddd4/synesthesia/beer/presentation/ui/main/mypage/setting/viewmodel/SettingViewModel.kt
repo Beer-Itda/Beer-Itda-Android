@@ -8,7 +8,6 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.item.Settin
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.model.SettingActionEntity
 import com.hjiee.core.manager.VersionManager
 import com.hjiee.core.provider.SharedPreferenceProvider
-import com.hjiee.domain.repository.LoginRepository
 import com.hjiee.domain.usecase.login.LogoutUseCase
 import kotlinx.coroutines.launch
 

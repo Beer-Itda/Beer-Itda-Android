@@ -7,8 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
-import com.hjiee.core.event.entity.ActionEntity
-import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModelMapper.getBeerItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.AromaProvider
@@ -23,6 +21,8 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.view.HomeStringP
 import com.ddd4.synesthesia.beer.util.ext.EventFlow
 import com.ddd4.synesthesia.beer.util.ext.GlobalEvent
 import com.ddd4.synesthesia.beer.util.sort.SortType
+import com.hjiee.core.event.entity.ActionEntity
+import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.core.util.log.L
 import com.hjiee.domain.entity.DomainEntity.Beer
 import kotlinx.coroutines.ExperimentalCoroutinesApi

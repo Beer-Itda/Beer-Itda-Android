@@ -7,7 +7,6 @@ import com.ddd4.synesthesia.beer.presentation.base.recyclerview2.BaseBindingView
 import com.ddd4.synesthesia.beer.presentation.base.recyclerview2.SimpleBindingListAdapter
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemViewHolder
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemViewModel
-import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small.StyleSmallItemViewHolder
 
 class AromaListAdapter :
     SimpleBindingListAdapter<AromaItemViewModel>(R.layout.item_filter_aroma) {

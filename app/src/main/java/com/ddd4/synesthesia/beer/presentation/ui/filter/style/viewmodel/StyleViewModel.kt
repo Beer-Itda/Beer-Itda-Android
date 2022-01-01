@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
-import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FliterStringProvider
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.StyleProvider
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleActionEntity
@@ -13,6 +12,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.large.StyleLa
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleMiddleItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small.StyleSmallItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.StyleViewState
+import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.domain.NetworkResponse
 import com.hjiee.domain.usecase.filter.style.GetStyleUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi

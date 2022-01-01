@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.hjiee.core.event.entity.ActionEntity
-import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.commom.entity.HandleEvent
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.hjiee.core.event.entity.ActionEntity
+import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.core.provider.SharedPreferenceProvider
 import javax.inject.Inject
 

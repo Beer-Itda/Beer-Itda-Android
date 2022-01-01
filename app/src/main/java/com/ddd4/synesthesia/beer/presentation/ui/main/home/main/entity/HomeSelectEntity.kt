@@ -1,8 +1,7 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.home.main.entity
 
-import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.view.HomeStringProvider
-import com.ddd4.synesthesia.beer.util.sort.SortType
+import com.hjiee.core.event.entity.ItemClickEntity
 
 sealed class HomeSelectEntity : ItemClickEntity() {
     object ClickFilter : HomeSelectEntity()

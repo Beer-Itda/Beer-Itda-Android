@@ -1,7 +1,6 @@
 package com.hjiee.data.response.v2
 
 import com.google.gson.annotations.SerializedName
-import com.hjiee.domain.entity.DomainEntity
 
 data class BeerResponse(
     @SerializedName("id")

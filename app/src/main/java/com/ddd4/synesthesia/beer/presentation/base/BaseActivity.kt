@@ -8,13 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.ddd4.synesthesia.beer.R
+import com.ddd4.synesthesia.beer.presentation.commom.entity.HandleEvent
+import com.ddd4.synesthesia.beer.presentation.ui.main.view.MainActivity
 import com.ddd4.synesthesia.beer.util.ext.dateFormat
 import com.ddd4.synesthesia.beer.util.ext.showSnackBar
 import com.ddd4.synesthesia.beer.util.ext.showToast
 import com.hjiee.core.event.entity.ActionEntity
 import com.hjiee.core.event.entity.ItemClickEntity
-import com.ddd4.synesthesia.beer.presentation.commom.entity.HandleEvent
-import com.ddd4.synesthesia.beer.presentation.ui.main.view.MainActivity
 import com.hjiee.core.manager.VersionManager
 import com.hjiee.core.provider.SharedPreferenceProvider
 import javax.inject.Inject

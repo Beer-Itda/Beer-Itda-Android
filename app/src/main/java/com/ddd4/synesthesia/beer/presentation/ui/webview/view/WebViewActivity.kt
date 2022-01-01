@@ -8,8 +8,6 @@ import android.webkit.WebViewClient
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityWebviewBinding
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
-import com.ddd4.synesthesia.beer.presentation.ui.detail.view.BeerDetailActivity
-import com.ddd4.synesthesia.beer.util.KEY_BEER_ID
 import kotlinx.android.synthetic.main.activity_webview.*
 
 

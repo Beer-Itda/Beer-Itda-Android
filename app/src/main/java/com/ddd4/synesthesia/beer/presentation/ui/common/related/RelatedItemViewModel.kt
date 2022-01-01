@@ -1,8 +1,7 @@
 package com.ddd4.synesthesia.beer.presentation.ui.common.related
 
-import com.hjiee.core.event.SelectEventNotifier
 import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModel
-import com.hjiee.domain.entity.DomainEntity
+import com.hjiee.core.event.SelectEventNotifier
 
 class RelatedItemViewModel(
     val beer: BeerItemViewModel,

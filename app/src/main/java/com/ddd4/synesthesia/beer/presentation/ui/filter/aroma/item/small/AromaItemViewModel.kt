@@ -1,8 +1,8 @@
 package com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small
 
 import androidx.databinding.ObservableBoolean
-import com.hjiee.core.event.SelectActionEventNotifier
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaClickEntity
+import com.hjiee.core.event.SelectActionEventNotifier
 
 class AromaItemViewModel(
     val name: String,

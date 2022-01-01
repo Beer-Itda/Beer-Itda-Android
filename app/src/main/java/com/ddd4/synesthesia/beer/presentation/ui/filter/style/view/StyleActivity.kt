@@ -7,10 +7,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityFilterStyleBinding
-import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
-import com.hjiee.core.event.entity.ActionEntity
-import com.hjiee.core.event.entity.ItemClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleClicklEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleMiddleItemViewHolder
@@ -18,7 +15,10 @@ import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.adapter.Style
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.adapter.StyleSelectedListAdapter
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.adapter.StyleSmallListAdapter
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.viewmodel.StyleViewModel
+import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
 import com.google.android.material.tabs.TabLayout
+import com.hjiee.core.event.entity.ActionEntity
+import com.hjiee.core.event.entity.ItemClickEntity
 import com.yarolegovich.discretescrollview.DiscreteScrollView
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer
 import dagger.hilt.android.AndroidEntryPoint

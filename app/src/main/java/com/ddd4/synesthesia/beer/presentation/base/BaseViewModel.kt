@@ -4,17 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ddd4.synesthesia.beer.presentation.base.model.ErrorActionEntity
-import com.hjiee.core.event.entity.ActionEntity
-import com.hjiee.core.event.entity.ItemClickEntity
+import com.ddd4.synesthesia.beer.presentation.commom.entity.ThrowEntity
+import com.ddd4.synesthesia.beer.util.NetworkStatus
 import com.hjiee.core.event.BaseEvent
 import com.hjiee.core.event.IBaseEvent
 import com.hjiee.core.event.SelectActionEventNotifier
+import com.hjiee.core.event.entity.ActionEntity
+import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.core.event.setHandledValue
-import com.ddd4.synesthesia.beer.presentation.commom.entity.ThrowEntity
-import com.ddd4.synesthesia.beer.util.NetworkStatus
 import com.hjiee.core.util.log.L
 import kotlinx.coroutines.CoroutineExceptionHandler
-import timber.log.Timber
 
 abstract class BaseViewModel : ViewModel(), SelectActionEventNotifier {
 
