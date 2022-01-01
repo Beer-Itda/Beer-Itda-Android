@@ -23,25 +23,40 @@ class VersionManager @Inject constructor(
             ""
         }
 
+    val forceUpdateVersion: String
+        get() = try {
+            updateTargetJsonObject.getString(FORCE_UPDATE_VERSION)
+        } catch (e: Exception) {
+            L.e(e)
+            ""
+        }
+
+
+    val recommendUpdateVersion: String
+        get() = try {
+            updateTargetJsonObject.getString(RECOMMEND_UPDATE_VERSION)
+        } catch (e: Exception) {
+            L.e(e)
+            ""
+        }
+
+    private val updateTargetInfo: String
+        get() = preference.getPreferenceString(UPDATE_VERSION_INFO).orEmpty()
+
+    private val updateTargetJsonObject: JSONObject
+        get() = try {
+            JSONObject(updateTargetInfo)
+        } catch (e: Exception) {
+            L.e(e)
+            JSONObject()
+        }
+
+
     var lastVisitTime
         get() = preference.getPreferenceString(KEY_LAST_VISIT)
         set(value) = preference.setValue(KEY_LAST_VISIT, value)
 
-    fun updateInfo(): AppUpdate {
-        val versionJsonObject = preference.getPreferenceString(UPDATE_VERSION_INFO)
-        var forceUpdateVersion = ""
-        var recommendUpdateVersion = ""
-
-        runCatching {
-            JSONObject(versionJsonObject).run {
-                forceUpdateVersion = get(FORCE_UPDATE_VERSION).toString()
-                recommendUpdateVersion = get(RECOMMEND_UPDATE_VERSION).toString()
-            }
-        }.onFailure {
-            L.e(it, "currentVersion : ${version} / targetVersionInfo : $versionJsonObject")
-        }
-
-
+    fun updateInfo(): UpdateRequiredStatus {
         return resultVersionCompare(
             currentVersion = version,
             forceVersion = forceUpdateVersion,
@@ -54,8 +69,8 @@ class VersionManager @Inject constructor(
     }
 }
 
-sealed class AppUpdate {
-    object Force : AppUpdate()
-    object Recommend : AppUpdate()
-    object None : AppUpdate()
+sealed class UpdateRequiredStatus {
+    object Force : UpdateRequiredStatus()
+    object Recommend : UpdateRequiredStatus()
+    object None : UpdateRequiredStatus()
 }

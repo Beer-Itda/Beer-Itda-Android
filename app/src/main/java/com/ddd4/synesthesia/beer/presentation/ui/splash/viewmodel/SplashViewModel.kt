@@ -1,13 +1,15 @@
 package com.ddd4.synesthesia.beer.presentation.ui.splash.viewmodel
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.login.model.LoginActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.splash.model.SplashActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.splash.view.SplashStringProvider
-import com.hjiee.core.manager.AppUpdate
 import com.hjiee.core.manager.FirebaseConfigManager
+import com.hjiee.core.manager.UpdateRequiredStatus
 import com.hjiee.core.manager.VersionManager
 import com.hjiee.core.provider.SharedPreferenceProvider
 import com.hjiee.domain.usecase.login.GetTokenUseCase
@@ -28,15 +30,21 @@ class SplashViewModel @ViewModelInject constructor(
         firebaseConfigManager.fetchRemoteConfig()
     }
 
+    private val _updateRequiredStatus = MutableLiveData<UpdateRequiredStatus>()
+    val updateRequiredStatus : LiveData<UpdateRequiredStatus> get() = _updateRequiredStatus
+
     fun checkForUpdate() {
         when (versionManager.updateInfo()) {
-            AppUpdate.Force -> {
-                notifyActionEvent(SplashActionEntity.ForceUpdate(stringProvider.getString(AppUpdate.Force)))
+            UpdateRequiredStatus.Force -> {
+                _updateRequiredStatus.value = UpdateRequiredStatus.Force
+                notifyActionEvent(SplashActionEntity.ForceUpdate(stringProvider.getString(UpdateRequiredStatus.Force)))
             }
-            AppUpdate.Recommend -> {
-                notifyActionEvent(SplashActionEntity.RecommendUpdate(stringProvider.getString(AppUpdate.Recommend)))
+            UpdateRequiredStatus.Recommend -> {
+                _updateRequiredStatus.value = UpdateRequiredStatus.Recommend
+                notifyActionEvent(SplashActionEntity.RecommendUpdate(stringProvider.getString(UpdateRequiredStatus.Recommend)))
             }
-            AppUpdate.None -> {
+            UpdateRequiredStatus.None -> {
+                _updateRequiredStatus.value = UpdateRequiredStatus.None
                 viewModelScope.launch {
                     delay(1500)
                     autoLogin()

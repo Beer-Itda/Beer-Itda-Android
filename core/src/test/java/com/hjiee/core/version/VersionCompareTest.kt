@@ -1,6 +1,6 @@
 package com.hjiee.core.version
 
-import com.hjiee.core.manager.AppUpdate
+import com.hjiee.core.manager.UpdateRequiredStatus
 import com.hjiee.core.util.version.VersionCompareUtil
 import com.hjiee.core.util.version.VersionCompareUtil.resultVersionCompare
 import org.junit.Test
@@ -16,7 +16,7 @@ class VersionCompareTest {
                 currentVersion = current,
                 forceVersion = "2.1.0",
                 recommendVersion = "3.0.0",
-                updateType = AppUpdate.Force
+                updateRequiredStatusType = UpdateRequiredStatus.Force
             )
         )
     }
@@ -28,7 +28,7 @@ class VersionCompareTest {
                 currentVersion = current,
                 forceVersion = "1.0.0",
                 recommendVersion = "2.0.1",
-                updateType = AppUpdate.Recommend
+                updateRequiredStatusType = UpdateRequiredStatus.Recommend
             )
         )
     }
@@ -40,7 +40,7 @@ class VersionCompareTest {
                 currentVersion = current,
                 forceVersion = "1.0.0",
                 recommendVersion = "1.0.0",
-                updateType = AppUpdate.None
+                updateRequiredStatusType = UpdateRequiredStatus.None
             )
         )
     }
@@ -50,7 +50,7 @@ class VersionCompareTest {
         currentVersion: String,
         forceVersion: String,
         recommendVersion: String,
-        updateType: AppUpdate
+        updateRequiredStatusType: UpdateRequiredStatus
     ): Boolean {
         printOut(
             currentVersion = currentVersion,
@@ -62,7 +62,7 @@ class VersionCompareTest {
             currentVersion = currentVersion,
             forceVersion = forceVersion,
             recommendVersion = recommendVersion
-        ) == updateType
+        ) == updateRequiredStatusType
     }
 
     private fun printOut(

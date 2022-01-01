@@ -1,7 +1,7 @@
 package com.hjiee.core.util.version
 
 import com.hjiee.core.ext.orZero
-import com.hjiee.core.manager.AppUpdate
+import com.hjiee.core.manager.UpdateRequiredStatus
 import com.hjiee.core.util.log.L
 import java.util.*
 
@@ -38,7 +38,7 @@ object VersionCompareUtil {
         currentVersion: String,
         forceVersion: String,
         recommendVersion: String
-    ): AppUpdate {
+    ): UpdateRequiredStatus {
         val currentVersionWeight = getWeight(currentVersion)
         val forceVersionWeight = getWeight(forceVersion)
         val recommendVersionWeight = getWeight(recommendVersion)
@@ -46,14 +46,14 @@ object VersionCompareUtil {
         return when {
             currentVersionWeight < forceVersionWeight -> {
                 L.d("UPDATE","need to force update from $currentVersion")
-                AppUpdate.Force
+                UpdateRequiredStatus.Force
             }
             currentVersionWeight < recommendVersionWeight -> {
                 L.d("UPDATE","need to recommend update from $currentVersion")
-                AppUpdate.Recommend
+                UpdateRequiredStatus.Recommend
             }
             else -> {
-                AppUpdate.None
+                UpdateRequiredStatus.None
             }
         }
     }

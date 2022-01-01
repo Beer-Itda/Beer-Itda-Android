@@ -14,6 +14,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.splash.viewmodel.SplashViewMode
 import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.util.ext.start
 import com.hjiee.core.event.entity.ActionEntity
+import com.hjiee.core.manager.UpdateRequiredStatus
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,12 +23,14 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
     private val viewModel by viewModels<SplashViewModel>()
     private val dialog by lazy {
         AlertDialog.Builder(this, R.style.Dialog).apply {
-            setCancelable(false)
+            setCancelable(true)
             setPositiveButton(getString(R.string.update)) { _, _ ->
                 moveToPlayStore()
             }
-            setNegativeButton(getString(R.string.no_update)) { _, _ ->
-                viewModel.autoLogin()
+            if (viewModel.updateRequiredStatus.value == UpdateRequiredStatus.Recommend) {
+                setNegativeButton(getString(R.string.no_update)) { _, _ ->
+                    viewModel.autoLogin()
+                }
             }
         }.create()
     }
