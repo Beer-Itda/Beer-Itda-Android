@@ -21,12 +21,12 @@
             android:id="@+id/sort_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/notosans_kr_bold"
             android:text="정렬"
             android:textColor="@color/white"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="30dp"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,9 +34,9 @@
             android:id="@+id/sort_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_btn_close"
             android:layout_marginTop="28dp"
             android:layout_marginEnd="28dp"
+            android:src="@drawable/ic_btn_close"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,24 +44,24 @@
             android:id="@+id/sort_default"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="기본 순"
-            android:textSize="14sp"
-            android:textColor="@color/white"
-            android:fontFamily="@font/notosans_kr_regular"
             android:layout_marginTop="42dp"
-            android:onClick="@{() -> vm.sortWithType(SortType.Default)}"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:text="기본 순"
+            android:textColor="@color/white"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sort_header" />
+            app:layout_constraintTop_toBottomOf="@id/sort_header"
+            app:onDebouncedClick="@{vm.sortWithType}" />
 
         <View
             android:id="@+id/divider1"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:background="@color/shark"
-            android:layout_marginTop="24dp"
             android:layout_marginStart="28dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="28dp"
+            android:background="@color/shark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sort_default" />
@@ -70,24 +70,24 @@
             android:id="@+id/sort_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="별점 높은 순"
-            android:textSize="14sp"
-            android:textColor="@color/white"
             android:layout_marginTop="25dp"
             android:fontFamily="@font/notosans_kr_regular"
-            android:onClick="@{() -> vm.sortWithType(SortType.Rating)}"
+            android:text="별점 높은 순"
+            android:textColor="@color/white"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider1" />
+            app:layout_constraintTop_toBottomOf="@id/divider1"
+            app:onDebouncedClick="@{vm.sortWithType}" />
 
         <View
             android:id="@+id/divider2"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:background="@color/shark"
-            android:layout_marginTop="24dp"
             android:layout_marginStart="28dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="28dp"
+            android:background="@color/shark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sort_rating" />
@@ -96,18 +96,18 @@
             android:id="@+id/sort_review"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="리뷰 많은 순"
-            android:textSize="14sp"
-            android:textColor="@color/white"
             android:layout_marginTop="25dp"
             android:layout_marginBottom="60dp"
             android:fontFamily="@font/notosans_kr_regular"
-            android:onClick="@{() -> vm.sortWithType(SortType.Review)}"
+            android:text="리뷰 많은 순"
+            android:textColor="@color/white"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider2"
-            app:layout_constraintVertical_bias="0" />
+            app:layout_constraintVertical_bias="0"
+            app:onDebouncedClick="@{vm.sortWithType}" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

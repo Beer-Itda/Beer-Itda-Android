@@ -38,6 +38,10 @@ android {
             dimension = "mode"
         }
     }
+
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {

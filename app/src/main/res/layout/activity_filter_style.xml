@@ -149,7 +149,7 @@
             android:layout_height="wrap_content"
             android:background="@color/color_1c1b21"
             android:gravity="center"
-            android:onClick="@{() -> viewModel.clickDone()}"
+            app:onDebouncedClick="@{viewModel.clickDone}"
             android:paddingVertical="24dp"
             android:text="@string/choice"
             android:textColor="@color/butterscotch"

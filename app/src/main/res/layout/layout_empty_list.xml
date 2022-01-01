@@ -52,7 +52,7 @@
             android:background="@drawable/background_round_12_ripple"
             android:backgroundTint="@color/color_1c1b21"
             android:gravity="center"
-            android:onClick="@{() -> viewModel.clickInquire()}"
+            app:onDebouncedClick="@{() -> viewModel.clickInquire()}"
             android:paddingVertical="14dp"
             android:text="@string/beeritda_inquire"
             android:textColor="@color/butterscotch"

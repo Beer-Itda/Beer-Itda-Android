@@ -24,6 +24,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.hjiee.core.event.entity.ActionEntity
 import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.core.ext.*
+import com.hjiee.core.util.listener.setOnDebounceClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -62,12 +63,12 @@ class StarRatingBottomDialogFragment :
             isFirstWrite = this@StarRatingBottomDialogFragment.isFirstWrite
 
 
-            btnSendReview.setOnClickListener {
+            btnSendReview.setOnDebounceClickListener {
                 beerId?.let { id ->
                     starRatingViewModel.postReview(id)
                 } ?: kotlin.run { context?.showToast(getString(R.string.review_fail_message)) }
             }
-            ivClose.setOnClickListener {
+            ivClose.setOnDebounceClickListener {
                 notice()
             }
         }

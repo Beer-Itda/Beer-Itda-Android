@@ -44,7 +44,7 @@
             android:layout_height="160dp"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/butterscotch"
-            android:onClick="@{() -> beer.clickItem()}"
+            app:onDebouncedClick="@{beer.clickItem}"
             app:cardCornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

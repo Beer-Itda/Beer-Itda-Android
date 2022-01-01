@@ -16,7 +16,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> style.onClick()}"
+        app:onDebouncedClick="@{() -> style.onClick()}"
         android:paddingHorizontal="6dp">
 
         <androidx.cardview.widget.CardView

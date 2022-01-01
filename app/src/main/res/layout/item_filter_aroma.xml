@@ -17,7 +17,7 @@
         android:layout_height="48dp"
         android:layout_margin="6dp"
         android:background="@{aroma.isSelected() ? @drawable/background_transparent_stroke_fdbd39_24 : @drawable/background_transparent_stroke_5c5b5f_24}"
-        android:onClick="@{() -> aroma.clickAddItem()}"
+        app:onDebouncedClick="@{() -> aroma.clickAddItem()}"
         android:paddingHorizontal="10dp"
         tools:background="@drawable/background_transparent_stroke_fdbd39_24">
 

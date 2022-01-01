@@ -80,7 +80,7 @@
                         android:layout_marginEnd="15dp"
                         android:background="@android:color/transparent"
                         android:foreground="?attr/selectableItemBackground"
-                        android:onClick="@{() -> viewModel.clickSearch()}"
+                        app:onDebouncedClick="@{viewModel.clickSearch}"
                         android:src="@drawable/ic_btn_search"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />

@@ -15,6 +15,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.view.Settin
 import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.util.ext.start
 import com.hjiee.core.event.entity.ItemClickEntity
+import com.hjiee.core.util.listener.setOnDebounceClickListener
 import com.hjiee.core.util.log.L
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,10 +40,10 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
     override fun initBind() {
         binding.run {
             viewModel = this@MyPageFragment.viewModel
-            binding.ivSetting.setOnClickListener { moveToSetting() }
-            includeMyPageReview.container.setOnClickListener { moveToReview() }
-            includeMyPageFavorite.container.setOnClickListener { moveToFavorite() }
-            includeMyPageLevelGuide.container.setOnClickListener { moveToLevelGuide() }
+            binding.ivSetting.setOnDebounceClickListener { moveToSetting() }
+            includeMyPageReview.container.setOnDebounceClickListener { moveToReview() }
+            includeMyPageFavorite.container.setOnDebounceClickListener { moveToFavorite() }
+            includeMyPageLevelGuide.container.setOnDebounceClickListener { moveToLevelGuide() }
         }
     }
 

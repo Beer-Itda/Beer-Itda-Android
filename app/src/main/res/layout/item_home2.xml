@@ -22,8 +22,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?attr/selectableItemBackground"
-        android:onClick="@{() -> beer.clickItem()}"
         android:paddingHorizontal="28dp"
+        app:onDebouncedClick="@{beer.clickItem}"
         tools:paddingVertical="8dp">
 
 
@@ -31,9 +31,9 @@
             android:id="@+id/cv_beer"
             android:layout_width="140dp"
             android:layout_height="190dp"
+            android:backgroundTint="@color/color_1c1b21"
             android:elevation="50dp"
             app:cardCornerRadius="30dp"
-            android:backgroundTint="@color/color_1c1b21"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -60,9 +60,9 @@
             android:layout_marginStart="6dp"
             android:layout_marginTop="12dp"
             android:elevation="31dp"
-            android:onClick="@{() -> beer.clickFavorite()}"
             app:layout_constraintStart_toStartOf="@+id/cv_beer"
             app:layout_constraintTop_toTopOf="@+id/cv_beer"
+            app:onDebouncedClick="@{beer.clickFavorite}"
             tools:src="@drawable/ic_btn_like" />
 
         <TextView

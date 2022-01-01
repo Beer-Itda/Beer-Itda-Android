@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd4.synesthesia.beer.databinding.ItemFilterCountryBinding
 import com.ddd4.synesthesia.beer.util.MutableLiveDataList
+import com.hjiee.core.util.listener.setOnDebounceClickListener
 
 class FilterCountryAdapter(
     private val checkedList: MutableLiveDataList<String>
@@ -43,7 +44,7 @@ class FilterCountryAdapter(
                 country = item
                 checkbox.isChecked = checkedList.isNotEmpty() && checkedList.contains(item)
 
-                checkbox.setOnClickListener {
+                checkbox.setOnDebounceClickListener {
                     if (checkbox.isChecked) {
                         checkedList.add(item)
                     } else {

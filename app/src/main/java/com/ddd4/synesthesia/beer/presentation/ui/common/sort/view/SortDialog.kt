@@ -11,6 +11,7 @@ import com.ddd4.synesthesia.beer.presentation.base.BaseBottomSheetDialogFragment
 import com.ddd4.synesthesia.beer.presentation.ui.common.sort.viewmodel.SortViewModel
 import com.ddd4.synesthesia.beer.util.ext.updateTypeface
 import com.ddd4.synesthesia.beer.util.sort.SortType
+import com.hjiee.core.util.listener.setOnDebounceClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,7 +35,7 @@ class SortDialog
             updateTypeface(it)
         })
 
-        binding.sortClose.setOnClickListener {
+        binding.sortClose.setOnDebounceClickListener {
             this.dismiss()
         }
     }

@@ -23,7 +23,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/notosans_kr_regular"
-            android:onClick="@{()-> viewModel.clickShowMore()}"
+            app:onDebouncedClick="@{()-> viewModel.clickShowMore()}"
             android:text="@{viewModel.title}"
             android:textSize="18sp"
             android:textStyle="bold"

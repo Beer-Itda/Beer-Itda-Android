@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:foreground="?attr/selectableItemBackground"
-        android:onClick="@{() -> item.clickItem()}"
+        app:onDebouncedClick="@{() -> item.clickItem()}"
         android:paddingHorizontal="18dp"
         android:paddingVertical="15dp">
 

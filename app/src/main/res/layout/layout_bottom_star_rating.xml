@@ -187,7 +187,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="28dp"
                     android:background="@drawable/background_353537_round_100"
-                    android:onClick="@{() -> vm.clickGuide()}"
+                    app:onDebouncedClick="@{() -> vm.clickGuide()}"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="6dp"
                     android:text="@string/review_level_guide"

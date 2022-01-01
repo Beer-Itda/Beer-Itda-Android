@@ -13,8 +13,8 @@ class SortViewModel @ViewModelInject constructor(
 
     val sortType: LiveData<SortType> = sortSetting.getSort().asLiveData()
 
-    fun sortWithType(sortType: SortType) {
-        sortSetting.sortType = sortType
+    fun sortWithType() {
+//        sortSetting.sortType = sortType
     }
 
 }

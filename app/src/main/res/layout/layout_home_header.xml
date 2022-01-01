@@ -50,7 +50,6 @@
             android:layout_marginTop="@dimen/margin_24"
             android:layout_marginBottom="32dp"
             android:background="@drawable/background_1c1b21_round_50"
-            android:onClick="@{() -> vm.clickFilter()}"
             android:paddingHorizontal="20dp"
             android:paddingVertical="10dp"
             android:text="@string/home_filter"
@@ -59,6 +58,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tb_home_title"
+            app:onDebouncedClick="@{vm.clickFilter}"
             tools:ignore="ContentDescription"
             tools:text="맥주 찾아보기" />
 
@@ -69,10 +69,10 @@
             android:layout_margin="10dp"
             android:background="@android:color/transparent"
             android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:onClick="@{() -> vm.clickSearch()}"
             android:src="@drawable/ic_btn_search"
             app:layout_constraintEnd_toStartOf="@+id/btn_my_page"
             app:layout_constraintTop_toTopOf="parent"
+            app:onDebouncedClick="@{vm.clickSearch}"
             tools:ignore="ContentDescription" />
 
         <ImageButton
@@ -82,10 +82,10 @@
             android:layout_margin="10dp"
             android:background="@android:color/transparent"
             android:foreground="?attr/selectableItemBackground"
-            android:onClick="@{() -> vm.clickMyPage()}"
             android:src="@drawable/ic_btn_mypage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:onDebouncedClick="@{vm.clickMyPage}"
             tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

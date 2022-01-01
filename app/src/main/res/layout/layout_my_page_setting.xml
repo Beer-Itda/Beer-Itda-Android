@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?attr/selectableItemBackground"
-        android:onClick="@{() -> my.clickItem()}"
+        app:onDebouncedClick="@{() -> my.clickItem()}"
         android:paddingHorizontal="28dp"
         android:paddingBottom="8dp">
 

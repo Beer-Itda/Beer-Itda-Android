@@ -17,6 +17,7 @@ import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.util.ext.showToast
 import com.ddd4.synesthesia.beer.util.ext.start
 import com.hjiee.core.event.entity.ActionEntity
+import com.hjiee.core.util.listener.setOnDebounceClickListener
 import com.kakao.sdk.auth.LoginClient
 import com.kakao.sdk.auth.model.OAuthToken
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,7 +47,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     override fun initBind() {
         binding.apply {
             viewModel = loginViewModel
-            tvLogin.setOnClickListener { startLogin() }
+            tvLogin.setOnDebounceClickListener { startLogin() }
             with(tvLoginNotice) {
                 text = HtmlCompat.fromHtml(
                     String.format(

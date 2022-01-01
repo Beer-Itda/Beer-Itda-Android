@@ -125,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/notosans_kr_regular"
                 android:gravity="center_vertical"
-                android:onClick="@{() -> viewModel.clickShowMoreReview()}"
+                app:onDebouncedClick="@{() -> viewModel.clickShowMoreReview()}"
                 android:text="@{@string/review_with_count(viewModel.reviewCount)}"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -185,7 +185,6 @@
                 android:backgroundTint="@color/butterscotch"
                 android:fontFamily="@font/notosans_kr_regular"
                 android:gravity="center"
-                android:onClick="@{() -> viewModel.clickWriteReview()}"
                 android:paddingVertical="14dp"
                 android:text="@{@string/write_review}"
                 android:textColor="@color/white"
@@ -195,6 +194,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_review"
                 app:layout_goneMarginTop="24dp"
+                app:onDebouncedClick="@{viewModel.clickWriteReview}"
                 app:visibility="@{!viewModel.myReviewExist}"
                 tools:text="@string/write_review" />
         </androidx.constraintlayout.widget.ConstraintLayout>

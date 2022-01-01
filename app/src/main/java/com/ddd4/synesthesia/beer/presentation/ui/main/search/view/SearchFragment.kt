@@ -19,6 +19,7 @@ import com.ddd4.synesthesia.beer.util.ext.showKeyboard
 import com.ddd4.synesthesia.beer.util.ext.start
 import com.ddd4.synesthesia.beer.util.listener.EndlessRecyclerViewScrollListener
 import com.hjiee.core.event.entity.ItemClickEntity
+import com.hjiee.core.util.listener.setOnDebounceClickListener
 import com.hjiee.core.util.log.L
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -66,7 +67,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
             viewModel = this@SearchFragment.viewModel
             titleAdapter = this@SearchFragment.titleAdapter
             imageAdapter = this@SearchFragment.imageAdapter
-            ibClear.setOnClickListener {
+            ibClear.setOnDebounceClickListener {
                 this@SearchFragment.viewModel.clearText()
                 context?.showKeyboard(etSearch)
             }

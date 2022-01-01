@@ -12,6 +12,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.nickname.viewmodel.
 import com.ddd4.synesthesia.beer.util.CustomAlertDialog
 import com.ddd4.synesthesia.beer.util.RegexUtil.isValidNickName
 import com.ddd4.synesthesia.beer.util.SimpleCallback
+import com.hjiee.core.util.listener.setOnDebounceClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,8 +29,8 @@ class NickNameActivity :
             edtNickname.apply {
                 requestFocus()
             }
-            includeToolbar.toolbar.setOnClickListener { notice() }
-            btnSave.setOnClickListener {
+            includeToolbar.toolbar.setOnDebounceClickListener { notice() }
+            btnSave.setOnDebounceClickListener {
                 SimpleCallback.callback?.call(edtNickname.text.toString())
                 finish()
             }

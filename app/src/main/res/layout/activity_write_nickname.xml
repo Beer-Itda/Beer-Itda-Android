@@ -74,7 +74,7 @@
             android:id="@+id/iv_clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.clickClear()}"
+            app:onDebouncedClick="@{viewModel.clickClear}"
             android:src="@drawable/ic_clear"
             android:visibility="@{TextUtils.isEmpty(viewModel.nickName) ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/edt_nickname"

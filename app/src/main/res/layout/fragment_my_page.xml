@@ -61,11 +61,11 @@
                         android:layout_marginTop="30dp"
                         android:background="@android:color/transparent"
                         android:contentDescription="@string/app_name"
-                        android:onClick="@{() -> viewModel.clickProfile()}"
                         app:errorDrawable="@{@drawable/ic_img_profile_blank}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/iv_setting"
                         app:loadUrl="@{viewModel.userInfo.profileImage}"
+                        app:onDebouncedClick="@{viewModel.clickProfile}"
                         app:tranformType="@{ImageTransformType.CIRCLE}"
                         tools:background="@drawable/ic_img_profile_blank" />
 
@@ -76,11 +76,11 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="30dp"
                         android:background="@drawable/circle_24"
-                        android:onClick="@{() -> viewModel.clickProfile()}"
                         android:scaleType="center"
                         android:src="@drawable/ic_photo_camera"
                         app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
                         app:layout_constraintEnd_toEndOf="@+id/iv_profile"
+                        app:onDebouncedClick="@{viewModel.clickProfile}"
                         tools:src="@drawable/ic_photo_camera" />
 
                     <TextView
@@ -92,7 +92,6 @@
                         android:ellipsize="end"
                         android:gravity="center"
                         android:maxLength="@integer/max_length"
-                        android:onClick="@{() -> viewModel.clickModify()}"
                         android:singleLine="true"
                         android:text="@{viewModel.userInfo.nickName}"
                         android:textSize="17sp"
@@ -101,6 +100,7 @@
                         app:layout_constraintStart_toEndOf="@+id/iv_profile"
                         app:layout_constraintTop_toTopOf="@+id/iv_profile"
                         app:layout_constraintVertical_chainStyle="packed"
+                        app:onDebouncedClick="@{viewModel.clickModify}"
                         tools:text="공감각" />
 
                     <ImageView
@@ -109,12 +109,12 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="16dp"
-                        android:onClick="@{() -> viewModel.clickModify()}"
                         android:src="@drawable/ic_btn_name_edit"
                         android:visibility="@{TextUtils.isEmpty(viewModel.userInfo.nickName) ? View.GONE : View.VISIBLE}"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_name"
                         app:layout_constraintStart_toEndOf="@+id/tv_name"
-                        app:layout_constraintTop_toTopOf="@+id/tv_name" />
+                        app:layout_constraintTop_toTopOf="@+id/tv_name"
+                        app:onDebouncedClick="@{viewModel.clickModify}" />
 
 
                     <TextView

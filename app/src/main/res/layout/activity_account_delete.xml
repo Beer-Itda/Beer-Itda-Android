@@ -65,7 +65,7 @@
             android:enabled="@{viewModel.viewState.isAgreement()}"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
-            android:onClick="@{() -> viewModel.clickDeleteAccount()}"
+            app:onDebouncedClick="@{viewModel.clickDeleteAccount}"
             android:padding="24dp"
             android:text="@string/delete_account"
             android:textColor="@{viewModel.viewState.isAgreement() ? @color/white : @color/color_8e8d94}"
