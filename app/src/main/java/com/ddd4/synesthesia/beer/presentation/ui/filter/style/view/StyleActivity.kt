@@ -3,7 +3,6 @@ package com.ddd4.synesthesia.beer.presentation.ui.filter.style.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityFilterStyleBinding
@@ -16,6 +15,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.adapter.Style
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.adapter.StyleSmallListAdapter
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.viewmodel.StyleViewModel
 import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
+import com.ddd4.synesthesia.beer.util.ext.showToast
 import com.google.android.material.tabs.TabLayout
 import com.hjiee.core.event.entity.ActionEntity
 import com.hjiee.core.event.entity.ItemClickEntity
@@ -102,7 +102,7 @@ class StyleActivity : BaseActivity<ActivityFilterStyleBinding>(R.layout.activity
                 binding.rvSelectedStyle.scrollToPosition(0)
             }
             is StyleActionEntity.ShowToast -> {
-                Toast.makeText(this, entity.message, Toast.LENGTH_SHORT).show()
+                showToast(entity.message)
             }
         }
     }

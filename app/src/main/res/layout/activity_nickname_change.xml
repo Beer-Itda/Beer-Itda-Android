@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="com.ddd4.synesthesia.beer.presentation.ui.main.mypage.nickname.viewmodel.NickNameViewModel" />
+            type="com.ddd4.synesthesia.beer.presentation.ui.main.mypage.nickname.viewmodel.NickNameChangeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="18dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="4dp"
             android:text="@string/please_nickname_setting"
             android:textSize="26sp"
             android:textStyle="bold"
@@ -55,7 +55,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="144dp"
             android:background="@null"
             android:gravity="start"
             android:hint="@string/nickname"
@@ -68,25 +68,25 @@
             app:layout_constraintEnd_toStartOf="@+id/iv_clear"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_nickname_description"
-            tools:text="공감각" />
+            tools:text="비어있다" />
 
         <ImageView
             android:id="@+id/iv_clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:onDebouncedClick="@{viewModel.clickClear}"
             android:src="@drawable/ic_clear"
             android:visibility="@{TextUtils.isEmpty(viewModel.nickName) ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/edt_nickname"
             app:layout_constraintEnd_toEndOf="@+id/tv_nickname_description"
-            app:layout_constraintTop_toTopOf="@+id/edt_nickname" />
+            app:layout_constraintTop_toTopOf="@+id/edt_nickname"
+            app:onDebouncedClick="@{viewModel.clickClear}" />
 
         <View
             android:id="@+id/under_line"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginHorizontal="18dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:background="@{viewModel.isValid() ? @color/color_61c453 : @color/color_ed6a5e}"
             app:layout_constraintTop_toBottomOf="@+id/edt_nickname"
             tools:background="@color/color_61c453" />
@@ -101,8 +101,8 @@
             app:layout_constraintEnd_toEndOf="@+id/edt_nickname"
             app:layout_constraintStart_toStartOf="@+id/edt_nickname"
             app:layout_constraintTop_toBottomOf="@+id/under_line"
-            tools:textColor="@color/color_61c453"
-            tools:text="0/10" />
+            tools:text="0/10"
+            tools:textColor="@color/color_61c453" />
 
         <TextView
             android:layout_width="0dp"
@@ -120,20 +120,20 @@
             android:id="@+id/btn_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/black"
+            android:background="@{viewModel.nickName.length() >=2 ? @color/butterscotch : @color/color_39393b}"
             android:clickable="@{viewModel.nickName.length() >= 2 ? true : false}"
             android:focusable="@{viewModel.nickName.length() >= 2 ? true : false}"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:paddingVertical="22dp"
-            android:text="@string/save"
-            android:textColor="@{viewModel.nickName.length() >= 2 ? @color/butterscotch : @color/color_8e8f93}"
+            android:text="@string/complete"
+            android:textColor="@{viewModel.nickName.length() >= 2 ? @color/white : @color/color_8e8d94}"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:backgroundTint="@color/black"
-            tools:textColor="@color/color_8e8f93" />
+            app:onDebouncedClick="@{viewModel.clickSave}"
+            tools:textColor="@color/color_8e8d94" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

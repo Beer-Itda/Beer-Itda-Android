@@ -75,6 +75,15 @@ interface BeerApi {
     @GET("api/v1/beer/monthly")
     suspend fun getBeerAward(): EntityResponse<AwardResponse>?
 
+    /**
+     * 닉네임 변경
+     */
+    @FormUrlEncoded
+    @PATCH("api/v1/user/nickname")
+    suspend fun changeNickName(
+        @Field("nickname") nickName: String
+    )
+
 //    /**
 //     * App Config
 //     */

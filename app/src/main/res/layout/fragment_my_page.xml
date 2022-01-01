@@ -78,6 +78,7 @@
                         android:background="@drawable/circle_24"
                         android:scaleType="center"
                         android:src="@drawable/ic_photo_camera"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
                         app:layout_constraintEnd_toEndOf="@+id/iv_profile"
                         app:onDebouncedClick="@{viewModel.clickProfile}"
@@ -105,8 +106,8 @@
 
                     <ImageView
                         android:id="@+id/iv_modify"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="16dp"
                         android:src="@drawable/ic_btn_name_edit"

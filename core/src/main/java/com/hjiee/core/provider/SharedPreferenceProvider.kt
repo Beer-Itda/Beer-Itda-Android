@@ -7,7 +7,7 @@ import javax.inject.Inject
 class SharedPreferenceProvider @Inject constructor(private val context: Context) {
 
     companion object {
-        val SHARED_PRIVATE_KEY = "BEER"
+        const val SHARED_PRIVATE_KEY = "BEER"
     }
 
     fun <T> setValue(key: String, value: T) {

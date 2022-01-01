@@ -6,47 +6,62 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.ddd4.synesthesia.beer.R
-import com.ddd4.synesthesia.beer.databinding.ActivityWriteNicknameBinding
+import com.ddd4.synesthesia.beer.databinding.ActivityNicknameChangeBinding
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
-import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.nickname.viewmodel.NickNameViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.nickname.model.NickNameChangeActionEntity
+import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.nickname.viewmodel.NickNameChangeViewModel
 import com.ddd4.synesthesia.beer.util.CustomAlertDialog
 import com.ddd4.synesthesia.beer.util.RegexUtil.isValidNickName
-import com.ddd4.synesthesia.beer.util.SimpleCallback
+import com.ddd4.synesthesia.beer.util.ext.hideKeyboard
+import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
+import com.ddd4.synesthesia.beer.util.ext.showToast
+import com.hjiee.core.event.entity.ActionEntity
 import com.hjiee.core.util.listener.setOnDebounceClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NickNameActivity :
-    BaseActivity<ActivityWriteNicknameBinding>(R.layout.activity_write_nickname) {
+class NickNameChangeActivity :
+    BaseActivity<ActivityNicknameChangeBinding>(R.layout.activity_nickname_change) {
 
-    private val viewModel by viewModels<NickNameViewModel>()
+    private val viewModel by viewModels<NickNameChangeViewModel>()
     private val nickName by lazy { intent.extras?.getString(KEY_NICKNAME) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.apply {
-            viewModel = this@NickNameActivity.viewModel
+            viewModel = this@NickNameChangeActivity.viewModel
             edtNickname.apply {
                 requestFocus()
             }
             includeToolbar.toolbar.setOnDebounceClickListener { notice() }
-            btnSave.setOnDebounceClickListener {
-                SimpleCallback.callback?.call(edtNickname.text.toString())
-                finish()
-            }
         }
         initObserver()
     }
 
     override fun initObserver() {
-        viewModel.nickName.observe(this@NickNameActivity) {
+        viewModel.nickName.observe(this@NickNameChangeActivity) {
             viewModel.setIsValid(isValidNickName(it.toString()))
+        }
+        observeHandledEvent(viewModel.event.action) {
+            handleActionEvent(it)
+        }
+    }
+
+    override fun handleActionEvent(entity: ActionEntity) {
+        when (entity) {
+            is NickNameChangeActionEntity.NickNameUpdated -> {
+                showToast(getString(R.string.changed_nickname))
+                finish()
+            }
+            is NickNameChangeActionEntity.HideKeyboard -> {
+                hideKeyboard(binding.root)
+            }
         }
     }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        binding.apply {
+        binding.run {
             edtNickname.setSelection(edtNickname.text.length)
         }
     }
@@ -57,7 +72,7 @@ class NickNameActivity :
 
     private fun notice() {
         if (viewModel.nickName.value == nickName) {
-            finish()
+            super.onBackPressed()
         } else {
             CustomAlertDialog(
                 title = getString(R.string.page_out),
@@ -76,7 +91,7 @@ class NickNameActivity :
             context: Context,
             nickName: String?
         ): Intent {
-            return Intent(context, NickNameActivity::class.java).apply {
+            return Intent(context, NickNameChangeActivity::class.java).apply {
                 putExtra(KEY_NICKNAME, nickName)
             }
         }

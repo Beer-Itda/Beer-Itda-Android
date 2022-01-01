@@ -118,6 +118,7 @@ dependencies {
     implementation(Libs.FRAGMENT_KTX)
     implementation(Libs.LIFECYCLE_VIEW_MODEL_KTX)
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
+    implementation(Libs.LIFECYCLE_COMMON)
     implementation(Libs.NAVIGATION_FRAGMENT)
     implementation(Libs.NAVIGATION_UI_KTX)
     implementation(Libs.BILLING)

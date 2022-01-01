@@ -11,6 +11,8 @@ interface BeerRepository {
     suspend fun getUserInfo(): User
     suspend fun getMyReview(): List<MyReview>
 
+    suspend fun changeNickName(nickName: String)
+
 //    suspend fun getAppConfig(): AppConfig
 //    suspend fun getBeerList(
 //        sortType: String?,

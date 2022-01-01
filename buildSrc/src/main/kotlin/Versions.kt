@@ -15,7 +15,7 @@ object Versions {
     const val CORE_KTX = "1.3.0"
     const val ACTIVITY_KTX = "1.1.0"
     const val FRAGMENT_KTX = "1.2.4"
-    const val LIFECYCLE = "2.2.0"
+    const val LIFECYCLE = "2.4.0"
     const val NAVIGATION_VERSION = "2.3.5"
     const val GOOGLE_SERVIER = "4.3.4"
 

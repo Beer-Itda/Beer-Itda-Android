@@ -10,11 +10,12 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.entity.MyPageClickE
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.favorite.view.MyFavoriteActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.main.viewmodel.MyPageViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.myreview.view.MyReviewActivity
-import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.nickname.view.NickNameActivity
+import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.nickname.view.NickNameChangeActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.view.SettingActivity
 import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.util.ext.start
 import com.hjiee.core.event.entity.ItemClickEntity
+import com.hjiee.core.observer.observeChangedUserInfo
 import com.hjiee.core.util.listener.setOnDebounceClickListener
 import com.hjiee.core.util.log.L
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,9 +33,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         initBind()
         initObserver()
 
-        firstLoaded {
-            viewModel.load()
-        }
+        firstLoaded { viewModel.load() }
+        observeChangedUserInfo { viewModel.load() }
     }
 
     override fun initBind() {
@@ -69,8 +69,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
      */
     private fun moveToNickName() {
         runCatching {
-            start<NickNameActivity>(
-                intent = NickNameActivity.getIntent(
+            start<NickNameChangeActivity>(
+                intent = NickNameChangeActivity.getIntent(
                     context = requireContext(),
                     nickName = binding.tvName.text.toString()
                 )

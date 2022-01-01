@@ -5,7 +5,6 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -134,11 +133,7 @@ class StarRatingBottomDialogFragment :
     override fun handleSelectEvent(entity: ItemClickEntity) {
         when (entity) {
             StarRatingBottomClickEntity.ClickGuide -> {
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.please_wait_for_a_little_while),
-                    Toast.LENGTH_SHORT
-                ).show()
+                context?.showToast(getString(R.string.please_wait_for_a_little_while))
             }
         }
     }

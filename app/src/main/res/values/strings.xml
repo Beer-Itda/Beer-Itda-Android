@@ -83,7 +83,7 @@
     <string name="yes">네</string>
     <string name="no">아니요</string>
     <string name="nickname">닉네임을 입력해주세요.</string>
-    <string name="please_nickname_setting">닉네임을 설정해주세요</string>
+    <string name="please_nickname_setting">닉네임을 설정해주세요!</string>
     <string name="available_nickname_format">2~10자 이내로 한글, 영문, 숫자만 입력 가능합니다.</string>
     <string name="beer_empty">검색 된 맥주가 없습니다.</string>
     <string name="home_title">오늘 당신의\n 비어있는 잔을 채워줄</string>
@@ -123,4 +123,5 @@
     <string name="recommend_update_version">권장 업데이트 버전</string>
     <string name="force_update_version">필수 업데이트 버전</string>
     <string name="empty_review">아직 작성된 리뷰가 없어요 첫 리뷰를 남겨보세요!</string>
+    <string name="changed_nickname">닉네임이 변경되었어요</string>
 </resources>

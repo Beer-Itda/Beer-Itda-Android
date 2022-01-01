@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityAccountDeleteBinding
@@ -15,6 +14,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.delete.entity.MyAcc
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.delete.viewmodel.MyAccountDeleteViewModel
 import com.ddd4.synesthesia.beer.util.CustomAlertDialog
 import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
+import com.ddd4.synesthesia.beer.util.ext.showToast
 import com.ddd4.synesthesia.beer.util.ext.start
 import com.hjiee.core.event.entity.ActionEntity
 import com.hjiee.core.event.entity.ItemClickEntity
@@ -55,11 +55,11 @@ class MyAccountDeleteActivity :
     override fun handleActionEvent(entity: ActionEntity) {
         when (entity) {
             is MyAccountDeleteActionEntity.DeleteSuccess -> {
-                Toast.makeText(this, getString(R.string.delete_success), Toast.LENGTH_SHORT).show()
+                showToast(getString(R.string.delete_success))
                 start<LoginActivity>(LoginActivity.getTaskIntent(this))
             }
             is MyAccountDeleteActionEntity.DeleteFail -> {
-                Toast.makeText(this, getString(R.string.delete_fail), Toast.LENGTH_SHORT).show()
+                showToast(getString(R.string.delete_fail))
             }
         }
     }

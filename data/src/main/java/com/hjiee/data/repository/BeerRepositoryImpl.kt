@@ -39,6 +39,10 @@ class BeerRepositoryImpl @Inject constructor(
         return beerApi.getBeerAward()?.toAwardBeer()
     }
 
+    override suspend fun changeNickName(nickName: String) {
+        beerApi.changeNickName(nickName)
+    }
+
     //    override suspend fun getAppConfig(): Result<AppConfig> {
 //        return beerApi.getAppConfig()
 //    }

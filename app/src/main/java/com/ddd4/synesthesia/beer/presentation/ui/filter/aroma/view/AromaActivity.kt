@@ -3,7 +3,6 @@ package com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityFilterAromaBinding
@@ -14,6 +13,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.view.adapter.Aroma
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.viewmodel.AromaViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.StyleActivity
 import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
+import com.ddd4.synesthesia.beer.util.ext.showToast
 import com.ddd4.synesthesia.beer.util.ext.start
 import com.hjiee.core.event.entity.ActionEntity
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,7 +56,7 @@ class AromaActivity : BaseActivity<ActivityFilterAromaBinding>(R.layout.activity
     override fun handleActionEvent(entity: ActionEntity) {
         when (entity) {
             is AromaActionEntity.ShowToast -> {
-                Toast.makeText(this@AromaActivity, entity.message, Toast.LENGTH_SHORT).show()
+                showToast(entity.message)
             }
             is AromaActionEntity.UpdateList -> {
                 aromaListAdapter.addAll(entity.list, true)
