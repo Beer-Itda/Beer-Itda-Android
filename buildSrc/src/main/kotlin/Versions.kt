@@ -25,7 +25,7 @@ object Versions {
     const val OK_HTTP = "4.7.2"
     const val GSON = "2.8.6"
     const val HILT = "2.40.5"
-    const val HILT_VIEWMODEL = "1.0.0-alpha01"
+    const val HILT_EXTENSION = "1.0.0-alpha03"
     const val TIMBER = "4.7.1"
     const val KAKAO = "2.0.3"
     const val RANGE_SEEK_BAR = "3.0.0"

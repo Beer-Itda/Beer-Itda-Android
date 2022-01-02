@@ -1,6 +1,5 @@
 package com.ddd4.synesthesia.beer.presentation.ui.detail.viewmodel
 
-import androidx.hilt.Assisted
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
@@ -22,7 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ReviewWriteViewModel @Inject constructor(
     private val useCase: PostReviewUseCase,
-    @Assisted private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
 
     private val initialContent by lazy {

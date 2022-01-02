@@ -1,6 +1,5 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.home.more.viewmodel
 
-import androidx.hilt.Assisted
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -31,7 +30,7 @@ class MoreListViewModel @Inject constructor(
     private val beerRepository: BeerRepository,
     private val styleProvider: StyleProvider,
     private val aromaProvider: AromaProvider,
-    @Assisted private val savedState: SavedStateHandle
+    private val savedState: SavedStateHandle
 ) : BaseViewModel() {
 
     private val _data = MutableLiveData<List<IMoreListViewModel>>()

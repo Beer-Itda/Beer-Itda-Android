@@ -2,7 +2,6 @@ package com.ddd4.synesthesia.beer.presentation.ui.detail.viewmodel
 
 import BeerDetailItemMapper.getDetailViewData
 import androidx.databinding.ObservableBoolean
-import androidx.hilt.Assisted
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
@@ -21,7 +20,7 @@ import javax.inject.Inject
 class BeerDetailViewModel @Inject constructor(
     private val useCase: BeerDetailUseCaseGroup,
     private val stringProvider: BeerDetailStringProvider,
-    @Assisted private val savedState: SavedStateHandle
+    private val savedState: SavedStateHandle
 ) : BaseViewModel() {
 
     private val beerId by lazy { (savedState.get(KEY_BEER_ID) as? Int).orZero() }

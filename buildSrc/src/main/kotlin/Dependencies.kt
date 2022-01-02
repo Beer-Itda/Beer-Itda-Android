@@ -37,8 +37,8 @@ object Libs {
     const val GSON = "com.google.code.gson:gson:${Versions.GSON}"
     const val HILT = "com.google.dagger:hilt-android:${Versions.HILT}"
     const val HILT_ANNOTATION = "com.google.dagger:hilt-android-compiler:${Versions.HILT}"
-    const val HILT_VIEWMODEL = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.HILT_VIEWMODEL}"
-    const val HILT_COMPILER = "androidx.hilt:hilt-compiler:${Versions.HILT_VIEWMODEL}"
+    const val HILT_VIEWMODEL = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.HILT_EXTENSION}"
+    const val HILT_COMPILER = "androidx.hilt:hilt-compiler:${Versions.HILT_EXTENSION}"
 
     const val TIMBER = "com.jakewharton.timber:timber:${Versions.TIMBER}"
     const val KAKAO = "com.kakao.sdk:v2-user:${Versions.KAKAO}"

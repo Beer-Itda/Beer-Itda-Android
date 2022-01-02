@@ -1,6 +1,5 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.mypage.nickname.viewmodel
 
-import androidx.hilt.Assisted
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -17,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NickNameChangeViewModel @Inject constructor(
-    @Assisted private val savedState: SavedStateHandle,
+    private val savedState: SavedStateHandle,
     private val useCase: NickNameChangeUseCase
 ) : BaseViewModel() {
 

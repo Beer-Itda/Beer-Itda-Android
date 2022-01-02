@@ -1,9 +1,7 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.home.main.viewmodel
 
-import androidx.hilt.Assisted
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
@@ -36,8 +34,7 @@ class HomeViewModel @Inject constructor(
     private val useCase: HomeUseCaseGroup,
     private val styleProvider: StyleProvider,
     private val aromaProvider: AromaProvider,
-    private val stringProvider: HomeStringProvider,
-    @Assisted val savedState: SavedStateHandle
+    private val stringProvider: HomeStringProvider
 ) : BaseViewModel() {
 
     private val beerItems = mutableListOf<IHomeItemViewModel>()
