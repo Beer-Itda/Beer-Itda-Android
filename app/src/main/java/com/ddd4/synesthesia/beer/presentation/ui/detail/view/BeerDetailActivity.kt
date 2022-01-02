@@ -20,6 +20,7 @@ import com.ddd4.synesthesia.beer.util.ext.*
 import com.hjiee.core.event.entity.ActionEntity
 import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.core.ext.*
+import com.hjiee.core.observer.observeReviewRegistered
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -51,6 +52,9 @@ class BeerDetailActivity : BaseActivity<ActivityBeerDetailBinding>(R.layout.acti
         observeHandledEvent(detailViewModel.event.action) {
             handleActionEvent(it)
         }
+        observeReviewRegistered {
+            //TODO review data reload
+        }
     }
 
     override fun handleActionEvent(entity: ActionEntity) {
@@ -58,8 +62,6 @@ class BeerDetailActivity : BaseActivity<ActivityBeerDetailBinding>(R.layout.acti
             is BeerDetailActionEntity.UpdateUi -> {
                 detailAdapter.clear()
                 detailAdapter.addAll(entity.items)
-            }
-            is BeerDetailActionEntity.LoadFail -> {
             }
         }
     }
@@ -87,8 +89,7 @@ class BeerDetailActivity : BaseActivity<ActivityBeerDetailBinding>(R.layout.acti
 //                isFirstWrite = detailViewModel.item.value?.myReview?.reviewId.orZero() == 0
             )
             setCallbackListener {
-                detailViewModel.load()
-                context?.showToast(getString(R.string.registered_review))
+                context?.showToast(getString(R.string.success_registered_review))
             }
             show(supportFragmentManager, "")
         }

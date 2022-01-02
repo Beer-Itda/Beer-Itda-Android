@@ -15,6 +15,7 @@ import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.util.ext.start
 import com.hjiee.core.event.entity.ActionEntity
 import com.hjiee.core.event.entity.ItemClickEntity
+import com.hjiee.core.observer.observeReviewRegistered
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,12 +37,14 @@ class MyReviewActivity : BaseActivity<ActivityMyReviewBinding>(R.layout.activity
     }
 
     override fun initObserver() {
-        super.initObserver()
         observeHandledEvent(viewModel.event.select) {
             handleSelectEvent(it)
         }
         observeHandledEvent(viewModel.event.action) {
             handleActionEvent(it)
+        }
+        observeReviewRegistered {
+            viewModel.load()
         }
     }
 

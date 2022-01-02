@@ -121,7 +121,7 @@ class ReviewWriteBottomSheetDialogFragment :
         when (entity) {
             is ReviewWriteActionEntity.Success -> {
                 isSuccess = true
-                context?.showToast(getString(R.string.success_registered_review))
+                callbackListener?.invoke()
                 dismiss()
             }
         }

@@ -12,6 +12,8 @@ import com.ddd4.synesthesia.beer.presentation.ui.detail.view.ReviewWriteBottomSh
 import com.ddd4.synesthesia.beer.util.KEY_BEER_ID
 import com.hjiee.core.ext.orDefault
 import com.hjiee.core.ext.orZero
+import com.hjiee.core.manager.Change
+import com.hjiee.core.manager.DataChangeManager
 import com.hjiee.core.util.log.L
 import com.hjiee.domain.usecase.review.PostReviewUseCase
 import kotlinx.coroutines.launch
@@ -47,9 +49,10 @@ class ReviewWriteViewModel @ViewModelInject constructor(
                     content = content.value.orEmpty()
                 )
             }.onSuccess {
+                DataChangeManager.changed(Change.REVIEW)
                 notifyActionEvent(ReviewWriteActionEntity.Success)
             }.onFailure {
-                if(it.message.isNullOrEmpty().not()) {
+                if (it.message.isNullOrEmpty().not()) {
                     throwMessage(it.message.orEmpty())
                 }
                 L.e(it)

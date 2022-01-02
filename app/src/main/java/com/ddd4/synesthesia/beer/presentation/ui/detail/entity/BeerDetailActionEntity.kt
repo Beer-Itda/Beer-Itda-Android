@@ -5,5 +5,4 @@ import com.hjiee.core.event.entity.ActionEntity
 
 sealed class BeerDetailActionEntity : ActionEntity() {
     class UpdateUi(val items: List<IBeerDetailViewModel>) : BeerDetailActionEntity()
-    object LoadFail : BeerDetailActionEntity()
 }

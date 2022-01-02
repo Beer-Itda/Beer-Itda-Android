@@ -2,16 +2,13 @@ package com.ddd4.synesthesia.beer.util.ext
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.ddd4.synesthesia.beer.R
-
-fun Context.versionName(): String =
-    packageManager.getPackageInfo(packageName, 0).versionName
-
 
 fun Context.showKeyboard(view: View) {
     view.run {
@@ -53,7 +50,10 @@ fun Context.permissonsCheck(
 }
 
 fun Context.showToast(message: String, duration: Int? = null) {
-    Toast.makeText(this, message, duration ?: Toast.LENGTH_SHORT).show()
+    Toast.makeText(this, message, duration ?: Toast.LENGTH_SHORT).apply {
+        setGravity(Gravity.BOTTOM, xOffset, yOffset)
+        show()
+    }
 }
 
 fun Context.showSimpleDialog(

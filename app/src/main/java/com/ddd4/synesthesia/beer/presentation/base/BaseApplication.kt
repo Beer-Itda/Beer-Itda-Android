@@ -2,6 +2,7 @@ package com.ddd4.synesthesia.beer.presentation.base
 
 import android.app.Application
 import com.ddd4.synesthesia.beer.R
+import com.hjiee.core.manager.DataChangeManager
 import com.hjiee.core.manager.UserInfoManager
 import com.hjiee.core.util.log.CrashlyticsLog
 import com.hjiee.core.util.log.L
@@ -25,5 +26,8 @@ class BaseApplication : Application() {
 
         // user manager 초기화
         UserInfoManager.init(this@BaseApplication)
+
+        // 데이터 변경 감지 observer manager
+        DataChangeManager.init(this@BaseApplication)
     }
 }
