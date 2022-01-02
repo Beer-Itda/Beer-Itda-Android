@@ -23,9 +23,7 @@ class ReviewListActivity : BaseActivity<ActivityReviewAllBinding>(R.layout.activ
     override fun initBind() {
         binding.apply {
             reviewAdatper = ItemsAdapter(R.layout.layout_review, BR.review)
-            includeToolbar.toolbar.setNavigationOnClickListener {
-                finish()
-            }
+            includeToolbar.toolbar.setNavigationOnClickListener { finish() }
             reviews?.let { reviewAdatper?.updateItems(it) }
         }
     }

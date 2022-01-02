@@ -43,12 +43,6 @@ class MyPageViewModel @ViewModelInject constructor(
         load()
     }
 
-    fun updateUserInfo(nickName: String?) {
-        viewModelScope.launch(errorHandler) {
-//            beerRepository.postUserInfo(nickName)
-        }
-    }
-
 
     fun clickModify() {
         notifySelectEvent(MyPageClickEntity.Modify)

@@ -36,9 +36,7 @@ class MyFavoriteActivity : BaseActivity<ActivityMyFavoriteBinding>(R.layout.acti
         binding.apply {
             vm = viewModel
             adapter = ItemsAdapter(R.layout.item_my_favorite, BR.beer)
-            includeToolbar.toolbar.setNavigationOnClickListener {
-                finish()
-            }
+            includeToolbar.toolbar.setNavigationOnClickListener { finish() }
         }
     }
 

@@ -39,7 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/color_1c1b21"
-                    android:paddingBottom="30dp">
+                    android:paddingBottom="18dp">
 
 
                     <ImageView
@@ -58,7 +58,6 @@
                         android:layout_width="75dp"
                         android:layout_height="75dp"
                         android:layout_marginStart="20dp"
-                        android:layout_marginTop="30dp"
                         android:background="@android:color/transparent"
                         android:contentDescription="@string/app_name"
                         app:errorDrawable="@{@drawable/ic_img_profile_blank}"
@@ -102,7 +101,7 @@
                         app:layout_constraintTop_toTopOf="@+id/iv_profile"
                         app:layout_constraintVertical_chainStyle="packed"
                         app:onDebouncedClick="@{viewModel.clickModify}"
-                        tools:text="공감각" />
+                        tools:text="비어있다" />
 
                     <ImageView
                         android:id="@+id/iv_modify"
@@ -130,7 +129,7 @@
                         app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
                         app:layout_constraintStart_toEndOf="@+id/iv_profile"
                         app:layout_constraintTop_toBottomOf="@+id/tv_name"
-                        tools:text="android@google.com" />
+                        tools:text="android@beeritda.com" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

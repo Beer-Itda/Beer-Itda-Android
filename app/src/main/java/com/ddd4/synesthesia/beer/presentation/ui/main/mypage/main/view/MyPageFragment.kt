@@ -8,6 +8,7 @@ import com.ddd4.synesthesia.beer.databinding.FragmentMyPageBinding
 import com.ddd4.synesthesia.beer.presentation.base.BaseFragment
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.entity.MyPageClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.favorite.view.MyFavoriteActivity
+import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.level.view.LevelGuideActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.main.viewmodel.MyPageViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.myreview.view.MyReviewActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.nickname.view.NickNameChangeActivity
@@ -107,7 +108,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
      */
     private fun moveToLevelGuide() {
         runCatching {
-
+            start<LevelGuideActivity>()
         }.onFailure {
             L.e(it)
         }

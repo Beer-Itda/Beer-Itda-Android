@@ -40,9 +40,7 @@ class BeerDetailActivity : BaseActivity<ActivityBeerDetailBinding>(R.layout.acti
         binding.apply {
             viewModel = detailViewModel
             detailAdapter = this@BeerDetailActivity.detailAdapter
-            includeToolbar.toolbar.setNavigationOnClickListener {
-                finish()
-            }
+            includeToolbar.toolbar.setNavigationOnClickListener { finish() }
         }
     }
 
