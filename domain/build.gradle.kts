@@ -1,4 +1,5 @@
 import PropertiesExt.BASE_URL
+import PropertiesExt.ENABLE_AGGREGATING_TASK
 import PropertiesExt.getBaseUrl
 
 plugins {
@@ -43,6 +44,9 @@ android {
             dimension = "mode"
         }
     }
+    hilt {
+        enableAggregatingTask = ENABLE_AGGREGATING_TASK
+    }
 }
 
 dependencies {
@@ -52,7 +56,6 @@ dependencies {
     implementation(Libs.COROUTINES_ANDROID)
     implementation(Libs.GSON)
     implementation(Libs.HILT)
-    implementation(Libs.HILT_AAR)
     kapt(Libs.HILT_ANNOTATION)
     implementation(Libs.HILT_VIEWMODEL)
     kapt(Libs.HILT_COMPILER)

@@ -1,6 +1,5 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.mypage.favorite.viewmodel
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -9,9 +8,12 @@ import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.domain.entity.DomainEntity.Beer
 import com.hjiee.domain.repository.BeerRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MyFavoriteViewModel @ViewModelInject constructor(
+@HiltViewModel
+class MyFavoriteViewModel @Inject constructor(
     private val beerRepository: BeerRepository
 ) : BaseViewModel() {
 

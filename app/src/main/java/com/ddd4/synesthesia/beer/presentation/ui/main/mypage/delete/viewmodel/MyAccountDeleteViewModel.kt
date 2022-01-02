@@ -1,14 +1,16 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.mypage.delete.viewmodel
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.delete.entity.MyAccountDeleteActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.delete.entity.MyAccountDeleteSelectEntity
 import com.hjiee.domain.usecase.login.AccountDeleteUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MyAccountDeleteViewModel @ViewModelInject constructor(
+@HiltViewModel
+class MyAccountDeleteViewModel @Inject constructor(
     private val useCase: AccountDeleteUseCase
 //    private val preferenceProvider: SharedPreferenceProvider
 ) : BaseViewModel() {

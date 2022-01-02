@@ -1,4 +1,5 @@
 import PropertiesExt.BASE_URL
+import PropertiesExt.ENABLE_AGGREGATING_TASK
 import PropertiesExt.KAKAO
 import PropertiesExt.getBaseUrl
 import PropertiesExt.getKakaoKey
@@ -94,7 +95,9 @@ android {
     androidExtensions {
         isExperimental = true
     }
-
+    hilt {
+        enableAggregatingTask = ENABLE_AGGREGATING_TASK
+    }
 }
 
 dependencies {
@@ -132,7 +135,6 @@ dependencies {
     implementation(Libs.GLIDE)
     implementation(Libs.TIMBER)
     implementation(Libs.HILT)
-    implementation(Libs.HILT_AAR)
     kapt(Libs.HILT_ANNOTATION)
     implementation(Libs.HILT_VIEWMODEL)
     kapt(Libs.HILT_COMPILER)

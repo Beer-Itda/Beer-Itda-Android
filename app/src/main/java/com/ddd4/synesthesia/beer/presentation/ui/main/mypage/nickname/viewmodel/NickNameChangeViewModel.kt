@@ -1,7 +1,6 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.mypage.nickname.viewmodel
 
 import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -12,9 +11,12 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.nickname.view.NickN
 import com.hjiee.core.manager.UserInfoManager
 import com.hjiee.core.util.log.L
 import com.hjiee.domain.usecase.mypage.NickNameChangeUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NickNameChangeViewModel @ViewModelInject constructor(
+@HiltViewModel
+class NickNameChangeViewModel @Inject constructor(
     @Assisted private val savedState: SavedStateHandle,
     private val useCase: NickNameChangeUseCase
 ) : BaseViewModel() {

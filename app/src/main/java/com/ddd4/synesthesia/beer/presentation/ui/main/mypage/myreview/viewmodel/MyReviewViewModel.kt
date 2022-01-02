@@ -1,6 +1,5 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.mypage.myreview.viewmodel
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.myreview.item.MyReviewItemMapper.getMapperItem
@@ -8,9 +7,12 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.myreview.item.MyRev
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.myreview.model.MyReviewActionEntity
 import com.hjiee.core.util.log.L
 import com.hjiee.domain.usecase.mypage.MyReviewUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MyReviewViewModel @ViewModelInject constructor(
+@HiltViewModel
+class MyReviewViewModel @Inject constructor(
     private val myReviewUseCase: MyReviewUseCase
 ) : BaseViewModel() {
 

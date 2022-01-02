@@ -13,7 +13,7 @@ import com.hjiee.data.di.InterceptorModule.PROVIDE_NAME_HEADER_LOGGING
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,53 +23,42 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    const val PROVIDE_NAME_BEER = "provide_beer"
-    const val PROVIDE_NAME_BEER_REFRESH = "provide_beer_refresh"
-    const val PROVIDE_NAME_KAKAO = "provide_kakao"
-    const val PROVIDE_NAME_KAKAO_OAUTH = "provide_kakao_oauth"
+    private const val PROVIDE_NAME_BEER_NETWORK = "provide_beer"
+    private const val PROVIDE_NAME_KAKAO_NETWORK = "provide_kakao"
+    private const val PROVIDE_NAME_OKHTTP = "provide_okhttp"
+    private const val PROVIDE_NAME_KAKAO_OKHTTP = "provide_kakao_okhttp"
 
     @Provides
     @Singleton
+    @Named(PROVIDE_NAME_OKHTTP)
     fun provideOkHttpClient(
         @Named(PROVIDE_NAME_HEADERS) headers: AuthenticationInterceptor,
         @Named(PROVIDE_NAME_BODY_LOGGING) bodyLoggingInterceptor: HttpLoggingInterceptor,
         @Named(PROVIDE_NAME_HEADER_LOGGING) headerLoggingInterceptor: HttpLoggingInterceptor,
-        @Named(PROVIDE_NAME_AUTHENTICATOR) authenticator: TokenAuthenticator? = null
+        @Named(PROVIDE_NAME_AUTHENTICATOR) authenticator: TokenAuthenticator
     ): OkHttpClient {
         return OkHttpClient.Builder().apply {
             addInterceptor(headers)
             addInterceptor(bodyLoggingInterceptor)
             addInterceptor(headerLoggingInterceptor)
-            authenticator?.let {
-                authenticator(it)
-            }
+            authenticator(authenticator)
         }.build()
     }
 
     @Provides
     @Singleton
-    @Named(PROVIDE_NAME_BEER)
+    @Named(PROVIDE_NAME_BEER_NETWORK)
     fun provideRetrofit(
         stringProvider: StringProvider,
-        @Named(PROVIDE_NAME_HEADERS) headers: AuthenticationInterceptor,
-        @Named(PROVIDE_NAME_BODY_LOGGING) bodyLoggingInterceptor: HttpLoggingInterceptor,
-        @Named(PROVIDE_NAME_HEADER_LOGGING) headerLoggingInterceptor: HttpLoggingInterceptor,
-        @Named(PROVIDE_NAME_AUTHENTICATOR) authenticator: TokenAuthenticator
+        @Named(PROVIDE_NAME_OKHTTP) okHttp: OkHttpClient
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(stringProvider.getStringRes(R.string.base_url))
             .addConverterFactory(GsonConverterFactory.create())
-            .client(
-                provideOkHttpClient(
-                    headers = headers,
-                    bodyLoggingInterceptor = bodyLoggingInterceptor,
-                    headerLoggingInterceptor = headerLoggingInterceptor,
-                    authenticator = authenticator
-                )
-            )
+            .client(okHttp)
             .build()
     }
 
@@ -77,7 +66,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideBeerService(
-        @Named(PROVIDE_NAME_BEER) retrofit: Retrofit
+        @Named(PROVIDE_NAME_BEER_NETWORK) retrofit: Retrofit
     ): BeerApi {
         return retrofit.create(BeerApi::class.java)
     }
@@ -90,6 +79,7 @@ object NetworkModule {
      */
     @Provides
     @Singleton
+    @Named(PROVIDE_NAME_KAKAO_OKHTTP)
     fun provideKakaoOAuthOkHttpClient(
         @Named(PROVIDE_NAME_BODY_LOGGING) bodyLoggingInterceptor: HttpLoggingInterceptor,
         @Named(PROVIDE_NAME_HEADER_LOGGING) headerLoggingInterceptor: HttpLoggingInterceptor
@@ -111,20 +101,14 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    @Named(PROVIDE_NAME_KAKAO)
+    @Named(PROVIDE_NAME_KAKAO_NETWORK)
     fun provideKakaoRetrofit(
-        @Named(PROVIDE_NAME_BODY_LOGGING) bodyLoggingInterceptor: HttpLoggingInterceptor,
-        @Named(PROVIDE_NAME_HEADER_LOGGING) headerLoggingInterceptor: HttpLoggingInterceptor
+        @Named(PROVIDE_NAME_KAKAO_OKHTTP) okHttp: OkHttpClient
     ): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl("https://kapi.kakao.com")
-            .client(
-                provideKakaoOAuthOkHttpClient(
-                    bodyLoggingInterceptor = bodyLoggingInterceptor,
-                    headerLoggingInterceptor = headerLoggingInterceptor
-                )
-            )
+            .client(okHttp)
             .build()
     }
 
@@ -132,7 +116,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideKakaoService(
-        @Named(PROVIDE_NAME_KAKAO) retrofit: Retrofit
+        @Named(PROVIDE_NAME_KAKAO_NETWORK) retrofit: Retrofit
     ): KakaoApi {
         return retrofit.create(KakaoApi::class.java)
     }

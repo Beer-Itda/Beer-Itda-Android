@@ -1,6 +1,5 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.mypage.main.viewmodel
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -9,9 +8,12 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.entity.MyPageClickE
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.main.view.MyPageViewState
 import com.hjiee.domain.entity.DomainEntity
 import com.hjiee.domain.usecase.login.UserInfoUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MyPageViewModel @ViewModelInject constructor(
+@HiltViewModel
+class MyPageViewModel @Inject constructor(
     private val userInfoUseCase: UserInfoUseCase
 ) : BaseViewModel() {
 

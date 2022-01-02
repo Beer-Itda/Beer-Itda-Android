@@ -2,6 +2,7 @@ import java.io.File
 import java.util.*
 
 object PropertiesExt {
+    const val ENABLE_AGGREGATING_TASK = false
     private const val FILE_KEYSTORE = "keystore.properties"
     private const val FILE_SECRURE = "secure.properties"
     const val KAKAO = "kakao"

@@ -3,7 +3,6 @@ package com.ddd4.synesthesia.beer.presentation.ui.detail.viewmodel
 import BeerDetailItemMapper.getDetailViewData
 import androidx.databinding.ObservableBoolean
 import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
@@ -14,9 +13,12 @@ import com.ddd4.synesthesia.beer.presentation.ui.detail.view.BeerDetailStringPro
 import com.ddd4.synesthesia.beer.util.KEY_BEER_ID
 import com.hjiee.core.ext.orFalse
 import com.hjiee.core.ext.orZero
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class BeerDetailViewModel @ViewModelInject constructor(
+@HiltViewModel
+class BeerDetailViewModel @Inject constructor(
     private val useCase: BeerDetailUseCaseGroup,
     private val stringProvider: BeerDetailStringProvider,
     @Assisted private val savedState: SavedStateHandle

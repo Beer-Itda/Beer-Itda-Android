@@ -1,9 +1,11 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.viewmodel
 
-import androidx.hilt.lifecycle.ViewModelInject
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MainViewModel @ViewModelInject constructor(
+@HiltViewModel
+class MainViewModel @Inject constructor(
 
 ) : BaseViewModel() {
 

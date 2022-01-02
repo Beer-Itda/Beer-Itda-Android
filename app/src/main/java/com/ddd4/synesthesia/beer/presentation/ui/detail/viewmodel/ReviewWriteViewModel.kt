@@ -1,7 +1,6 @@
 package com.ddd4.synesthesia.beer.presentation.ui.detail.viewmodel
 
 import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
@@ -16,10 +15,12 @@ import com.hjiee.core.manager.Change
 import com.hjiee.core.manager.DataChangeManager
 import com.hjiee.core.util.log.L
 import com.hjiee.domain.usecase.review.PostReviewUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
-class ReviewWriteViewModel @ViewModelInject constructor(
+@HiltViewModel
+class ReviewWriteViewModel @Inject constructor(
     private val useCase: PostReviewUseCase,
     @Assisted private val savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {

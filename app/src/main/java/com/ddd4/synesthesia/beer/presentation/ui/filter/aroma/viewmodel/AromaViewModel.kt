@@ -1,6 +1,5 @@
 package com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.viewmodel
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.AromaProvider
@@ -13,10 +12,13 @@ import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.view.AromaViewStat
 import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.domain.NetworkResponse
 import com.hjiee.domain.usecase.filter.aroma.GetAromaUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AromaViewModel @ViewModelInject constructor(
+@HiltViewModel
+class AromaViewModel @Inject constructor(
     private val aromaUseCase: GetAromaUseCase,
     private val stringProvider: FliterStringProvider,
     private val aromaProvider: AromaProvider

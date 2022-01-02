@@ -36,10 +36,9 @@ object Libs {
     const val LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor:${Versions.OK_HTTP}"
     const val GSON = "com.google.code.gson:gson:${Versions.GSON}"
     const val HILT = "com.google.dagger:hilt-android:${Versions.HILT}"
-    const val HILT_AAR = "com.google.dagger:dagger-lint-aar:${Versions.HILT_AAR}"
+    const val HILT_ANNOTATION = "com.google.dagger:hilt-android-compiler:${Versions.HILT}"
     const val HILT_VIEWMODEL = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.HILT_VIEWMODEL}"
     const val HILT_COMPILER = "androidx.hilt:hilt-compiler:${Versions.HILT_VIEWMODEL}"
-    const val HILT_ANNOTATION = "com.google.dagger:hilt-android-compiler:${Versions.HILT}"
 
     const val TIMBER = "com.jakewharton.timber:timber:${Versions.TIMBER}"
     const val KAKAO = "com.kakao.sdk:v2-user:${Versions.KAKAO}"

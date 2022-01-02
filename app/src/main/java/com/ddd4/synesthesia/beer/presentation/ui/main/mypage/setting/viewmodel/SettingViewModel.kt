@@ -1,6 +1,5 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.viewmodel
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.data.source.local.InfomationsData
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
@@ -10,10 +9,12 @@ import com.hjiee.core.manager.VersionManager
 import com.hjiee.core.provider.SharedPreferenceProvider
 import com.hjiee.core.provider.StringProvider
 import com.hjiee.domain.usecase.login.LogoutUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
-class SettingViewModel @ViewModelInject constructor(
+@HiltViewModel
+class SettingViewModel @Inject constructor(
     private val versionManager: VersionManager,
     private val logoutUseCase: LogoutUseCase,
     private val stringProvider: StringProvider,

@@ -1,7 +1,6 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.home.more.viewmodel
 
 import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -21,11 +20,14 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.view.MoreListAct
 import com.ddd4.synesthesia.beer.util.sort.SortType
 import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.domain.repository.BeerRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-class MoreListViewModel @ViewModelInject constructor(
+@HiltViewModel
+class MoreListViewModel @Inject constructor(
     private val beerRepository: BeerRepository,
     private val styleProvider: StyleProvider,
     private val aromaProvider: AromaProvider,

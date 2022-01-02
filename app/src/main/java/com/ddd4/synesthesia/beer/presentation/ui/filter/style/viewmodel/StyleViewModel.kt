@@ -1,7 +1,6 @@
 package com.ddd4.synesthesia.beer.presentation.ui.filter.style.viewmodel
 
 import android.util.Log
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FliterStringProvider
@@ -15,10 +14,13 @@ import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.StyleViewStat
 import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.domain.NetworkResponse
 import com.hjiee.domain.usecase.filter.style.GetStyleUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class StyleViewModel @ViewModelInject constructor(
+@HiltViewModel
+class StyleViewModel @Inject constructor(
     private val styleUseCase: GetStyleUseCase,
     private val styleProvider: StyleProvider,
     private val stringProvider: FliterStringProvider

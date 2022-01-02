@@ -1,6 +1,5 @@
 package com.ddd4.synesthesia.beer.presentation.ui.splash.viewmodel
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -14,10 +13,13 @@ import com.hjiee.core.manager.VersionManager
 import com.hjiee.core.provider.SharedPreferenceProvider
 import com.hjiee.domain.usecase.login.GetTokenUseCase
 import com.hjiee.domain.usecase.login.LoginUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SplashViewModel @ViewModelInject constructor(
+@HiltViewModel
+class SplashViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val tokenUseCase: GetTokenUseCase,
     private val preference: SharedPreferenceProvider,
