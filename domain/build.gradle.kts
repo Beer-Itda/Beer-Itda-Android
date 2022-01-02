@@ -52,7 +52,6 @@ dependencies {
     implementation(Libs.COROUTINES_ANDROID)
     implementation(Libs.GSON)
     implementation(Libs.HILT)
-    implementation(Libs.HILT_AAR)
     kapt(Libs.HILT_ANNOTATION)
     implementation(Libs.HILT_VIEWMODEL)
     kapt(Libs.HILT_COMPILER)
