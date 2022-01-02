@@ -41,11 +41,11 @@
             app:onDebouncedClick="@{viewModel.clickFavorite}"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:src="@drawable/ic_btn_like"
+            android:src="@{viewModel.isFavorite() ? @drawable/ic_btn_like : @drawable/ic_btn_like_unactive}"
             app:layout_constraintBottom_toBottomOf="@+id/include_toolbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/include_toolbar"
-            tools:src="@drawable/ic_btn_like" />
+            tools:src="@drawable/ic_btn_like_unactive" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"

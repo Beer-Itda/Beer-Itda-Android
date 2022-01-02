@@ -12,7 +12,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.common.review.model.ReviewItemS
 import com.ddd4.synesthesia.beer.presentation.ui.detail.adapter.DetailAdapter
 import com.ddd4.synesthesia.beer.presentation.ui.detail.entity.BeerDetailActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.detail.entity.BeerDetailItemSelectEntity
-import com.ddd4.synesthesia.beer.presentation.ui.detail.view.StarRatingBottomDialogFragment.Companion.getBundle
+import com.ddd4.synesthesia.beer.presentation.ui.detail.view.ReviewWriteBottomSheetDialogFragment.Companion.getBundle
 import com.ddd4.synesthesia.beer.presentation.ui.detail.viewmodel.BeerDetailViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.review.view.ReviewListActivity
 import com.ddd4.synesthesia.beer.util.KEY_BEER_ID
@@ -27,7 +27,7 @@ class BeerDetailActivity : BaseActivity<ActivityBeerDetailBinding>(R.layout.acti
 
     private val detailViewModel by viewModels<BeerDetailViewModel>()
     private val detailAdapter by lazy { DetailAdapter() }
-    private val beerId by lazy { (intent.getStringExtra(KEY_BEER_ID) as? Int).orZero() }
+    private val beerId by lazy { (intent.extras?.get(KEY_BEER_ID) as? Int).orZero() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,23 +73,24 @@ class BeerDetailActivity : BaseActivity<ActivityBeerDetailBinding>(R.layout.acti
                 start<ReviewListActivity>()
             }
             is ReviewItemSelectEntity.WriteReview -> {
-                showStarRatingView()
+                reviewWriteBottomSheetDialog()
             }
         }
     }
 
-    private fun showStarRatingView() {
-        StarRatingBottomDialogFragment().run {
-            this@run.arguments = getBundle(
+    private fun reviewWriteBottomSheetDialog() {
+        ReviewWriteBottomSheetDialogFragment().apply {
+            arguments = getBundle(
                 beerId = beerId
 //                reviewContent = detailViewModel.item.value?.myReview?.content,
 //                reviewRatio = detailViewModel.item.value?.myReview?.ratio.orDefault(0.5f),
 //                isFirstWrite = detailViewModel.item.value?.myReview?.reviewId.orZero() == 0
             )
-            showDialog(this@BeerDetailActivity.supportFragmentManager) {
+            setCallbackListener {
                 detailViewModel.load()
                 context?.showToast(getString(R.string.registered_review))
             }
+            show(supportFragmentManager, "")
         }
     }
 

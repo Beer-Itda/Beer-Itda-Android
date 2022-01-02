@@ -3,7 +3,7 @@ package com.hjiee.data.response.v2
 import com.google.gson.annotations.SerializedName
 
 data class BeerDetailResponse(
-    @SerializedName("beer_detail")
+    @SerializedName("beer")
     val beerDetail: BeerResponse?,
     @SerializedName("same_aroma_beers")
     val sameAromaBeers: List<BeerResponse>?,

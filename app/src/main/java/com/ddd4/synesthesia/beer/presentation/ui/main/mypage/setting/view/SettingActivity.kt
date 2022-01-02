@@ -2,7 +2,6 @@ package com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.view
 
 import android.content.ActivityNotFoundException
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -17,11 +16,11 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.model.Setti
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.model.SettingClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.viewmodel.SettingViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.webview.view.WebViewActivity
-import com.ddd4.synesthesia.beer.util.CustomAlertDialog
 import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.util.ext.showToast
 import com.ddd4.synesthesia.beer.util.ext.start
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.hjiee.core.event.entity.ActionEntity
 import com.hjiee.core.event.entity.ItemClickEntity
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,7 +55,7 @@ class SettingActivity :
             handleSelectEvent(it)
         }
         observeHandledEvent(viewModel.event.throwable) {
-            if(it.first.message.isNullOrEmpty().not()) {
+            if (it.first.message.isNullOrEmpty().not()) {
                 showToast(it.first.message.orEmpty())
             }
         }
@@ -115,7 +114,7 @@ class SettingActivity :
             }
             // 로그아웃
             InfomationsData.LOGOUT.title -> {
-                unConnected(getString(R.string.logout_message))
+                showDialog()
             }
             // 회원탈퇴
             InfomationsData.UNLINK.title -> {
@@ -129,24 +128,14 @@ class SettingActivity :
         }
     }
 
-
-    private fun unConnected(message: String) {
-        CustomAlertDialog(
-            title = "",
-            message = message,
-            posivie = getString(R.string.yes),
-            negative = getString(R.string.no),
-            result = DialogInterface.OnClickListener { dialog, which ->
-                when (message) {
-                    getString(R.string.logout_message) -> {
-                        viewModel.logOut()
-                    }
-                    getString(R.string.unlink_message) -> {
-//                        viewModel.unlink()
-                    }
-                }
+    private fun showDialog() {
+        MaterialAlertDialogBuilder(this@SettingActivity)
+            .setMessage(getString(R.string.logout_message))
+            .setPositiveButton(getString(R.string.logout_message)) { _, _ ->
+                viewModel.logOut()
             }
-        ).show(supportFragmentManager, null)
+            .setNegativeButton(getString(R.string.no), null)
+            .show()
     }
 
     /**

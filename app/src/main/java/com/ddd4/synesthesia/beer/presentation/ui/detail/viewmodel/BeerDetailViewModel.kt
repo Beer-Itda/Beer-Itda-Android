@@ -1,6 +1,7 @@
 package com.ddd4.synesthesia.beer.presentation.ui.detail.viewmodel
 
 import BeerDetailItemMapper.getDetailViewData
+import androidx.databinding.ObservableBoolean
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
@@ -11,6 +12,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.detail.entity.BeerDetailItemSel
 import com.ddd4.synesthesia.beer.presentation.ui.detail.item.IBeerDetailViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.detail.view.BeerDetailStringProvider
 import com.ddd4.synesthesia.beer.util.KEY_BEER_ID
+import com.hjiee.core.ext.orFalse
 import com.hjiee.core.ext.orZero
 import kotlinx.coroutines.launch
 
@@ -23,13 +25,15 @@ class BeerDetailViewModel @ViewModelInject constructor(
     private val beerId by lazy { (savedState.get(KEY_BEER_ID) as? Int).orZero() }
 
     private var item: List<IBeerDetailViewModel> = emptyList()
+    val isFavorite = ObservableBoolean(false)
 
     fun load() {
         statusLoading()
         viewModelScope.launch {
             runCatching {
-                item = useCase.getBeerDetail.execute(beerId)
-                    .getDetailViewData(this@BeerDetailViewModel)
+                val detail = useCase.getBeerDetail.execute(beerId)
+                isFavorite.set(detail?.beer?.isFavorite.orFalse())
+                item = detail.getDetailViewData(this@BeerDetailViewModel)
             }.onSuccess {
                 statusSuccess()
                 notifyActionEvent(BeerDetailActionEntity.UpdateUi(item))

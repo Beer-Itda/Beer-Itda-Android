@@ -35,6 +35,18 @@ class BeerRepositoryImpl @Inject constructor(
         return beerApi.getMyReview().toMyReviewList()
     }
 
+    override suspend fun postReview(
+        beerId: Int,
+        starScore: Float,
+        content: String
+    ) {
+        beerApi.postReview(
+            beerId = beerId,
+            starScore = starScore,
+            content = content
+        )
+    }
+
     override suspend fun getBeerAward(): Response<Beer>? {
         return beerApi.getBeerAward()?.toAwardBeer()
     }

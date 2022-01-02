@@ -27,10 +27,10 @@ sealed class DomainEntity {
         val nameForEnglish: String,
         val starAvg: Float,
         val thumbnailImage: String,
-        val isFavorite: Boolean = false,
-        val brewery: String = "",
-        val country: String = "",
-        val style: String = ""
+        val isFavorite: Boolean,
+        val brewery: String,
+        val country: String,
+        val style: String
 //        val aromas: List<String>,
 //        val rateAvg: Float,
 //        val reviewList: List<Review>,

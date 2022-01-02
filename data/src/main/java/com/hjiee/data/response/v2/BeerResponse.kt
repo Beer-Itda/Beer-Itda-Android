@@ -12,7 +12,7 @@ data class BeerResponse(
     @SerializedName("e_name")
     val nameForEnglish: String?,
     @SerializedName("heart")
-    val isFavorite: Boolean?,
+    val heart: Boolean?,
     @SerializedName("k_name")
     val nameForKorean: String?,
     @SerializedName("star_avg")

@@ -63,7 +63,7 @@
             android:layout_marginHorizontal="28dp"
             android:layout_marginTop="14dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/background_1c1b21_stroke_dadada"
+            android:background="@drawable/background_stroke_8e8d94"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

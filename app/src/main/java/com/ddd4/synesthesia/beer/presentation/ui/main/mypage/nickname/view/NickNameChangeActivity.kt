@@ -1,7 +1,6 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.mypage.nickname.view
 
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -10,11 +9,11 @@ import com.ddd4.synesthesia.beer.databinding.ActivityNicknameChangeBinding
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.nickname.model.NickNameChangeActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.nickname.viewmodel.NickNameChangeViewModel
-import com.ddd4.synesthesia.beer.util.CustomAlertDialog
 import com.ddd4.synesthesia.beer.util.RegexUtil.isValidNickName
 import com.ddd4.synesthesia.beer.util.ext.hideKeyboard
 import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.util.ext.showToast
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.hjiee.core.event.entity.ActionEntity
 import com.hjiee.core.util.listener.setOnDebounceClickListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -74,14 +73,19 @@ class NickNameChangeActivity :
         if (viewModel.nickName.value == nickName) {
             super.onBackPressed()
         } else {
-            CustomAlertDialog(
-                title = getString(R.string.page_out),
-                message = getString(R.string.do_not_save),
-                posivie = getString(R.string.yes),
-                negative = getString(R.string.no),
-                result = DialogInterface.OnClickListener { dialog, which -> finish() }
-            ).show(supportFragmentManager, null)
+            showDialog()
         }
+    }
+
+    private fun showDialog() {
+        MaterialAlertDialogBuilder(this@NickNameChangeActivity)
+            .setTitle(getString(R.string.page_out))
+            .setMessage(getString(R.string.do_not_save))
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                finish()
+            }
+            .setNegativeButton(getString(R.string.no), null)
+            .show()
     }
 
     companion object {

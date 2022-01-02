@@ -1,7 +1,9 @@
 package com.ddd4.synesthesia.beer.util.common
 
 import android.app.Activity
+import android.view.MotionEvent
 import android.view.View
+import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
@@ -176,4 +178,21 @@ fun View.setChangeWidthAndHeight(width: Int?, height: Int?) {
             this.height = it
         }
     }
+}
+
+@BindingAdapter(value = ["nestedScrollable"])
+fun EditText.setScrollable(scrollable: Boolean?) {
+    if (scrollable.orFalse()) {
+        setOnTouchListener { view, motionEvent ->
+            parent.requestDisallowInterceptTouchEvent(true)
+            when (motionEvent.action) {
+                MotionEvent.ACTION_UP -> {
+                    parent.requestDisallowInterceptTouchEvent(false)
+                    view.performClick()
+                }
+            }
+            false
+        }
+    }
+
 }

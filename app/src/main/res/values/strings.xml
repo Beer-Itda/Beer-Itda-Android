@@ -52,7 +52,7 @@
     <string name="review">리뷰</string>
     <string name="review_with_count">리뷰 (%,.0f)</string>
     <string name="star_rating">별점</string>
-    <string name="message_review">맥주이름에 대한 자세한 후기를 작성해주세요</string>
+    <string name="message_review">맥주에 대한 자세한 리뷰를 작성하고 등급을 높여보세요!.\n 최대 300자 까지 작성 가능합니다.</string>
     <string name="message_star_rating">맥주이름에 대한 별점을 남겨주세요</string>
     <string name="title_aroma">비슷한향이 나는 맥주입니다 🍒</string>
     <string name="title_style">같은 스타일의 맥주입니다 🍹</string>
@@ -72,7 +72,7 @@
     <string name="maxAbv">최대 도수</string>
     <string name="country">국가</string>
     <string name="show_products">상품 보러가기</string>
-    <string name="max_text_length">%d/10</string>
+    <string name="max_text_length">%d/%d</string>
     <string name="min_text_length">최소 2자 이상 입력해주세요.</string>
     <string name="reset">초기화</string>
     <string name="update_count_text_prefix">%s 외</string>
@@ -98,8 +98,7 @@
     <a href=\%s><font color="#fdbd39"><b>서비스 이용약관</b></font></a>과
     <br></br>
     <a href=\%s><font color="#fdbd39"><b>개인정보처리방침</b></font></a>에 동의한 것으로 간주됩니다.]]></string>
-    <string name="review_level_notice">리뷰를 작성하여 비어있다 등급을 높여보세요!</string>
-    <string name="review_level_guide">비어있다 등급 가이드</string>
+    <string name="review_level_guide">등급 가이드 확인하기</string>
     <string name="review_notice">무성의하게 작성된 리뷰는\n이용약관에 기반하여 삭제될 수 있음을 알려드립니다.</string>
     <string name="setting">설정</string>
     <string name="my_write_review">내가 쓴 리뷰</string>
@@ -123,6 +122,7 @@
     <string name="recommend_update_version">권장 업데이트 버전</string>
     <string name="force_update_version">필수 업데이트 버전</string>
     <string name="empty_review">아직 작성된 리뷰가 없어요 첫 리뷰를 남겨보세요!</string>
+    <string name="success_registered_review">리뷰가 등록되었습니다</string>
     <string name="changed_nickname">닉네임이 변경되었어요</string>
     <string name="level_guide_warning">무성의하게 작성된 리뷰는 이용약관에 기반하여 삭제될 수 있으며, 그에 따라 등급 또한 하향 조정될 수 있습니다.</string>
     <string name="level_guide_message">회원님의 등급은 보리입니다.\n리뷰를 4개 더 작성하면 맥믈리에가 될 수 있습니다.</string>

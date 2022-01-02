@@ -1,7 +1,6 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.mypage.delete.view
 
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -12,10 +11,10 @@ import com.ddd4.synesthesia.beer.presentation.ui.login.view.LoginActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.delete.entity.MyAccountDeleteActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.delete.entity.MyAccountDeleteSelectEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.delete.viewmodel.MyAccountDeleteViewModel
-import com.ddd4.synesthesia.beer.util.CustomAlertDialog
 import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.util.ext.showToast
 import com.ddd4.synesthesia.beer.util.ext.start
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.hjiee.core.event.entity.ActionEntity
 import com.hjiee.core.event.entity.ItemClickEntity
 import dagger.hilt.android.AndroidEntryPoint
@@ -67,17 +66,20 @@ class MyAccountDeleteActivity :
     override fun handleSelectEvent(entity: ItemClickEntity) {
         when (entity) {
             is MyAccountDeleteSelectEntity.Delete -> {
-                CustomAlertDialog(
-                    title = getString(R.string.delete_account),
-                    message = getString(R.string.unlink_message),
-                    posivie = getString(R.string.yes),
-                    negative = getString(R.string.no),
-                    result = DialogInterface.OnClickListener { dialog, which ->
-                        viewModel.deleteAccount()
-                    }
-                ).show(supportFragmentManager, null)
+                showDialog()
             }
         }
+    }
+
+    private fun showDialog() {
+        MaterialAlertDialogBuilder(this@MyAccountDeleteActivity)
+            .setTitle(getString(R.string.delete_account))
+            .setMessage(getString(R.string.unlink_message))
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                viewModel.deleteAccount()
+            }
+            .setNegativeButton(getString(R.string.no), null)
+            .show()
     }
 
     companion object {

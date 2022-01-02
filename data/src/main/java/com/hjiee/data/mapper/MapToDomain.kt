@@ -28,7 +28,11 @@ fun EntityResponse<BeerResponse>?.toBeer(): DomainEntity.Response<DomainEntity.B
             nameForKorean = this?.data?.nameForKorean.orEmpty(),
             nameForEnglish = this?.data?.nameForEnglish.orEmpty(),
             thumbnailImage = this?.data?.thumbnailImage.orEmpty(),
-            starAvg = this?.data?.starAvg.orZero()
+            starAvg = this?.data?.starAvg.orZero(),
+            brewery = this?.data?.brewery.orEmpty(),
+            country = this?.data?.country.orEmpty(),
+            style = this?.data?.style.orEmpty(),
+            isFavorite = this?.data?.heart.orFalse()
         )
     )
 }
@@ -46,7 +50,11 @@ fun EntityResponse<BeersResponse>?.toBeerList(): DomainEntity.Response<DomainEnt
                     nameForKorean = it.nameForKorean.orEmpty(),
                     nameForEnglish = it.nameForEnglish.orEmpty(),
                     thumbnailImage = it.thumbnailImage.orEmpty(),
-                    starAvg = it.starAvg.orZero()
+                    starAvg = it.starAvg.orZero(),
+                    brewery = it.brewery.orEmpty(),
+                    country = it.country.orEmpty(),
+                    style = it.style.orEmpty(),
+                    isFavorite = it.heart.orFalse()
                 )
             }.orEmpty(),
             cursor = DomainEntity.Cursor(this?.data?.cursor?.cursor.orZero())
@@ -66,7 +74,11 @@ fun EntityResponse<AromasResponse>?.toSelectedBeerFromAroma(): DomainEntity.Resp
                     nameForKorean = it.nameForKorean.orEmpty(),
                     nameForEnglish = it.nameForEnglish.orEmpty(),
                     thumbnailImage = it.thumbnailImage.orEmpty(),
-                    starAvg = it.starAvg.orZero()
+                    starAvg = it.starAvg.orZero(),
+                    brewery = it.brewery.orEmpty(),
+                    country = it.country.orEmpty(),
+                    style = it.style.orEmpty(),
+                    isFavorite = it.heart.orFalse()
                 )
             }.orEmpty(),
             cursor = DomainEntity.Cursor(this?.data?.cursor?.cursor.orZero())
@@ -84,7 +96,11 @@ fun EntityResponse<AwardResponse>?.toAwardBeer(): DomainEntity.Response<DomainEn
             nameForKorean = this?.data?.beer?.nameForKorean.orEmpty(),
             nameForEnglish = this?.data?.beer?.nameForEnglish.orEmpty(),
             thumbnailImage = this?.data?.beer?.thumbnailImage.orEmpty(),
-            starAvg = this?.data?.beer?.starAvg.orZero()
+            starAvg = this?.data?.beer?.starAvg.orZero(),
+            brewery = this?.data?.beer?.brewery.orEmpty(),
+            country = this?.data?.beer?.country.orEmpty(),
+            style = this?.data?.beer?.style.orEmpty(),
+            isFavorite = this?.data?.beer?.heart.orFalse()
         )
     )
 }
@@ -97,15 +113,11 @@ fun BeerResponse?.toBeer(): DomainEntity.Beer {
         abv = this?.starAvg.orZero(),
         nameForEnglish = this?.nameForEnglish.orEmpty(),
         thumbnailImage = this?.thumbnailImage.orEmpty(),
-        starAvg = this?.starAvg.orZero()
-//        aromas = aromas.orEmpty(),
-//        beerStyle = beerStyle.orEmpty(),
-//        brewery = brewery.orEmpty(),
-//        country = country.orEmpty(),
-//        imageUrl = imageUrl.orEmpty(),
-//        rateAvg = rateAvg.orZero(),
-//        reviewList = reviews?.toDomainEntity().orEmpty(),
-//        isFavorite = favoriteFlag.orFalse(),
+        starAvg = this?.starAvg.orZero(),
+        brewery = this?.brewery.orEmpty(),
+        country = this?.country.orEmpty(),
+        style = this?.style.orEmpty(),
+        isFavorite = this?.heart.orFalse()
     )
 }
 
@@ -117,15 +129,11 @@ fun List<BeerResponse>?.toBeer(): List<DomainEntity.Beer> {
             abv = it.starAvg.orZero(),
             nameForEnglish = it.nameForEnglish.orEmpty(),
             thumbnailImage = it.thumbnailImage.orEmpty(),
-            starAvg = it.starAvg.orZero()
-//        aromas = aromas.orEmpty(),
-//        beerStyle = beerStyle.orEmpty(),
-//        brewery = brewery.orEmpty(),
-//        country = country.orEmpty(),
-//        imageUrl = imageUrl.orEmpty(),
-//        rateAvg = rateAvg.orZero(),
-//        reviewList = reviews?.toDomainEntity().orEmpty(),
-//        isFavorite = favoriteFlag.orFalse(),
+            starAvg = it.starAvg.orZero(),
+            style = it.style.orEmpty(),
+            brewery = it.brewery.orEmpty(),
+            country = it.country.orEmpty(),
+            isFavorite = it.heart.orFalse(),
         )
     }.orEmpty()
 }

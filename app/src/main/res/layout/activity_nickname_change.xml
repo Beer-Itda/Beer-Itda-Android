@@ -96,7 +96,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@{@string/max_text_length(viewModel.nickName.length())}"
+            android:text="@{@string/max_text_length(viewModel.nickName.length(), viewModel.maxContentLength)}"
             android:textColor="@{viewModel.isValid() ? @color/color_61c453 : @color/color_ed6a5e}"
             app:layout_constraintEnd_toEndOf="@+id/edt_nickname"
             app:layout_constraintStart_toStartOf="@+id/edt_nickname"

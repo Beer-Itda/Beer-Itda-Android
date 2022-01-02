@@ -70,6 +70,17 @@ interface BeerApi {
     suspend fun getMyReview(): MyReviewListResponse?
 
     /**
+     * 내가 작성한 리뷰
+     */
+    @FormUrlEncoded
+    @POST("api/v1/review/{id}")
+    suspend fun postReview(
+        @Path("id") beerId: Int,
+        @Field("star") starScore: Float,
+        @Field("content") content: String
+    )
+
+    /**
      * 월간 인기 맥주
      */
     @GET("api/v1/beer/monthly")
