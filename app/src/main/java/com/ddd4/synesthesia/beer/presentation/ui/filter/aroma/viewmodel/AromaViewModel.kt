@@ -6,11 +6,9 @@ import com.ddd4.synesthesia.beer.presentation.ui.common.filter.AromaProvider
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FliterStringProvider
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaClickEntity
-import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemMapper
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.view.AromaViewState
 import com.hjiee.core.event.entity.ItemClickEntity
-import com.hjiee.domain.NetworkResponse
 import com.hjiee.domain.usecase.filter.aroma.GetAromaUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -35,22 +33,23 @@ class AromaViewModel @Inject constructor(
 
     fun load() {
         viewModelScope.launch(errorHandler) {
-            aromaUseCase.execute { response ->
-                when (response) {
-                    is NetworkResponse.Success -> {
-                        items = AromaItemMapper.get(
-                            items = response.data,
-                            eventNotifier = this@AromaViewModel
-                        )
-                        initSelectedAroma()
-                        notifyActionEvent(AromaActionEntity.UpdateList(items))
-                    }
-                    is NetworkResponse.NoContents -> {
-                    }
-                    is NetworkResponse.Error -> {
-                    }
-                }
-            }
+            aromaUseCase.execute()
+//            { response ->
+//                when (response) {
+//                    is NetworkResponse.Success -> {
+//                        items = AromaItemMapper.get(
+//                            items = response.data,
+//                            eventNotifier = this@AromaViewModel
+//                        )
+//                        initSelectedAroma()
+//                        notifyActionEvent(AromaActionEntity.UpdateList(items))
+//                    }
+//                    is NetworkResponse.NoContents -> {
+//                    }
+//                    is NetworkResponse.Error -> {
+//                    }
+//                }
+//            }
         }
     }
 

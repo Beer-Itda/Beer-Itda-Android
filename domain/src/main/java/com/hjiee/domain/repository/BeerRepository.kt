@@ -10,6 +10,7 @@ interface BeerRepository {
     suspend fun getAromaBeer(): Response<Beers>?
     suspend fun getUserInfo(): User
     suspend fun getMyReview(): List<MyReview>
+    suspend fun getAromaInfo()
 
     suspend fun postReview(beerId: Int, starScore: Float, content: String)
 

@@ -95,6 +95,14 @@ interface BeerApi {
         @Field("nickname") nickName: String
     )
 
+    /**
+     * 향 정보 불러오기
+     */
+    @GET("api/v1/infomation/aroma")
+    suspend fun getAromaInfo()
+
+
+
 //    /**
 //     * App Config
 //     */
