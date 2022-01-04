@@ -1,7 +1,7 @@
 package com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small
 
 import androidx.databinding.ObservableBoolean
-import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleClicklEntity
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleClickEntity
 import com.hjiee.core.event.SelectActionEventNotifier
 
 class StyleSmallItemViewModel(
@@ -27,11 +27,11 @@ class StyleSmallItemViewModel(
     }
 
     fun clickAddItem() {
-        eventNotifier?.notifySelectEvent(StyleClicklEntity.AddStyle(this))
+        eventNotifier?.notifySelectEvent(StyleClickEntity.AddStyle(this))
     }
 
     fun clickDeleteItem() {
-        eventNotifier?.notifySelectEvent(StyleClicklEntity.DeleteStyle(this))
+        eventNotifier?.notifySelectEvent(StyleClickEntity.DeleteStyle(this))
     }
 
 }

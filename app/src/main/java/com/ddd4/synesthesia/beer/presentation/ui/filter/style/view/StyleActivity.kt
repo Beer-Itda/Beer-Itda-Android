@@ -8,7 +8,7 @@ import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityFilterStyleBinding
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleActionEntity
-import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleClicklEntity
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleMiddleItemViewHolder
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.adapter.StyleMiddleListAdapter
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.adapter.StyleSelectedListAdapter
@@ -109,11 +109,14 @@ class StyleActivity : BaseActivity<ActivityFilterStyleBinding>(R.layout.activity
 
     override fun handleSelectEvent(entity: ItemClickEntity) {
         when (entity) {
-            is StyleClicklEntity.SelectMiddleCategory -> {
+            is StyleClickEntity.SelectMiddleCategory -> {
             }
-            is StyleClicklEntity.SelectStyleSet -> {
+            is StyleClickEntity.SelectStyleSet -> {
             }
-            is StyleClicklEntity.SelectDone -> {
+            is StyleClickEntity.SelectDone -> {
+                finish()
+            }
+            is StyleClickEntity.Skip -> {
                 finish()
             }
         }

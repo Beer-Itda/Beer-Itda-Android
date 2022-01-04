@@ -36,6 +36,25 @@
             app:layout_constraintTop_toBottomOf="@+id/include_toolbar"
             tools:text="@string/style" />
 
+
+        <TextView
+            android:id="@+id/tv_skip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="18dp"
+            android:background="@drawable/background_round_30_ripple"
+            android:backgroundTint="@color/color_353537"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="7dp"
+            android:text="@string/skip"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_title"
+            app:onDebouncedClick="@{viewModel.clickSkip}"
+            tools:text="@string/skip" />
+
         <TextView
             android:id="@+id/tv_description"
             android:layout_width="0dp"
@@ -147,19 +166,19 @@
             android:id="@+id/tv_choice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/color_1c1b21"
+            android:background="@{viewModel.viewState.isMaxSelected() ? @color/butterscotch : @color/color_1c1b21}"
+            android:enabled="@{viewModel.viewState.isMaxSelected()}"
             android:gravity="center"
-            app:onDebouncedClick="@{viewModel.clickDone}"
             android:paddingVertical="24dp"
             android:text="@string/choice_complete"
-            android:textColor="@color/butterscotch"
+            android:textColor="@{viewModel.viewState.isMaxSelected() ? @color/white : @color/color_8e8d94}"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:background="@android:color/transparent"
-            tools:text="선택하기"
-            tools:textColor="@color/butterscotch" />
+            app:onDebouncedClick="@{viewModel.clickDone}"
+            tools:text="@string/choice_complete"
+            tools:textColor="@color/color_8e8d94" />
 
         <include
             android:id="@+id/include_progress"

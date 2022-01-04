@@ -6,7 +6,7 @@ import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FliterStringProvider
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.StyleProvider
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleActionEntity
-import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleClicklEntity
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.large.StyleLargeItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleMiddleItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small.StyleSmallItemViewModel
@@ -92,7 +92,7 @@ class StyleViewModel @Inject constructor(
 
     override fun handleSelectEvent(entity: ItemClickEntity) {
         when (entity) {
-            is StyleClicklEntity.AddStyle -> {
+            is StyleClickEntity.AddStyle -> {
                 when {
                     //
                     viewState.isMaxSelected.get().not() &&
@@ -115,7 +115,7 @@ class StyleViewModel @Inject constructor(
                 }
             }
 
-            is StyleClicklEntity.DeleteStyle -> {
+            is StyleClickEntity.DeleteStyle -> {
                 removeSelectedStyle(entity.style)
             }
         }
@@ -220,7 +220,11 @@ class StyleViewModel @Inject constructor(
             it.eventNotifier = null
             it
         }
-        notifySelectEvent(StyleClicklEntity.SelectDone(selectedList))
+        notifySelectEvent(StyleClickEntity.SelectDone)
+    }
+
+    fun clickSkip() {
+        notifySelectEvent(StyleClickEntity.Skip)
     }
 
     private fun initSelectedStyle() {
