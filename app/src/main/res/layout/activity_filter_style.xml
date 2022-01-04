@@ -151,7 +151,7 @@
             android:gravity="center"
             app:onDebouncedClick="@{viewModel.clickDone}"
             android:paddingVertical="24dp"
-            android:text="@string/choice"
+            android:text="@string/choice_complete"
             android:textColor="@color/butterscotch"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

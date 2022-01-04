@@ -6,4 +6,6 @@ import com.hjiee.core.event.entity.ItemClickEntity
 sealed class AromaClickEntity : ItemClickEntity() {
     class AddAroma(val item: AromaItemViewModel) : AromaClickEntity()
     class DeleteAroma(val item: AromaItemViewModel) : AromaClickEntity()
+    object Skip : AromaClickEntity()
+    object SelectDone : AromaClickEntity()
 }

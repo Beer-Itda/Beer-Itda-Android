@@ -8,6 +8,7 @@ import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityFilterAromaBinding
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaActionEntity
+import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.view.adapter.AromaListAdapter
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.view.adapter.AromaSelectedListAdapter
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.viewmodel.AromaViewModel
@@ -16,6 +17,7 @@ import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.util.ext.showToast
 import com.ddd4.synesthesia.beer.util.ext.start
 import com.hjiee.core.event.entity.ActionEntity
+import com.hjiee.core.event.entity.ItemClickEntity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -51,6 +53,20 @@ class AromaActivity : BaseActivity<ActivityFilterAromaBinding>(R.layout.activity
         observeHandledEvent(viewModel.event.action) {
             handleActionEvent(it)
         }
+        observeHandledEvent(viewModel.event.select) {
+            handleSelectEvent(it)
+        }
+    }
+
+    override fun handleSelectEvent(entity: ItemClickEntity) {
+        when (entity) {
+            is AromaClickEntity.Skip -> {
+                start<StyleActivity>()
+            }
+            is AromaClickEntity.SelectDone -> {
+                start<StyleActivity>()
+            }
+        }
     }
 
     override fun handleActionEvent(entity: ActionEntity) {
@@ -63,9 +79,6 @@ class AromaActivity : BaseActivity<ActivityFilterAromaBinding>(R.layout.activity
             }
             is AromaActionEntity.UpdateSelectedList -> {
                 selectedListAdapter.addAll(entity.list, true)
-            }
-            is AromaActionEntity.SelectDone -> {
-                start<StyleActivity>()
             }
         }
     }

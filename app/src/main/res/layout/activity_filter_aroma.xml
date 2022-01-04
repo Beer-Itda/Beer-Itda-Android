@@ -14,8 +14,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        tools:context=".presentation.ui.filter.aroma.view.AromaActivity">
+        android:background="@color/color_1c1b21"
+        android:fillViewport="true">
 
         <include
             android:id="@+id/include_toolbar"
@@ -27,7 +27,6 @@
             android:id="@+id/tv_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/color_1c1b21"
             android:paddingHorizontal="18dp"
             android:text="@string/aroma"
             android:textSize="26sp"
@@ -38,14 +37,31 @@
             tools:text="@string/aroma" />
 
         <TextView
+            android:id="@+id/tv_skip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="18dp"
+            android:background="@drawable/background_round_30_ripple"
+            android:backgroundTint="@color/color_353537"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="7dp"
+            android:text="@string/skip"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_title"
+            app:onDebouncedClick="@{viewModel.clickSkip}"
+            tools:text="@string/skip" />
+
+        <TextView
             android:id="@+id/tv_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/color_1c1b21"
+            android:layout_marginTop="8dp"
             android:paddingHorizontal="18dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="16dp"
             android:text="@{@string/max_choice_count_aroma(viewModel.MAX_AROMA_COUNT)}"
+            android:textColor="@color/color_8e8d94"
             app:layout_constraintEnd_toEndOf="@+id/tv_title"
             app:layout_constraintStart_toStartOf="@+id/tv_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
@@ -55,7 +71,7 @@
             android:id="@+id/rv_selected_aroma"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/color_1c1b21"
+            android:layout_marginTop="12dp"
             android:orientation="horizontal"
             android:paddingBottom="20dp"
             app:headTailSpace="@{@dimen/margin_18}"
@@ -95,19 +111,20 @@
             android:id="@+id/tv_choice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/color_1c1b21"
+            android:background="@{viewModel.viewState.isMaxSelected() ? @color/butterscotch : @color/color_1c1b21}"
+            android:enabled="@{viewModel.viewState.isMaxSelected()}"
             android:gravity="center"
-            app:onDebouncedClick="@{viewModel.clickDone}"
             android:paddingVertical="24dp"
-            android:text="@string/choice"
-            android:textColor="@color/butterscotch"
+            android:text="@string/choice_complete"
+            android:textColor="@{viewModel.viewState.isMaxSelected() ? @color/white : @color/color_8e8d94}"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:onDebouncedClick="@{viewModel.clickDone}"
             tools:background="@color/color_1c1b21"
-            tools:text="선택하기"
-            tools:textColor="@color/butterscotch" />
+            tools:text="선택 완료"
+            tools:textColor="@color/color_8e8d94" />
 
         <include
             android:id="@+id/include_progress"

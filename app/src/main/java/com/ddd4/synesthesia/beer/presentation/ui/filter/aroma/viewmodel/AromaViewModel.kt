@@ -7,7 +7,6 @@ import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FliterStringProvi
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemViewModel
-import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.view.AromaViewState
 import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.domain.usecase.filter.aroma.GetAromaUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -172,7 +171,11 @@ class AromaViewModel @Inject constructor(
             it.eventNotifier = null
             it
         }
-        notifyActionEvent(AromaActionEntity.SelectDone(selectedList))
+        notifySelectEvent(AromaClickEntity.SelectDone)
+    }
+
+    fun clickSkip() {
+        notifySelectEvent(AromaClickEntity.Skip)
     }
 
     private fun initSelectedAroma() {

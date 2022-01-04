@@ -7,5 +7,4 @@ sealed class AromaActionEntity : ActionEntity() {
     class ShowToast(val message: String) : AromaActionEntity()
     class UpdateList(val list: List<AromaItemViewModel>) : AromaActionEntity()
     class UpdateSelectedList(val list: List<AromaItemViewModel>) : AromaActionEntity()
-    class SelectDone(val items: List<AromaItemViewModel>) : AromaActionEntity()
 }
