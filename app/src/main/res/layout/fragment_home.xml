@@ -23,7 +23,7 @@
             android:foreground="?attr/selectableItemBackground"
             app:onDebouncedClick="@{vm.clickFilter}"
             android:padding="18dp"
-            android:src="@drawable/ic_filter"
+            android:src="@drawable/ic_sliders"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white" />
