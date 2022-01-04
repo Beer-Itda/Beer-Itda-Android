@@ -12,7 +12,6 @@ import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleM
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small.StyleSmallItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.StyleViewState
 import com.hjiee.core.event.entity.ItemClickEntity
-import com.hjiee.domain.NetworkResponse
 import com.hjiee.domain.usecase.filter.style.GetStyleUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -38,38 +37,38 @@ class StyleViewModel @Inject constructor(
 
     private lateinit var allCategories: List<StyleLargeItemViewModel>
 
-    init {
-    }
-
-    fun init() {
+    fun load() {
         statusLoading()
         viewModelScope.launch(errorHandler) {
-            styleUseCase.execute { response ->
-                when (response) {
-                    is NetworkResponse.Success -> {
-//                        allCategories = StyleLargeItemMapper.getStyles(
-//                            list = response.data,
-//                            eventNotifier = this@StyleViewModel
-//                        )
-                        currentMiddleCategory.addAll(allCategories[0].middleCategories)
-                        notifyActionEvent(StyleActionEntity.UpdateLarge(allCategories))
-                        notifyActionEvent(StyleActionEntity.UpdateMiddle(currentMiddleCategory))
-                        loadFilterSet(0)
-                        initSelectedStyle()
-                        statusSuccess()
-                    }
-                    is NetworkResponse.NoContents -> {
-                        // do noting
-                    }
-                    is NetworkResponse.Error -> {
-                        // TODO do something...
-                    }
-                }
-            }
+            styleUseCase.execute()
+            statusFailure()
+//            styleUseCase.execute
+//            { response ->
+//                when (response) {
+//                    is NetworkResponse.Success -> {
+////                        allCategories = StyleLargeItemMapper.getStyles(
+////                            list = response.data,
+////                            eventNotifier = this@StyleViewModel
+////                        )
+//                        currentMiddleCategory.addAll(allCategories[0].middleCategories)
+//                        notifyActionEvent(StyleActionEntity.UpdateLarge(allCategories))
+//                        notifyActionEvent(StyleActionEntity.UpdateMiddle(currentMiddleCategory))
+//                        loadFilterSet(0)
+//                        initSelectedStyle()
+//                        statusSuccess()
+//                    }
+//                    is NetworkResponse.NoContents -> {
+//                        // do noting
+//                    }
+//                    is NetworkResponse.Error -> {
+//                        // TODO do something...
+//                    }
+//                }
+//            }
         }
     }
 
-    fun load(position: Int) {
+    fun dataChange(position: Int) {
         Log.e("filterSetting", "load : ${position}")
         currentMiddleCategory.clear()
         currentMiddleCategory.addAll(allCategories[position].middleCategories)

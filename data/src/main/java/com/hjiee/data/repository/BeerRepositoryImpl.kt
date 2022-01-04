@@ -39,6 +39,10 @@ class BeerRepositoryImpl @Inject constructor(
         beerApi.getAromaInfo()
     }
 
+    override suspend fun getStyleInfo() {
+        beerApi.getStyleInfo()
+    }
+
     override suspend fun postReview(
         beerId: Int,
         starScore: Float,

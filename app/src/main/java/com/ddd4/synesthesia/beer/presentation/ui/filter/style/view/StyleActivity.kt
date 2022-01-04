@@ -38,7 +38,7 @@ class StyleActivity : BaseActivity<ActivityFilterStyleBinding>(R.layout.activity
         super.onCreate(savedInstanceState)
         initBind()
         initObserver()
-        viewModel.init()
+        viewModel.load()
     }
 
     override fun initBind() {
@@ -123,7 +123,7 @@ class StyleActivity : BaseActivity<ActivityFilterStyleBinding>(R.layout.activity
     override fun onTabReselected(tab: TabLayout.Tab?) {}
     override fun onTabSelected(tab: TabLayout.Tab?) {
         tab?.position?.let { position ->
-            viewModel.load(position)
+            viewModel.dataChange(position)
         }
     }
 
