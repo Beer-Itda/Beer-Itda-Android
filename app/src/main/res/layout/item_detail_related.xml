@@ -15,7 +15,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
         android:paddingHorizontal="18dp"
+        android:paddingBottom="10dp"
         app:visibility="@{viewModel.relatedBeerList.size() > 0}">
 
         <TextView
@@ -23,13 +26,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/notosans_kr_regular"
-            app:onDebouncedClick="@{()-> viewModel.clickShowMore()}"
             android:text="@{viewModel.title}"
-            android:textSize="18sp"
+            android:textSize="@dimen/textSize_18"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:onDebouncedClick="@{()-> viewModel.clickShowMore()}"
             tools:text="@string/title_aroma" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -39,7 +42,6 @@
             android:layout_marginTop="20dp"
             android:clipToPadding="true"
             android:orientation="horizontal"
-            android:paddingBottom="10dp"
             app:adapter="@{viewModel.adapter}"
             app:horizontalSpace="@{@dimen/margin_8}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

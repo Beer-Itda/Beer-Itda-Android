@@ -16,13 +16,11 @@
         android:layout_width="120dp"
         android:layout_height="210dp"
         android:backgroundTint="@color/color_1c1b21"
-        android:elevation="50dp"
-        app:onDebouncedClick="@{beer.clickItem}"
-        app:cardCornerRadius="30dp"
+        app:cardCornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_marginHorizontal="4dp">
+        app:onDebouncedClick="@{beer.clickItem}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -36,9 +34,11 @@
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
                 app:errorDrawable="@{@drawable/beer}"
+                app:layout_constraintBottom_toTopOf="@+id/tv_beer_name_korean"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
                 app:loadUrl="@{beer.thumbnailImage}"
                 tools:src="@drawable/beer" />
 
@@ -46,46 +46,68 @@
                 android:id="@+id/iv_like"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                android:layout_marginTop="17dp"
-                app:onDebouncedClick="@{beer.clickFavorite}"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
+                android:src="@{beer.isFavorite() ? @drawable/ic_btn_like : @drawable/ic_btn_like_unactive}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/ic_btn_like" />
+                app:onDebouncedClick="@{beer.clickFavorite}"
+                tools:src="@drawable/ic_btn_like_unactive" />
 
 
             <TextView
-                android:id="@+id/tv_name"
+                android:id="@+id/tv_beer_name_korean"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/notosans_kr_regular"
                 android:gravity="center"
                 android:singleLine="true"
                 android:text="@{beer.nameForKorean}"
-                app:layout_constraintBottom_toTopOf="@+id/tv_beer_rate"
+                android:textSize="@dimen/textSize_14"
+                app:layout_constraintBottom_toTopOf="@+id/tv_beer_name_english"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_beer"
-                tools:text="한강맥주"
-                tools:textColor="@color/black" />
+                tools:text="한강맥주" />
+
+
+            <TextView
+                android:id="@+id/tv_beer_name_english"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/notosans_kr_regular"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@{beer.nameForEnglish}"
+                android:textColor="@color/color_8e8d94"
+                android:textSize="@dimen/textSize_10"
+                app:layout_constraintBottom_toTopOf="@+id/tv_beer_rate"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_beer_name_korean"
+                tools:text="hangang beer" />
 
 
             <TextView
                 android:id="@+id/tv_beer_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="12dp"
                 android:drawablePadding="4dp"
                 android:fontFamily="@font/notosans_kr_bold"
                 android:textColor="@color/butterscotch"
-                android:textSize="14sp"
+                android:textSize="@dimen/textSize_14"
                 app:drawableStartCompat="@drawable/ic_rating_star"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/iv_beer"
                 app:layout_constraintStart_toStartOf="@+id/iv_beer"
-                app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_beer_name_english"
                 tools:text="3.5" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

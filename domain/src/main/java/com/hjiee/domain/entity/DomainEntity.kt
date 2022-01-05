@@ -22,7 +22,7 @@ sealed class DomainEntity {
 
     data class Beer(
         val id: Int,
-        val abv: Float,
+        val abv: String,
         val nameForKorean: String,
         val nameForEnglish: String,
         val starAvg: Float,

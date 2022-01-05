@@ -24,7 +24,7 @@ fun EntityResponse<BeerResponse>?.toBeer(): DomainEntity.Response<DomainEntity.B
         message = this?.message.orEmpty(),
         data = DomainEntity.Beer(
             id = this?.data?.id.orZero(),
-            abv = this?.data?.starAvg.orZero(),
+            abv = this?.data?.abv.orEmpty(),
             nameForKorean = this?.data?.nameForKorean.orEmpty(),
             nameForEnglish = this?.data?.nameForEnglish.orEmpty(),
             thumbnailImage = this?.data?.thumbnailImage.orEmpty(),
@@ -46,7 +46,7 @@ fun EntityResponse<BeersResponse>?.toBeerList(): DomainEntity.Response<DomainEnt
             beers = this?.data?.beers?.map {
                 DomainEntity.Beer(
                     id = it.id.orZero(),
-                    abv = it.starAvg.orZero(),
+                    abv = it.abv.orEmpty(),
                     nameForKorean = it.nameForKorean.orEmpty(),
                     nameForEnglish = it.nameForEnglish.orEmpty(),
                     thumbnailImage = it.thumbnailImage.orEmpty(),
@@ -70,7 +70,7 @@ fun EntityResponse<AromasResponse>?.toSelectedBeerFromAroma(): DomainEntity.Resp
             beers = this?.data?.beers?.map {
                 DomainEntity.Beer(
                     id = it.id.orZero(),
-                    abv = it.starAvg.orZero(),
+                    abv = it.abv.orEmpty(),
                     nameForKorean = it.nameForKorean.orEmpty(),
                     nameForEnglish = it.nameForEnglish.orEmpty(),
                     thumbnailImage = it.thumbnailImage.orEmpty(),
@@ -92,7 +92,7 @@ fun EntityResponse<AwardResponse>?.toAwardBeer(): DomainEntity.Response<DomainEn
         message = this?.message.orEmpty(),
         data = DomainEntity.Beer(
             id = this?.data?.beer?.id.orZero(),
-            abv = this?.data?.beer?.starAvg.orZero(),
+            abv = this?.data?.beer?.abv.orEmpty(),
             nameForKorean = this?.data?.beer?.nameForKorean.orEmpty(),
             nameForEnglish = this?.data?.beer?.nameForEnglish.orEmpty(),
             thumbnailImage = this?.data?.beer?.thumbnailImage.orEmpty(),
@@ -110,7 +110,7 @@ fun BeerResponse?.toBeer(): DomainEntity.Beer {
     return DomainEntity.Beer(
         id = this?.id.orZero(),
         nameForKorean = this?.nameForKorean.orEmpty(),
-        abv = this?.starAvg.orZero(),
+        abv = this?.abv.orEmpty(),
         nameForEnglish = this?.nameForEnglish.orEmpty(),
         thumbnailImage = this?.thumbnailImage.orEmpty(),
         starAvg = this?.starAvg.orZero(),
@@ -126,7 +126,7 @@ fun List<BeerResponse>?.toBeer(): List<DomainEntity.Beer> {
         DomainEntity.Beer(
             id = it.id.orZero(),
             nameForKorean = it.nameForKorean.orEmpty(),
-            abv = it.starAvg.orZero(),
+            abv = it.abv.orEmpty(),
             nameForEnglish = it.nameForEnglish.orEmpty(),
             thumbnailImage = it.thumbnailImage.orEmpty(),
             starAvg = it.starAvg.orZero(),
