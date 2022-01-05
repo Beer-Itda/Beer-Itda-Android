@@ -18,7 +18,7 @@ data class BeerResponse(
     @SerializedName("star_avg")
     val starAvg: Float?,
     @SerializedName("abv")
-    val abv: String?,
+    val abv: Float?,
     @SerializedName("style")
     val style: String?,
     @SerializedName("thumbnail_image")

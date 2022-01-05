@@ -50,7 +50,7 @@ object BeerItemViewModelMapper {
 
     private fun getNullBeerItem(): BeerItemViewModel =
         BeerItemViewModel(
-            alcoholByVolume = "",
+            alcoholByVolume = 0f,
             aromas = emptyList(),
             style = "",
             brewery = "",

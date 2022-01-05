@@ -20,7 +20,8 @@
         <ImageView
             android:id="@+id/iv_beer"
             android:layout_width="match_parent"
-            android:layout_height="202dp"
+            android:layout_height="wrap_content"
+            android:minHeight="202dp"
             android:adjustViewBounds="true"
             android:background="@color/color_1c1b21"
             android:scaleType="fitCenter"
@@ -72,7 +73,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="18dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="12dp"
             android:fontFamily="@font/notosans_kr_regular"
             android:text="@{viewModel.beer.nameForKorean}"
             android:textSize="@dimen/textSize_22"
@@ -142,9 +143,9 @@
             android:id="@+id/tv_beer_alcohol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="8dp"
             android:fontFamily="@font/notosans_kr_regular"
-            android:text="@{viewModel.beer.alcoholByVolume}"
+            android:text="@{@string/abv(viewModel.beer.alcoholByVolume)}"
             android:textColor="@color/color_8e8d94"
             android:textSize="@dimen/textSize_12"
             app:layout_constraintBottom_toBottomOf="@+id/tv_beer_manufacturer_name"
@@ -166,6 +167,7 @@
             app:layout_constraintEnd_toEndOf="@+id/tv_beer_rate"
             app:layout_constraintStart_toStartOf="@+id/tv_beer_style"
             app:layout_constraintTop_toBottomOf="@+id/tv_beer_manufacturer_name"
+            app:visibility="@{viewModel.beer.aromas.size() > 0}"
             tools:listitem="@layout/layout_aroma" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

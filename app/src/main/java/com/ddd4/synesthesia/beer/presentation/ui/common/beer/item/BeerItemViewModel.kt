@@ -7,7 +7,7 @@ import com.hjiee.domain.entity.DomainEntity
 
 class BeerItemViewModel(
     val id: Int,
-    val alcoholByVolume: String,
+    val alcoholByVolume: Float,
     val aromas: List<String> = emptyList(),
     val style: String,
     val brewery: String,
