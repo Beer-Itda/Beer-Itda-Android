@@ -55,7 +55,7 @@
                         android:text="@={viewModel.searchText}"
                         android:textColor="@color/white"
                         android:textCursorDrawable="@drawable/cursor"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/textSize_14"
                         app:layout_constraintBottom_toBottomOf="@+id/ib_search"
                         app:layout_constraintEnd_toStartOf="@+id/ib_clear"
                         app:layout_constraintStart_toStartOf="parent"

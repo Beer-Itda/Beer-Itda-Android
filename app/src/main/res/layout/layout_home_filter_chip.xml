@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:textAllCaps="false"
-    android:textSize="14sp"
+    android:textSize="@dimen/textSize_14"
     android:textColor="@color/white"
     android:textAlignment="center"
     android:fontFamily="@font/notosans_kr_medium"

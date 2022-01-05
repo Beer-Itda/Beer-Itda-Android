@@ -21,7 +21,7 @@
             android:drawableStart="@drawable/ic_btn_like_empty"
             android:drawablePadding="8dp"
             android:text="@string/liked_beer"
-            android:textSize="14sp"
+            android:textSize="@dimen/textSize_14"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/iv_more_detail"
             app:layout_constraintHorizontal_chainStyle="spread_inside"

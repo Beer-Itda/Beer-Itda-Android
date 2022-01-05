@@ -29,7 +29,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="40dp"
             android:text="@string/delete_warning_title"
-            android:textSize="16sp"
+            android:textSize="@dimen/textSize_16"
             app:layout_constraintTop_toBottomOf="@+id/include_toolbar" />
 
         <TextView
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
             android:text="@string/delete_warning_description"
-            android:textSize="12sp"
+            android:textSize="@dimen/textSize_12"
             app:layout_constraintEnd_toEndOf="@+id/tv_warning_title"
             app:layout_constraintStart_toStartOf="@+id/tv_warning_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_warning_title" />
@@ -53,7 +53,7 @@
             android:paddingStart="12dp"
             android:text="@string/delete_warning_description_agree"
             android:textColor="@color/white"
-            android:textSize="12sp"
+            android:textSize="@dimen/textSize_12"
             app:layout_constraintEnd_toEndOf="@+id/tv_warning_title"
             app:layout_constraintStart_toStartOf="@+id/tv_warning_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_warning_description" />

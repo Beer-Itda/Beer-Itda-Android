@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{title}"
-            android:textSize="16sp"
+            android:textSize="@dimen/textSize_16"
             android:visibility="@{TextUtils.isEmpty(title) ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintStart_toEndOf="@+id/toolbar"

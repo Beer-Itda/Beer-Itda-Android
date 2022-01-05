@@ -22,7 +22,7 @@
             android:layout_marginStart="18dp"
             android:paddingVertical="10dp"
             android:text="@{item.title}"
-            android:textSize="17sp"
+            android:textSize="@dimen/textSize_17"
             app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

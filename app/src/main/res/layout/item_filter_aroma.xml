@@ -31,7 +31,7 @@
             android:maxLines="2"
             android:text="@{aroma.name}"
             android:textColor="@{aroma.isSelected() ? @color/butterscotch : @color/color_5c5b5f}"
-            android:textSize="11sp"
+            android:textSize="@dimen/textSize_11"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
