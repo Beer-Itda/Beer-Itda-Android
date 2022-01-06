@@ -15,13 +15,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="28dp">
 
         <ImageView
             android:id="@+id/iv_beer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="202dp"
+            android:layout_height="202dp"
             android:adjustViewBounds="true"
             android:background="@color/color_1c1b21"
             android:scaleType="fitCenter"
