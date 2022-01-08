@@ -30,10 +30,10 @@ class BeerItemViewModel(
     }
 
     fun clickItem() {
-        eventNotifier?.notifySelectEvent(BeerClickEntity.SelectBeer(this))
+        eventNotifier?.notifySelectEvent(BeerClickEntity.ClickBeer(this))
     }
 
     fun clickFavorite() {
-        eventNotifier?.notifySelectEvent(BeerClickEntity.SelectFavorite2(this))
+        eventNotifier?.notifySelectEvent(BeerClickEntity.ClickFavorite(this))
     }
 }

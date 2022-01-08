@@ -68,7 +68,7 @@ class BeerDetailActivity : BaseActivity<ActivityBeerDetailBinding>(R.layout.acti
 
     override fun handleSelectEvent(entity: ItemClickEntity) {
         when (entity) {
-            is BeerClickEntity.SelectBeer -> {
+            is BeerClickEntity.ClickBeer -> {
                 start<BeerDetailActivity>(intent = getIntent(this, entity.beer.id.orZero()))
             }
             is BeerDetailItemSelectEntity.ReviewAll -> {

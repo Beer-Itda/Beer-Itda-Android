@@ -226,7 +226,7 @@ class HomeViewModel @Inject constructor(
 
     override fun handleSelectEvent(entity: ItemClickEntity) {
         when (entity) {
-            is BeerClickEntity.SelectFavorite2 -> {
+            is BeerClickEntity.ClickFavorite -> {
 //                fetchFavorite(entity.beer)
             }
         }

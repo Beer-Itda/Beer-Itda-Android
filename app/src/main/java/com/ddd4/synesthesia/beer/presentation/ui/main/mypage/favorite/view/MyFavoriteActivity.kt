@@ -51,7 +51,7 @@ class MyFavoriteActivity : BaseActivity<ActivityMyFavoriteBinding>(R.layout.acti
 
     override fun handleSelectEvent(entity: ItemClickEntity) {
         when (entity) {
-            is BeerClickEntity.SelectItem -> {
+            is BeerClickEntity.ClickItem -> {
                 start<BeerDetailActivity>(intent = BeerDetailActivity.getIntent(this, entity.beer.id))
             }
         }

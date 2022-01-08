@@ -5,8 +5,7 @@ import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.domain.entity.DomainEntity
 
 sealed class BeerClickEntity : ItemClickEntity() {
-    class SelectItem(val beer: DomainEntity.Beer) : BeerClickEntity()
-    class SelectBeer(val beer: BeerItemViewModel) : BeerClickEntity()
-    class SelectFavorite(val beer: DomainEntity.Beer) : BeerClickEntity()
-    class SelectFavorite2(val beer: BeerItemViewModel) : BeerClickEntity()
+    class ClickItem(val beer: DomainEntity.Beer) : BeerClickEntity()
+    class ClickBeer(val beer: BeerItemViewModel) : BeerClickEntity()
+    class ClickFavorite(val beer: BeerItemViewModel) : BeerClickEntity()
 }

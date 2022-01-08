@@ -98,10 +98,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     L.e(it)
                 }
             }
-            is BeerClickEntity.SelectItem -> {
+            is BeerClickEntity.ClickItem -> {
                 moveToDetail(entity.beer.id)
             }
-            is BeerClickEntity.SelectBeer -> {
+            is BeerClickEntity.ClickBeer -> {
                 moveToDetail(entity.beer.id)
             }
         }

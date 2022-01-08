@@ -94,7 +94,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
     override fun handleSelectEvent(entity: ItemClickEntity) {
         when (entity) {
-            is BeerClickEntity.SelectItem -> {
+            is BeerClickEntity.ClickItem -> {
                 runCatching {
                     start<BeerDetailActivity>(
                         intent = BeerDetailActivity.getIntent(

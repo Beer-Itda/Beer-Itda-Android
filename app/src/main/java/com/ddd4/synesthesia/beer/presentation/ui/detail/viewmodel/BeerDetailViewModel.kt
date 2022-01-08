@@ -4,6 +4,7 @@ import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
+import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.detail.entity.BeerDetailActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.detail.entity.BeerDetailItemSelectEntity
 import com.ddd4.synesthesia.beer.presentation.ui.detail.item.BeerDetailItemMapper.findDetailInformation
@@ -12,6 +13,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.detail.item.BeerDetailItemMappe
 import com.ddd4.synesthesia.beer.presentation.ui.detail.item.IBeerDetailViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.detail.view.BeerDetailStringProvider
 import com.ddd4.synesthesia.beer.util.KEY_BEER_ID
+import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.core.ext.orFalse
 import com.hjiee.core.ext.orZero
 import com.hjiee.core.ext.toggle
@@ -50,16 +52,25 @@ class BeerDetailViewModel @Inject constructor(
         }
     }
 
-    private fun fetchFavorite() {
+    private fun fetchFavorite(id: Int) {
         viewModelScope.launch(errorHandler) {
             runCatching {
-                useCase.favorite.execute(beerId)
+                useCase.favorite.execute(id)
             }.onSuccess {
-                updateInformationBeerFavorite()
-                updateRelatedBeerFavorite()
-                updateBeerDetailFavorite()
+                updateInformationBeerFavorite(id)
+                updateRelatedBeerFavorite(id)
+                updateBeerDetailFavorite(id)
             }.onFailure {
                 L.e(it)
+            }
+        }
+    }
+
+    override fun handleSelectEvent(entity: ItemClickEntity) {
+        when (entity) {
+            // 연관 맥주 클릭 이벤트 처리
+            is BeerClickEntity.ClickFavorite -> {
+                fetchFavorite(entity.beer.id)
             }
         }
     }
@@ -67,28 +78,32 @@ class BeerDetailViewModel @Inject constructor(
     /**
      * 맥주 상세 favorite 상태 변경
      */
-    private fun updateBeerDetailFavorite() {
-        isFavorite.set(isFavorite.get().toggle())
+    private fun updateBeerDetailFavorite(id: Int) {
+        if (id == beerId) {
+            isFavorite.set(isFavorite.get().toggle())
+        }
     }
 
     /**
      * information에 추가된 beer model의 favorite 상태 변경
      */
-    private fun updateInformationBeerFavorite() {
-        val info = item.findDetailInformation()
-        info.beer.updateFavorite()
+    private fun updateInformationBeerFavorite(id: Int) {
+        if (id == beerId) {
+            val info = item.findDetailInformation()
+            info.beer.updateFavorite()
+        }
     }
 
     /**
      * 연관 데이터에 추가된 beer model의 favorite 상태 변경
      */
-    private fun updateRelatedBeerFavorite() {
+    private fun updateRelatedBeerFavorite(id: Int) {
         val related = item.findDetailRelatedBeer()
-        related.map { it.updateFavorite(beerId) }
+        related.map { it.updateFavorite(id) }
     }
 
     fun clickFavorite() {
-        fetchFavorite()
+        fetchFavorite(beerId)
     }
 
     fun clickReviewAll() {

@@ -53,9 +53,6 @@ class MyFavoriteViewModel @Inject constructor(
 
     override fun handleSelectEvent(entity: ItemClickEntity) {
         when (entity) {
-            is BeerClickEntity.SelectFavorite -> {
-                fetchFavorite(entity.beer)
-            }
         }
     }
 

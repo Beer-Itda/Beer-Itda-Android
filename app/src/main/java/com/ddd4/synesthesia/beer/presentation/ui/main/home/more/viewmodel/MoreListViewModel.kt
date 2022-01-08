@@ -101,10 +101,10 @@ class MoreListViewModel @Inject constructor(
 
     override fun notifySelectEvent(entity: ItemClickEntity) {
         when (entity) {
-            is BeerClickEntity.SelectFavorite2 -> {
+            is BeerClickEntity.ClickFavorite -> {
                 fetchFavorite(entity.beer)
             }
-            is BeerClickEntity.SelectBeer -> {
+            is BeerClickEntity.ClickBeer -> {
                 notifyActionEvent(MoreListActionEntity.MoveToDetail(entity.beer.id))
             }
         }
