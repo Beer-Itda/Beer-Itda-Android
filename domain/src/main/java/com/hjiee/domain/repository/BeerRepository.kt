@@ -14,6 +14,7 @@ interface BeerRepository {
     suspend fun getStyleInfo()
 
     suspend fun postReview(beerId: Int, starScore: Float, content: String)
+    suspend fun postFavorite(beerId: Int)
 
     suspend fun changeNickName(nickName: String)
 

@@ -107,6 +107,15 @@ interface BeerApi {
     @GET("api/v1/infomation/style")
     suspend fun getStyleInfo()
 
+    /**
+     * 찜하기
+     */
+    @FormUrlEncoded
+    @POST("api/v1/heart")
+    suspend fun postFavorite(
+        @Field("beer_id") beerId: Int
+    )
+
 
 
 //    /**

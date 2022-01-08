@@ -3,6 +3,7 @@ package com.ddd4.synesthesia.beer.presentation.ui.common.beer.item
 import androidx.databinding.ObservableBoolean
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.hjiee.core.event.SelectEventNotifier
+import com.hjiee.core.ext.toggle
 import com.hjiee.domain.entity.DomainEntity
 
 class BeerItemViewModel(
@@ -25,7 +26,7 @@ class BeerItemViewModel(
 
 
     fun updateFavorite() {
-        isFavorite.set(isFavorite.get().not())
+        isFavorite.set(isFavorite.get().toggle())
     }
 
     fun clickItem() {

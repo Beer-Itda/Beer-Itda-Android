@@ -55,6 +55,10 @@ class BeerRepositoryImpl @Inject constructor(
         )
     }
 
+    override suspend fun postFavorite(beerId: Int) {
+        beerApi.postFavorite(beerId = beerId)
+    }
+
     override suspend fun getBeerAward(): Response<Beer>? {
         return beerApi.getBeerAward()?.toAwardBeer()
     }

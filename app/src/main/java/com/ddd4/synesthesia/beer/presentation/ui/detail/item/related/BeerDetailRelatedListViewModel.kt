@@ -24,4 +24,12 @@ class BeerDetailRelatedListViewModel(
     fun clickShowMore() {
         eventNotifier.notifySelectEvent(RelatedSelectEntity.SelectTitle(type))
     }
+
+    fun updateFavorite(beerId: Int) {
+        relatedBeerList.map {
+            if (it.beer.id == beerId) {
+                it.beer.updateFavorite()
+            }
+        }
+    }
 }

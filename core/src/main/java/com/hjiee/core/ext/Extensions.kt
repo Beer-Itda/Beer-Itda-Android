@@ -38,6 +38,7 @@ fun Long?.orDefault(value: Long): Long = this ?: value
  * boolean
  */
 fun Boolean?.orFalse(): Boolean = this ?: false
+fun Boolean?.toggle(): Boolean = this?.not() ?: false
 
 /**
  * string
