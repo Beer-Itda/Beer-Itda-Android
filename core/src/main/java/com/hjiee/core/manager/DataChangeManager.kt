@@ -4,11 +4,12 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.hjiee.core.ext.orZero
 import com.hjiee.core.provider.SharedPreferenceProvider.Companion.SHARED_PRIVATE_KEY
+import com.hjiee.core.util.log.L
 
 class DataChangeManager private constructor() {
 
     companion object {
-
+        private const val prefix = "key_changed"
         private var instance: DataChangeManager? = null
         private var preference: SharedPreferences? = null
 
@@ -46,21 +47,25 @@ class DataChangeManager private constructor() {
          * 데이터가 변경되면 값을 변경한다.
          */
         fun changed(type: Change) {
-            val keyName = getKeyName(type)
-            var status = preference?.getLong(keyName, 0L).orZero()
-            preference?.edit()?.run {
-                putLong(keyName, ++status).apply()
+            runCatching {
+                val keyName = getKeyName(type)
+                var status = preference?.getLong(keyName, 0L).orZero()
+                preference?.edit()?.run {
+                    putLong(keyName, ++status).apply()
+                }
+            }.onFailure {
+                L.d("${type.name} : ${getStatus(type)}")
+                L.e(it)
             }
         }
 
         private fun getKeyName(type: Change): String {
-            val prefix = "key_changed"
             return "${prefix}_${type.name.toLowerCase()}"
         }
-
     }
 }
 
 enum class Change {
-    REVIEW
+    REVIEW,
+    FAVORITE
 }

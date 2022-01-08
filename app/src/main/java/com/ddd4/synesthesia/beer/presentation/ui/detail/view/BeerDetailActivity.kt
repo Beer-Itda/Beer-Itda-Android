@@ -20,6 +20,7 @@ import com.ddd4.synesthesia.beer.util.ext.*
 import com.hjiee.core.event.entity.ActionEntity
 import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.core.ext.*
+import com.hjiee.core.observer.observeChangedFavoriteState
 import com.hjiee.core.observer.observeReviewRegistered
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -51,6 +52,9 @@ class BeerDetailActivity : BaseActivity<ActivityBeerDetailBinding>(R.layout.acti
         }
         observeHandledEvent(detailViewModel.event.action) {
             handleActionEvent(it)
+        }
+        observeChangedFavoriteState {
+            detailViewModel.load()
         }
         observeReviewRegistered {
             //TODO review data reload

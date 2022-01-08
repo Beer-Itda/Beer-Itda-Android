@@ -3,6 +3,7 @@ package com.hjiee.core.observer
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.hjiee.core.manager.UserInfoManager
+import com.hjiee.core.util.log.L
 import javax.inject.Inject
 
 class UserInfoChangeObserver @Inject constructor(
@@ -22,6 +23,7 @@ class UserInfoChangeObserver @Inject constructor(
         super.onResume(owner)
         // pause 될때의 값과 resume 될때의 값이 다르면 정보가 변경되었다고 판단
         if (initStatus != toggleStatus) {
+            L.d(owner.javaClass.simpleName, "유저 데이터 정보 변경")
             callback()
         }
     }
