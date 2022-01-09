@@ -9,9 +9,6 @@
             name="vm"
             type="com.ddd4.synesthesia.beer.presentation.ui.main.mypage.favorite.viewmodel.MyFavoriteViewModel" />
 
-        <variable
-            name="adapter"
-            type="com.ddd4.synesthesia.beer.presentation.base.recyclerview.BaseRecyclerView.Adapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,22 +28,27 @@
             android:id="@+id/srv_review"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:onRefreshListener="@{() -> vm.refresh()}"
-            app:refreshing="@{vm.isRefresh}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_toolbar">
+            app:layout_constraintTop_toBottomOf="@+id/include_toolbar"
+            app:onRefreshListener="@{() -> vm.refresh()}"
+            app:refreshing="@{vm.isRefresh}">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_my_favorite"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:adapter="@{adapter}"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:paddingHorizontal="18dp"
+                android:paddingVertical="24dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/include_toolbar"
+                app:verticalSpace="@{@dimen/margin_16}"
                 tools:listitem="@layout/item_my_favorite" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,6 +28,27 @@ object BeerItemViewModelMapper {
         }
     }
 
+    fun List<DomainEntity.Beer>?.getBeerItemViewModel(
+        eventNotifier: SelectEventNotifier
+    ): List<BeerItemViewModel> {
+        return this?.map {
+            BeerItemViewModel(
+                alcoholByVolume = it.abv,
+                style = it.style,
+                brewery = it.brewery,
+                country = it.country,
+                id = it.id,
+                nameForKorean = it.nameForKorean,
+                nameForEnglish = it.nameForEnglish,
+                starAvg = it.starAvg,
+                reviews = emptyList(),
+                thumbnailImage = it.thumbnailImage,
+                initFavorite = it.isFavorite,
+                eventNotifier = eventNotifier
+            )
+        }.orEmpty()
+    }
+
 //    fun Related?.getBeerItemViewModel(eventNotifier: SelectActionEventNotifier): BeerItemViewModel {
 //        return if (this == null) {
 //            getNullBeerItem(eventNotifier)

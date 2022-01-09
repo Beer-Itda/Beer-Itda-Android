@@ -8,22 +8,21 @@
 
         <variable
             name="beer"
-            type="com.hjiee.domain.entity.DomainEntity.Beer" />
+            type="com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModel" />
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <include
             android:id="@+id/include_home"
-            layout="@layout/item_home"
+            layout="@layout/item_beer_card_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             app:beer="@{beer}"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 </layout>

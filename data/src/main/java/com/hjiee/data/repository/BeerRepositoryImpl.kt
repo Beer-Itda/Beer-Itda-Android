@@ -43,6 +43,10 @@ class BeerRepositoryImpl @Inject constructor(
         beerApi.getStyleInfo()
     }
 
+    override suspend fun getMyFavorite(): Response<Beers>? {
+        return beerApi.getMyFavorite().toBeerList()
+    }
+
     override suspend fun postReview(
         beerId: Int,
         starScore: Float,

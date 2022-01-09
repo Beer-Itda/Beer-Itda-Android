@@ -116,6 +116,12 @@ interface BeerApi {
         @Field("beer_id") beerId: Int
     )
 
+    /**
+     * 찜하기
+     */
+    @GET("api/v1/heart")
+    suspend fun getMyFavorite(): EntityResponse<BeersResponse>?
+
 
 
 //    /**

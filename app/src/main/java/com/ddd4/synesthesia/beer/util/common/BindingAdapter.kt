@@ -48,6 +48,7 @@ fun makeChips(chipGroup: ChipGroup, flavor: List<String>?) {
 }
 
 @BindingAdapter(value = ["space", "vertical_space", "horizontal_space"], requireAll = false)
+@Deprecated("insted of setHorizontalItemDecoration or setVerticalItemDecoration")
 fun decoration(
     recyclerview: RecyclerView,
     space: Int?,
