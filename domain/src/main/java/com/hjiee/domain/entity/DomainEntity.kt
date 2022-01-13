@@ -15,9 +15,29 @@ sealed class DomainEntity {
         val data: ELEMENT
     )
 
+    data class Page(
+        var totalCount: Int = 0,
+        var totalPage: Int = 0,
+        var currentPage: Int = 0,
+        var previousPage: Int = 0,
+        var nextPage: Int = 0
+    ) {
+        fun clear() {
+            totalCount = 0
+            totalPage = 0
+            currentPage = 0
+            previousPage = 0
+            nextPage = 0
+        }
+
+        fun hasNext() = totalPage - 1 > currentPage
+
+    }
+
     data class Beers(
         val beers: List<Beer>,
-        val cursor: Cursor?
+        val cursor: Cursor? = null,
+        val page: Page? = null
     )
 
     data class Beer(
@@ -98,9 +118,4 @@ sealed class DomainEntity {
         val refreshTokenExpiresIn: Int,
         val scope: String
     )
-
-    class Page(
-        val nextCursor: Int?
-    )
-
 }

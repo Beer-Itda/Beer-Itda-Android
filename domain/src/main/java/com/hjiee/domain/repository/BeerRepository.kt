@@ -12,12 +12,13 @@ interface BeerRepository {
     suspend fun getMyReview(): List<MyReview>
     suspend fun getAromaInfo()
     suspend fun getStyleInfo()
-    suspend fun getMyFavorite() : Response<Beers>?
+    suspend fun getMyFavorite(): Response<Beers>?
 
     suspend fun postReview(beerId: Int, starScore: Float, content: String)
     suspend fun postFavorite(beerId: Int)
 
     suspend fun changeNickName(nickName: String)
+    suspend fun search(word: String, page: Int, size: Int = 20): Beers
 
 //    suspend fun getAppConfig(): AppConfig
 //    suspend fun getBeerList(

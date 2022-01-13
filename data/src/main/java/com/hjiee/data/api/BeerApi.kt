@@ -122,7 +122,15 @@ interface BeerApi {
     @GET("api/v1/heart")
     suspend fun getMyFavorite(): EntityResponse<BeersResponse>?
 
-
+    /**
+     * 검색
+     */
+    @GET("api/v1/information/search")
+    suspend fun search(
+        @Query("word") word: String,
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ) : SearchResponse?
 
 //    /**
 //     * App Config

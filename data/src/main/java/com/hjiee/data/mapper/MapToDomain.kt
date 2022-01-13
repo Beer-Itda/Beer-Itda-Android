@@ -191,3 +191,16 @@ fun MyReviewListResponse?.toMyReviewList(): List<DomainEntity.MyReview> {
         )
     }.orEmpty()
 }
+
+fun SearchResponse?.toBeerList(): DomainEntity.Beers {
+    return DomainEntity.Beers(
+        beers = this?.beers.toBeer(),
+        page = DomainEntity.Page(
+            totalCount = this?.totalCount.orZero(),
+            totalPage = this?.totalPage.orZero(),
+            currentPage = this?.currentPage.orZero(),
+            previousPage = this?.previousPage.orZero(),
+            nextPage = this?.nextPage.orZero()
+        )
+    )
+}

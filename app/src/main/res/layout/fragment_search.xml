@@ -13,14 +13,6 @@
             name="viewModel"
             type="com.ddd4.synesthesia.beer.presentation.ui.main.search.viewmodel.SearchViewModel" />
 
-        <variable
-            name="titleAdapter"
-            type="com.ddd4.synesthesia.beer.presentation.base.recyclerview.BaseRecyclerView.Adapter" />
-
-        <variable
-            name="imageAdapter"
-            type="com.ddd4.synesthesia.beer.presentation.base.recyclerview.BaseRecyclerView.Adapter" />
-
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -37,7 +29,7 @@
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layoutScrolFlagMode="@{viewModel.beerList == null || viewModel.beerList.size() == 0}"
+                app:layoutScrolFlagMode="@{viewModel.isEmpty()}"
                 app:layout_scrollFlags="scroll|enterAlways">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,6 +42,7 @@
                         android:layout_height="0dp"
                         android:background="@null"
                         android:hint="@string/search_hint"
+                        android:imeOptions="actionSearch"
                         android:paddingHorizontal="28dp"
                         android:singleLine="true"
                         android:text="@={viewModel.searchText}"
@@ -80,10 +73,10 @@
                         android:layout_marginEnd="15dp"
                         android:background="@android:color/transparent"
                         android:foreground="?attr/selectableItemBackground"
-                        app:onDebouncedClick="@{viewModel.clickSearch}"
                         android:src="@drawable/ic_btn_search"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:onDebouncedClick="@{viewModel.clickSearch}" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -97,57 +90,55 @@
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/srv_search_title"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_divider"
-            app:visibility="@{!viewModel.isTemplateVisible()}">
+            app:onRefreshListener="@{viewModel.refresh}"
+            app:refreshing="@{viewModel.isRefreshing()}">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_only_title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:orientation="vertical"
                 android:overScrollMode="never"
-                app:adapter="@{titleAdapter}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view_divider"
-                app:visibility="@{!viewModel.isTemplateVisible()}"
                 tools:listitem="@layout/item_auto_completation" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/srv_search_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_divider"
-            app:visibility="@{viewModel.isTemplateVisible()}">
+        <!--        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
+        <!--            android:id="@+id/srv_search_image"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/view_divider"-->
+        <!--            app:visibility="@{viewModel.isTemplateVisible()}"-->
+        <!--            tools:visibility="gone">-->
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_with_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:overScrollMode="never"
-                app:adapter="@{imageAdapter}"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view_divider"
-                app:visibility="@{viewModel.isTemplateVisible()}"
-                tools:listitem="@layout/item_home" />
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <!--            <androidx.recyclerview.widget.RecyclerView-->
+        <!--                android:id="@+id/rv_with_image"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:overScrollMode="never"-->
+        <!--                app:adapter="@{imageAdapter}"-->
+        <!--                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                app:layout_constraintTop_toBottomOf="@+id/view_divider"-->
+        <!--                app:visibility="@{viewModel.isTemplateVisible()}"-->
+        <!--                tools:listitem="@layout/item_home" />-->
+        <!--        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
 
         <include
             android:id="@+id/include_empty"
             layout="@layout/layout_empty_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="@{viewModel.beerList.size() == 0 || viewModel.beerList == null ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_divider"
             app:viewModel="@{viewModel}"
-            tools:visibility="visible" />
+            tools:visibility="gone" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

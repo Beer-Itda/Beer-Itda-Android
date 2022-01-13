@@ -13,7 +13,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:visibility="@{viewModel.isEmpty()}">
 
         <ImageView
             android:id="@+id/empty_icon"
@@ -52,14 +53,14 @@
             android:background="@drawable/background_round_12_ripple"
             android:backgroundTint="@color/color_1c1b21"
             android:gravity="center"
-            app:onDebouncedClick="@{() -> viewModel.clickInquire()}"
             android:paddingVertical="14dp"
             android:text="@string/beeritda_inquire"
             android:textColor="@color/butterscotch"
             android:textSize="@dimen/textSize_14"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/empty_text" />
+            app:layout_constraintTop_toBottomOf="@+id/empty_text"
+            app:onDebouncedClick="@{() -> viewModel.clickInquire()}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

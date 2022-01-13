@@ -2,16 +2,19 @@ package com.ddd4.synesthesia.beer.presentation.ui.main.search.viewmodel
 
 import androidx.databinding.Observable
 import androidx.databinding.ObservableBoolean
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
-import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
+import com.ddd4.synesthesia.beer.presentation.ui.main.search.item.ISearchViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.main.search.item.SearchMapper.getItems
+import com.ddd4.synesthesia.beer.presentation.ui.main.search.model.SearchActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.search.model.SearchSelectEvent
 import com.ddd4.synesthesia.beer.util.ext.ObservableExt.ObservableString
 import com.hjiee.core.event.entity.ItemClickEntity
+import com.hjiee.core.util.log.L
 import com.hjiee.data.response.v2.BeerResponse
-import com.hjiee.domain.repository.BeerRepository
+import com.hjiee.domain.entity.DomainEntity
+import com.hjiee.domain.usecase.search.SearchUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -20,27 +23,28 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val beerRepository: BeerRepository
+    private val useCase: SearchUseCase
 ) : BaseViewModel() {
 
     private var debounceJob: Job? = null
 
     val isLoadMore = ObservableBoolean(false)
+    val isRefreshing = ObservableBoolean(false)
     val searchText = ObservableString()
-    val isTemplateVisible = ObservableBoolean(false)
 
-    private val _beerList = MutableLiveData<List<BeerResponse>?>()
-    val beerList: LiveData<List<BeerResponse>?> get() = _beerList
-
-    val cursor = MutableLiveData(0)
+    private val _page = MutableLiveData<DomainEntity.Page?>()
+    private val page get() = _page.value ?: DomainEntity.Page()
 
     private val searchTextObserver = object : Observable.OnPropertyChangedCallback() {
         override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-            isTemplateVisible.set(false)
-            cursor.value = null
+            items.clear()
+            page.clear()
             search()
         }
     }
+
+    private val items = mutableListOf<ISearchViewModel>()
+    val isEmpty = ObservableBoolean(true)
 
     init {
         searchText.addOnPropertyChangedCallback(searchTextObserver)
@@ -71,18 +75,17 @@ class SearchViewModel @Inject constructor(
 
     fun loadMore() {
         if (!isLoadMore.get()) {
-            cursor.value?.let {
+            if (page.hasNext()) {
                 isLoadMore.set(true)
-//                _beerList.value =
-//                    _beerList.value?.toMutableList()?.apply { addAll(listOf(Beer(id = -1))) }
                 search()
             }
         }
     }
 
     fun refresh() {
-        isLoadMore.set(false)
-        cursor.value = null
+        isRefreshing.set(true)
+        items.clear()
+        page.clear()
         search()
     }
 
@@ -92,55 +95,46 @@ class SearchViewModel @Inject constructor(
             reset()
             return
         }
-        debounceJob = viewModelScope.launch(errorHandler) {
+        debounceJob = viewModelScope.launch {
             delay(400L)
-//            beerRepository.getSearch(
-//                searchText.get().orEmpty(),
-//                cursor.value
-//            )?.result?.let { response ->
-//                cursor.value = response.nextCursor
-//                // 데이터 추가
-//                if (isLoadMore.get()) {
-//                    // 커서
-//                    _beerList.value = (_beerList.value?.toMutableList()?.apply {
-//                        _beerList.value?.let {
-//                            if (it.isNotEmpty()) {
-//                                removeAt(it.size - 1)
-//                            }
-//                        }
-//                    })
-//                    _beerList.value = (_beerList.value?.let { beers ->
-//                        beers.toMutableList().apply {
-//                            response.beers?.let { data ->
-//                                val beers = data.map { beer ->
-//                                    beer.setFavorite()
-//                                    beer.eventNotifier = this@SearchViewModel
-//                                    beer
-//                                }
-//                                addAll(beers)
-//                            }
-//                        }
-//                    })
-//                    isLoadMore.set(false)
-//                } else {
-//                    _beerList.value = response.beers?.map { beer ->
-//                        beer.setFavorite()
-//                        beer.eventNotifier = this@SearchViewModel
-//                        beer
-//                    }
-//                }
-//            }
+
+            runCatching {
+                useCase.execute(
+                    word = searchText.get().orEmpty(),
+                    page = page.nextPage,
+                )
+            }.onSuccess { result ->
+                if (!isLoadMore.get()) {
+                    items.clear()
+                }
+                isEmpty.set(result.beers.isEmpty())
+                items.addAll(getItems(result.beers, this@SearchViewModel))
+                _page.value = result.page
+                notifyActionEvent(SearchActionEntity.UpdateList(items))
+
+                isRefreshing.set(false)
+                isLoadMore.set(false)
+            }.onFailure {
+                L.e(it)
+            }
+
 
         }
     }
 
     fun reset() {
-        _beerList.value = emptyList()
-        cursor.value = null
+        page.clear()
     }
 
     private fun fetchFavorite(beer: BeerResponse) {
-        viewModelScope.launch(errorHandler) {
+        viewModelScope.launch {
+            runCatching {
+
+            }.onSuccess {
+
+            }.onFailure {
+                L.e(it)
+            }
 //            beer.updateFavorite()
 //            beerRepository.postFavorite(beer.id, beer.isFavorite.get())
         }
@@ -156,7 +150,7 @@ class SearchViewModel @Inject constructor(
     }
 
     fun clickSearch() {
-        isTemplateVisible.set(true)
+
     }
 
     override fun onCleared() {

@@ -71,6 +71,14 @@ class BeerRepositoryImpl @Inject constructor(
         beerApi.changeNickName(nickName)
     }
 
+    override suspend fun search(word: String, page: Int, size: Int): Beers {
+        return beerApi.search(
+            word = word,
+            page = page,
+            size = size
+        ).toBeerList()
+    }
+
     //    override suspend fun getAppConfig(): Result<AppConfig> {
 //        return beerApi.getAppConfig()
 //    }
