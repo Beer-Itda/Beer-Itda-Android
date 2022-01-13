@@ -68,11 +68,6 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun clearText() {
-        reset()
-        searchText.set("")
-    }
-
     fun loadMore() {
         if (!isLoadMore.get()) {
             if (page.hasNext()) {
@@ -92,7 +87,7 @@ class SearchViewModel @Inject constructor(
     fun search() {
         debounceJob?.cancel()
         if (searchText.get().isNullOrEmpty()) {
-            reset()
+            clear()
             return
         }
         debounceJob = viewModelScope.launch {
@@ -115,15 +110,22 @@ class SearchViewModel @Inject constructor(
                 isRefreshing.set(false)
                 isLoadMore.set(false)
             }.onFailure {
+                isRefreshing.set(false)
+                isLoadMore.set(false)
                 L.e(it)
             }
-
 
         }
     }
 
-    fun reset() {
+    fun clear() {
+        searchText.set("")
+        isRefreshing.set(false)
+        isLoadMore.set(false)
+        isEmpty.set(true)
         page.clear()
+        items.clear()
+        notifyActionEvent(SearchActionEntity.UpdateList(items))
     }
 
     private fun fetchFavorite(beer: BeerResponse) {

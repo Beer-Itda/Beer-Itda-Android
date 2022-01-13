@@ -42,6 +42,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         initObserver()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.clear()
+    }
+
     override fun initBind() {
         titleEndlessScroll =
             object : EndlessRecyclerViewScrollListener(binding.rvOnlyTitle.layoutManager) {
@@ -59,7 +64,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         binding.apply {
             viewModel = this@SearchFragment.viewModel
             ibClear.setOnDebounceClickListener {
-                this@SearchFragment.viewModel.clearText()
+                this@SearchFragment.viewModel.clear()
                 context?.showKeyboard(etSearch)
             }
             etSearch.setOnEditorActionListener { textView, actionId, keyEvent ->
