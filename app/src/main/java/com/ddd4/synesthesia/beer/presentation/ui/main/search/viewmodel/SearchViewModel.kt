@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.search.item.ISearchViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.search.item.SearchMapper.getItems
+import com.ddd4.synesthesia.beer.presentation.ui.main.search.item.loading.LoadingItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.search.model.SearchActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.search.model.SearchSelectEvent
 import com.ddd4.synesthesia.beer.util.ext.ObservableExt.ObservableString
@@ -44,6 +45,7 @@ class SearchViewModel @Inject constructor(
     }
 
     private val items = mutableListOf<ISearchViewModel>()
+    private val loadingItem = LoadingItemViewModel()
     val isEmpty = ObservableBoolean(true)
 
     init {
@@ -72,19 +74,22 @@ class SearchViewModel @Inject constructor(
         if (!isLoadMore.get()) {
             if (page.hasNext()) {
                 isLoadMore.set(true)
+                items.add(loadingItem)
+                notifyActionEvent(SearchActionEntity.UpdateList(items))
                 search()
             }
         }
     }
 
     fun refresh() {
+        notifyActionEvent(SearchActionEntity.Refresh)
         isRefreshing.set(true)
         items.clear()
         page.clear()
         search()
     }
 
-    fun search() {
+    private fun search() {
         debounceJob?.cancel()
         if (searchText.get().isNullOrEmpty()) {
             clear()
@@ -104,6 +109,7 @@ class SearchViewModel @Inject constructor(
                 }
                 isEmpty.set(result.beers.isEmpty())
                 items.addAll(getItems(result.beers, this@SearchViewModel))
+                items.remove(loadingItem)
                 _page.value = result.page
                 notifyActionEvent(SearchActionEntity.UpdateList(items))
 

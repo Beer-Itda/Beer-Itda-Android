@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.ddd4.synesthesia.beer.presentation.ui.main.search.item.SearchItemViewModel" />
+            type="com.ddd4.synesthesia.beer.presentation.ui.main.search.item.result.SearchItemViewModel" />
 
     </data>
 

@@ -18,5 +18,6 @@ class SearchAdapter : BaseBindableAdapter<SearchViewType, ISearchViewModel>() {
 }
 
 enum class SearchViewType {
-    SEARCH
+    SEARCH,
+    LOADING
 }

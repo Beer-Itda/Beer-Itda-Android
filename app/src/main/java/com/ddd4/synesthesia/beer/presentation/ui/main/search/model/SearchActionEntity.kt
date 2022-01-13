@@ -5,4 +5,5 @@ import com.hjiee.core.event.entity.ActionEntity
 
 sealed class SearchActionEntity : ActionEntity() {
     class UpdateList(val items: List<ISearchViewModel>) : SearchActionEntity()
+    object Refresh : SearchActionEntity()
 }

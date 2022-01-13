@@ -1,5 +1,6 @@
-package com.ddd4.synesthesia.beer.presentation.ui.main.search.item
+package com.ddd4.synesthesia.beer.presentation.ui.main.search.item.result
 
+import com.ddd4.synesthesia.beer.presentation.ui.main.search.item.ISearchViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.search.model.SearchSelectEvent
 import com.hjiee.core.event.SelectEventNotifier
 import com.hjiee.domain.entity.DomainEntity

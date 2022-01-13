@@ -103,6 +103,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                 titleAdapter.clear()
                 titleAdapter.addAll(entity.items)
             }
+            is SearchActionEntity.Refresh -> {
+                titleEndlessScroll.resetState()
+            }
         }
     }
 
