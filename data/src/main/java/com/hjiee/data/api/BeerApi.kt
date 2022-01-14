@@ -98,7 +98,7 @@ interface BeerApi {
     /**
      * 맥주 향 정보 불러오기
      */
-    @GET("api/v1/infomation/aroma")
+    @GET("api/v1/information/aroma")
     suspend fun getAromaInfo()
 
     /**
