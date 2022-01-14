@@ -205,11 +205,11 @@ fun SearchResponse?.toBeerList(): DomainEntity.Beers {
     )
 }
 
-fun NetworkResponse<LevelGuideResponse>.toLevelGuide(): DomainEntity.Response<List<DomainEntity.LevelGuide>> {
+fun NetworkResponse<LevelGuideResponse>?.toLevelGuide(): DomainEntity.Response<List<DomainEntity.LevelGuide>> {
     return DomainEntity.Response(
-        isSuccess = isSuccess.orFalse(),
-        message = message.orEmpty(),
-        data = data?.levels?.map {
+        isSuccess = this?.isSuccess.orFalse(),
+        message = this?.message.orEmpty(),
+        data = this?.data?.levels?.map {
             DomainEntity.LevelGuide(
                 id = it.id.orZero(),
                 level = it.level.orEmpty(),
@@ -219,15 +219,47 @@ fun NetworkResponse<LevelGuideResponse>.toLevelGuide(): DomainEntity.Response<Li
     )
 }
 
-fun NetworkResponse<AromaListResponse>.toAromaList(): DomainEntity.Response<List<DomainEntity.Aroma>> {
+fun NetworkResponse<AromaListResponse>?.toAromaList(): DomainEntity.Response<List<DomainEntity.Aroma>> {
     return DomainEntity.Response(
-        isSuccess = isSuccess.orFalse(),
-        message = message.orEmpty(),
-        data = data?.aromaList?.map {
+        isSuccess = this?.isSuccess.orFalse(),
+        message = this?.message.orEmpty(),
+        data = this?.data?.aromaList?.map {
             DomainEntity.Aroma(
                 id = it.id.orZero(),
                 name = it.name.orEmpty()
             )
         }.orEmpty()
     )
+}
+
+fun NetworkResponse<List<StyleLargeCategoryResponse>>?.toStyleLargeCategory(): DomainEntity.Response<List<DomainEntity.StyleLargeCategory>> {
+    return DomainEntity.Response(
+        isSuccess = this?.isSuccess.orFalse(),
+        message = this?.message.orEmpty(),
+        data = this?.data?.map {
+            DomainEntity.StyleLargeCategory(
+                largeName = it.largeName.orEmpty(),
+                middleCategories = it.middleCategories.toStyleMiddleCategory()
+            )
+        }.orEmpty()
+    )
+}
+
+fun List<StyleMiddleCategoryResponse>?.toStyleMiddleCategory(): List<DomainEntity.StyleMiddleCategory> {
+    return this?.map {
+        DomainEntity.StyleMiddleCategory(
+            middleName = it.middleName.orEmpty(),
+            description = it.description.orEmpty(),
+            smallCategories = it.smallCategories.toStyleSmallCategory(),
+        )
+    }.orEmpty()
+}
+
+
+fun List<StyleSmallCategoryResponse>?.toStyleSmallCategory(): List<DomainEntity.StyleSmallCategory> {
+    return this?.map {
+        DomainEntity.StyleSmallCategory(
+            smallName = it.smallName.orEmpty()
+        )
+    }.orEmpty()
 }

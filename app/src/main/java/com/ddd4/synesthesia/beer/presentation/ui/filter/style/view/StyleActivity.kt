@@ -85,21 +85,26 @@ class StyleActivity : BaseActivity<ActivityFilterStyleBinding>(R.layout.activity
         when (entity) {
             is StyleActionEntity.UpdateLarge -> {
                 with(binding.tabs) {
-                    entity.styleLarge.forEach {
-                        addTab(newTab().setText(it.bigName))
+                    entity.style.forEach {
+                        addTab(newTab().setText(it.largeName))
                     }
                     addOnTabSelectedListener(this@StyleActivity)
                 }
             }
             is StyleActionEntity.UpdateMiddle -> {
-                middleCategoryListAdapter.addAll(entity.styleMiddle, true)
+                middleCategoryListAdapter.addAll(entity.style, true)
+                binding.rvFilterMiddleCategory.run {
+                    post { scrollToPosition(0) }
+                }
             }
             is StyleActionEntity.UpdateSmall -> {
-                smallCategoryListAdapter.addAll(entity.styleSmall, true)
+                smallCategoryListAdapter.addAll(entity.style, true)
             }
             is StyleActionEntity.UpdateSelectedStyleList -> {
                 selectedStyleAdapter.addAll(entity.style, true)
-                binding.rvSelectedStyle.scrollToPosition(0)
+                binding.rvSelectedStyle.run {
+                    post { scrollToPosition(0) }
+                }
             }
             is StyleActionEntity.ShowToast -> {
                 showToast(entity.message)
@@ -126,7 +131,7 @@ class StyleActivity : BaseActivity<ActivityFilterStyleBinding>(R.layout.activity
     override fun onTabReselected(tab: TabLayout.Tab?) {}
     override fun onTabSelected(tab: TabLayout.Tab?) {
         tab?.position?.let { position ->
-            viewModel.dataChange(position)
+            viewModel.selectLargeCategory(position)
         }
     }
 
@@ -135,7 +140,7 @@ class StyleActivity : BaseActivity<ActivityFilterStyleBinding>(R.layout.activity
         adapterPosition: Int
     ) {
         if (!isFirstStart) {
-            viewModel.loadFilterSet(adapterPosition)
+            viewModel.selectMiddleCategory(adapterPosition)
         }
         isFirstStart = false
     }

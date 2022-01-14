@@ -1,25 +1,23 @@
-//package com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.large
-//
-//import com.ddd4.synesthesia.beer.data.model.filter.style.StyleLargeCategories
-//import com.ddd4.synesthesia.beer.presentation.base.event.SelectActionEventNotifier
-//import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleMiddleItemMapper
-//
-//object StyleLargeItemMapper {
-//
-//    fun getStyles(
-////        list: List<StyleLargeCategories>,
-//        eventNotifier: SelectActionEventNotifier
-//    ): List<StyleLargeItemViewModel> {
-//        return list.mapIndexed { index, style ->
-//            StyleLargeItemViewModel(
-//                bigName = style.bigName.orEmpty(),
-//                middleCategories = StyleMiddleItemMapper.getCategories(
-//                    largePosition = index,
-//                    list = style.styleMiddleCategories.orEmpty(),
-//                    eventNotifier = eventNotifier
-//                ),
-//                eventNotifier = eventNotifier
-//            )
-//        }
-//    }
-//}
+package com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.large
+
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleMiddleItemMapper.getMiddle
+import com.hjiee.core.event.SelectActionEventNotifier
+import com.hjiee.domain.entity.DomainEntity
+
+object StyleLargeItemMapper {
+
+    fun List<DomainEntity.StyleLargeCategory>.getLarge(
+        eventNotifier: SelectActionEventNotifier
+    ): List<StyleLargeItemViewModel> {
+        return mapIndexed { index, large ->
+            StyleLargeItemViewModel(
+                largeName = large.largeName,
+                middleCategories = large.middleCategories.getMiddle(
+                    largePosition = index,
+                    eventNotifier = eventNotifier,
+                ),
+                eventNotifier = eventNotifier
+            )
+        }
+    }
+}

@@ -12,9 +12,8 @@ class StyleSmallItemViewModel(
     val largePosition: Int,
     val middlePosition: Int,
     val smallPosition: Int,
+    val eventNotifier: SelectActionEventNotifier
 ) {
-
-    var eventNotifier: SelectActionEventNotifier? = null
 
     val isSelected = ObservableBoolean(false)
 
@@ -27,11 +26,11 @@ class StyleSmallItemViewModel(
     }
 
     fun clickAddItem() {
-        eventNotifier?.notifySelectEvent(StyleClickEntity.AddStyle(this))
+        eventNotifier.notifySelectEvent(StyleClickEntity.AddStyle(this))
     }
 
     fun clickDeleteItem() {
-        eventNotifier?.notifySelectEvent(StyleClickEntity.DeleteStyle(this))
+        eventNotifier.notifySelectEvent(StyleClickEntity.DeleteStyle(this))
     }
 
 }

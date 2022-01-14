@@ -105,7 +105,7 @@ interface BeerApi {
      * 맥주 스타일 정보 불러오기
      */
     @GET("api/v1/information/style")
-    suspend fun getStyleInfo()
+    suspend fun getStyleInfo(): NetworkResponse<List<StyleLargeCategoryResponse>>
 
     /**
      * 찜하기

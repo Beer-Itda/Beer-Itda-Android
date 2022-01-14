@@ -111,14 +111,18 @@ sealed class DomainEntity {
     )
 
     class StyleLargeCategory(
-        val bigName: String,
-        val middleCategories: List<StyleMediumCategory>
+        val largeName: String,
+        val middleCategories: List<StyleMiddleCategory>
     )
 
-    class StyleMediumCategory(
+    class StyleMiddleCategory(
         val middleName: String,
         val description: String,
-        val smallCategories: List<String>
+        val smallCategories: List<StyleSmallCategory>
+    )
+
+    class StyleSmallCategory(
+        val smallName: String
     )
 
     class Token(

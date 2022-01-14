@@ -5,7 +5,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleM
 import com.hjiee.core.event.SelectActionEventNotifier
 
 class StyleLargeItemViewModel(
-    val bigName: String,
+    val largeName: String,
     val middleCategories: List<StyleMiddleItemViewModel>,
     val eventNotifier: SelectActionEventNotifier
 ) {
