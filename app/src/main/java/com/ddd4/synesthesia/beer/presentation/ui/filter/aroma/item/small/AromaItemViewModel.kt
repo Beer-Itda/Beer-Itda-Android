@@ -5,20 +5,21 @@ import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaClickE
 import com.hjiee.core.event.SelectActionEventNotifier
 
 class AromaItemViewModel(
+    val id: Int,
     val name: String,
     val isAll: Boolean,
-    val position: Int
+    val position: Int,
+    private val eventNotifier: SelectActionEventNotifier
 ) {
 
     val isSelected = ObservableBoolean(false)
-    var eventNotifier: SelectActionEventNotifier? = null
 
     fun clickAddItem() {
-        eventNotifier?.notifySelectEvent(AromaClickEntity.AddAroma(this))
+        eventNotifier.notifySelectEvent(AromaClickEntity.AddAroma(this))
     }
 
     fun clickDeleteItem() {
-        eventNotifier?.notifySelectEvent(AromaClickEntity.DeleteAroma(this))
+        eventNotifier.notifySelectEvent(AromaClickEntity.DeleteAroma(this))
     }
 
 }

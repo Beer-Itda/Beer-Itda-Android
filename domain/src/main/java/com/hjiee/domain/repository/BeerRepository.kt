@@ -10,7 +10,7 @@ interface BeerRepository {
     suspend fun getAromaBeer(): Response<Beers>?
     suspend fun getUserInfo(): User
     suspend fun getMyReview(): List<MyReview>
-    suspend fun getAromaInfo()
+    suspend fun getAromaInfo(): Response<List<Aroma>>
     suspend fun getStyleInfo()
     suspend fun getMyFavorite(): Response<Beers>?
     suspend fun getLevelGuide(): Response<List<LevelGuide>>

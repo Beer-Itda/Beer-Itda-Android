@@ -105,6 +105,11 @@ sealed class DomainEntity {
         val levelCount: Int
     )
 
+    class Aroma(
+        val id: Int,
+        val name: String
+    )
+
     class StyleLargeCategory(
         val bigName: String,
         val middleCategories: List<StyleMediumCategory>

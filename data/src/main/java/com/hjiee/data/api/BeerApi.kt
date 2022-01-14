@@ -1,6 +1,6 @@
 package com.hjiee.data.api
 
-import com.hjiee.data.response.common.EntityResponse
+import com.hjiee.data.response.common.NetworkResponse
 import com.hjiee.data.response.v2.*
 import retrofit2.http.*
 
@@ -30,7 +30,7 @@ interface BeerApi {
     @GET("api/v1/beer")
     suspend fun getBeerList(
         @Query("cursor") nextCursor: Int? = 0
-    ): EntityResponse<BeersResponse>?
+    ): NetworkResponse<BeersResponse>?
 
 
     /**
@@ -39,7 +39,7 @@ interface BeerApi {
     @GET("api/v1/beer/detail/{beerId}")
     suspend fun getBeerDetail(
         @Path("beerId") id: Int
-    ): EntityResponse<BeerDetailResponse>?
+    ): NetworkResponse<BeerDetailResponse>?
 
     /**
      * 내가 선택한 스타일의 맥주
@@ -47,7 +47,7 @@ interface BeerApi {
     @GET("api/v1/beer/style")
     suspend fun getSelectedStyleBeer(
         @Body userId: Int
-    ): EntityResponse<BeersResponse>?
+    ): NetworkResponse<BeersResponse>?
 
     /**
      * 내가 선택한 향의 맥주
@@ -55,13 +55,13 @@ interface BeerApi {
     @GET("api/v1/beer/aroma")
     suspend fun getSelectedAromaBeer(
         @Query("cursor") cursor: Int = 1
-    ): EntityResponse<AromasResponse>?
+    ): NetworkResponse<SelectedAromaBeerResponse>?
 
     /**
      * 유저 정보
      */
     @GET("api/v1/user/info")
-    suspend fun getUserInfo(): EntityResponse<UserResponse>?
+    suspend fun getUserInfo(): NetworkResponse<UserResponse>?
 
     /**
      * 내가 작성한 리뷰
@@ -84,7 +84,7 @@ interface BeerApi {
      * 월간 인기 맥주
      */
     @GET("api/v1/beer/monthly")
-    suspend fun getBeerAward(): EntityResponse<AwardResponse>?
+    suspend fun getBeerAward(): NetworkResponse<AwardResponse>?
 
     /**
      * 닉네임 변경
@@ -99,7 +99,7 @@ interface BeerApi {
      * 맥주 향 정보 불러오기
      */
     @GET("api/v1/information/aroma")
-    suspend fun getAromaInfo()
+    suspend fun getAromaInfo(): NetworkResponse<AromaListResponse>
 
     /**
      * 맥주 스타일 정보 불러오기
@@ -120,7 +120,7 @@ interface BeerApi {
      * 찜하기
      */
     @GET("api/v1/heart")
-    suspend fun getMyFavorite(): EntityResponse<BeersResponse>?
+    suspend fun getMyFavorite(): NetworkResponse<BeersResponse>?
 
     /**
      * 검색
@@ -136,7 +136,7 @@ interface BeerApi {
      * 등급가이드 불러오기
      */
     @GET("api/v1/level")
-    suspend fun getLevelGuide(): EntityResponse<LevelGuideResponse>
+    suspend fun getLevelGuide(): NetworkResponse<LevelGuideResponse>
 
 //    /**
 //     * App Config

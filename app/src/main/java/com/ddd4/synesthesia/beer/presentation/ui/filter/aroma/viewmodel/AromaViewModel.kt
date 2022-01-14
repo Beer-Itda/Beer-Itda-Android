@@ -6,11 +6,12 @@ import com.ddd4.synesthesia.beer.presentation.ui.common.filter.AromaProvider
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FliterStringProvider
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaClickEntity
+import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemMapper.getItem
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemViewModel
 import com.hjiee.core.event.entity.ItemClickEntity
+import com.hjiee.core.util.log.L
 import com.hjiee.domain.usecase.filter.aroma.GetAromaUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,24 +32,14 @@ class AromaViewModel @Inject constructor(
     private lateinit var items: List<AromaItemViewModel>
 
     fun load() {
-        viewModelScope.launch(errorHandler) {
-            aromaUseCase.execute()
-//            { response ->
-//                when (response) {
-//                    is NetworkResponse.Success -> {
-//                        items = AromaItemMapper.get(
-//                            items = response.data,
-//                            eventNotifier = this@AromaViewModel
-//                        )
-//                        initSelectedAroma()
-//                        notifyActionEvent(AromaActionEntity.UpdateList(items))
-//                    }
-//                    is NetworkResponse.NoContents -> {
-//                    }
-//                    is NetworkResponse.Error -> {
-//                    }
-//                }
-//            }
+        viewModelScope.launch {
+            runCatching {
+                items = aromaUseCase.execute().getItem(eventNotifier = this@AromaViewModel)
+            }.onSuccess {
+                notifyActionEvent(AromaActionEntity.UpdateList(items))
+            }.onFailure {
+                L.e(it)
+            }
         }
     }
 
@@ -67,10 +58,6 @@ class AromaViewModel @Inject constructor(
 
                     viewState.isMaxSelected.get() -> {
                         oneOfTheFullSmallSelections(entity.item)
-                    }
-
-                    else -> {
-
                     }
                 }
             }
@@ -165,12 +152,7 @@ class AromaViewModel @Inject constructor(
 
     }
 
-    @ExperimentalCoroutinesApi
     fun clickDone() {
-        aromaProvider.data = selectedList.map {
-            it.eventNotifier = null
-            it
-        }
         notifySelectEvent(AromaClickEntity.SelectDone)
     }
 

@@ -2,11 +2,11 @@ package com.hjiee.data.mapper
 
 import com.hjiee.core.ext.orFalse
 import com.hjiee.core.ext.orZero
-import com.hjiee.data.response.common.EntityResponse
+import com.hjiee.data.response.common.NetworkResponse
 import com.hjiee.data.response.v2.*
 import com.hjiee.domain.entity.DomainEntity
 
-fun EntityResponse<BeerDetailResponse>?.toBeerDetail(): DomainEntity.Response<DomainEntity.BeerDetail> {
+fun NetworkResponse<BeerDetailResponse>?.toBeerDetail(): DomainEntity.Response<DomainEntity.BeerDetail> {
     return DomainEntity.Response(
         isSuccess = this?.isSuccess.orFalse(),
         message = this?.message.orEmpty(),
@@ -18,7 +18,7 @@ fun EntityResponse<BeerDetailResponse>?.toBeerDetail(): DomainEntity.Response<Do
     )
 }
 
-fun EntityResponse<BeerResponse>?.toBeer(): DomainEntity.Response<DomainEntity.Beer> {
+fun NetworkResponse<BeerResponse>?.toBeer(): DomainEntity.Response<DomainEntity.Beer> {
     return DomainEntity.Response(
         isSuccess = this?.isSuccess.orFalse(),
         message = this?.message.orEmpty(),
@@ -38,7 +38,7 @@ fun EntityResponse<BeerResponse>?.toBeer(): DomainEntity.Response<DomainEntity.B
 }
 
 
-fun EntityResponse<BeersResponse>?.toBeerList(): DomainEntity.Response<DomainEntity.Beers> {
+fun NetworkResponse<BeersResponse>?.toBeerList(): DomainEntity.Response<DomainEntity.Beers> {
     return DomainEntity.Response(
         isSuccess = this?.isSuccess.orFalse(),
         message = this?.message.orEmpty(),
@@ -62,7 +62,7 @@ fun EntityResponse<BeersResponse>?.toBeerList(): DomainEntity.Response<DomainEnt
     )
 }
 
-fun EntityResponse<AromasResponse>?.toSelectedBeerFromAroma(): DomainEntity.Response<DomainEntity.Beers> {
+fun NetworkResponse<SelectedAromaBeerResponse>?.toSelectedBeerFromAroma(): DomainEntity.Response<DomainEntity.Beers> {
     return DomainEntity.Response(
         isSuccess = this?.isSuccess.orFalse(),
         message = this?.message.orEmpty(),
@@ -86,7 +86,7 @@ fun EntityResponse<AromasResponse>?.toSelectedBeerFromAroma(): DomainEntity.Resp
     )
 }
 
-fun EntityResponse<AwardResponse>?.toAwardBeer(): DomainEntity.Response<DomainEntity.Beer> {
+fun NetworkResponse<AwardResponse>?.toAwardBeer(): DomainEntity.Response<DomainEntity.Beer> {
     return DomainEntity.Response(
         isSuccess = this?.isSuccess.orFalse(),
         message = this?.message.orEmpty(),
@@ -205,7 +205,7 @@ fun SearchResponse?.toBeerList(): DomainEntity.Beers {
     )
 }
 
-fun EntityResponse<LevelGuideResponse>.toLevelGuide(): DomainEntity.Response<List<DomainEntity.LevelGuide>> {
+fun NetworkResponse<LevelGuideResponse>.toLevelGuide(): DomainEntity.Response<List<DomainEntity.LevelGuide>> {
     return DomainEntity.Response(
         isSuccess = isSuccess.orFalse(),
         message = message.orEmpty(),
@@ -214,6 +214,19 @@ fun EntityResponse<LevelGuideResponse>.toLevelGuide(): DomainEntity.Response<Lis
                 id = it.id.orZero(),
                 level = it.level.orEmpty(),
                 levelCount = it.levelCount.orZero(),
+            )
+        }.orEmpty()
+    )
+}
+
+fun NetworkResponse<AromaListResponse>.toAromaList(): DomainEntity.Response<List<DomainEntity.Aroma>> {
+    return DomainEntity.Response(
+        isSuccess = isSuccess.orFalse(),
+        message = message.orEmpty(),
+        data = data?.aromaList?.map {
+            DomainEntity.Aroma(
+                id = it.id.orZero(),
+                name = it.name.orEmpty()
             )
         }.orEmpty()
     )

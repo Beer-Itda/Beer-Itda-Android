@@ -4,6 +4,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaIt
 import com.google.gson.Gson
 import com.hjiee.core.provider.SharedPreferenceProvider
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow

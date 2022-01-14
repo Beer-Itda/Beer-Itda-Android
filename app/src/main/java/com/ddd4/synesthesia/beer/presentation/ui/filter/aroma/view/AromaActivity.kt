@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class AromaActivity : BaseActivity<ActivityFilterAromaBinding>(R.layout.activity_filter_aroma) {
 
     private val viewModel by viewModels<AromaViewModel>()
-    private val aromaListAdapter by lazy { AromaListAdapter() }
+    private val listAdapter by lazy { AromaListAdapter() }
     private val selectedListAdapter by lazy { AromaSelectedListAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +41,7 @@ class AromaActivity : BaseActivity<ActivityFilterAromaBinding>(R.layout.activity
                 setOnClickListener { finish() }
             }
             with(rvFilterAroma) {
-                adapter = aromaListAdapter
+                adapter = listAdapter
             }
             with(rvSelectedAroma) {
                 adapter = selectedListAdapter
@@ -75,10 +75,11 @@ class AromaActivity : BaseActivity<ActivityFilterAromaBinding>(R.layout.activity
                 showToast(entity.message)
             }
             is AromaActionEntity.UpdateList -> {
-                aromaListAdapter.addAll(entity.list, true)
+                listAdapter.clear()
+                listAdapter.addAll(entity.list, true)
             }
             is AromaActionEntity.UpdateSelectedList -> {
-                selectedListAdapter.addAll(entity.list, true)
+                selectedListAdapter.addAll(entity.list, false)
             }
         }
     }
