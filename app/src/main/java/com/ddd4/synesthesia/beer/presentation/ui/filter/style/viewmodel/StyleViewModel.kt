@@ -12,6 +12,8 @@ import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleM
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small.StyleSmallItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.StyleViewState
 import com.hjiee.core.event.entity.ItemClickEntity
+import com.hjiee.core.manager.Change
+import com.hjiee.core.manager.DataChangeManager
 import com.hjiee.core.util.log.L
 import com.hjiee.domain.usecase.filter.style.GetStyleUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -205,8 +207,8 @@ class StyleViewModel @Inject constructor(
 
     }
 
-    @ExperimentalCoroutinesApi
     fun clickDone() {
+        DataChangeManager.changed(Change.STYLE)
         notifySelectEvent(StyleClickEntity.SelectDone)
     }
 

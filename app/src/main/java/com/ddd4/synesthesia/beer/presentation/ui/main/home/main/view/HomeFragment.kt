@@ -20,6 +20,9 @@ import com.ddd4.synesthesia.beer.util.ext.start
 import com.ddd4.synesthesia.beer.util.listener.EndlessRecyclerViewScrollListener
 import com.hjiee.core.event.entity.ActionEntity
 import com.hjiee.core.event.entity.ItemClickEntity
+import com.hjiee.core.observer.observeChangeTheSelectedAroma
+import com.hjiee.core.observer.observeChangeTheSelectedStyle
+import com.hjiee.core.observer.observeReviewRegistered
 import com.hjiee.core.util.log.L
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -50,6 +53,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
         observeHandledEvent(homeViewModel.event.action) {
             handleActionEvent(it)
+        }
+        observeChangeTheSelectedAroma {
+            homeViewModel.loadSelectedAromaWithBeer()
+        }
+        observeChangeTheSelectedStyle {
+            homeViewModel.loadSelectedStyleWithBeer()
         }
     }
 

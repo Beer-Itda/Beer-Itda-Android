@@ -140,6 +140,25 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun loadSelectedAromaWithBeer() {
+        viewModelScope.launch {
+            runCatching {
+                fetchAroma()
+            }.onSuccess {
+                val index = beerItems.indexOf(aromaBeer)
+                beerItems.removeAt(index)
+                beerItems.add(index, it)
+                notifyActionEvent(entity = HomeActionEntity.UpdateList(beerItems))
+            }.onFailure {
+                L.e(it)
+            }
+        }
+    }
+
+    fun loadSelectedStyleWithBeer() {
+        notifyActionEvent(entity = HomeActionEntity.UpdateList(beerItems))
+    }
+
     private suspend fun fetchAward(): BeerAwardItemViewModel {
         val awardBeer = useCase.awardBeer.execute()
         return BeerAwardItemViewModel(

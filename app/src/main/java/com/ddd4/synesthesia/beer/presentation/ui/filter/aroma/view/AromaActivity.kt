@@ -1,8 +1,10 @@
 package com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.view
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityFilterAromaBinding
@@ -26,6 +28,13 @@ class AromaActivity : BaseActivity<ActivityFilterAromaBinding>(R.layout.activity
     private val viewModel by viewModels<AromaViewModel>()
     private val listAdapter by lazy { AromaListAdapter() }
     private val selectedListAdapter by lazy { AromaSelectedListAdapter() }
+
+    private val activityLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                finish()
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,10 +70,12 @@ class AromaActivity : BaseActivity<ActivityFilterAromaBinding>(R.layout.activity
     override fun handleSelectEvent(entity: ItemClickEntity) {
         when (entity) {
             is AromaClickEntity.Skip -> {
-                start<StyleActivity>()
+                start<StyleActivity>(activityLauncher = activityLauncher)
+//                activityLauncher.launch(StyleActivity.getIntent(this))
             }
             is AromaClickEntity.SelectDone -> {
-                start<StyleActivity>()
+                start<StyleActivity>(activityLauncher = activityLauncher)
+//                activityLauncher.launch(StyleActivity.getIntent(this))
             }
         }
     }

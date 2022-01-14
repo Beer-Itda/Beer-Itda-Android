@@ -9,6 +9,8 @@ import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaClickE
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemMapper.getItem
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemViewModel
 import com.hjiee.core.event.entity.ItemClickEntity
+import com.hjiee.core.manager.Change
+import com.hjiee.core.manager.DataChangeManager
 import com.hjiee.core.util.log.L
 import com.hjiee.domain.usecase.filter.aroma.GetAromaUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -153,6 +155,7 @@ class AromaViewModel @Inject constructor(
     }
 
     fun clickDone() {
+        DataChangeManager.changed(Change.AROMA)
         notifySelectEvent(AromaClickEntity.SelectDone)
     }
 

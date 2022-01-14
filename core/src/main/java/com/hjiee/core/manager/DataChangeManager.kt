@@ -67,5 +67,7 @@ class DataChangeManager private constructor() {
 
 enum class Change {
     REVIEW,
-    FAVORITE
+    FAVORITE,
+    AROMA,
+    STYLE
 }

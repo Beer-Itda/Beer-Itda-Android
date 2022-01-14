@@ -119,9 +119,11 @@ class StyleActivity : BaseActivity<ActivityFilterStyleBinding>(R.layout.activity
             is StyleClickEntity.SelectStyleSet -> {
             }
             is StyleClickEntity.SelectDone -> {
+                setResult(RESULT_OK)
                 finish()
             }
             is StyleClickEntity.Skip -> {
+                setResult(RESULT_OK)
                 finish()
             }
         }
