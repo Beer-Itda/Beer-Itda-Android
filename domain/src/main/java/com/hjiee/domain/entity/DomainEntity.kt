@@ -99,6 +99,12 @@ sealed class DomainEntity {
         val profileImage: String
     )
 
+    class LevelGuide(
+        val id: Int,
+        val level: String,
+        val levelCount: Int
+    )
+
     class StyleLargeCategory(
         val bigName: String,
         val middleCategories: List<StyleMediumCategory>

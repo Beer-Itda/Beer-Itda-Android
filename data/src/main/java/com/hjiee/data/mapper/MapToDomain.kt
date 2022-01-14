@@ -204,3 +204,17 @@ fun SearchResponse?.toBeerList(): DomainEntity.Beers {
         )
     )
 }
+
+fun EntityResponse<LevelGuideResponse>.toLevelGuide(): DomainEntity.Response<List<DomainEntity.LevelGuide>> {
+    return DomainEntity.Response(
+        isSuccess = isSuccess.orFalse(),
+        message = message.orEmpty(),
+        data = data?.levels?.map {
+            DomainEntity.LevelGuide(
+                id = it.id.orZero(),
+                level = it.level.orEmpty(),
+                levelCount = it.levelCount.orZero(),
+            )
+        }.orEmpty()
+    )
+}

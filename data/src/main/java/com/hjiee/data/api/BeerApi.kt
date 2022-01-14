@@ -130,7 +130,13 @@ interface BeerApi {
         @Query("word") word: String,
         @Query("page") page: Int,
         @Query("size") size: Int
-    ) : SearchResponse?
+    ): SearchResponse?
+
+    /**
+     * 등급가이드 불러오기
+     */
+    @GET("api/v1/level")
+    suspend fun getLevelGuide(): EntityResponse<LevelGuideResponse>
 
 //    /**
 //     * App Config
