@@ -8,6 +8,7 @@ interface BeerRepository {
     suspend fun getBeerDetail(id: Int): Response<BeerDetail>?
     suspend fun getStyleBeer(): Response<Beers>?
     suspend fun getAromaBeer(): Response<Beers>?
+    suspend fun getRandomRecommendBeer(): Response<Beers>?
     suspend fun getUserInfo(): User
     suspend fun getMyReview(): List<MyReview>
     suspend fun getAromaInfo(): Response<List<Aroma>>

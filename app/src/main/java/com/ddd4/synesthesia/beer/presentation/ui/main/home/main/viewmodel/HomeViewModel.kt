@@ -25,6 +25,7 @@ import com.hjiee.domain.entity.DomainEntity.Beer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -99,15 +100,10 @@ class HomeViewModel @Inject constructor(
             statusLoading()
         }
         viewModelScope.launch {
-            runCatching {
-                awardBeer = fetchAward()
-                aromaBeer = fetchAroma()
+            awardBeer = fetchAward()
+            aromaBeer = fetchAroma()
+            fetchRandomRecommend()
 
-            }.onSuccess {
-
-            }.onFailure {
-                L.e(it)
-            }
 
 //            styleBeer = fetchStyle()
 //            recommendBeer = fetchRecommend()
@@ -145,10 +141,12 @@ class HomeViewModel @Inject constructor(
             runCatching {
                 fetchAroma()
             }.onSuccess {
-                val index = beerItems.indexOf(aromaBeer)
-                beerItems.removeAt(index)
-                beerItems.add(index, it)
-                notifyActionEvent(entity = HomeActionEntity.UpdateList(beerItems))
+                it?.let {
+                    val index = beerItems.indexOf(aromaBeer)
+                    beerItems.removeAt(index)
+                    beerItems.add(index, it)
+                    notifyActionEvent(entity = HomeActionEntity.UpdateList(beerItems))
+                }
             }.onFailure {
                 L.e(it)
             }
@@ -160,9 +158,13 @@ class HomeViewModel @Inject constructor(
     }
 
     private suspend fun fetchAward(): BeerAwardItemViewModel {
-        val awardBeer = useCase.awardBeer.execute()
+        val awardBeer = runCatching {
+            useCase.awardBeer.execute()
+        }.onFailure {
+            L.e(it)
+        }.getOrNull().getBeerItemViewModel(this@HomeViewModel)
         return BeerAwardItemViewModel(
-            beer = awardBeer.getBeerItemViewModel(this@HomeViewModel)
+            beer = awardBeer
         )
     }
 
@@ -182,15 +184,24 @@ class HomeViewModel @Inject constructor(
 //    }
 
     //
-    private suspend fun fetchAroma(): BeerListItemViewModel {
-        return useCase.getSelectedAromaBeerUseCase.execute(
-            eventNotifier = this@HomeViewModel
-        ).getMapper(
-            title = stringProvider.getStringRes(HomeStringProvider.Code.AROMA),
-            type = HomeStringProvider.Code.AROMA,
-            eventNotifier = this@HomeViewModel
-        )
+    private suspend fun fetchAroma(): BeerListItemViewModel? {
+        return runCatching {
+            useCase.getSelectedAromaBeerUseCase.execute(
+                eventNotifier = this@HomeViewModel
+            ).getMapper(
+                title = stringProvider.getStringRes(HomeStringProvider.Code.AROMA),
+                type = HomeStringProvider.Code.AROMA,
+                eventNotifier = this@HomeViewModel
+            )
+        }.onFailure {
+            L.e(it)
+        }.getOrNull()
     }
+
+    private suspend fun fetchRandomRecommend() {
+        val item = useCase.getRandomRecommendBeer.execute()
+    }
+
 //
 //    private suspend fun fetchRecommend(): BeerListItemViewModel {
 //        return beerRepository.getBeerList(

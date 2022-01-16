@@ -58,6 +58,14 @@ interface BeerApi {
     ): NetworkResponse<SelectedAromaBeerResponse>?
 
     /**
+     * 랜덤 추천 맥주
+     */
+    @GET("api/v1/beer/random")
+    suspend fun getRandomRecommendBeer(
+    ): NetworkResponse<BeersResponse>?
+
+
+    /**
      * 유저 정보
      */
     @GET("api/v1/user/info")

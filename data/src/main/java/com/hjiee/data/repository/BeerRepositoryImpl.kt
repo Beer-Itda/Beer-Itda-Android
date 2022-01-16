@@ -31,6 +31,10 @@ class BeerRepositoryImpl @Inject constructor(
         return beerApi.getSelectedAromaBeer(1)?.toSelectedBeerFromAroma()
     }
 
+    override suspend fun getRandomRecommendBeer(): Response<Beers> {
+        return beerApi.getRandomRecommendBeer().toBeerList()
+    }
+
     override suspend fun getMyReview(): List<MyReview> {
         return beerApi.getMyReview().toMyReviewList()
     }
