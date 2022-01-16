@@ -18,20 +18,30 @@
         android:layout_height="wrap_content"
         android:paddingBottom="28dp">
 
-        <ImageView
-            android:id="@+id/iv_beer"
+        <FrameLayout
+            android:id="@+id/fl_container"
             android:layout_width="match_parent"
-            android:layout_height="202dp"
-            android:adjustViewBounds="true"
+            android:layout_height="wrap_content"
             android:background="@color/color_1c1b21"
-            android:scaleType="fitCenter"
-            app:errorDrawable="@{@drawable/beer}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:loadUrl="@{viewModel.beer.thumbnailImage}"
-            tools:src="@drawable/beer" />
+            app:layout_constraintTop_toTopOf="parent">
 
+            <ImageView
+                android:id="@+id/iv_beer"
+                android:layout_width="111dp"
+                android:layout_height="202dp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:errorDrawable="@{@drawable/beer}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:loadUrl="@{viewModel.beer.thumbnailImage}"
+                tools:src="@drawable/beer" />
+        </FrameLayout>
 
         <TextView
             android:id="@+id/tv_beer_style"
@@ -48,7 +58,7 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_beer"
+            app:layout_constraintTop_toBottomOf="@+id/fl_container"
             tools:text="White Beer" />
 
 
