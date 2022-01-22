@@ -102,7 +102,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             awardBeer = fetchAward()
             aromaBeer = fetchAroma()
-            fetchRandomRecommend()
+            recommendBeer = fetchRandomRecommend()
 
 
 //            styleBeer = fetchStyle()
@@ -138,17 +138,11 @@ class HomeViewModel @Inject constructor(
 
     fun loadSelectedAromaWithBeer() {
         viewModelScope.launch {
-            runCatching {
-                fetchAroma()
-            }.onSuccess {
-                it?.let {
-                    val index = beerItems.indexOf(aromaBeer)
-                    beerItems.removeAt(index)
-                    beerItems.add(index, it)
-                    notifyActionEvent(entity = HomeActionEntity.UpdateList(beerItems))
-                }
-            }.onFailure {
-                L.e(it)
+            fetchAroma().let {
+                val index = beerItems.indexOf(aromaBeer)
+                beerItems.removeAt(index)
+                beerItems.add(index, it)
+                notifyActionEvent(entity = HomeActionEntity.UpdateList(beerItems))
             }
         }
     }
@@ -158,11 +152,8 @@ class HomeViewModel @Inject constructor(
     }
 
     private suspend fun fetchAward(): BeerAwardItemViewModel {
-        val awardBeer = runCatching {
-            useCase.awardBeer.execute()
-        }.onFailure {
-            L.e(it)
-        }.getOrNull().getBeerItemViewModel(this@HomeViewModel)
+        val awardBeer = useCase.awardBeer.execute()
+            .getBeerItemViewModel(this@HomeViewModel)
         return BeerAwardItemViewModel(
             beer = awardBeer
         )
@@ -183,23 +174,20 @@ class HomeViewModel @Inject constructor(
 //            )
 //    }
 
-    //
-    private suspend fun fetchAroma(): BeerListItemViewModel? {
-        return runCatching {
-            useCase.getSelectedAromaBeerUseCase.execute(
-                eventNotifier = this@HomeViewModel
-            ).getMapper(
-                title = stringProvider.getStringRes(HomeStringProvider.Code.AROMA),
-                type = HomeStringProvider.Code.AROMA,
-                eventNotifier = this@HomeViewModel
-            )
-        }.onFailure {
-            L.e(it)
-        }.getOrNull()
+    private suspend fun fetchAroma(): BeerListItemViewModel {
+        return useCase.getSelectedAromaBeerUseCase.execute().getMapper(
+            title = stringProvider.getStringRes(HomeStringProvider.Code.AROMA),
+            type = HomeStringProvider.Code.AROMA,
+            eventNotifier = this@HomeViewModel
+        )
     }
 
-    private suspend fun fetchRandomRecommend() {
-        val item = useCase.getRandomRecommendBeer.execute()
+    private suspend fun fetchRandomRecommend(): BeerListItemViewModel {
+        return useCase.getRandomRecommendBeer.execute().getMapper(
+            title = stringProvider.getStringRes(HomeStringProvider.Code.RANDOM),
+            type = HomeStringProvider.Code.RANDOM,
+            eventNotifier = this@HomeViewModel
+        )
     }
 
 //
