@@ -83,13 +83,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-//    private fun loadAppConfig() {
-//        viewModelScope.launch(errorHandler) {
-//            _appConfig.value = beerRepository.getAppConfig().result
-//            notifyActionEvent(HomeActionEntity.AppConfigSetting(_appConfig.value))
-//        }
-//    }
-
     fun refresh() {
         _isRefresh.value = true
         load()
@@ -102,6 +95,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             awardBeer = fetchAward()
             aromaBeer = fetchAroma()
+            styleBeer = fetchStyle()
             recommendBeer = fetchRandomRecommend()
 
 
@@ -148,7 +142,14 @@ class HomeViewModel @Inject constructor(
     }
 
     fun loadSelectedStyleWithBeer() {
-        notifyActionEvent(entity = HomeActionEntity.UpdateList(beerItems))
+        viewModelScope.launch {
+            fetchStyle().let {
+                val index = beerItems.indexOf(styleBeer)
+                beerItems.removeAt(index)
+                beerItems.add(index, it)
+                notifyActionEvent(entity = HomeActionEntity.UpdateList(beerItems))
+            }
+        }
     }
 
     private suspend fun fetchAward(): BeerAwardItemViewModel {
@@ -159,25 +160,18 @@ class HomeViewModel @Inject constructor(
         )
     }
 
-//    private suspend fun fetchStyle(): BeerListItemViewModel {
-//        return useCase.getSelectStyleBeerUseCase(
-//            sortType = _sortType.value?.value,
-//            style = styleProvider.getNames(),
-//            cursor = cursor.value
-//        )?.beers.orEmpty()
-//            .getMapper(
-//                sortType = _sortType.value,
-//                type = HomeStringProvider.Code.STYLE,
-//                style = styleProvider.data,
-//                title = stringProvider.getStringRes(HomeStringProvider.Code.STYLE),
-//                eventNotifier = this@HomeViewModel
-//            )
-//    }
-
     private suspend fun fetchAroma(): BeerListItemViewModel {
         return useCase.getSelectedAromaBeerUseCase.execute().getMapper(
             title = stringProvider.getStringRes(HomeStringProvider.Code.AROMA),
             type = HomeStringProvider.Code.AROMA,
+            eventNotifier = this@HomeViewModel
+        )
+    }
+
+    private suspend fun fetchStyle(): BeerListItemViewModel {
+        return useCase.getSelectedStyleBeerUseCase.execute().getMapper(
+            title = stringProvider.getStringRes(HomeStringProvider.Code.STYLE),
+            type = HomeStringProvider.Code.STYLE,
             eventNotifier = this@HomeViewModel
         )
     }
@@ -189,19 +183,6 @@ class HomeViewModel @Inject constructor(
             eventNotifier = this@HomeViewModel
         )
     }
-
-//
-//    private suspend fun fetchRecommend(): BeerListItemViewModel {
-//        return beerRepository.getBeerList(
-//            sortType = _sortType.value?.value,
-//            cursor = cursor.value
-//        )?.beers.orEmpty().getMapper(
-//            sortType = _sortType.value,
-//            type = HomeStringProvider.Code.RANDOM,
-//            title = stringProvider.getStringRes(HomeStringProvider.Code.RANDOM),
-//            eventNotifier = this@HomeViewModel
-//        )
-//    }
 
     fun loadMore() {
         viewModelScope.launch(errorHandler) {

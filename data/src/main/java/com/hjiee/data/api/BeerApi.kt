@@ -45,9 +45,7 @@ interface BeerApi {
      * 내가 선택한 스타일의 맥주
      */
     @GET("api/v1/beer/style")
-    suspend fun getSelectedStyleBeer(
-        @Body userId: Int
-    ): NetworkResponse<BeersResponse>?
+    suspend fun getSelectedStyleBeer(): NetworkResponse<BeersResponse>?
 
     /**
      * 내가 선택한 향의 맥주
