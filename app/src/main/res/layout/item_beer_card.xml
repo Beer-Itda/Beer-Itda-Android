@@ -101,6 +101,7 @@
                 android:layout_marginBottom="12dp"
                 android:drawablePadding="4dp"
                 android:fontFamily="@font/notosans_kr_bold"
+                android:text="@{@string/rate_unit_2(beer.starAvg)}"
                 android:textColor="@color/butterscotch"
                 android:textSize="@dimen/textSize_14"
                 app:drawableStartCompat="@drawable/ic_rating_star"
