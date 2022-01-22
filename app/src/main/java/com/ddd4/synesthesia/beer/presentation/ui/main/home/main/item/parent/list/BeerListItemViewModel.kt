@@ -19,6 +19,6 @@ class BeerListItemViewModel(
     }
 
     fun loadMore() {
-        eventNotifier.notifyActionEvent(HomeActionEntity.LoadMore)
+        eventNotifier.notifyActionEvent(HomeActionEntity.LoadMore(this))
     }
 }

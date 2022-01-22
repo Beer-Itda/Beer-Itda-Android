@@ -20,12 +20,10 @@ import com.ddd4.synesthesia.beer.util.ext.GlobalEvent
 import com.ddd4.synesthesia.beer.util.sort.SortType
 import com.hjiee.core.event.entity.ActionEntity
 import com.hjiee.core.event.entity.ItemClickEntity
-import com.hjiee.core.util.log.L
 import com.hjiee.domain.entity.DomainEntity.Beer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -50,9 +48,6 @@ class HomeViewModel @Inject constructor(
 
     private val _isLoadMore = MutableLiveData<Boolean>(false)
     val isLoadMore: LiveData<Boolean> get() = _isLoadMore
-
-//    private val _appConfig = MutableLiveData<AppConfig>()
-//    val appConfig: LiveData<AppConfig> get() = _appConfig
 
     private val _isRefresh = MutableLiveData<Boolean>()
     val isRefresh: LiveData<Boolean> get() = _isRefresh
@@ -93,40 +88,37 @@ class HomeViewModel @Inject constructor(
             statusLoading()
         }
         viewModelScope.launch {
-            awardBeer = fetchAward()
-            aromaBeer = fetchAroma()
-            styleBeer = fetchStyle()
-            recommendBeer = fetchRandomRecommend()
+            fetchAward()
+            fetchAroma()
+            fetchStyle()
+            fetchRandomRecommend()
 
-
-//            styleBeer = fetchStyle()
-//            recommendBeer = fetchRecommend()
-
-            beerItems.clear()
-            awardBeer?.let {
-                beerItems.add(it)
-            }
-            styleBeer?.run {
-                if (beers.isNotEmpty()) {
-                    beerItems.add(this)
-                }
-            }
-
-            aromaBeer?.run {
-                if (beers.isNotEmpty()) {
-                    beerItems.add(this)
-                }
-            }
-
-            recommendBeer?.run {
-                if (beers.isNotEmpty()) {
-                    beerItems.add(this)
-                }
-            }
-
+            setData()
             notifyActionEvent(entity = HomeActionEntity.UpdateList(beerItems))
             statusSuccess()
             _isRefresh.value = false
+        }
+    }
+
+    private fun setData() {
+        beerItems.clear()
+        awardBeer?.let { beerItems.add(it) }
+        styleBeer?.run {
+            if (beers.isNotEmpty()) {
+                beerItems.add(this)
+            }
+        }
+
+        aromaBeer?.run {
+            if (beers.isNotEmpty()) {
+                beerItems.add(this)
+            }
+        }
+
+        recommendBeer?.run {
+            if (beers.isNotEmpty()) {
+                beerItems.add(this)
+            }
         }
     }
 
@@ -153,11 +145,14 @@ class HomeViewModel @Inject constructor(
     }
 
     private suspend fun fetchAward(): BeerAwardItemViewModel {
-        val awardBeer = useCase.awardBeer.execute()
-            .getBeerItemViewModel(this@HomeViewModel)
-        return BeerAwardItemViewModel(
-            beer = awardBeer
-        )
+        return useCase.awardBeer.execute().getBeerItemViewModel(this@HomeViewModel)
+            .let { awardBeerItem ->
+                BeerAwardItemViewModel(
+                    beer = awardBeerItem
+                ).also {
+                    awardBeer = it
+                }
+            }
     }
 
     private suspend fun fetchAroma(): BeerListItemViewModel {
@@ -165,7 +160,9 @@ class HomeViewModel @Inject constructor(
             title = stringProvider.getStringRes(HomeStringProvider.Code.AROMA),
             type = HomeStringProvider.Code.AROMA,
             eventNotifier = this@HomeViewModel
-        )
+        ).also {
+            aromaBeer = it
+        }
     }
 
     private suspend fun fetchStyle(): BeerListItemViewModel {
@@ -173,7 +170,9 @@ class HomeViewModel @Inject constructor(
             title = stringProvider.getStringRes(HomeStringProvider.Code.STYLE),
             type = HomeStringProvider.Code.STYLE,
             eventNotifier = this@HomeViewModel
-        )
+        ).also {
+            styleBeer = it
+        }
     }
 
     private suspend fun fetchRandomRecommend(): BeerListItemViewModel {
@@ -181,17 +180,22 @@ class HomeViewModel @Inject constructor(
             title = stringProvider.getStringRes(HomeStringProvider.Code.RANDOM),
             type = HomeStringProvider.Code.RANDOM,
             eventNotifier = this@HomeViewModel
-        )
+        ).also {
+            recommendBeer = it
+        }
     }
 
-    fun loadMore() {
-        viewModelScope.launch(errorHandler) {
-            cursor.value?.let {
-                if (_isLoadMore.value == false) {
-//                    _beerList.value =
-//                        _beerList.value?.toMutableList()?.apply { addAll(listOf(Beer(id = -1))) }
-                    _isLoadMore.value = true
-                    load()
+    private fun recommendLoadMore(type: HomeStringProvider.Code) {
+        viewModelScope.launch {
+            when (type) {
+                HomeStringProvider.Code.AROMA -> {
+
+                }
+                HomeStringProvider.Code.STYLE -> {
+
+                }
+                HomeStringProvider.Code.RANDOM -> {
+
                 }
             }
         }
@@ -218,7 +222,7 @@ class HomeViewModel @Inject constructor(
     override fun handleActionEvent(entity: ActionEntity) {
         when (entity) {
             is HomeActionEntity.LoadMore -> {
-                loadMore()
+                recommendLoadMore(entity.item.type)
             }
         }
     }
