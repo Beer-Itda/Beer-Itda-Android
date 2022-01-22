@@ -19,10 +19,10 @@ class BeerItemViewModel(
     val starAvg: Float,
     val reviews: List<DomainEntity.Review>? = emptyList(),
     val thumbnailImage: String,
-    initFavorite: Boolean,
+    _isFavorite: Boolean,
     var eventNotifier: SelectEventNotifier? = null
 ) {
-    var isFavorite: ObservableBoolean = ObservableBoolean(initFavorite)
+    var isFavorite: ObservableBoolean = ObservableBoolean(_isFavorite)
 
 
     fun updateFavorite() {
@@ -34,6 +34,7 @@ class BeerItemViewModel(
     }
 
     fun clickFavorite() {
+        updateFavorite()
         eventNotifier?.notifySelectEvent(BeerClickEntity.ClickFavorite(this))
     }
 }

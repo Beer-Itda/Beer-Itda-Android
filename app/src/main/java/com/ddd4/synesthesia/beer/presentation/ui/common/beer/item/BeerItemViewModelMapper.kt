@@ -22,7 +22,7 @@ object BeerItemViewModelMapper {
                 starAvg = starAvg,
                 reviews = emptyList(),
                 thumbnailImage = thumbnailImage,
-                initFavorite = isFavorite,
+                _isFavorite = isFavorite,
                 eventNotifier = eventNotifier
             )
         }
@@ -43,7 +43,7 @@ object BeerItemViewModelMapper {
                 starAvg = it.starAvg,
                 reviews = emptyList(),
                 thumbnailImage = it.thumbnailImage,
-                initFavorite = it.isFavorite,
+                _isFavorite = it.isFavorite,
                 eventNotifier = eventNotifier
             )
         }.orEmpty()
@@ -83,7 +83,7 @@ object BeerItemViewModelMapper {
             starAvg = 0f,
             reviews = emptyList(),
             thumbnailImage = "",
-            initFavorite = false,
+            _isFavorite = false,
             eventNotifier = null
         )
 }

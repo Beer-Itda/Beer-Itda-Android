@@ -211,13 +211,12 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
-//
-//    private fun fetchFavorite(beer: BeerItemViewModel) {
-//        viewModelScope.launch(errorHandler) {
-//            beer.updateFavorite()
-//            beerRepository.postFavorite(beer.id, beer.isFavorite.get())
-//        }
-//    }
+
+    private fun fetchFavorite(id: Int) {
+        viewModelScope.launch {
+            useCase.favorite.execute(id)
+        }
+    }
 
     override fun handleActionEvent(entity: ActionEntity) {
         when (entity) {
@@ -230,6 +229,7 @@ class HomeViewModel @Inject constructor(
     override fun handleSelectEvent(entity: ItemClickEntity) {
         when (entity) {
             is BeerClickEntity.ClickFavorite -> {
+                fetchFavorite(entity.beer.id)
 //                fetchFavorite(entity.beer)
             }
         }

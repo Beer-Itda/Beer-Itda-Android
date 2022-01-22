@@ -52,14 +52,19 @@ class BeerDetailViewModel @Inject constructor(
         }
     }
 
-    private fun fetchFavorite(id: Int) {
-        viewModelScope.launch(errorHandler) {
+    /**
+     * @param isRelated 맥주상세에서 클릭시 연관된 맥주에 같은 데이터 좋아요 데이터를 변경
+     */
+    private fun fetchFavorite(id: Int, isRelated: Boolean) {
+        viewModelScope.launch {
             runCatching {
                 useCase.favorite.execute(id)
             }.onSuccess {
                 updateInformationBeerFavorite(id)
-                updateRelatedBeerFavorite(id)
                 updateBeerDetailFavorite(id)
+                if (isRelated.not()) {
+                    updateRelatedBeerFavorite(beerId)
+                }
             }.onFailure {
                 L.e(it)
             }
@@ -70,7 +75,7 @@ class BeerDetailViewModel @Inject constructor(
         when (entity) {
             // 연관 맥주 클릭 이벤트 처리
             is BeerClickEntity.ClickFavorite -> {
-                fetchFavorite(entity.beer.id)
+                fetchFavorite(entity.beer.id, true)
             }
         }
     }
@@ -103,7 +108,7 @@ class BeerDetailViewModel @Inject constructor(
     }
 
     fun clickFavorite() {
-        fetchFavorite(beerId)
+        fetchFavorite(beerId, false)
     }
 
     fun clickReviewAll() {

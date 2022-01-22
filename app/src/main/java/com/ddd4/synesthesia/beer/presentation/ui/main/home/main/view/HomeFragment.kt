@@ -22,6 +22,7 @@ import com.hjiee.core.event.entity.ActionEntity
 import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.core.observer.observeChangeTheSelectedAroma
 import com.hjiee.core.observer.observeChangeTheSelectedStyle
+import com.hjiee.core.observer.observeChangedFavoriteState
 import com.hjiee.core.observer.observeReviewRegistered
 import com.hjiee.core.util.log.L
 import dagger.hilt.android.AndroidEntryPoint
@@ -59,6 +60,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
         observeChangeTheSelectedStyle {
             homeViewModel.loadSelectedStyleWithBeer()
+        }
+        observeChangedFavoriteState {
+            homeViewModel.load()
         }
     }
 
