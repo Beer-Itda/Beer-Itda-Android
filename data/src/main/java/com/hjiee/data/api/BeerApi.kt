@@ -49,7 +49,7 @@ interface BeerApi {
     suspend fun getSelectedStyleBeer(
         @Query("page") page: Int = 1,
         @Query("size") size: Int = 20
-    ): NetworkResponse<BeersResponse>?
+    ): NetworkResponse<BeerListResponse>?
 
     /**
      * 내가 선택한 향의 맥주
