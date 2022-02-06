@@ -239,11 +239,11 @@ fun NetworkResponse<AromaListResponse>?.toAromaList(): DomainEntity.Response<Lis
     )
 }
 
-fun NetworkResponse<List<StyleLargeCategoryResponse>>?.toStyleLargeCategory(): DomainEntity.Response<List<DomainEntity.StyleLargeCategory>> {
+fun NetworkResponse<StyleListResponse>?.toStyleLargeCategory(): DomainEntity.Response<List<DomainEntity.StyleLargeCategory>> {
     return DomainEntity.Response(
         isSuccess = this?.isSuccess.orFalse(),
         message = this?.message.orEmpty(),
-        data = this?.data?.map {
+        data = this?.data?.styleList?.map {
             DomainEntity.StyleLargeCategory(
                 largeName = it.largeName.orEmpty(),
                 middleCategories = it.middleCategories.toStyleMiddleCategory()
@@ -266,7 +266,8 @@ fun List<StyleMiddleCategoryResponse>?.toStyleMiddleCategory(): List<DomainEntit
 fun List<StyleSmallCategoryResponse>?.toStyleSmallCategory(): List<DomainEntity.StyleSmallCategory> {
     return this?.map {
         DomainEntity.StyleSmallCategory(
-            smallName = it.smallName.orEmpty()
+            smallName = it.smallName.orEmpty(),
+            isSelected = it.isSelected.orFalse()
         )
     }.orEmpty()
 }

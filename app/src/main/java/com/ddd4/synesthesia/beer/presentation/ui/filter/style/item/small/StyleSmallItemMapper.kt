@@ -17,6 +17,7 @@ object StyleSmallItemMapper {
                 largePosition = largePosition,
                 middlePosition = middlePosition,
                 middleName = middleName,
+                isAllSelected = all { it.isSelected },
                 eventNotifier = eventNotifier
             )
         )
@@ -31,6 +32,9 @@ object StyleSmallItemMapper {
         return items
     }
 
+    /**
+     * 일부 스타일 선택하였을때
+     */
     private fun List<DomainEntity.StyleSmallCategory>.getSmallCategory(
         largePosition: Int,
         middlePosition: Int,
@@ -49,14 +53,20 @@ object StyleSmallItemMapper {
                 smallPosition = smallPosition + 1,
                 isAll = false,
                 eventNotifier = eventNotifier
-            )
+            ).apply {
+                isSelected.set(small.isSelected)
+            }
         }
     }
 
+    /**
+     * 전체 선택하였을때
+     */
     private fun getAllSelectCategory(
         largePosition: Int,
         middlePosition: Int,
         middleName: String,
+        isAllSelected: Boolean,
         eventNotifier: SelectActionEventNotifier
     ): StyleSmallItemViewModel {
         return StyleSmallItemViewModel(
@@ -68,6 +78,8 @@ object StyleSmallItemMapper {
             smallPosition = 0,
             isAll = true,
             eventNotifier = eventNotifier
-        )
+        ).apply {
+            isSelected.set(isAllSelected)
+        }
     }
 }

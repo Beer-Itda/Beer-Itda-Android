@@ -134,7 +134,8 @@ sealed class DomainEntity {
     )
 
     class StyleSmallCategory(
-        val smallName: String
+        val smallName: String,
+        val isSelected: Boolean
     )
 
     class Token(

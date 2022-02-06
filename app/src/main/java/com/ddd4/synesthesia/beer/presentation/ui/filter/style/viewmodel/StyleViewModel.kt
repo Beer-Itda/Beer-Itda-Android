@@ -3,7 +3,6 @@ package com.ddd4.synesthesia.beer.presentation.ui.filter.style.viewmodel
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FilterStringProvider
-import com.ddd4.synesthesia.beer.presentation.ui.common.filter.StyleProvider
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.large.StyleLargeItemMapper.getLarge
@@ -25,7 +24,6 @@ import javax.inject.Inject
 class StyleViewModel @Inject constructor(
     private val styleUseCase: GetStyleUseCase,
     private val selectUseCase: PostAromaUseCase,
-    private val styleProvider: StyleProvider,
     private val stringProvider: FilterStringProvider
 ) : BaseViewModel() {
 
@@ -219,12 +217,19 @@ class StyleViewModel @Inject constructor(
 
     private fun initSelectedStyle() {
         selectedCategory.clear()
-        styleProvider.data?.map {
-            val style = allCategories[it.largePosition]
-                .middleCategories[it.middlePosition]
-                .smallCategories[it.smallPosition]
-            setSelectedStatusChange(style, true)
-            selectedCategory.add(style)
+        allCategories.map { large ->
+            large.middleCategories.map { middle ->
+                if (middle.smallCategories.all { it.isSelected.get() }) {
+                    selectedCategory.add(middle.smallCategories.first())
+                } else {
+                    middle.smallCategories.map { small ->
+                        if (small.isSelected.get()) {
+                            selectedCategory.add(small)
+                        }
+                    }
+                }
+
+            }
         }
         setMaxSelectedCount()
         notifyActionEvent(StyleActionEntity.UpdateSelectedStyleList(selectedCategory))
