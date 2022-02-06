@@ -36,7 +36,6 @@ sealed class DomainEntity {
 
     data class Beers(
         val beers: List<Beer>,
-        val cursor: Cursor? = null,
         val page: Page? = null
     )
 

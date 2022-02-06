@@ -56,13 +56,12 @@ fun NetworkResponse<BeersResponse>?.toBeerList(): DomainEntity.Response<DomainEn
                     style = it.style.orEmpty(),
                     isFavorite = it.heart.orFalse()
                 )
-            }.orEmpty(),
-            cursor = DomainEntity.Cursor(this?.data?.cursor?.cursor.orZero())
+            }.orEmpty()
         )
     )
 }
 
-fun NetworkResponse<SelectedAromaBeerResponse>?.toSelectedBeerFromAroma(): DomainEntity.Response<DomainEntity.Beers> {
+fun NetworkResponse<BeerListResponse>?.toBeerListWithPagination(): DomainEntity.Response<DomainEntity.Beers> {
     return DomainEntity.Response(
         isSuccess = this?.isSuccess.orFalse(),
         message = this?.message.orEmpty(),
@@ -80,8 +79,7 @@ fun NetworkResponse<SelectedAromaBeerResponse>?.toSelectedBeerFromAroma(): Domai
                     style = it.style.orEmpty(),
                     isFavorite = it.heart.orFalse()
                 )
-            }.orEmpty(),
-            cursor = DomainEntity.Cursor(this?.data?.cursor?.cursor.orZero())
+            }.orEmpty()
         )
     )
 }

@@ -46,13 +46,19 @@ interface BeerApi {
      * 내가 선택한 스타일의 맥주
      */
     @GET("api/v1/beer/style")
-    suspend fun getSelectedStyleBeer(): NetworkResponse<BeersResponse>?
+    suspend fun getSelectedStyleBeer(
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 20
+    ): NetworkResponse<BeersResponse>?
 
     /**
      * 내가 선택한 향의 맥주
      */
     @GET("api/v1/beer/aroma")
-    suspend fun getSelectedAromaBeer(): NetworkResponse<SelectedAromaBeerResponse>?
+    suspend fun getSelectedAromaBeer(
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 20
+    ): NetworkResponse<BeerListResponse>?
 
     /**
      * 랜덤 추천 맥주

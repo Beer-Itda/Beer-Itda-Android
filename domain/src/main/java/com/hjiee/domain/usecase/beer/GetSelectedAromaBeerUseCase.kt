@@ -1,6 +1,5 @@
 package com.hjiee.domain.usecase.beer
 
-import com.hjiee.core.event.SelectActionEventNotifier
 import com.hjiee.core.util.log.L
 import com.hjiee.domain.entity.DomainEntity
 import com.hjiee.domain.repository.BeerRepository

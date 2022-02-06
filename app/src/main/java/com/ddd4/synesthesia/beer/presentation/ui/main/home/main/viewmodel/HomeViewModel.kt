@@ -20,6 +20,7 @@ import com.ddd4.synesthesia.beer.util.ext.GlobalEvent
 import com.ddd4.synesthesia.beer.util.sort.SortType
 import com.hjiee.core.event.entity.ActionEntity
 import com.hjiee.core.event.entity.ItemClickEntity
+import com.hjiee.core.util.log.L
 import com.hjiee.domain.entity.DomainEntity.Beer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -124,22 +125,30 @@ class HomeViewModel @Inject constructor(
 
     fun loadSelectedAromaWithBeer() {
         viewModelScope.launch {
+            val index = beerItems.indexOf(aromaBeer)
             fetchAroma().let {
-                val index = beerItems.indexOf(aromaBeer)
-                beerItems.removeAt(index)
-                beerItems.add(index, it)
-                notifyActionEvent(entity = HomeActionEntity.UpdateList(beerItems))
+                runCatching {
+                    beerItems.removeAt(index)
+                    beerItems.add(index, it)
+                    notifyActionEvent(HomeActionEntity.UpdateList(beerItems))
+                }.onFailure {
+                    L.e(it)
+                }
             }
         }
     }
 
     fun loadSelectedStyleWithBeer() {
         viewModelScope.launch {
+            val index = beerItems.indexOf(styleBeer)
             fetchStyle().let {
-                val index = beerItems.indexOf(styleBeer)
-                beerItems.removeAt(index)
-                beerItems.add(index, it)
-                notifyActionEvent(entity = HomeActionEntity.UpdateList(beerItems))
+                runCatching {
+                    beerItems.removeAt(index)
+                    beerItems.add(index, it)
+                    notifyActionEvent(entity = HomeActionEntity.UpdateList(beerItems))
+                }.onFailure {
+                    L.e(it)
+                }
             }
         }
     }
