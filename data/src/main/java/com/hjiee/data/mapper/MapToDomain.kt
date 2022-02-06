@@ -234,7 +234,8 @@ fun NetworkResponse<AromaListResponse>?.toAromaList(): DomainEntity.Response<Lis
         data = this?.data?.aromaList?.map {
             DomainEntity.Aroma(
                 id = it.id.orZero(),
-                name = it.name.orEmpty()
+                name = it.name.orEmpty(),
+                isSelected = it.isSelected.orFalse()
             )
         }.orEmpty()
     )

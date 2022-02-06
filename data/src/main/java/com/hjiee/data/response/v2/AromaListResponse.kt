@@ -11,5 +11,7 @@ data class AromaResponse(
     @SerializedName("id")
     val id: Int?,
     @SerializedName("aroma")
-    val name: String?
+    val name: String?,
+    @SerializedName("isSelected")
+    val isSelected: Boolean?
 )

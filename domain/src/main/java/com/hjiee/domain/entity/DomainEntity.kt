@@ -119,7 +119,8 @@ sealed class DomainEntity {
 
     class Aroma(
         val id: Int,
-        val name: String
+        val name: String,
+        val isSelected: Boolean
     )
 
     class StyleLargeCategory(

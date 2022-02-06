@@ -2,7 +2,6 @@ package com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
-import com.ddd4.synesthesia.beer.presentation.ui.common.filter.AromaProvider
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FilterStringProvider
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaClickEntity
@@ -10,14 +9,12 @@ import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaIt
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemMapper.getItem
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemViewModel
 import com.hjiee.core.event.entity.ItemClickEntity
-import com.hjiee.core.ext.orDefault
 import com.hjiee.core.ext.orFalse
 import com.hjiee.core.manager.Change
 import com.hjiee.core.manager.DataChangeManager
 import com.hjiee.core.util.log.L
-import com.hjiee.domain.entity.request.RequestSelectedAroma
-import com.hjiee.domain.usecase.filter.aroma.PostAromaUseCase
 import com.hjiee.domain.usecase.filter.aroma.GetAromaUseCase
+import com.hjiee.domain.usecase.filter.aroma.PostAromaUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,8 +23,7 @@ import javax.inject.Inject
 class AromaViewModel @Inject constructor(
     private val aromaUseCase: GetAromaUseCase,
     private val selectUseCase: PostAromaUseCase,
-    private val stringProvider: FilterStringProvider,
-    private val aromaProvider: AromaProvider
+    private val stringProvider: FilterStringProvider
 ) : BaseViewModel() {
 
     companion object {
@@ -37,17 +33,18 @@ class AromaViewModel @Inject constructor(
     val viewState = AromaViewState()
     private val selectedList = mutableListOf<AromaItemViewModel>()
     private val selectedIdList
-        get() = AromaItemMapper.getSelectedAromaString(selectedList)
+        get() = AromaItemMapper.getSelectedAromaString(items, selectedList)
 
     private val items = mutableListOf<AromaItemViewModel>()
 
     fun load() {
         viewModelScope.launch {
             runCatching {
-                val result = aromaUseCase.execute().getItem(eventNotifier = this@AromaViewModel)
-                items.clear()
-                items.addAll(result)
+                aromaUseCase.execute().getItem(eventNotifier = this@AromaViewModel)
             }.onSuccess {
+                items.clear()
+                items.addAll(it)
+                initSelectedAroma()
                 notifyActionEvent(AromaActionEntity.UpdateList(items))
             }.onFailure {
                 L.e(it)
@@ -185,10 +182,11 @@ class AromaViewModel @Inject constructor(
 
     private fun initSelectedAroma() {
         selectedList.clear()
-        aromaProvider.data?.map { saved ->
-            items[saved.position].let { item ->
-                setSelectedStatusChange(item, true)
-                selectedList.add(item)
+        if (items.all { it.isSelected.get() }) {
+            selectedList.add(items.first())
+        } else {
+            items.filter { it.isSelected.get() }.map {
+                selectedList.add(it)
             }
         }
         setMaxSelectedCount()

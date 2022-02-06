@@ -13,7 +13,7 @@ open class FilterViewState {
     ) {
         isSelectedEmpty.set(isEmpty)
         when {
-            size == maxCount -> {
+            size >= maxCount -> {
                 isMaxSelected.set(true)
             }
             size < maxCount -> {
