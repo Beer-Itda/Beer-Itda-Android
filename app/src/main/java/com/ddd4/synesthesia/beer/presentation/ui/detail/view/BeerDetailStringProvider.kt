@@ -8,7 +8,7 @@ class BeerDetailStringProvider @Inject constructor(
     private val stringProvider: StringProvider
 ) : IStringResourceProvider {
 
-    override fun getError(): String = stringProvider.getError()
+    fun getError(): String = stringProvider.getError()
 
     override fun getStringRes(resId: Int): String {
         return stringProvider.getStringRes(resId)

@@ -51,9 +51,7 @@ interface BeerApi {
      * 내가 선택한 향의 맥주
      */
     @GET("api/v1/beer/aroma")
-    suspend fun getSelectedAromaBeer(
-        @Query("cursor") cursor: Int = 1
-    ): NetworkResponse<SelectedAromaBeerResponse>?
+    suspend fun getSelectedAromaBeer(): NetworkResponse<SelectedAromaBeerResponse>?
 
     /**
      * 랜덤 추천 맥주

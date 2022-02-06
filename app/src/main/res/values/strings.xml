@@ -124,7 +124,7 @@
     <string name="success_registered_review">리뷰가 등록되었습니다</string>
     <string name="changed_nickname">닉네임이 변경되었어요</string>
     <string name="level_guide_warning">무성의하게 작성된 리뷰는 이용약관에 기반하여 삭제될 수 있으며, 그에 따라 등급 또한 하향 조정될 수 있습니다.</string>
-    <string name="level_guide_message">회원님의 등급은 보리입니다.\n리뷰를 4개 더 작성하면 맥믈리에가 될 수 있습니다.</string>
+    <string name="level_guide_message"><![CDATA[회원님의 등급은 <font color="#fdbd39"><b>%s</b></font>입니다.<br>리뷰를 <font color="#fdbd39"><b>%d개</b></font> 더 작성하면 <font color="#fdbd39"><b>%s</b></font>가 될 수 있습니다.]]></string>
     <string name="skip">건너뛰기</string>
     <string name="level_guide_with_write_count"><![CDATA[작성리뷰 <font color="#fdbd39"><b>%d개</b></font> 이상]]></string>
 </resources>

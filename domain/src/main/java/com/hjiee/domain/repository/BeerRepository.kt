@@ -14,7 +14,7 @@ interface BeerRepository {
     suspend fun getAromaInfo(): Response<List<Aroma>>
     suspend fun getStyleInfo(): Response<List<StyleLargeCategory>>
     suspend fun getMyFavorite(): Response<Beers>?
-    suspend fun getLevelGuide(): Response<List<LevelGuide>>
+    suspend fun getLevelGuide(): Response<Level>
 
     suspend fun postReview(beerId: Int, starScore: Float, content: String)
     suspend fun postFavorite(beerId: Int)

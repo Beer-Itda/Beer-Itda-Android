@@ -99,9 +99,21 @@ sealed class DomainEntity {
         val profileImage: String
     )
 
+    class Level(
+        val myLevel: MyLevel,
+        val levelGuide: List<LevelGuide>
+    )
+
+    class MyLevel(
+        val level: String,
+        val count: Int,
+        val nextLevel: String
+    )
+
     class LevelGuide(
         val id: Int,
         val level: String,
+        val levelImage: String,
         val levelCount: Int
     )
 

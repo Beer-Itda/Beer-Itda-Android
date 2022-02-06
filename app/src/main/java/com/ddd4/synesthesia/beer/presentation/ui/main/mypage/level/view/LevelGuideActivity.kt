@@ -28,6 +28,7 @@ class LevelGuideActivity : BaseActivity<ActivityLevelGuideBinding>(R.layout.acti
 
     override fun initBind() {
         binding.apply {
+            viewModel = this@LevelGuideActivity.viewModel
             includeToolbar.toolbar.setNavigationOnClickListener { finish() }
             with(rvLevelGuide) {
                 adapter = listAdapter

@@ -1,5 +1,6 @@
 package com.ddd4.synesthesia.beer.di.module
 
+import android.app.Application
 import android.content.Context
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.AromaProvider
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.IFilterProvider
@@ -20,6 +21,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @Provides
+    @Singleton
+    fun provideContext(
+        @ApplicationContext context: Context
+    ): Context = context
 
     @Provides
     @Singleton

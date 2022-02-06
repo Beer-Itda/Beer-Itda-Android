@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.ddd4.synesthesia.beer.presentation.ui.main.mypage.level.viewmodel.LevelGuideViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="18dp"
             android:layout_marginTop="32dp"
-            android:text="@string/level_guide_message"
+            android:text="@{viewModel.message}"
             android:textSize="@dimen/textSize_14"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

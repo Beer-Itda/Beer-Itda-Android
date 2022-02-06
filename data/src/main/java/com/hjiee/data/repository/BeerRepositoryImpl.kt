@@ -28,7 +28,7 @@ class BeerRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getAromaBeer(): Response<Beers>? {
-        return beerApi.getSelectedAromaBeer(1)?.toSelectedBeerFromAroma()
+        return beerApi.getSelectedAromaBeer()?.toSelectedBeerFromAroma()
     }
 
     override suspend fun getRandomRecommendBeer(): Response<Beers> {
@@ -51,7 +51,7 @@ class BeerRepositoryImpl @Inject constructor(
         return beerApi.getMyFavorite().toBeerList()
     }
 
-    override suspend fun getLevelGuide(): Response<List<LevelGuide>> {
+    override suspend fun getLevelGuide(): Response<Level> {
         return beerApi.getLevelGuide().toLevelGuide()
     }
 

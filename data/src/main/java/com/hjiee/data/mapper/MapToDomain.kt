@@ -205,17 +205,25 @@ fun SearchResponse?.toBeerList(): DomainEntity.Beers {
     )
 }
 
-fun NetworkResponse<LevelGuideResponse>?.toLevelGuide(): DomainEntity.Response<List<DomainEntity.LevelGuide>> {
+fun NetworkResponse<LevelGuideResponse>?.toLevelGuide(): DomainEntity.Response<DomainEntity.Level> {
     return DomainEntity.Response(
         isSuccess = this?.isSuccess.orFalse(),
         message = this?.message.orEmpty(),
-        data = this?.data?.levels?.map {
-            DomainEntity.LevelGuide(
-                id = it.id.orZero(),
-                level = it.level.orEmpty(),
-                levelCount = it.levelCount.orZero(),
-            )
-        }.orEmpty()
+        data = DomainEntity.Level(
+            myLevel = DomainEntity.MyLevel(
+                level = this?.data?.user?.level.orEmpty(),
+                count = this?.data?.user?.count.orZero(),
+                nextLevel = this?.data?.user?.nextLevel.orEmpty()
+            ),
+            levelGuide = this?.data?.levels?.map {
+                DomainEntity.LevelGuide(
+                    id = it.id.orZero(),
+                    level = it.level.orEmpty(),
+                    levelImage = it.levelImage.orEmpty(),
+                    levelCount = it.levelCount.orZero(),
+                )
+            }.orEmpty()
+        )
     )
 }
 
