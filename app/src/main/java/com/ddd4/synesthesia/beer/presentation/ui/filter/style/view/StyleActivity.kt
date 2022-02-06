@@ -3,6 +3,7 @@ package com.ddd4.synesthesia.beer.presentation.ui.filter.style.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityFilterStyleBinding
@@ -78,6 +79,11 @@ class StyleActivity : BaseActivity<ActivityFilterStyleBinding>(R.layout.activity
         }
         observeHandledEvent(viewModel.event.select) {
             handleSelectEvent(it)
+        }
+        observeHandledEvent(viewModel.event.throwable) {
+            if(it.first.message.isNullOrEmpty().not()) {
+                Toast.makeText(this@StyleActivity, it.first.message, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

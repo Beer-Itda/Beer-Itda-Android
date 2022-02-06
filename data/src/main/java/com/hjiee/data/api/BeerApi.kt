@@ -3,6 +3,7 @@ package com.hjiee.data.api
 import com.hjiee.data.response.common.NetworkResponse
 import com.hjiee.data.response.v2.*
 import com.hjiee.domain.entity.request.RequestSelectedAroma
+import com.hjiee.domain.entity.request.RequestSelectedStyle
 import retrofit2.http.*
 
 interface BeerApi {
@@ -125,6 +126,15 @@ interface BeerApi {
     suspend fun postSelectedAroma(
         @Body aromaIdList: RequestSelectedAroma
     )
+
+    /**
+     * 관심있는 스타일 선택하기
+     */
+    @POST("api/v1/select/style")
+    suspend fun postSelectedStyle(
+        @Body styleIdList: RequestSelectedStyle
+    )
+
 
     /**
      * 찜하기

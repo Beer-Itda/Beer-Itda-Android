@@ -123,17 +123,20 @@ sealed class DomainEntity {
     )
 
     class StyleLargeCategory(
+        val largeId: Int,
         val largeName: String,
         val middleCategories: List<StyleMiddleCategory>
     )
 
     class StyleMiddleCategory(
+        val middleId: Int,
         val middleName: String,
         val description: String,
         val smallCategories: List<StyleSmallCategory>
     )
 
     class StyleSmallCategory(
+        val smallId: Int,
         val smallName: String,
         val isSelected: Boolean
     )

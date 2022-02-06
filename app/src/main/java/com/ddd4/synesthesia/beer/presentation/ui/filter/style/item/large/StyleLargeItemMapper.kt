@@ -11,8 +11,10 @@ object StyleLargeItemMapper {
     ): List<StyleLargeItemViewModel> {
         return mapIndexed { index, large ->
             StyleLargeItemViewModel(
+                largeId = large.largeId,
                 largeName = large.largeName,
                 middleCategories = large.middleCategories.getMiddle(
+                    largeId = large.largeId,
                     largePosition = index,
                     eventNotifier = eventNotifier,
                 ),

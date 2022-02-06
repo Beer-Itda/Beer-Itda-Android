@@ -38,6 +38,7 @@ class AromaViewModel @Inject constructor(
     private val items = mutableListOf<AromaItemViewModel>()
 
     fun load() {
+        statusLoading()
         viewModelScope.launch {
             runCatching {
                 aromaUseCase.execute().getItem(eventNotifier = this@AromaViewModel)
@@ -46,7 +47,9 @@ class AromaViewModel @Inject constructor(
                 items.addAll(it)
                 initSelectedAroma()
                 notifyActionEvent(AromaActionEntity.UpdateList(items))
+                statusSuccess()
             }.onFailure {
+                statusFailure()
                 L.e(it)
             }
         }

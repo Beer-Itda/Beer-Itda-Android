@@ -3,19 +3,21 @@ package com.ddd4.synesthesia.beer.presentation.ui.filter.style.viewmodel
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FilterStringProvider
+import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.large.StyleLargeItemMapper.getLarge
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.large.StyleLargeItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.middle.StyleMiddleItemViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small.StyleSmallItemMapper
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.item.small.StyleSmallItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.view.StyleViewState
 import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.core.manager.Change
 import com.hjiee.core.manager.DataChangeManager
 import com.hjiee.core.util.log.L
-import com.hjiee.domain.usecase.filter.aroma.PostAromaUseCase
 import com.hjiee.domain.usecase.filter.style.GetStyleUseCase
+import com.hjiee.domain.usecase.filter.style.PostStyleUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,7 +25,7 @@ import javax.inject.Inject
 @HiltViewModel
 class StyleViewModel @Inject constructor(
     private val styleUseCase: GetStyleUseCase,
-    private val selectUseCase: PostAromaUseCase,
+    private val selectUseCase: PostStyleUseCase,
     private val stringProvider: FilterStringProvider
 ) : BaseViewModel() {
 
@@ -35,6 +37,7 @@ class StyleViewModel @Inject constructor(
 
     private val allCategories = mutableListOf<StyleLargeItemViewModel>()
     private val selectedCategory = mutableListOf<StyleSmallItemViewModel>()
+    private val selectedCategoryIds get() = StyleSmallItemMapper.getSelectedStyleString(allCategories, selectedCategory)
     private val currentMiddleCategory = mutableListOf<StyleMiddleItemViewModel>()
     private val currentSmallCategory = mutableListOf<StyleSmallItemViewModel>()
 
@@ -207,8 +210,17 @@ class StyleViewModel @Inject constructor(
     }
 
     fun clickDone() {
-        DataChangeManager.changed(Change.STYLE)
-        notifySelectEvent(StyleClickEntity.SelectDone)
+        viewModelScope.launch {
+            runCatching {
+                selectUseCase.execute(selectedCategoryIds)
+            }.onSuccess {
+                DataChangeManager.changed(Change.STYLE)
+                notifySelectEvent(StyleClickEntity.SelectDone)
+            }.onFailure {
+                throwMessage(stringProvider.getErrorMessage())
+                L.e(it)
+            }
+        }
     }
 
     fun clickSkip() {

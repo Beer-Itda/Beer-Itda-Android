@@ -132,6 +132,7 @@ class HomeViewModel @Inject constructor(
                     beerItems.add(index, it)
                     notifyActionEvent(HomeActionEntity.UpdateList(beerItems))
                 }.onFailure {
+                    notifyActionEvent(entity = HomeActionEntity.UpdateList(emptyList()))
                     L.e(it)
                 }
             }
@@ -147,6 +148,7 @@ class HomeViewModel @Inject constructor(
                     beerItems.add(index, it)
                     notifyActionEvent(entity = HomeActionEntity.UpdateList(beerItems))
                 }.onFailure {
+                    notifyActionEvent(entity = HomeActionEntity.UpdateList(emptyList()))
                     L.e(it)
                 }
             }

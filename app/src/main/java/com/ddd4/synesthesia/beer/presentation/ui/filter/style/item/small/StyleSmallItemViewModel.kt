@@ -5,7 +5,8 @@ import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleClickE
 import com.hjiee.core.event.SelectActionEventNotifier
 
 class StyleSmallItemViewModel(
-    val id: String,
+    val smallId: Int,
+    val parentId: Int,
     val middleName: String,
     val smallName: String,
     val isAll: Boolean,

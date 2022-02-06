@@ -245,6 +245,7 @@ fun NetworkResponse<StyleListResponse>?.toStyleLargeCategory(): DomainEntity.Res
         message = this?.message.orEmpty(),
         data = this?.data?.styleList?.map {
             DomainEntity.StyleLargeCategory(
+                largeId = it.largeId.orZero(),
                 largeName = it.largeName.orEmpty(),
                 middleCategories = it.middleCategories.toStyleMiddleCategory()
             )
@@ -255,6 +256,7 @@ fun NetworkResponse<StyleListResponse>?.toStyleLargeCategory(): DomainEntity.Res
 fun List<StyleMiddleCategoryResponse>?.toStyleMiddleCategory(): List<DomainEntity.StyleMiddleCategory> {
     return this?.map {
         DomainEntity.StyleMiddleCategory(
+            middleId = it.middleId.orZero(),
             middleName = it.middleName.orEmpty(),
             description = it.description.orEmpty(),
             smallCategories = it.smallCategories.toStyleSmallCategory(),
@@ -266,6 +268,7 @@ fun List<StyleMiddleCategoryResponse>?.toStyleMiddleCategory(): List<DomainEntit
 fun List<StyleSmallCategoryResponse>?.toStyleSmallCategory(): List<DomainEntity.StyleSmallCategory> {
     return this?.map {
         DomainEntity.StyleSmallCategory(
+            smallId = it.smallId.orZero(),
             smallName = it.smallName.orEmpty(),
             isSelected = it.isSelected.orFalse()
         )
