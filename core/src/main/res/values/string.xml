@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="error_message">잠시후 다시 시도해 주세요.</string>
+    <string name="error_message">잠시 후 다시 시도해 주세요.</string>
 
     <string name="use_notice_version">use_notice_version</string>
     <string name="notice">notice</string>

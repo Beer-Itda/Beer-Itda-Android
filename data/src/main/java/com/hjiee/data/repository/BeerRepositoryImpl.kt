@@ -3,6 +3,7 @@ package com.hjiee.data.repository
 import com.hjiee.data.api.BeerApi
 import com.hjiee.data.mapper.*
 import com.hjiee.domain.entity.DomainEntity.*
+import com.hjiee.domain.entity.request.RequestSelectedAroma
 import com.hjiee.domain.repository.BeerRepository
 import javax.inject.Inject
 
@@ -41,6 +42,14 @@ class BeerRepositoryImpl @Inject constructor(
 
     override suspend fun getAromaInfo(): Response<List<Aroma>> {
         return beerApi.getAromaInfo().toAromaList()
+    }
+
+    override suspend fun postSelectedAroma(
+        aromaIdList: RequestSelectedAroma
+    ) {
+        beerApi.postSelectedAroma(
+            aromaIdList = aromaIdList
+        )
     }
 
     override suspend fun getStyleInfo(): Response<List<StyleLargeCategory>> {

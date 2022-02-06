@@ -2,7 +2,7 @@ package com.ddd4.synesthesia.beer.presentation.ui.filter.style.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
-import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FliterStringProvider
+import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FilterStringProvider
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.StyleProvider
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.style.entity.StyleClickEntity
@@ -15,17 +15,18 @@ import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.core.manager.Change
 import com.hjiee.core.manager.DataChangeManager
 import com.hjiee.core.util.log.L
+import com.hjiee.domain.usecase.filter.aroma.PostAromaUseCase
 import com.hjiee.domain.usecase.filter.style.GetStyleUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class StyleViewModel @Inject constructor(
     private val styleUseCase: GetStyleUseCase,
+    private val selectUseCase: PostAromaUseCase,
     private val styleProvider: StyleProvider,
-    private val stringProvider: FliterStringProvider
+    private val stringProvider: FilterStringProvider
 ) : BaseViewModel() {
 
     companion object {
@@ -166,8 +167,8 @@ class StyleViewModel @Inject constructor(
         } else {
             notifyActionEvent(
                 StyleActionEntity.ShowToast(
-                    stringProvider.getStringRes(
-                        FliterStringProvider.Code.MAX_STYLE
+                    stringProvider.getString(
+                        FilterStringProvider.Code.MAX_STYLE
                     )
                 )
             )

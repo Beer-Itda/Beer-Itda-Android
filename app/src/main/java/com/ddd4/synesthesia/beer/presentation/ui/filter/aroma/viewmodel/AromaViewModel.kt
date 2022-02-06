@@ -3,15 +3,20 @@ package com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.viewmodel
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.AromaProvider
-import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FliterStringProvider
+import com.ddd4.synesthesia.beer.presentation.ui.common.filter.FilterStringProvider
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.entity.AromaClickEntity
+import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemMapper
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemMapper.getItem
 import com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small.AromaItemViewModel
 import com.hjiee.core.event.entity.ItemClickEntity
+import com.hjiee.core.ext.orDefault
+import com.hjiee.core.ext.orFalse
 import com.hjiee.core.manager.Change
 import com.hjiee.core.manager.DataChangeManager
 import com.hjiee.core.util.log.L
+import com.hjiee.domain.entity.request.RequestSelectedAroma
+import com.hjiee.domain.usecase.filter.aroma.PostAromaUseCase
 import com.hjiee.domain.usecase.filter.aroma.GetAromaUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -20,7 +25,8 @@ import javax.inject.Inject
 @HiltViewModel
 class AromaViewModel @Inject constructor(
     private val aromaUseCase: GetAromaUseCase,
-    private val stringProvider: FliterStringProvider,
+    private val selectUseCase: PostAromaUseCase,
+    private val stringProvider: FilterStringProvider,
     private val aromaProvider: AromaProvider
 ) : BaseViewModel() {
 
@@ -30,13 +36,17 @@ class AromaViewModel @Inject constructor(
 
     val viewState = AromaViewState()
     private val selectedList = mutableListOf<AromaItemViewModel>()
+    private val selectedIdList
+        get() = AromaItemMapper.getSelectedAromaString(selectedList)
 
-    private lateinit var items: List<AromaItemViewModel>
+    private val items = mutableListOf<AromaItemViewModel>()
 
     fun load() {
         viewModelScope.launch {
             runCatching {
-                items = aromaUseCase.execute().getItem(eventNotifier = this@AromaViewModel)
+                val result = aromaUseCase.execute().getItem(eventNotifier = this@AromaViewModel)
+                items.clear()
+                items.addAll(result)
             }.onSuccess {
                 notifyActionEvent(AromaActionEntity.UpdateList(items))
             }.onFailure {
@@ -99,15 +109,15 @@ class AromaViewModel @Inject constructor(
      * 선택된 아이템이 max값일때 현재 아이템에 전체선택 or 아이템선택 여부에 따라 상태 변경
      */
     private fun oneOfTheFullSmallSelections(item: AromaItemViewModel) {
-        if (items[0].isSelected.get()) {
+        if (items.firstOrNull()?.isSelected?.get().orFalse()) {
             addSelectedItem(item)
         } else if (item.isAll && isContainsSelectedItem(item).not()) {
             addSelectedItem(item)
         } else {
             notifyActionEvent(
                 AromaActionEntity.ShowToast(
-                    stringProvider.getStringRes(
-                        FliterStringProvider.Code.MAX_AROMA
+                    stringProvider.getString(
+                        FilterStringProvider.Code.MAX_AROMA
                     )
                 )
             )
@@ -155,8 +165,18 @@ class AromaViewModel @Inject constructor(
     }
 
     fun clickDone() {
-        DataChangeManager.changed(Change.AROMA)
-        notifySelectEvent(AromaClickEntity.SelectDone)
+        viewModelScope.launch {
+            runCatching {
+                selectUseCase.execute(selectedIdList)
+            }.onSuccess {
+                DataChangeManager.changed(Change.AROMA)
+                notifySelectEvent(AromaClickEntity.SelectDone)
+            }.onFailure {
+                throwMessage(stringProvider.getErrorMessage())
+                L.e(it)
+            }
+        }
+
     }
 
     fun clickSkip() {

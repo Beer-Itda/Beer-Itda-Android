@@ -1,6 +1,7 @@
 package com.hjiee.domain.repository
 
 import com.hjiee.domain.entity.DomainEntity.*
+import com.hjiee.domain.entity.request.RequestSelectedAroma
 
 interface BeerRepository {
     suspend fun getBeerAward(): Response<Beer>?
@@ -18,6 +19,7 @@ interface BeerRepository {
 
     suspend fun postReview(beerId: Int, starScore: Float, content: String)
     suspend fun postFavorite(beerId: Int)
+    suspend fun postSelectedAroma(aromaIdList: RequestSelectedAroma)
 
     suspend fun changeNickName(nickName: String)
     suspend fun search(word: String, page: Int, size: Int = 20): Beers

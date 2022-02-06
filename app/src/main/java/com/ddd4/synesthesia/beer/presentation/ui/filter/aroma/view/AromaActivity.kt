@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import com.ddd4.synesthesia.beer.R
@@ -64,6 +65,11 @@ class AromaActivity : BaseActivity<ActivityFilterAromaBinding>(R.layout.activity
         }
         observeHandledEvent(viewModel.event.select) {
             handleSelectEvent(it)
+        }
+        observeHandledEvent(viewModel.event.throwable) {
+            if(it.first.message.isNullOrEmpty().not()) {
+                Toast.makeText(this@AromaActivity, it.first.message, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

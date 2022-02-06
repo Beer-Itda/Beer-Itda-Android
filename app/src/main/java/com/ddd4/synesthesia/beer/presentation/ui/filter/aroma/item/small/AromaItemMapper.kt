@@ -2,6 +2,7 @@ package com.ddd4.synesthesia.beer.presentation.ui.filter.aroma.item.small
 
 import com.hjiee.core.event.SelectActionEventNotifier
 import com.hjiee.domain.entity.DomainEntity
+import com.hjiee.domain.entity.request.RequestSelectedAroma
 
 object AromaItemMapper {
 
@@ -39,6 +40,26 @@ object AromaItemMapper {
                 eventNotifier = eventNotifier
             )
         }
+    }
 
+    fun getSelectedAromaString(selectedItems: List<AromaItemViewModel>): RequestSelectedAroma {
+        return if (selectedItems.firstOrNull()?.id == -1) {
+            RequestSelectedAroma(
+                selectedItems.filter { it.id != -1 }
+                    .map { it.id }
+                    .sorted()
+                    .toString()
+                    .removePrefix("[")
+                    .removeSuffix("]")
+            )
+        } else {
+            RequestSelectedAroma(
+                selectedItems.map { it.id }
+                    .sorted()
+                    .toString()
+                    .removePrefix("[")
+                    .removeSuffix("]")
+            )
+        }
     }
 }
