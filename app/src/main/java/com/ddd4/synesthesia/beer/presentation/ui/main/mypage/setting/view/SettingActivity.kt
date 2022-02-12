@@ -139,7 +139,7 @@ class SettingActivity :
     private fun showDialog() {
         MaterialAlertDialogBuilder(this@SettingActivity)
             .setMessage(getString(R.string.logout_message))
-            .setPositiveButton(getString(R.string.logout_message)) { _, _ ->
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
                 viewModel.logOut()
             }
             .setNegativeButton(getString(R.string.no), null)

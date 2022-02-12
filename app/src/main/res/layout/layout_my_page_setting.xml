@@ -20,17 +20,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?attr/selectableItemBackground"
-        app:onDebouncedClick="@{() -> my.clickItem()}"
         android:paddingHorizontal="28dp"
-        android:paddingBottom="8dp">
+        app:onDebouncedClick="@{() -> my.clickItem()}">
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/notosans_kr_regular"
             android:paddingVertical="20dp"
             android:text="@{my.title}"
-            android:textColor="@{my.type == InfomationsType.HEADER || my.type == InfomationsType.LOGOUT || my.type == InfomationsType.UNLINK ? @color/color_7a7a7a : @color/white}"
+            android:textColor="@{my.type == InfomationsType.HEADER || my.type == InfomationsType.LOGOUT || my.type == InfomationsType.UNLINK ? @color/color_7a7a7a : @color/backgroundReversalTint}"
             android:textSize="@{my.type == InfomationsType.HEADER ? @dimen/textSize_12 : @dimen/textSize_14}"
             app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,17 +42,20 @@
             android:id="@+id/iv_arrow"
             android:layout_width="28dp"
             android:layout_height="28dp"
+            android:background="@android:color/transparent"
             android:src="@drawable/ic_btn_more"
             android:visibility="@{my.type == InfomationsType.ITEM ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@+id/tv_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/tv_title"
-            app:layout_constraintTop_toTopOf="@+id/tv_title" />
+            app:layout_constraintTop_toTopOf="@+id/tv_title"
+            app:tint="@color/backgroundReversalTint" />
 
         <TextView
             android:id="@+id/tv_detail_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:text="@{my.detailInfomation}"
             android:textColor="@{my.type == InfomationsType.HEADER ? @color/color_7a7a7a : @color/white}"
             android:textSize="@{my.type == InfomationsType.HEADER ? @dimen/textSize_12 : @dimen/textSize_14}"
