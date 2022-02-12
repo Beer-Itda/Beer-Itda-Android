@@ -15,9 +15,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/background_transparent_stroke_8e8d94_100"
-        app:onDebouncedClick="@{() -> aroma.clickDeleteItem()}"
         android:paddingHorizontal="12dp"
         android:paddingVertical="8dp"
+        app:onDebouncedClick="@{() -> aroma.clickDeleteItem()}"
         tools:layout_margin="5dp">
 
         <TextView
@@ -34,7 +34,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Ale"
-            tools:textColor="@color/white" />
+            tools:textColor="@color/black" />
 
         <ImageView
             android:id="@+id/iv_delete"

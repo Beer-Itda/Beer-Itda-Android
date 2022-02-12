@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_margin="6dp"
-        android:background="@{style.isSelected() ? @drawable/background_transparent_stroke_fdbd39_24 : @drawable/background_transparent_stroke_5c5b5f_24}"
+        android:background="@{style.isSelected() ? @drawable/background_transparent_stroke_fdbd39_24 : @drawable/background_filter_outline_24}"
         app:onDebouncedClick="@{() -> style.clickAddItem()}"
         android:paddingHorizontal="10dp"
         tools:background="@drawable/background_transparent_stroke_fdbd39_24">

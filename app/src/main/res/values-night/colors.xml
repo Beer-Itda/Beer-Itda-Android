@@ -15,4 +15,7 @@
     <color name="progressbarColor">@color/color_353537</color>
     <color name="navigationIconColor">@color/color_5c5b5f</color>
     <color name="backgroundReversalTint">@color/white</color>
+    <color name="filterColor">@color/color_5c5b5f</color>
+    <color name="skipBackgroundColor">@color/color_353537</color>
+    <color name="skipTextColor">@color/white</color>
 </resources>

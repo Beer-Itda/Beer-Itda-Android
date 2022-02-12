@@ -16,9 +16,9 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_margin="6dp"
-        android:background="@{aroma.isSelected() ? @drawable/background_transparent_stroke_fdbd39_24 : @drawable/background_transparent_stroke_5c5b5f_24}"
-        app:onDebouncedClick="@{() -> aroma.clickAddItem()}"
+        android:background="@{aroma.isSelected() ? @drawable/background_transparent_stroke_fdbd39_24 : @drawable/background_filter_outline_24}"
         android:paddingHorizontal="10dp"
+        app:onDebouncedClick="@{aroma.clickAddItem}"
         tools:background="@drawable/background_transparent_stroke_fdbd39_24">
 
 
@@ -30,7 +30,7 @@
             android:gravity="center"
             android:maxLines="2"
             android:text="@{aroma.name}"
-            android:textColor="@{aroma.isSelected() ? @color/butterscotch : @color/color_5c5b5f}"
+            android:textColor="@{aroma.isSelected() ? @color/butterscotch : @color/filterColor}"
             android:textSize="@dimen/textSize_11"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

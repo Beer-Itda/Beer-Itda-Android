@@ -14,7 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_1c1b21"
+        android:background="@color/subBackgroundTint"
         android:fillViewport="true">
 
         <include
@@ -42,10 +42,11 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="18dp"
             android:background="@drawable/background_round_30_ripple"
-            android:backgroundTint="@color/color_353537"
+            android:backgroundTint="@color/skipBackgroundColor"
             android:paddingHorizontal="14dp"
             android:paddingVertical="7dp"
             android:text="@string/skip"
+            android:textColor="@color/skipTextColor"
             android:textSize="@dimen/textSize_12"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/tv_title"
@@ -90,7 +91,7 @@
             android:id="@+id/rv_filter_aroma"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/black"
+            android:background="@color/backgroundTint"
             android:clipToPadding="false"
             android:orientation="vertical"
             android:overScrollMode="never"
@@ -111,20 +112,20 @@
             android:id="@+id/tv_choice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@{viewModel.viewState.isMaxSelected() ? @color/butterscotch : @color/color_1c1b21}"
+            android:background="@{viewModel.viewState.isMaxSelected() ? @color/butterscotch : @color/buttonBackgroundColor}"
             android:enabled="@{viewModel.viewState.isMaxSelected()}"
             android:gravity="center"
             android:paddingVertical="24dp"
             android:text="@string/choice_complete"
-            android:textColor="@{viewModel.viewState.isMaxSelected() ? @color/white : @color/color_8e8d94}"
+            android:textColor="@{viewModel.viewState.isMaxSelected() ? @color/white : @color/buttonTextColor}"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:onDebouncedClick="@{viewModel.clickDone}"
-            tools:background="@color/color_1c1b21"
+            tools:background="@color/buttonBackgroundColor"
             tools:text="선택 완료"
-            tools:textColor="@color/color_8e8d94" />
+            tools:textColor="@color/buttonTextColor" />
 
         <include
             android:id="@+id/include_progress"
