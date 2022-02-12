@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--dark mode-->
 <resources>
     <color name="colorPrimary">#d47a31</color>
     <color name="colorPrimaryDark">@color/black</color>
@@ -8,6 +9,9 @@
     <color name="backgroundTint">@color/black</color>
     <color name="subBackgroundTint">@color/color_1c1b21</color>
     <color name="cardBackground">@color/color_1c1b21</color>
+    <color name="buttonBackgroundColor">@color/color_39393b</color>
+    <color name="buttonTextColor">@color/color_8e8d94</color>
+    <color name="checkBoxStrokeColor">@color/white</color>
     <color name="progressbarColor">@color/color_353537</color>
     <color name="navigationIconColor">@color/color_5c5b5f</color>
     <color name="backgroundReversalTint">@color/white</color>

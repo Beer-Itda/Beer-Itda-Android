@@ -37,7 +37,7 @@
             android:background="@android:color/transparent"
             android:text="@{title}"
             android:textColor="@color/backgroundReversalTint"
-            android:textSize="@dimen/textSize_16"
+            android:textSize="@dimen/textSize_18"
             android:visibility="@{TextUtils.isEmpty(title) ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintStart_toEndOf="@+id/toolbar"
