@@ -17,8 +17,8 @@
         android:layout_height="48dp"
         android:layout_margin="6dp"
         android:background="@{style.isSelected() ? @drawable/background_transparent_stroke_fdbd39_24 : @drawable/background_filter_outline_24}"
-        app:onDebouncedClick="@{() -> style.clickAddItem()}"
         android:paddingHorizontal="10dp"
+        app:onDebouncedClick="@{style.clickAddItem}"
         tools:background="@drawable/background_transparent_stroke_fdbd39_24">
 
 
@@ -30,7 +30,7 @@
             android:gravity="center"
             android:maxLines="2"
             android:text="@{style.smallName}"
-            android:textColor="@{style.isSelected() ? @color/butterscotch : @color/color_5c5b5f}"
+            android:textColor="@{style.isSelected() ? @color/butterscotch : @color/filterColor}"
             android:textSize="@dimen/textSize_11"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

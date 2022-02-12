@@ -13,56 +13,58 @@
     </data>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="6dp"
-        app:onDebouncedClick="@{() -> style.onClick()}">
+    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:background="@android:color/transparent"-->
+    <!--        app:onDebouncedClick="@{style.onClick}">-->
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_beer"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            app:cardCornerRadius="150dp"
-            app:cardElevation="@dimen/cardElevation"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_beer"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="150dp"
+        app:cardElevation="@dimen/cardElevation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:onDebouncedClick="@{style.onClick}">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_beer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:layout_marginHorizontal="4dp">
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="beer_filter.json"
+            app:lottie_loop="true" />
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/lottie_beer"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:background="@color/white"
-                android:padding="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:lottie_autoPlay="true"
-                app:lottie_fileName="beer_filter.json"
-                app:lottie_loop="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/notosans_kr_bold"
+            android:gravity="center"
+            android:text="@{style.middleName}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize_19"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Ale"
+            tools:textColor="@color/black" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@{style.middleName}"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textSize_19"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Ale"
-                tools:textColor="@color/black" />
-
-        </androidx.cardview.widget.CardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 </layout>

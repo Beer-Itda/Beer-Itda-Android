@@ -6,7 +6,6 @@
         <item name="android:textColor">@color/backgroundReversalTint</item>
         <item name="fontFamily">@font/notosans_kr_medium</item>
         <item name="colorPrimaryDark">@color/backgroundTint</item>
-        <item name="android:background">@color/backgroundTint</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
         <item name="android:windowBackground">@color/backgroundTint</item>

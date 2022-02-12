@@ -14,7 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_1c1b21"
+        android:background="@color/subBackgroundTint"
         android:fillViewport="true">
 
         <include
@@ -43,10 +43,11 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="18dp"
             android:background="@drawable/background_round_30_ripple"
-            android:backgroundTint="@color/color_353537"
+            android:backgroundTint="@color/skipBackgroundColor"
             android:paddingHorizontal="14dp"
             android:paddingVertical="7dp"
             android:text="@string/skip"
+            android:textColor="@color/skipTextColor"
             android:textSize="@dimen/textSize_12"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/tv_title"
@@ -61,6 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@{@string/max_choice_count_style(viewModel.MAX_STYLE_COUNT)}"
+            android:textColor="@color/color_8e8d94"
             app:layout_constraintEnd_toEndOf="@+id/tv_title"
             app:layout_constraintStart_toStartOf="@+id/tv_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
@@ -88,10 +90,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@color/color_1c1b21"
+            android:background="@color/backgroundTint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rv_selected_style" />
+            app:layout_constraintTop_toBottomOf="@+id/rv_selected_style"
+            app:tabBackground="@color/subBackgroundTint"
+            app:tabIndicatorColor="@color/butterscotch"
+            app:tabSelectedTextColor="@color/butterscotch"
+            app:tabTextColor="@color/color_8e8d94" />
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -102,22 +108,23 @@
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/black">
+                app:elevation="0dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="52dp"
+                    android:background="@color/backgroundTint"
+                    android:paddingTop="16dp"
                     app:layout_scrollFlags="scroll">
 
                     <com.yarolegovich.discretescrollview.DiscreteScrollView
                         android:id="@+id/rv_filter_middle_category"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/black"
-                        android:clipToPadding="true"
+                        android:clipToPadding="false"
                         android:orientation="horizontal"
                         android:overScrollMode="never"
+                        android:paddingVertical="10dp"
                         app:dsv_orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -128,9 +135,9 @@
                         android:id="@+id/tv_beer_description"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@color/black"
                         android:gravity="center"
-                        android:paddingVertical="24dp"
+                        android:paddingTop="6dp"
+                        android:paddingBottom="16dp"
                         android:text="@{viewModel.viewState.description}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -144,7 +151,7 @@
                 android:id="@+id/rv_filter_style_small"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/black"
+                android:background="@color/backgroundTint"
                 android:clipToPadding="false"
                 android:orientation="vertical"
                 android:overScrollMode="never"
@@ -166,19 +173,20 @@
             android:id="@+id/tv_choice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@{viewModel.viewState.isMaxSelected() ? @color/butterscotch : @color/color_1c1b21}"
+            android:background="@{viewModel.viewState.isMaxSelected() ? @color/butterscotch : @color/buttonBackgroundColor}"
             android:enabled="@{viewModel.viewState.isMaxSelected()}"
             android:gravity="center"
             android:paddingVertical="24dp"
             android:text="@string/choice_complete"
-            android:textColor="@{viewModel.viewState.isMaxSelected() ? @color/white : @color/color_8e8d94}"
+            android:textColor="@{viewModel.viewState.isMaxSelected() ? @color/white : @color/buttonTextColor}"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:onDebouncedClick="@{viewModel.clickDone}"
+            tools:background="@color/buttonBackgroundColor"
             tools:text="@string/choice_complete"
-            tools:textColor="@color/color_8e8d94" />
+            tools:textColor="@color/buttonTextColor" />
 
         <include
             android:id="@+id/include_progress"
