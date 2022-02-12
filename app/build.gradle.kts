@@ -71,6 +71,10 @@ android {
         targetCompatibility = AndroidConfig.JAVA_VERSION
     }
 
+    lint {
+        abortOnError = false
+    }
+
     buildFeatures {
         dataBinding = true
     }
