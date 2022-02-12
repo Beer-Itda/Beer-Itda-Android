@@ -31,7 +31,7 @@ android {
     kotlinOptions {
         jvmTarget = AndroidConfig.JAVA_VERSION.toString()
     }
-    flavorDimensions("mode")
+    flavorDimensions += listOf("mode")
     productFlavors {
         create("playStore") {
             dimension = "mode"

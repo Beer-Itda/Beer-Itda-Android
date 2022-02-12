@@ -65,9 +65,6 @@ android {
     kotlinOptions {
         jvmTarget = AndroidConfig.JAVA_VERSION.toString()
     }
-    lint {
-        isAbortOnError = false
-    }
 
     compileOptions {
         sourceCompatibility = AndroidConfig.JAVA_VERSION
@@ -77,8 +74,8 @@ android {
     buildFeatures {
         dataBinding = true
     }
+    flavorDimensions += listOf("mode")
 
-    flavorDimensions("mode")
     productFlavors {
         create("playStore") {
             dimension = "mode"
