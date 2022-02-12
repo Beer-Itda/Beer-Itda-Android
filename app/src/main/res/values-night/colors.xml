@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#d47a31</color>
+    <color name="colorPrimaryDark">@color/black</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="ripple">@color/color_5c5b5f</color>
+
+    <color name="backgroundTint">@color/black</color>
+    <color name="subBackgroundTint">@color/color_1c1b21</color>
+    <color name="cardBackground">@color/color_1c1b21</color>
+    <color name="navigationIconColor">@color/color_5c5b5f</color>
+    <color name="backgroundReversalTint">@color/white</color>
+</resources>

@@ -15,7 +15,6 @@
         android:id="@+id/cv_beer"
         android:layout_width="120dp"
         android:layout_height="210dp"
-        android:backgroundTint="@color/color_1c1b21"
         app:cardCornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +23,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/cardBackground">
 
             <ImageView
                 android:id="@+id/iv_beer"
@@ -48,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="8dp"
+                android:background="@android:color/transparent"
                 android:src="@{beer.isFavorite() ? @drawable/ic_btn_like : @drawable/ic_btn_like_unactive}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -61,6 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="8dp"
+                android:background="@android:color/transparent"
                 android:ellipsize="end"
                 android:fontFamily="@font/notosans_kr_regular"
                 android:gravity="center"
@@ -79,6 +81,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
+                android:background="@android:color/transparent"
                 android:ellipsize="end"
                 android:fontFamily="@font/notosans_kr_regular"
                 android:gravity="center"
@@ -99,6 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="12dp"
+                android:background="@android:color/transparent"
                 android:drawablePadding="4dp"
                 android:fontFamily="@font/notosans_kr_bold"
                 android:text="@{@string/rate_unit_2(beer.starAvg)}"

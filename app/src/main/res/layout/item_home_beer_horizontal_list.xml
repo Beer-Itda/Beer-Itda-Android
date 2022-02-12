@@ -20,9 +20,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
-            android:paddingVertical="10dp"
             android:text="@{item.title}"
-            android:textSize="@dimen/textSize_17"
+            android:textSize="@dimen/textSize_19"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -39,15 +39,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_title"
             app:layout_constraintTop_toTopOf="@+id/tv_title"
-            app:onDebouncedClick="@{item.clickTitle}" />
+            app:onDebouncedClick="@{item.clickTitle}"
+            app:tint="@color/backgroundReversalTint" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_beers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="10dp"
             android:clipToPadding="false"
             android:orientation="horizontal"
+            android:paddingVertical="10dp"
             app:headTailSpace="@{@dimen/margin_18}"
             app:horizontalSpace="@{@dimen/margin_8}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
