@@ -1,26 +1,28 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="BeerItdaTheme" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="BeerItdaTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/butterscotch</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textColor">@color/white</item>
         <item name="fontFamily">@font/notosans_kr_regular</item>
-        <item name="colorPrimaryDark">@color/white</item>
-        <item name="android:background">@color/white</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
-        <item name="android:windowBackground">@color/white</item>
-        <item name="android:navigationBarColor">@color/white</item>
+        <item name="colorPrimaryDark">@color/color_1c1b21</item>
+        <item name="android:background">@color/black</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+        <item name="android:windowBackground">@color/black</item>
+        <item name="android:navigationBarColor">@color/color_1c1b21</item>
         <item name="materialAlertDialogTheme">@style/MyAlertDialogStyle</item>
     </style>
 
+
     <style name="baseBackground">
-        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowBackground">@color/black</item>
     </style>
 
     <style name="subBackground">
-        <item name="android:background">@color/color_f5f5f5</item>
+        <item name="android:background">@color/color_1c1b21</item>
     </style>
+
 
     <style name="TextBoldButterscotch12">
         <item name="android:textSize">12sp</item>
