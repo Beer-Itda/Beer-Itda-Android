@@ -1,6 +1,7 @@
 <resources>
     <string name="developer_email_subject">[비어있다] 앱 문의사항</string>
     <string name="play_store_market">market://details?id=com.ddd4.synesthesia.beer</string>
+    <string name="beer_itda_inquiry_url">https://docs.google.com/forms/d/e/1FAIpQLScKyQ-7bW4DPBN19QqnJDDpUuf2tkxk8A6vIapOkh2Kz_LdEQ/viewform?usp=sf_link</string>
     <string name="nav_title_home">홈</string>
     <string name="nav_title_search">검색</string>
     <string name="nav_title_mypage">마이페이지</string>

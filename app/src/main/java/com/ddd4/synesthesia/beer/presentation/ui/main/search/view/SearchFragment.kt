@@ -12,6 +12,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.detail.view.BeerDetailActivity
 import com.ddd4.synesthesia.beer.presentation.ui.main.search.model.SearchActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.search.model.SearchSelectEvent
 import com.ddd4.synesthesia.beer.presentation.ui.main.search.viewmodel.SearchViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.webview.view.WebViewActivity
 import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.util.ext.showKeyboard
 import com.ddd4.synesthesia.beer.util.ext.start
@@ -112,15 +113,21 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     override fun handleSelectEvent(entity: ItemClickEntity) {
         when (entity) {
             is SearchSelectEvent.SelectItem -> {
-                start<BeerDetailActivity>(
-                    intent = BeerDetailActivity.getIntent(
-                        context = requireContext(),
-                        beerId = entity.beer.id
+                context?.let {
+                    start<BeerDetailActivity>(
+                        intent = BeerDetailActivity.getIntent(
+                            context = it,
+                            beerId = entity.beer.id
+                        )
                     )
-                )
+                }
             }
             is SearchSelectEvent.Inquire -> {
-
+                context?.let {
+                    start<WebViewActivity>(WebViewActivity.getInquiryIntent(
+                        context = it
+                    ))
+                }
             }
         }
     }

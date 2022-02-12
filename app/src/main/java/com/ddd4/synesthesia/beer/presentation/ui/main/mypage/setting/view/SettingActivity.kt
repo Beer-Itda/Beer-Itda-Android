@@ -178,31 +178,10 @@ class SettingActivity :
      * 문의하기
      */
     private fun moveToContact() {
-        try {
-            Intent(Intent.ACTION_SEND).apply {
-                type = "text/plain"
-                setPackage("com.google.android.gm")
-                putExtra(
-                    Intent.EXTRA_EMAIL,
-                    resources.getStringArray(R.array.developer_email)
-                )
-                putExtra(
-                    Intent.EXTRA_SUBJECT,
-                    resources.getString(R.string.developer_email_subject)
-                )
-                putExtra(
-                    Intent.EXTRA_TEXT,
-                    "모델명 : ${Build.MODEL}\n" +
-                            "OS버전 : ${Build.VERSION.RELEASE}\n" +
-                            "SDK버전 : ${Build.VERSION.SDK_INT}\n" +
-                            "앱버전 : ${viewModel.appVersion}\n " +
-                            "-----------------------------------------\n\n"
-                )
-                startActivity(this)
-            }
-        } catch (e: ActivityNotFoundException) {
-            showToast(resources.getString(R.string.error))
-        }
+//        try {
+            start<WebViewActivity>(WebViewActivity.getInquiryIntent(
+                context = this
+            ))
     }
 
     /**

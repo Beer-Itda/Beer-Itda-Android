@@ -61,5 +61,14 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_w
                 putExtra(WEBVIEW_URL, url)
             }
         }
+
+        fun getInquiryIntent(
+            context: Context
+        ): Intent {
+            val inquiryUrl = context.getString(R.string.beer_itda_inquiry_url)
+            return Intent(context, WebViewActivity::class.java).apply {
+                putExtra(WEBVIEW_URL, inquiryUrl)
+            }
+        }
     }
 }
