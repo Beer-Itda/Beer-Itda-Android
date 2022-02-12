@@ -49,14 +49,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             viewModel = loginViewModel
             tvLogin.setOnDebounceClickListener { startLogin() }
             with(tvLoginNotice) {
-                text = HtmlCompat.fromHtml(
-                    String.format(
-                        getString(R.string.login_notice),
-                        preference.getPreferenceString(getString(R.string.terms_of_use)),
-                        preference.getPreferenceString(getString(R.string.privacy_policy))
-                    ),
-                    HtmlCompat.FROM_HTML_MODE_LEGACY
-                )
+                text = loginViewModel.noticeMessage
                 movementMethod = HyperLinkMovement()
             }
         }

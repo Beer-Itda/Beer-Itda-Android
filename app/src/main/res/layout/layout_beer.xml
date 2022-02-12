@@ -7,13 +7,14 @@
 
     <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
 
         <ImageView
             android:id="@+id/iv_splash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/ic_img_logo" />
     </FrameLayout>
 </layout>

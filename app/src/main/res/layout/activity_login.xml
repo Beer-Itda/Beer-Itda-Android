@@ -16,7 +16,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_1c1b21">
+        android:background="@color/subBackgroundTint">
 
         <include
             android:id="@+id/include_beer"
@@ -32,12 +32,13 @@
             android:id="@+id/tv_login"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="50dp"
-            android:background="@drawable/background_butterscotch_round_20"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/background_round_12"
+            android:backgroundTint="@color/butterscotch"
+            android:fontFamily="@font/notosans_kr_bold"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
-            android:paddingHorizontal="70dp"
-            android:paddingVertical="11dp"
+            android:paddingVertical="14dp"
             android:text="@string/login_with_kakaotalk"
             android:textColor="@color/white"
             android:textSize="@dimen/textSize_14"
@@ -50,22 +51,26 @@
 
         <TextView
             android:id="@+id/tv_login_notice"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:background="@android:color/transparent"
+            android:gravity="center"
             android:textColor="@color/color_8e8d94"
             android:textColorLink="@color/butterscotch"
             android:textSize="@dimen/textSize_10"
             app:layout_constraintEnd_toEndOf="@+id/tv_login"
             app:layout_constraintStart_toStartOf="@+id/tv_login"
             app:layout_constraintTop_toBottomOf="@+id/tv_login"
-            tools:text="카카오톡 로그인하기를 통해 로그인 하시면 서비스 이용약관과 개인정보처리방침에 동의한 것으로 간주됩니다." />
+            tools:text="@string/login_notice" />
 
         <include
             android:id="@+id/include_loading"
             layout="@layout/layout_loading"
-            app:networkVisibility="@{viewModel.networkStatus}"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            app:networkVisibility="@{viewModel.networkStatus}"
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
