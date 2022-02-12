@@ -27,18 +27,6 @@ class SettingViewModel @Inject constructor(
         notifyActionEvent(SettingActionEntity.UpdateItem(generateInfoList()))
     }
 
-//    fun logout() = loginRepository.logout {
-//        if (it) {
-//            SettingActionEntity.LogOut
-//        }
-//    }
-//
-//    fun unlink() = loginRepository.unlink {
-//        if (it) {
-//            SettingActionEntity.LogOut
-//        }
-//    }
-
     fun logOut() {
         viewModelScope.launch {
             runCatching {
@@ -81,6 +69,13 @@ class SettingViewModel @Inject constructor(
         SettingItemViewModel(
             InfomationsData.PRIVACY_POLICY.title,
             InfomationsData.PRIVACY_POLICY.type,
+            eventNotifier = this@SettingViewModel
+        ),
+
+        // 테마설정
+        SettingItemViewModel(
+            InfomationsData.THEME.title,
+            InfomationsData.THEME.type,
             eventNotifier = this@SettingViewModel
         ),
 

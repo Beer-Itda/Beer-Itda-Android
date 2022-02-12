@@ -1,5 +1,6 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.view
 
+import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -119,11 +120,18 @@ class SettingActivity :
             // 회원탈퇴
             InfomationsData.UNLINK.title -> {
                 start<MyAccountDeleteActivity>()
-//                unConnected(getString(R.string.unlink_message))
             }
             // 알림설정
             InfomationsData.PUSH.title -> {
                 showToast(resources.getString(R.string.please_wait_for_a_little_while))
+            }
+            // 테마설정
+            InfomationsData.THEME.title -> {
+                val dialog = AlertDialog.Builder(this)
+                dialog.setItems(arrayOf("시스템","다크","화이트")) { _, _ ->
+
+                }
+                dialog.show()
             }
         }
     }
@@ -178,10 +186,11 @@ class SettingActivity :
      * 문의하기
      */
     private fun moveToContact() {
-//        try {
-            start<WebViewActivity>(WebViewActivity.getInquiryIntent(
+        start<WebViewActivity>(
+            WebViewActivity.getInquiryIntent(
                 context = this
-            ))
+            )
+        )
     }
 
     /**

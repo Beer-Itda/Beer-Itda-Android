@@ -16,6 +16,7 @@ enum class InfomationsData(val title: String, val type: InfomationsType) {
     PLAY_STORE("플레이 스토어 평가", InfomationsType.ITEM),
     APP_VERSION("앱 버전", InfomationsType.TEXT),
     SETTING("설정", InfomationsType.HEADER),
+    THEME("테마설정", InfomationsType.ITEM),
     PUSH("알림설정", InfomationsType.ITEM),
     LOGOUT("로그아웃", InfomationsType.LOGOUT),
     UNLINK("회원탈퇴", InfomationsType.UNLINK)
