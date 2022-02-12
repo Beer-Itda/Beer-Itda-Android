@@ -39,7 +39,7 @@
     </style>
 
     <style name="MyAlertDialogStyle" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
-        <item name="android:background">@color/color_1c1b21</item>
+        <item name="android:background">@color/subBackgroundTint</item>
         <item name="materialAlertDialogTitleTextStyle">@style/TitleTextStyle</item>
         <item name="materialAlertDialogBodyTextStyle">@style/BodyTextStyle</item>
         <item name="buttonBarNegativeButtonStyle">@style/Alert.Button.Positive</item>
@@ -48,13 +48,14 @@
 
     <style name="TitleTextStyle" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/color_deffffff</item>
+        <item name="android:textColor">@color/backgroundReversalTint</item>
         <item name="fontFamily">@font/notosans_kr_bold</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="BodyTextStyle" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/color_c8c8c8</item>
+        <item name="android:textColor">@color/backgroundReversalTint</item>
         <item name="fontFamily">@font/notosans_kr_regular</item>
     </style>
 
