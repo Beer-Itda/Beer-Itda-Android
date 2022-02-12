@@ -85,7 +85,7 @@
     <string name="nickname">닉네임을 입력해주세요.</string>
     <string name="please_nickname_setting">닉네임을 설정해주세요!</string>
     <string name="available_nickname_format">2~10자 이내로 한글, 영문, 숫자만 입력 가능합니다.</string>
-    <string name="beer_empty">검색 된 맥주가 없습니다.</string>
+    <string name="beer_empty">검색 된 맥주가 없습니다.\n비어있다에 문의해주세요</string>
     <string name="home_title">오늘 당신의\n 비어있는 잔을 채워줄</string>
     <string name="home_filter">맥주 찾아보기</string>
     <string name="search_hint">검색어를 입력해주세요.</string>

@@ -17,13 +17,12 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent">
+        android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/color_1c1b21"
             app:elevation="0dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -34,7 +33,11 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/background_round_12"
+                    android:backgroundTint="@color/cardBackground">
 
                     <EditText
                         android:id="@+id/et_search"
@@ -46,13 +49,13 @@
                         android:paddingHorizontal="28dp"
                         android:singleLine="true"
                         android:text="@={viewModel.searchText}"
-                        android:textColor="@color/white"
+                        android:textColor="@color/backgroundReversalTint"
                         android:textCursorDrawable="@drawable/cursor"
                         android:textSize="@dimen/textSize_14"
-                        app:layout_constraintBottom_toBottomOf="@+id/ib_search"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/ib_clear"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/ib_search" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageButton
                         android:id="@+id/ib_clear"
@@ -60,23 +63,24 @@
                         android:layout_height="0dp"
                         android:background="@android:color/transparent"
                         android:src="@drawable/ic_clear"
-                        app:layout_constraintBottom_toBottomOf="@+id/ib_search"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/ib_search"
-                        app:layout_constraintTop_toTopOf="@+id/ib_search"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:visibility="@{!TextUtils.isEmpty(viewModel.searchText)}" />
 
                     <ImageButton
                         android:id="@+id/ib_search"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
                         android:layout_marginEnd="15dp"
                         android:background="@android:color/transparent"
                         android:foreground="?attr/selectableItemBackground"
                         android:src="@drawable/ic_btn_search"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:onDebouncedClick="@{viewModel.clickSearch}" />
+                        app:onDebouncedClick="@{viewModel.clickSearch}"
+                        app:tint="@color/backgroundReversalTint" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -135,10 +139,9 @@
             layout="@layout/layout_empty_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_divider"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
             app:viewModel="@{viewModel}"
-            tools:visibility="gone" />
+            tools:visibility="visible" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
