@@ -9,7 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/backgroundTint">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_main_container"
@@ -26,6 +27,7 @@
             android:id="@+id/nav_bottom_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:itemBackground="@color/subBackgroundTint"
             app:itemIconTint="@drawable/selector_nav"
             app:itemTextColor="@drawable/selector_nav"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -1,6 +1,8 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.view
 
 import android.os.Bundle
+import android.view.MenuItem
+import androidx.annotation.ColorRes
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -42,17 +44,31 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
     }
 
+    /**
+     * bottom navigation에 따라 status bar color를 변경한다.
+     */
+    private fun setStatusBarColor(
+        item: MenuItem
+    ) {
+        when (item.itemId) {
+            R.id.nav_home,
+            R.id.nav_mypage -> {
+                window?.statusBarColor = getColor(R.color.subBackgroundTint)
+            }
+            R.id.nav_search -> {
+                window?.statusBarColor = getColor(R.color.backgroundTint)
+            }
+        }
+    }
+
     private fun initBottomNavigationListener() {
         binding.navBottomView.run {
             setupWithNavController(navController)
 
-            setOnNavigationItemSelectedListener {
+            setOnItemSelectedListener {
+                setStatusBarColor(it)
                 navController.navigate(it.itemId)
                 navController.currentDestination?.id != it.itemId
-            }
-
-            setOnNavigationItemReselectedListener {
-                // do nothing
             }
         }
     }
