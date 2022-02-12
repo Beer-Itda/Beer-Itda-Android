@@ -8,6 +8,7 @@
     <color name="backgroundTint">@color/black</color>
     <color name="subBackgroundTint">@color/color_1c1b21</color>
     <color name="cardBackground">@color/color_1c1b21</color>
+    <color name="progressbarColor">@color/color_353537</color>
     <color name="navigationIconColor">@color/color_5c5b5f</color>
     <color name="backgroundReversalTint">@color/white</color>
 </resources>

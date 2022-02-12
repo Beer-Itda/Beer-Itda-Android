@@ -16,14 +16,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:onDebouncedClick="@{() -> style.onClick()}"
-        android:paddingHorizontal="6dp">
+        android:paddingHorizontal="6dp"
+        app:onDebouncedClick="@{() -> style.onClick()}">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_beer"
             android:layout_width="150dp"
             android:layout_height="150dp"
             app:cardCornerRadius="150dp"
+            app:cardElevation="@dimen/cardElevation"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

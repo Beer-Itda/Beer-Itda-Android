@@ -4,7 +4,7 @@
         <item name="colorPrimary">@color/butterscotch</item>
         <item name="android:textColorPrimary">@color/backgroundReversalTint</item>
         <item name="android:textColor">@color/backgroundReversalTint</item>
-        <item name="fontFamily">@font/notosans_kr_regular</item>
+        <item name="fontFamily">@font/notosans_kr_medium</item>
         <item name="colorPrimaryDark">@color/subBackgroundTint</item>
         <item name="android:background">@color/backgroundTint</item>
         <item name="android:windowLightStatusBar">false</item>

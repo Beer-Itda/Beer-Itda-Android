@@ -123,13 +123,12 @@
                 android:id="@+id/tv_review"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/notosans_kr_regular"
                 android:gravity="center_vertical"
-                app:onDebouncedClick="@{() -> viewModel.clickShowMoreReview()}"
                 android:text="@{@string/review_with_count(viewModel.reviewCount)}"
                 android:textSize="@dimen/textSize_18"
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent"
+                app:onDebouncedClick="@{() -> viewModel.clickShowMoreReview()}"
                 tools:text="리뷰 (12)" />
 
             <ImageView
@@ -183,7 +182,6 @@
                 android:layout_marginTop="32dp"
                 android:background="@drawable/background_round_12_ripple"
                 android:backgroundTint="@color/butterscotch"
-                android:fontFamily="@font/notosans_kr_regular"
                 android:gravity="center"
                 android:paddingVertical="14dp"
                 android:text="@{@string/write_review}"

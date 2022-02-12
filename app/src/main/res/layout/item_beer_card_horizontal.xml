@@ -21,6 +21,7 @@
             android:layout_height="136dp"
             android:backgroundTint="@color/color_1c1b21"
             app:cardCornerRadius="12dp"
+            app:cardElevation="@dimen/cardElevation"
             app:layout_constraintTop_toTopOf="parent"
             app:onDebouncedClick="@{beer.clickItem}">
 
@@ -90,7 +91,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
             android:ellipsize="end"
-            android:fontFamily="@font/notosans_kr_regular"
             android:gravity="center"
             android:singleLine="true"
             android:text="@{beer.nameForKorean}"
@@ -107,7 +107,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:ellipsize="end"
-            android:fontFamily="@font/notosans_kr_regular"
             android:gravity="center"
             android:singleLine="true"
             android:text="@{beer.nameForEnglish}"

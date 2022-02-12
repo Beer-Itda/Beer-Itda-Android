@@ -25,7 +25,6 @@
             android:id="@+id/tv_related_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/notosans_kr_regular"
             android:text="@{viewModel.title}"
             android:textSize="@dimen/textSize_18"
             android:textStyle="bold"

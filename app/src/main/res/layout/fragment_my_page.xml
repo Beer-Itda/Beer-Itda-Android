@@ -38,7 +38,7 @@
                     android:id="@+id/motion_base"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/color_1c1b21"
+                    android:background="@color/subBackgroundTint"
                     android:paddingBottom="18dp">
 
 
@@ -50,7 +50,8 @@
                         android:padding="20dp"
                         android:src="@drawable/ic_img_setting"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/backgroundReversalTint" />
 
 
                     <ImageView
@@ -89,7 +90,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="16dp"
+                        android:background="@android:color/transparent"
                         android:ellipsize="end"
+                        android:fontFamily="@font/notosans_kr_bold"
                         android:gravity="center"
                         android:maxLength="@integer/max_length"
                         android:singleLine="true"
@@ -109,6 +112,7 @@
                         android:layout_height="24dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="16dp"
+                        android:background="@android:color/transparent"
                         android:src="@drawable/ic_btn_name_edit"
                         android:visibility="@{TextUtils.isEmpty(viewModel.userInfo.nickName) ? View.GONE : View.VISIBLE}"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_name"
@@ -123,6 +127,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="4dp"
+                        android:background="@android:color/transparent"
                         android:text="@{viewModel.userInfo.email}"
                         android:textColor="@color/color_8e8d94"
                         android:textSize="@dimen/textSize_12"
