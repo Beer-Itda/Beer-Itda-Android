@@ -16,13 +16,13 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:foreground="?attr/selectableItemBackground"
-        app:onDebouncedClick="@{() -> item.clickItem()}"
         android:paddingHorizontal="18dp"
-        android:paddingVertical="15dp">
+        android:paddingVertical="15dp"
+        app:onDebouncedClick="@{() -> item.clickItem()}">
 
         <include
-            android:id="@+id/include_my_favorite"
-            layout="@layout/item_home"
+            android:id="@+id/include_my_review"
+            layout="@layout/item_my_review_beer_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:beer="@{item.beer}" />
@@ -37,7 +37,7 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_my_favorite"
+            app:layout_constraintTop_toBottomOf="@+id/include_my_review"
             tools:text="2021.12.31" />
 
         <TextView
@@ -45,6 +45,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@{item.review.content}"
+            android:textColor="@color/backgroundReversalTint"
+            android:textSize="@dimen/textSize_12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_created_at"
