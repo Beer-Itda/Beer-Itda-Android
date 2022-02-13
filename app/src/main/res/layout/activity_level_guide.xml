@@ -29,10 +29,13 @@
             android:layout_marginHorizontal="18dp"
             android:layout_marginTop="32dp"
             android:text="@{viewModel.message}"
+            android:textColor="@color/backgroundReversalTint"
             android:textSize="@dimen/textSize_14"
+            tools:text="현재 회원님의 등급은 보리입니다.\n리뷰를 4개더 작성하면 보리차가 될 수 있습니다."
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/include_toolbar"
+            tools:textColor="@color/black" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_level_guide"

@@ -16,11 +16,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@{viewModel.isMyLevel() ? @drawable/background_round_12_stroke_1c1b21 : @drawable/background_round_12_1c1b21}"
+        android:background="@{viewModel.isMyLevel() ? @drawable/level_guide_background_round_12_stroke : @drawable/level_guide_background_round_12}"
+        android:elevation="@dimen/cardElevation"
         android:paddingVertical="10dp"
         android:paddingStart="15dp"
         android:paddingEnd="40dp"
-        tools:background="@drawable/background_round_12_stroke_1c1b21">
+        tools:background="@drawable/level_guide_background_round_12_stroke">
 
         <ImageView
             android:id="@+id/iv_level"
@@ -39,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="@{viewModel.level}"
+            android:textColor="@color/backgroundReversalTint"
             android:textSize="@dimen/textSize_17"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -51,6 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{HtmlCompat.fromHtml(@string/level_guide_with_write_count(viewModel.levelCount), HtmlCompat.FROM_HTML_MODE_LEGACY)}"
+            android:textColor="@color/backgroundReversalTint"
             android:textSize="@dimen/textSize_13"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
