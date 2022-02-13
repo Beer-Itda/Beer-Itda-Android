@@ -1,6 +1,7 @@
 package com.ddd4.synesthesia.beer.presentation.ui.detail.item.review
 
 import com.ddd4.synesthesia.beer.presentation.ui.common.review.ReviewItemViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.common.review.ReviewItemViewModelMapper.getReviewListItemViewModel
 import com.hjiee.core.event.SelectEventNotifier
 import com.hjiee.core.ext.orZero
 import com.hjiee.domain.entity.DomainEntity
@@ -11,17 +12,10 @@ object BeerDetailReviewMapper {
         eventNotifier: SelectEventNotifier
     ): BeerDetailReviewListViewModel {
         return BeerDetailReviewListViewModel(
-//            item = this,
             beerId = this?.beer?.id.orZero(),
-            review = null,
-//            review = beer.reviews?.getReviewItemViewModel()?.take(5).orEmpty(),
+            review = getReviewListItemViewModel(this?.review).take(5),
             myReview = ReviewItemViewModel(
-//                reviewId = myReview?.reviewId.orZero(),
-//                writerNickName = myReview?.writerNickName.orEmpty(),
-//                ratio = myReview?.ratio.orDefault(0.5f),
-//                content = myReview?.content.orEmpty(),
-                review = null,
-                eventNotifier = eventNotifier
+                review = this?.myReview
             ),
             eventNotifier = eventNotifier
         )

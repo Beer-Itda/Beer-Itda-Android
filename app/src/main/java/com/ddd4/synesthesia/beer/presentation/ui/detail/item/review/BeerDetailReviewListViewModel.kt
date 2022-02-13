@@ -30,4 +30,8 @@ class BeerDetailReviewListViewModel(
     fun clickWriteReview() {
         eventNotifier.notifySelectEvent(ReviewItemSelectEntity.WriteReview(beerId))
     }
+
+    fun clcikMyReviewEdit() {
+
+    }
 }

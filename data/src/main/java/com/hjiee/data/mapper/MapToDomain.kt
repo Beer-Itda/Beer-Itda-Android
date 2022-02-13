@@ -11,7 +11,9 @@ fun NetworkResponse<BeerDetailResponse>?.toBeerDetail(): DomainEntity.Response<D
         isSuccess = this?.isSuccess.orFalse(),
         message = this?.message.orEmpty(),
         data = DomainEntity.BeerDetail(
-            beer = this?.data?.beerDetail?.toBeer(),
+            beer = this?.data?.beerDetail.toBeer(),
+            myReview = this?.data?.review?.myReview.toReview(),
+            review = this?.data?.review?.beerReviewList.toReviewList(),
             relatedAromaBeer = this?.data?.sameAromaBeers?.toBeer().orEmpty(),
             relatedStyleBeer = this?.data?.sameStyleBeers?.toBeer().orEmpty()
         )

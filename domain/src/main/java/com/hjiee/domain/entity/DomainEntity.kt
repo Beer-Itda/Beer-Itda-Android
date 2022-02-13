@@ -56,7 +56,9 @@ sealed class DomainEntity {
     )
 
     data class BeerDetail(
-        val beer: Beer?,
+        val beer: Beer,
+        val myReview: Review,
+        val review: List<Review>,
         val relatedStyleBeer: List<Beer>,
         val relatedAromaBeer: List<Beer>
     )

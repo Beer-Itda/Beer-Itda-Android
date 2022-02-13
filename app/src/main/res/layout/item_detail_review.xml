@@ -33,6 +33,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="32dp"
+            android:drawableEnd="@drawable/ic_more_horizontal"
+            android:drawableTint="@color/backgroundReversalTint"
             android:fontFamily="@font/notosans_kr_bold"
             android:gravity="center_vertical"
             android:text="@string/my_write_review"
@@ -41,6 +43,7 @@
             android:textStyle="bold"
             app:drawableEndCompat="@drawable/ic_more_horizontal"
             app:layout_constraintTop_toBottomOf="@+id/divider"
+            app:onDebouncedClick="@{viewModel.clcikMyReviewEdit}"
             app:visibility="@{viewModel.myReviewExist}"
             tools:text="내가 쓴 리뷰" />
 
@@ -50,7 +53,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="7dp"
             android:background="@drawable/background_round_8"
-            android:backgroundTint="@color/subBackgroundTint"
+            android:backgroundTint="@color/cardBackground"
             android:paddingVertical="18dp"
             app:visibility="@{viewModel.myReviewExist}">
 
@@ -96,7 +99,7 @@
                 android:layout_marginTop="16dp"
                 android:text="@{viewModel.myReview.review.content}"
                 android:textColor="@color/backgroundReversalTint"
-                android:textSize="12sp"
+                android:textSize="@dimen/textSize_12"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rb_beer_rate"
@@ -111,6 +114,7 @@
                 android:layout_marginTop="8dp"
                 android:text="@{viewModel.myReview.review.createdAt}"
                 android:textColor="@color/color_8e8d94"
+                android:textSize="@dimen/textSize_12"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_my_review_content"
                 tools:text="2021.08.01" />
@@ -145,6 +149,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tv_review"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_review"
+                app:tint="@color/backgroundReversalTint"
                 app:visibility="@{viewModel.reviewCount != 0}" />
 
 
@@ -168,17 +173,17 @@
                 android:id="@+id/rv_review"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clipToPadding="true"
+                android:clipToPadding="false"
                 android:overScrollMode="never"
                 app:adapter="@{viewModel.adapter}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@+id/tv_review_empty"
-                app:vertical_space="@{@integer/space_20}"
+                app:layout_constraintTop_toBottomOf="@+id/tv_review"
+                app:verticalSpace="@{@dimen/margin_20}"
                 app:visibility="@{viewModel.review.size() > 0}"
                 tools:itemCount="3"
                 tools:layout_editor_absoluteX="0dp"
                 tools:listitem="@layout/item_review"
-                tools:paddingTop="17dp" />
+                tools:paddingTop="16dp" />
 
             <TextView
                 android:id="@+id/tv_beer_review_write_title"

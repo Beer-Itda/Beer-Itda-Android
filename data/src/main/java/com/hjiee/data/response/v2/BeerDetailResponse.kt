@@ -8,7 +8,16 @@ data class BeerDetailResponse(
     @SerializedName("same_aroma_beers")
     val sameAromaBeers: List<BeerResponse>?,
     @SerializedName("same_style_beers")
-    val sameStyleBeers: List<BeerResponse>?
+    val sameStyleBeers: List<BeerResponse>?,
+    @SerializedName("review")
+    val review: BeerDetailReviewResponse?,
+)
+
+data class BeerDetailReviewResponse(
+    @SerializedName("userReview")
+    val myReview: ReviewResponse?,
+    @SerializedName("beerReviews")
+    val beerReviewList: List<ReviewResponse>?,
 )
 
 data class Aroma(
