@@ -18,7 +18,6 @@
         android:clipToPadding="false"
         android:overScrollMode="never"
         android:paddingHorizontal="18dp"
-        android:paddingBottom="10dp"
         app:visibility="@{viewModel.relatedBeerList.size() > 0}">
 
         <TextView
@@ -38,9 +37,10 @@
             android:id="@+id/rv_aroma_related"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:clipToPadding="true"
+            android:layout_marginTop="10dp"
+            android:clipToPadding="false"
             android:orientation="horizontal"
+            android:paddingVertical="10dp"
             app:adapter="@{viewModel.adapter}"
             app:horizontalSpace="@{@dimen/margin_8}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

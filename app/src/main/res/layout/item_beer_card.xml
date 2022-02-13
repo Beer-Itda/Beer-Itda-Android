@@ -34,14 +34,14 @@
                 android:layout_marginTop="12dp"
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
-                app:errorDrawable="@{@drawable/beer}"
+                app:errorDrawable="@{@drawable/default_beer}"
                 app:layout_constraintBottom_toTopOf="@+id/tv_beer_name_korean"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed"
                 app:loadUrl="@{beer.thumbnailImage}"
-                tools:src="@drawable/beer" />
+                tools:src="@drawable/default_beer" />
 
             <ImageView
                 android:id="@+id/iv_like"

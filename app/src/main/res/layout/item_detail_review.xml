@@ -24,7 +24,7 @@
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="5dp"
-            android:background="@color/shark"
+            android:background="@color/cardBackground"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -33,8 +33,10 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="32dp"
+            android:fontFamily="@font/notosans_kr_bold"
             android:gravity="center_vertical"
             android:text="@string/my_write_review"
+            android:textColor="@color/backgroundReversalTint"
             android:textSize="@dimen/textSize_18"
             android:textStyle="bold"
             app:drawableEndCompat="@drawable/ic_more_horizontal"
@@ -47,7 +49,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="7dp"
-            android:background="@drawable/background_1c1b21_round_8"
+            android:background="@drawable/background_round_8"
+            android:backgroundTint="@color/subBackgroundTint"
             android:paddingVertical="18dp"
             app:visibility="@{viewModel.myReviewExist}">
 
@@ -74,10 +77,12 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:ellipsize="end"
+                android:fontFamily="@font/notosans_kr_bold"
                 android:gravity="center"
                 android:text="@{@string/rate_unit_2(viewModel.myReview.review.star)}"
                 android:textColor="@color/butterscotch"
                 android:textSize="@dimen/textSize_18"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/rb_beer_rate"
                 app:layout_constraintStart_toEndOf="@+id/rb_beer_rate"
                 app:layout_constraintTop_toTopOf="@+id/rb_beer_rate"
@@ -90,6 +95,8 @@
                 android:layout_marginHorizontal="14dp"
                 android:layout_marginTop="16dp"
                 android:text="@{viewModel.myReview.review.content}"
+                android:textColor="@color/backgroundReversalTint"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rb_beer_rate"

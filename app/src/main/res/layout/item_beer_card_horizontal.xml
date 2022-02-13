@@ -33,9 +33,9 @@
                 android:layout_marginVertical="12dp"
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
-                app:errorDrawable="@{@drawable/beer}"
+                app:errorDrawable="@{@drawable/default_beer}"
                 app:loadUrl="@{beer.thumbnailImage}"
-                tools:src="@drawable/beer" />
+                tools:src="@drawable/default_beer" />
         </androidx.cardview.widget.CardView>
 
         <ImageView
