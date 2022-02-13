@@ -1,12 +1,13 @@
 package com.ddd4.synesthesia.beer.presentation.ui.detail.viewmodel
 
 import androidx.databinding.ObservableBoolean
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.detail.entity.BeerDetailActionEntity
-import com.ddd4.synesthesia.beer.presentation.ui.detail.entity.BeerDetailItemSelectEntity
 import com.ddd4.synesthesia.beer.presentation.ui.detail.item.BeerDetailItemMapper.findDetailInformation
 import com.ddd4.synesthesia.beer.presentation.ui.detail.item.BeerDetailItemMapper.findDetailRelatedBeer
 import com.ddd4.synesthesia.beer.presentation.ui.detail.item.BeerDetailItemMapper.getDetailViewData
@@ -18,6 +19,7 @@ import com.hjiee.core.ext.orFalse
 import com.hjiee.core.ext.orZero
 import com.hjiee.core.ext.toggle
 import com.hjiee.core.util.log.L
+import com.hjiee.domain.entity.DomainEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -34,19 +36,36 @@ class BeerDetailViewModel @Inject constructor(
     private var item: List<IBeerDetailViewModel> = emptyList()
     val isFavorite = ObservableBoolean(false)
 
+    private val _myReview = MutableLiveData<DomainEntity.Review>()
+    val myReview: LiveData<DomainEntity.Review> get() = _myReview
+
     fun load() {
         statusLoading()
         viewModelScope.launch {
             runCatching {
-                val detail = useCase.getBeerDetail.execute(beerId)
-                isFavorite.set(detail?.beer?.isFavorite.orFalse())
-                item = detail.getDetailViewData(this@BeerDetailViewModel)
-            }.onSuccess {
+                useCase.getBeerDetail.execute(beerId)
+            }.onSuccess { detail ->
                 statusSuccess()
+                isFavorite.set(detail?.beer?.isFavorite.orFalse())
+                _myReview.value = detail?.myReview
+                item = detail.getDetailViewData(this@BeerDetailViewModel)
                 notifyActionEvent(BeerDetailActionEntity.UpdateUi(item))
             }.onFailure {
                 statusFailure()
                 throwMessage(stringProvider.getError(), true)
+                L.e(it)
+            }
+        }
+    }
+
+    fun reviewDelete() {
+        viewModelScope.launch {
+            runCatching {
+                useCase.deleteReview.execute(beerId)
+            }.onSuccess {
+                load()
+                notifyActionEvent(BeerDetailActionEntity.Toast(stringProvider.getDeleteMessage()))
+            }.onFailure {
                 L.e(it)
             }
         }

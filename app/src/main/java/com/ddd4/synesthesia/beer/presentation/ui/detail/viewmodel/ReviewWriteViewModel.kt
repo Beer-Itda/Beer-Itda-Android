@@ -9,6 +9,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.detail.entity.ReviewWriteClickE
 import com.ddd4.synesthesia.beer.presentation.ui.detail.view.ReviewWriteBottomSheetDialogFragment
 import com.ddd4.synesthesia.beer.util.KEY_BEER_ID
 import com.hjiee.core.ext.orDefault
+import com.hjiee.core.ext.orFalse
 import com.hjiee.core.ext.orZero
 import com.hjiee.core.manager.Change
 import com.hjiee.core.manager.DataChangeManager
@@ -24,6 +25,8 @@ class ReviewWriteViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
 
+    private val beerId by lazy { (savedStateHandle.get(KEY_BEER_ID) as? Int).orZero() }
+
     private val initialContent by lazy {
         (savedStateHandle.get(ReviewWriteBottomSheetDialogFragment.KEY_REVIEW_CONTENT) as? String).orEmpty()
     }
@@ -32,18 +35,23 @@ class ReviewWriteViewModel @Inject constructor(
             .orDefault(0.5f)
     }
 
-    val content = MutableLiveData("")
-    val starScore = MutableLiveData(0.5f)
+    private val isModify by lazy {
+        (savedStateHandle.get(ReviewWriteBottomSheetDialogFragment.KEY_IS_MODIFY) as? Boolean).orFalse()
+    }
 
-    val minContentLength = 0
-    val maxContentLength = 300
+    val content = MutableLiveData(initialContent)
+    val starScore = MutableLiveData(initialStarScore)
 
-    private val beerId by lazy { (savedStateHandle.get(KEY_BEER_ID) as? Int).orZero() }
+    companion object {
+        const val MIN_CONTENT_LENGTH = 0
+        const val MAX_CONTENT_LENGTH = 300
+    }
 
     fun postReview() {
         viewModelScope.launch {
             runCatching {
                 useCase.execute(
+                    isModify = isModify,
                     beerId = beerId,
                     starScore = starScore.value.orDefault(0.5f),
                     content = content.value.orEmpty()

@@ -90,12 +90,12 @@ interface BeerApi {
     ): List<ReviewResponse>?
 
     /**
-     * 내가 작성한 리뷰
+     * 리뷰 등록
      */
     @FormUrlEncoded
-    @POST("api/v1/review/{id}")
+    @POST("api/v1/review/{beerId}")
     suspend fun postReview(
-        @Path("id") beerId: Int,
+        @Path("beerId") beerId: Int,
         @Field("star") starScore: Float,
         @Field("content") content: String
     )
@@ -174,6 +174,27 @@ interface BeerApi {
      */
     @GET("api/v1/level")
     suspend fun getLevelGuide(): NetworkResponse<LevelGuideResponse>
+
+
+    /**
+     * 리뷰 삭제
+     */
+    @DELETE("api/v1/review/{beerId}")
+    suspend fun deleteReview(
+        @Path("beerId") beerId: Int
+    )
+
+
+    /**
+     * 리뷰 수정
+     */
+    @FormUrlEncoded
+    @PATCH("api/v1/review/{beerId}")
+    suspend fun updateReview(
+        @Path("beerId") beerId: Int,
+        @Field("star") starScore: Float,
+        @Field("content") content: String
+    )
 
 //    /**
 //     * App Config

@@ -24,6 +24,8 @@
     <string name="complete">완료</string>
     <string name="register">등록하기</string>
     <string name="modify">수정하기</string>
+    <string name="modify2">수정</string>
+    <string name="delete">삭제</string>
     <string name="save">저장하기</string>
 
     <string name="error">오류가 발생했습니다</string>
@@ -112,7 +114,7 @@
     <string name="delete_warning_title">탈퇴 시 주의사항</string>
     <string name="delete_warning_description">회원탈퇴 시 현재 회원님의 계정에 저장된 모든 정보는 여구적으로 삭제되며, 다시는 복구할 수 없습니다.</string>
     <string name="delete_warning_description_agree">위 내용을 숙지하였으며, 동의합니다.</string>
-    <string name="delete_success">회원탈퇴 되었습니다.</string>
+    <string name="user_delete_success">회원탈퇴 되었습니다.</string>
     <string name="delete_fail">회원탈퇴에 실패하였습니다. 잠시후 다시 시도해 주세요</string>
     <string name="force_update_title">필수 업데이트</string>
     <string name="force_update">새로운 버전이 있습니다.\n업데이트 후 이용해 주세요.</string>
@@ -123,6 +125,8 @@
     <string name="force_update_version">필수 업데이트 버전</string>
     <string name="empty_review">아직 작성된 리뷰가 없어요 첫 리뷰를 남겨보세요!</string>
     <string name="success_registered_review">리뷰가 등록되었습니다</string>
+    <string name="success_modified_review">리뷰가 수정되었습니다</string>
+    <string name="success_deleted_review">리뷰가 삭제되었습니다</string>
     <string name="changed_nickname">닉네임이 변경되었어요</string>
     <string name="level_guide_warning">무성의하게 작성된 리뷰는 이용약관에 기반하여 삭제될 수 있으며, 그에 따라 등급 또한 하향 조정될 수 있습니다.</string>
     <string name="level_guide_message"><![CDATA[회원님의 등급은 <font color="#fdbd39"><b>%s</b></font>입니다.<br>리뷰를 <font color="#fdbd39"><b>%d개</b></font> 더 작성하면 <font color="#fdbd39"><b>%s</b></font>가 될 수 있습니다.]]></string>

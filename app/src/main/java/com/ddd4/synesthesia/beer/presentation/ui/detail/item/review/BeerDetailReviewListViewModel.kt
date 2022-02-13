@@ -36,7 +36,9 @@ class BeerDetailReviewListViewModel(
         eventNotifier.notifySelectEvent(ReviewItemSelectEntity.WriteReview(beerId))
     }
 
-    fun clcikMyReviewEdit() {
-
+    fun clickMyReviewEdit() {
+        if (isMyReviewExist) {
+            eventNotifier.notifySelectEvent(ReviewItemSelectEntity.EditReview(myReview?.review?.reviewId.orZero()))
+        }
     }
 }

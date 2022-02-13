@@ -18,7 +18,7 @@
     <color name="filterColor">@color/color_c8c8c8</color>
     <color name="circleChipBackgroundColor">@color/color_f5f5f5</color>
     <color name="skipTextColor">@color/color_7a7a7a</color>
-    <color name="startBackgroundColor">@color/color_efefef</color>
+    <color name="starBackgroundColor">@color/color_c8c8c8</color>
 
     <color name="red">#FF0000</color>
     <color name="white">#FFFFFF</color>

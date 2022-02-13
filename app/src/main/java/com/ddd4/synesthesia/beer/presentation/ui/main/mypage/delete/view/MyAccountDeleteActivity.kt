@@ -54,7 +54,7 @@ class MyAccountDeleteActivity :
     override fun handleActionEvent(entity: ActionEntity) {
         when (entity) {
             is MyAccountDeleteActionEntity.DeleteSuccess -> {
-                showToast(getString(R.string.delete_success))
+                showToast(getString(R.string.user_delete_success))
                 start<LoginActivity>(LoginActivity.getTaskIntent(this))
             }
             is MyAccountDeleteActionEntity.DeleteFail -> {

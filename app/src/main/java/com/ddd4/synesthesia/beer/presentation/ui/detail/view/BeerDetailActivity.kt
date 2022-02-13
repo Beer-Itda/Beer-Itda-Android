@@ -3,6 +3,7 @@ package com.ddd4.synesthesia.beer.presentation.ui.detail.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityBeerDetailBinding
@@ -53,11 +54,13 @@ class BeerDetailActivity : BaseActivity<ActivityBeerDetailBinding>(R.layout.acti
         observeHandledEvent(detailViewModel.event.action) {
             handleActionEvent(it)
         }
+        // 스택이 쌓인상태에서 좋아요 상태 변경시 새로고침
         observeChangedFavoriteState {
             detailViewModel.load()
         }
+        // 리뷰 작성 후 새로고침
         observeReviewRegistered {
-            //TODO review data reload
+            detailViewModel.load()
         }
     }
 
@@ -66,6 +69,9 @@ class BeerDetailActivity : BaseActivity<ActivityBeerDetailBinding>(R.layout.acti
             is BeerDetailActionEntity.UpdateUi -> {
                 detailAdapter.clear()
                 detailAdapter.addAll(entity.items)
+            }
+            is BeerDetailActionEntity.Toast -> {
+                Toast.makeText(this, entity.message, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -87,19 +93,32 @@ class BeerDetailActivity : BaseActivity<ActivityBeerDetailBinding>(R.layout.acti
             is ReviewItemSelectEntity.WriteReview -> {
                 reviewWriteBottomSheetDialog()
             }
+            is ReviewItemSelectEntity.EditReview -> {
+                ReviewEditBottomSheetDialog(
+                    context = this,
+                    modifyAction = { reviewWriteBottomSheetDialog() },
+                    deleteAction = { detailViewModel.reviewDelete() }
+                ).show()
+            }
         }
     }
 
     private fun reviewWriteBottomSheetDialog() {
         ReviewWriteBottomSheetDialogFragment().apply {
+            val isModify = detailViewModel.myReview.value?.reviewId.orZero() != 0
             arguments = getBundle(
-                beerId = beerId
-//                reviewContent = detailViewModel.item.value?.myReview?.content,
-//                reviewRatio = detailViewModel.item.value?.myReview?.ratio.orDefault(0.5f),
-//                isFirstWrite = detailViewModel.item.value?.myReview?.reviewId.orZero() == 0
+                beerId = beerId,
+                content = detailViewModel.myReview.value?.content,
+                star = detailViewModel.myReview.value?.star.orDefault(0.5f),
+                isModify = isModify
             )
             setCallbackListener {
-                context?.showToast(getString(R.string.success_registered_review))
+                detailViewModel.load()
+                if (isModify) {
+                    context?.showToast(getString(R.string.success_modified_review))
+                } else {
+                    context?.showToast(getString(R.string.success_registered_review))
+                }
             }
             show(supportFragmentManager, "")
         }

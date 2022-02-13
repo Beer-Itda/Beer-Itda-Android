@@ -101,6 +101,18 @@ class BeerRepositoryImpl @Inject constructor(
         ).toBeerList()
     }
 
+    override suspend fun deleteReview(beerId: Int) {
+        beerApi.deleteReview(beerId)
+    }
+
+    override suspend fun updateReview(beerId: Int, starScore: Float, content: String) {
+        beerApi.updateReview(
+            beerId = beerId,
+            starScore = starScore,
+            content = content
+        )
+    }
+
     //    override suspend fun getAppConfig(): Result<AppConfig> {
 //        return beerApi.getAppConfig()
 //    }
