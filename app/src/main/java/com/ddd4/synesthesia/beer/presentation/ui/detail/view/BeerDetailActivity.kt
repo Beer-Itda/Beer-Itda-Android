@@ -76,7 +76,13 @@ class BeerDetailActivity : BaseActivity<ActivityBeerDetailBinding>(R.layout.acti
                 start<BeerDetailActivity>(intent = getIntent(this, entity.beer.id.orZero()))
             }
             is BeerDetailItemSelectEntity.ReviewAll -> {
-                start<ReviewListActivity>()
+                start<ReviewListActivity>(
+                    ReviewListActivity.getIntent(
+                        context = this,
+                        beerId = entity.beerId,
+                        reviewCount = entity.reviewCount
+                    )
+                )
             }
             is ReviewItemSelectEntity.WriteReview -> {
                 reviewWriteBottomSheetDialog()

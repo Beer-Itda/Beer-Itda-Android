@@ -110,8 +110,4 @@ class BeerDetailViewModel @Inject constructor(
     fun clickFavorite() {
         fetchFavorite(beerId, false)
     }
-
-    fun clickReviewAll() {
-        notifySelectEvent(BeerDetailItemSelectEntity.ReviewAll)
-    }
 }

@@ -7,6 +7,6 @@ sealed class BeerDetailItemSelectEntity : ItemClickEntity() {
 //    class Favorite(val beer: Beer) : BeerDetailItemSelectEntity()
 
     /** 리뷰 전체보기 */
-    object ReviewAll : BeerDetailItemSelectEntity()
+    class ReviewAll(val beerId: Int, val reviewCount: Int) : BeerDetailItemSelectEntity()
 
 }

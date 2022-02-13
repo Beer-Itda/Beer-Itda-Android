@@ -24,7 +24,12 @@ class BeerDetailReviewListViewModel(
     }
 
     fun clickShowMoreReview() {
-        eventNotifier.notifySelectEvent(BeerDetailItemSelectEntity.ReviewAll)
+        eventNotifier.notifySelectEvent(
+            BeerDetailItemSelectEntity.ReviewAll(
+                beerId = beerId,
+                reviewCount = review?.size.orZero()
+            )
+        )
     }
 
     fun clickWriteReview() {

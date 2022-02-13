@@ -13,6 +13,7 @@ interface BeerRepository {
     suspend fun getRandomRecommendBeer(): Response<Beers>?
     suspend fun getUserInfo(): User
     suspend fun getMyReview(): List<MyReview>
+    suspend fun getReview(beerId: Int): List<Review>
     suspend fun getAromaInfo(): Response<List<Aroma>>
     suspend fun getStyleInfo(): Response<List<StyleLargeCategory>>
     suspend fun getMyFavorite(): Response<Beers>?

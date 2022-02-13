@@ -41,6 +41,10 @@ class BeerRepositoryImpl @Inject constructor(
         return beerApi.getMyReview().toMyReviewList()
     }
 
+    override suspend fun getReview(beerId: Int): List<Review> {
+        return beerApi.getReviewList(beerId).toReviewList()
+    }
+
     override suspend fun getAromaInfo(): Response<List<Aroma>> {
         return beerApi.getAromaInfo().toAromaList()
     }

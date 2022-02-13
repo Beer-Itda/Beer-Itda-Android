@@ -139,7 +139,7 @@
                 android:textSize="@dimen/textSize_18"
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent"
-                app:onDebouncedClick="@{() -> viewModel.clickShowMoreReview()}"
+                app:onDebouncedClick="@{viewModel.clickShowMoreReview}"
                 tools:text="리뷰 (12)" />
 
             <ImageView
@@ -149,6 +149,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tv_review"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_review"
+                app:onDebouncedClick="@{viewModel.clickShowMoreReview}"
                 app:tint="@color/backgroundReversalTint"
                 app:visibility="@{viewModel.reviewCount != 0}" />
 
