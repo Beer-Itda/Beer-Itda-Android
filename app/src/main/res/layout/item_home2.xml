@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:foreground="?attr/selectableItemBackground"
         android:paddingHorizontal="28dp"
-        app:onDebouncedClick="@{beer.clickItem}"
+        app:onDebouncedClick="@{beer.clickBeer}"
         tools:paddingVertical="8dp">
 
 

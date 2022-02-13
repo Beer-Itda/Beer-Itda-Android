@@ -4,12 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
+import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModelMapper.getBeerItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.favorite.item.MyFavoriteItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.favorite.model.MyFavoriteActionEntity
 import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.core.util.log.L
 import com.hjiee.domain.entity.DomainEntity.Beer
+import com.hjiee.domain.usecase.beer.PostFavoriteUseCase
 import com.hjiee.domain.usecase.mypage.MyFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -17,7 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MyFavoriteViewModel @Inject constructor(
-    private val useCase: MyFavoriteUseCase
+    private val useCase: MyFavoriteUseCase,
+    private val favorite: PostFavoriteUseCase
 ) : BaseViewModel() {
 
     private val _isRefresh = MutableLiveData<Boolean>(false)
@@ -46,15 +49,21 @@ class MyFavoriteViewModel @Inject constructor(
         load()
     }
 
-    private fun fetchFavorite(beer: Beer) {
+    private fun fetchFavorite(id: Int) {
         viewModelScope.launch(errorHandler) {
-//            beer.updateFavorite()
-//            beerRepository.postFavorite(beer.id, beer.isFavorite.get())
+            runCatching {
+                favorite.execute(id)
+            }.onFailure {
+                L.e(it)
+            }
         }
     }
 
     override fun handleSelectEvent(entity: ItemClickEntity) {
         when (entity) {
+            is BeerClickEntity.ClickFavorite -> {
+                fetchFavorite(entity.beer.id)
+            }
         }
     }
 

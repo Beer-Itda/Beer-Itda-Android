@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="beer"
+            type="com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:onDebouncedClick="@{beer.clickBeer}">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_beer"
+            android:layout_width="98dp"
+            android:layout_height="136dp"
+            android:backgroundTint="@color/cardBackground"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:onDebouncedClick="@{beer.clickBeer}">
+
+            <ImageView
+                android:id="@+id/iv_beer"
+                android:layout_width="62dp"
+                android:layout_height="112dp"
+                android:layout_marginHorizontal="18dp"
+                android:layout_marginVertical="12dp"
+                android:background="@android:color/transparent"
+                android:scaleType="centerCrop"
+                app:errorDrawable="@{@drawable/default_beer}"
+                app:loadUrl="@{beer.thumbnailImage}"
+                tools:src="@drawable/default_beer" />
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/iv_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:elevation="2dp"
+            android:src="@{beer.isFavorite() ? @drawable/ic_btn_like : @drawable/ic_btn_like_unactive}"
+            app:layout_constraintEnd_toEndOf="@+id/cv_beer"
+            app:layout_constraintTop_toTopOf="@+id/cv_beer"
+            app:onDebouncedClick="@{beer.clickFavorite}"
+            tools:src="@drawable/ic_btn_like_unactive" />
+
+
+        <TextView
+            android:id="@+id/tv_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{beer.style}"
+            android:textColor="@color/butterscotch"
+            android:textSize="@dimen/textSize_12"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tv_beer_name_korean"
+            app:layout_constraintEnd_toStartOf="@+id/tv_beer_rate"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toEndOf="@+id/cv_beer"
+            app:layout_constraintTop_toTopOf="@+id/cv_beer"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Gold Ale" />
+
+        <TextView
+            android:id="@+id/tv_beer_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="12dp"
+            android:drawablePadding="4dp"
+            android:fontFamily="@font/notosans_kr_bold"
+            android:text="@{@string/rate_unit_2(beer.starAvg)}"
+            android:textColor="@color/butterscotch"
+            android:textSize="@dimen/textSize_12"
+            android:textStyle="bold"
+            app:drawableStartCompat="@drawable/ic_rating_star"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_style"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_style"
+            app:layout_constraintTop_toTopOf="@+id/tv_style"
+            tools:text="3.5" />
+
+        <TextView
+            android:id="@+id/tv_beer_name_korean"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@{beer.nameForKorean}"
+            android:textColor="@color/backgroundReversalTint"
+            android:textSize="@dimen/textSize_14"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tv_beer_name_english"
+            app:layout_constraintStart_toEndOf="@+id/cv_beer"
+            app:layout_constraintTop_toBottomOf="@+id/tv_style"
+            tools:text="한강맥주" />
+
+
+        <TextView
+            android:id="@+id/tv_beer_name_english"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/notosans_kr_light"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@{beer.nameForEnglish}"
+            android:textColor="@color/color_8e8d94"
+            android:textSize="@dimen/textSize_10"
+            app:layout_constraintBottom_toBottomOf="@+id/cv_beer"
+            app:layout_constraintStart_toStartOf="@+id/tv_beer_name_korean"
+            app:layout_constraintTop_toBottomOf="@+id/tv_beer_name_korean"
+            tools:text="hangang beer" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

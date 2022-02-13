@@ -21,7 +21,7 @@
         android:paddingVertical="15dp">
 
         <include
-            android:id="@+id/include_home"
+            android:id="@+id/include_my_favorite"
             layout="@layout/item_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_home"
+            app:layout_constraintTop_toBottomOf="@+id/include_my_favorite"
             tools:text="2021.12.31" />
 
         <TextView

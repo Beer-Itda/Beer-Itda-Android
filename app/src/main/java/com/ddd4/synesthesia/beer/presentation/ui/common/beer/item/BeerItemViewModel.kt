@@ -29,7 +29,7 @@ class BeerItemViewModel(
         isFavorite.set(isFavorite.get().toggle())
     }
 
-    fun clickItem() {
+    fun clickBeer() {
         eventNotifier?.notifySelectEvent(BeerClickEntity.ClickBeer(this))
     }
 

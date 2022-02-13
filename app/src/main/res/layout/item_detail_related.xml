@@ -48,7 +48,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_related_title"
             app:layout_goneMarginTop="20dp"
-            tools:listitem="@layout/item_beer_card" />
+            tools:listitem="@layout/item_beer_card_horizontal" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

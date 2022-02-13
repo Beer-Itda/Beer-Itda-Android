@@ -56,7 +56,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
-            tools:listitem="@layout/item_beer_card" />
+            tools:listitem="@layout/item_beer_card_horizontal" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
