@@ -73,7 +73,7 @@
     <string name="country">국가</string>
     <string name="show_products">상품 보러가기</string>
     <string name="max_text_length">%d/%d</string>
-    <string name="min_text_length">최소 2자 이상 입력해주세요.</string>
+    <string name="min_text_length">최소 %d자 이상 입력해주세요.</string>
     <string name="reset">초기화</string>
     <string name="update_count_text_prefix">%s 외</string>
     <string name="update_count_text_suffix">%d개</string>

@@ -17,7 +17,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_1c1b21">
+        android:background="@color/subBackgroundTint">
 
         <include
             android:id="@+id/include_toolbar"
@@ -32,6 +32,7 @@
             android:layout_marginHorizontal="18dp"
             android:layout_marginTop="4dp"
             android:text="@string/please_nickname_setting"
+            android:textColor="@color/backgroundReversalTint"
             android:textSize="@dimen/textSize_26"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@+id/include_toolbar"
@@ -61,7 +62,7 @@
             android:hint="@string/nickname"
             android:maxLength="@integer/max_length"
             android:text="@={viewModel.nickName}"
-            android:textColor="@color/white"
+            android:textColor="@color/backgroundReversalTint"
             android:textColorHint="@color/color_c8c8c8"
             android:textSize="@dimen/textSize_15"
             app:layout_constraintBottom_toTopOf="@+id/under_line"
@@ -96,7 +97,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@{@string/max_text_length(viewModel.nickName.length(), viewModel.maxContentLength)}"
+            android:text="@{@string/max_text_length(viewModel.nickName.length(), viewModel.MAX_NICKNAME_LENGTH)}"
             android:textColor="@{viewModel.isValid() ? @color/color_61c453 : @color/color_ed6a5e}"
             app:layout_constraintEnd_toEndOf="@+id/edt_nickname"
             app:layout_constraintStart_toStartOf="@+id/edt_nickname"
@@ -108,9 +109,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@{@string/min_text_length}"
-            android:textColor="@{2 > viewModel.nickName.length() ? @color/color_ed6a5e : @color/white}"
-            android:visibility="@{2 > viewModel.nickName.length() ? View.VISIBLE : View.GONE}"
+            android:text="@{@string/min_text_length(viewModel.MIN_NICKNAME_LENGTH)}"
+            android:textColor="@{viewModel.MIN_NICKNAME_LENGTH > viewModel.nickName.length() ? @color/color_ed6a5e : @color/backgroundReversalTint}"
+            android:visibility="@{viewModel.MIN_NICKNAME_LENGTH > viewModel.nickName.length() ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="@+id/edt_nickname"
             app:layout_constraintStart_toStartOf="@+id/edt_nickname"
             app:layout_constraintTop_toBottomOf="@+id/tv_max_text"
@@ -120,20 +121,21 @@
             android:id="@+id/btn_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@{viewModel.nickName.length() >=2 ? @color/butterscotch : @color/color_39393b}"
-            android:clickable="@{viewModel.nickName.length() >= 2 ? true : false}"
-            android:focusable="@{viewModel.nickName.length() >= 2 ? true : false}"
+            android:background="@{viewModel.isValid() ? @color/butterscotch : @color/buttonBackgroundColor}"
+            android:clickable="@{viewModel.isValid() ? true : false}"
+            android:focusable="@{viewModel.isValid() ? true : false}"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:paddingVertical="22dp"
             android:text="@string/complete"
-            android:textColor="@{viewModel.nickName.length() >= 2 ? @color/white : @color/color_8e8d94}"
+            android:textColor="@{viewModel.isValid() ? @color/white : @color/buttonTextColor}"
             android:textSize="@dimen/textSize_16"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:onDebouncedClick="@{viewModel.clickSave}"
-            tools:textColor="@color/color_8e8d94" />
+            tools:background="@color/buttonBackgroundColor"
+            tools:textColor="@color/buttonTextColor" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

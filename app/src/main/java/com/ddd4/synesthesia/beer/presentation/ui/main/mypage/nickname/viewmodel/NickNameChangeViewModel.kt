@@ -21,7 +21,11 @@ class NickNameChangeViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     val nickName = MutableLiveData<String>(savedState.get(NickNameChangeActivity.KEY_NICKNAME))
-    val maxContentLength = 10
+
+    companion object {
+        const val MIN_NICKNAME_LENGTH = 2
+        const val MAX_NICKNAME_LENGTH = 10
+    }
 
     private val _isValid = MutableLiveData<Boolean>(false)
     val isValid: LiveData<Boolean> get() = _isValid
