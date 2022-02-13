@@ -51,6 +51,7 @@
                         android:singleLine="true"
                         android:text="@={viewModel.searchText}"
                         android:textColor="@color/backgroundReversalTint"
+                        android:textColorHint="@color/color_8e8d94"
                         android:textCursorDrawable="@drawable/cursor"
                         android:textSize="@dimen/textSize_14"
                         app:layout_constraintBottom_toBottomOf="parent"
