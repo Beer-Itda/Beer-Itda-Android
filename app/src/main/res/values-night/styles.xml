@@ -13,19 +13,9 @@
         <item name="materialAlertDialogTheme">@style/MyAlertDialogStyle</item>
     </style>
 
-    <style name="TextBoldButterscotch12">
-        <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/butterscotch</item>
-    </style>
-
-    <style name="TextBoldButterscotch14">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/butterscotch</item>
-    </style>
-
-    <style name="RatingBar" parent="Theme.MaterialComponents">
-        <item name="colorControlActivated">@color/butterscotch</item>
-        <item name="colorControlNormal">@android:color/holo_green_light</item>
+    <style name="LargeRatingBar" parent="android:style/Widget.Material.RatingBar">
+        <item name="android:colorControlActivated">@color/butterscotch</item>
+        <item name="android:colorControlNormal">@color/circleChipBackgroundColor</item>
     </style>
 
     <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">

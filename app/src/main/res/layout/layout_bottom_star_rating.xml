@@ -45,8 +45,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="28dp"
                     android:text="@string/review"
+                    android:textColor="@color/backgroundReversalTint"
                     android:textSize="@dimen/textSize_18"
-                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="@string/review" />
@@ -61,7 +61,8 @@
                     android:src="@drawable/ic_btn_close"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_review_title"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_review_title" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_review_title"
+                    app:tint="@color/backgroundReversalTint" />
 
                 <RatingBar
                     android:id="@+id/rb_beer_star"
@@ -71,7 +72,7 @@
                     android:backgroundTint="@color/butterscotch"
                     android:max="5"
                     android:numStars="5"
-                    android:progressBackgroundTint="@color/shark"
+                    android:progressBackgroundTint="@color/startBackgroundColor"
                     android:progressTint="@color/butterscotch"
                     android:rating="@={viewModel.starScore}"
                     android:secondaryProgressTint="@color/butterscotch"
@@ -86,6 +87,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/notosans_kr_bold"
                     android:text="@{viewModel.starScore == null ? @string/rate_unit(0.5) : @string/rate_unit(viewModel.starScore)}"
                     android:textColor="@color/butterscotch"
                     android:textSize="@dimen/textSize_16"
@@ -119,7 +121,7 @@
                         android:scrollbarStyle="outsideInset"
                         android:scrollbars="vertical"
                         android:text="@={viewModel.content}"
-                        android:textColor="@color/white"
+                        android:textColor="@color/backgroundReversalTint"
                         android:textColorHint="@color/color_8e8d94"
                         android:textSize="@dimen/textSize_11"
                         app:nestedScrollable="@{true}" />
@@ -160,6 +162,7 @@
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/background_353537_round_100"
+                    android:backgroundTint="@color/circleChipBackgroundColor"
                     android:paddingHorizontal="14dp"
                     android:paddingVertical="7dp"
                     android:text="@string/review_level_guide"
@@ -181,21 +184,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@{viewModel.content.length() > viewModel.minContentLength ? @color/butterscotch : @color/color_39393b}"
+            android:background="@{viewModel.content.length() > viewModel.minContentLength ? @color/butterscotch : @color/buttonBackgroundColor}"
             android:clickable="@{viewModel.content.length() > viewModel.minContentLength ? true : false}"
             android:focusable="@{viewModel.content.length() > viewModel.minContentLength ? true : false}"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:paddingVertical="22dp"
             android:text="@{isModify ? @string/modify : @string/register}"
-            android:textColor="@{viewModel.content.length() > viewModel.minContentLength ? @color/white : @color/color_8e8d94}"
+            android:textColor="@{viewModel.content.length() > viewModel.minContentLength ? @color/white : @color/buttonTextColor}"
             android:textSize="@dimen/textSize_16"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:onDebouncedClick="@{viewModel.postReview}"
-            tools:background="@color/color_39393b"
+            tools:background="@color/buttonBackgroundColor"
             tools:text="@string/register"
-            tools:textColor="@color/color_8e8d94" />
+            tools:textColor="@color/buttonTextColor" />
     </LinearLayout>
 </layout>
