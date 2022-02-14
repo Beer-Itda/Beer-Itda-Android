@@ -14,9 +14,11 @@ data class BeerDetailResponse(
 )
 
 data class BeerDetailReviewResponse(
-    @SerializedName("userReview")
+    @SerializedName("beer_review_count")
+    val reviewCount: Float?,
+    @SerializedName("user_review")
     val myReview: ReviewResponse?,
-    @SerializedName("beerReviews")
+    @SerializedName("beer_review")
     val beerReviewList: List<ReviewResponse>?,
 )
 

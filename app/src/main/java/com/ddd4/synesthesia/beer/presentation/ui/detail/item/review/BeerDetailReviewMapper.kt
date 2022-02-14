@@ -8,12 +8,15 @@ import com.hjiee.domain.entity.DomainEntity
 
 object BeerDetailReviewMapper {
 
+    const val FIRST_SHOW_REVIEW_COUNT = 5
+
     fun DomainEntity.BeerDetail?.getReviewListItemViewModel(
         eventNotifier: SelectEventNotifier
     ): BeerDetailReviewListViewModel {
         return BeerDetailReviewListViewModel(
             beerId = this?.beer?.id.orZero(),
-            review = getReviewListItemViewModel(this?.review).take(5),
+            reviewCount = this?.reviewCount.orZero(),
+            review = getReviewListItemViewModel(this?.review).take(FIRST_SHOW_REVIEW_COUNT),
             myReview = ReviewItemViewModel(
                 review = this?.myReview
             ),

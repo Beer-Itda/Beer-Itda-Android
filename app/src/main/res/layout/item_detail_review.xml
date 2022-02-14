@@ -151,15 +151,15 @@
                 app:layout_constraintTop_toTopOf="@+id/tv_review"
                 app:onDebouncedClick="@{viewModel.clickShowMoreReview}"
                 app:tint="@color/backgroundReversalTint"
-                app:visibility="@{viewModel.reviewCount != 0}" />
+                app:visibility="@{viewModel.isShowMoreReview}" />
 
 
             <TextView
                 android:id="@+id/tv_review_empty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:gravity="center_vertical"
+                android:paddingVertical="16dp"
                 android:text="@string/empty_review"
                 android:textColor="@color/color_8e8d94"
                 android:textSize="@dimen/textSize_12"
@@ -178,7 +178,7 @@
                 android:overScrollMode="never"
                 app:adapter="@{viewModel.adapter}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@+id/tv_review"
+                app:layout_constraintTop_toBottomOf="@+id/tv_review_empty"
                 app:verticalSpace="@{@dimen/margin_20}"
                 app:visibility="@{viewModel.review.size() > 0}"
                 tools:itemCount="3"
@@ -203,7 +203,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_review"
-                app:layout_goneMarginTop="24dp"
+                app:layout_goneMarginTop="8dp"
                 app:onDebouncedClick="@{viewModel.clickWriteReview}"
                 app:visibility="@{!viewModel.myReviewExist}"
                 tools:text="@string/write_review" />

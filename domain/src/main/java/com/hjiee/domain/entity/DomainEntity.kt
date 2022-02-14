@@ -1,6 +1,7 @@
 package com.hjiee.domain.entity
 
 import java.text.SimpleDateFormat
+import java.util.Date
 
 
 sealed class DomainEntity {
@@ -58,13 +59,10 @@ sealed class DomainEntity {
     data class BeerDetail(
         val beer: Beer,
         val myReview: Review,
+        val reviewCount: Float,
         val review: List<Review>,
         val relatedStyleBeer: List<Beer>,
         val relatedAromaBeer: List<Beer>
-    )
-
-    data class Cursor(
-        val cursor: Int?
     )
 
     class MyReview(
@@ -84,8 +82,16 @@ sealed class DomainEntity {
 
         private val formatDate = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
         private val formatString = SimpleDateFormat("yyyy. MM. dd")
-        private val parsedCreatedDate = formatDate.parse(createdDate)
-        private val parsedUpdatedDate = formatDate.parse(updatedDate)
+        private val parsedCreatedDate = try {
+            formatDate.parse(createdDate)
+        } catch (e: Exception) {
+            Date()
+        }
+        private val parsedUpdatedDate = try {
+            formatDate.parse(updatedDate)
+        } catch (e: Exception) {
+            Date()
+        }
 
         val createdAt: String = formatString.format(parsedCreatedDate)
         val updatedAt: String = formatString.format(parsedUpdatedDate)
