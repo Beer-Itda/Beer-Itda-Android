@@ -7,7 +7,7 @@
 
         <variable
             name="level"
-            type="Integer" />
+            type="com.hjiee.domain.entity.DomainEntity.MyLevel" />
     </data>
 
 
@@ -23,13 +23,15 @@
 
         <ImageView
             android:id="@+id/iv_level"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:background="@drawable/circle_24"
-            android:backgroundTint="@color/butterscotch"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:src="@{level.levelImage}"
+            app:errorDrawable="@{@drawable/circle_24}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:loadUrl="@{level.levelImage}"
+            tools:background="@drawable/circle_24"
+            tools:backgroundTint="@color/butterscotch" />
 
         <TextView
             android:id="@+id/tv_level"
@@ -37,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:background="@android:color/transparent"
-            android:text="보리"
+            android:text="@{level.currentLevel}"
             android:textColor="@color/butterscotch"
             android:textSize="@dimen/textSize_14"
             android:textStyle="bold"
@@ -64,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:background="@android:color/transparent"
-            android:text="@{@string/user_level(level,5)}"
+            android:text="@{@string/user_level(level.currentReviewCount, level.needToNextLevelReviewCount)}"
             android:textColor="@color/backgroundReversalTint"
             android:textSize="@dimen/textSize_14"
             app:layout_constraintBottom_toBottomOf="@+id/tv_title"
@@ -88,8 +90,8 @@
             android:layout_width="match_parent"
             android:layout_height="8dp"
             android:layout_marginTop="12dp"
-            android:max="5"
-            android:progress="@{level}"
+            android:max="@{level.needToNextLevelReviewCount}"
+            android:progress="@{level.currentReviewCount}"
             android:progressDrawable="@drawable/progress_bar_horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -102,11 +104,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:background="@android:color/transparent"
-            android:text="보리"
+            android:text="@{level.currentLevel}"
             android:textColor="@color/color_8e8d94"
             android:textSize="@dimen/textSize_12"
             app:layout_constraintStart_toStartOf="@+id/progress"
-            app:layout_constraintTop_toBottomOf="@id/progress" />
+            app:layout_constraintTop_toBottomOf="@id/progress"
+            tools:text="맥린이" />
 
         <TextView
             android:id="@+id/tv_more_level_step_end"
@@ -114,11 +117,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:background="@android:color/transparent"
-            android:text="맥린이"
+            android:text="@{level.nextLevel}"
             android:textColor="@color/butterscotch"
             android:textSize="@dimen/textSize_12"
             app:layout_constraintEnd_toEndOf="@+id/progress"
-            app:layout_constraintTop_toBottomOf="@id/progress" />
+            app:layout_constraintTop_toBottomOf="@id/progress"
+            tools:text="맥덕" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

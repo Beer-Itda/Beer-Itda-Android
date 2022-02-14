@@ -19,8 +19,8 @@ class LevelStringProvider @Inject constructor(
                 HtmlCompat.fromHtml(
                     context.getString(
                         R.string.level_guide_message,
-                        myLevel.level,
-                        myLevel.count,
+                        myLevel.currentLevel,
+                        myLevel.needToReviewCount,
                         myLevel.nextLevel
                     ),
                     HtmlCompat.FROM_HTML_MODE_LEGACY

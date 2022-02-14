@@ -20,7 +20,7 @@ class LevelGuideViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     private val _message = MutableLiveData<CharSequence>()
-    val message : LiveData<CharSequence> get() = _message
+    val message: LiveData<CharSequence> get() = _message
 
     fun load() {
         viewModelScope.launch {
@@ -28,7 +28,7 @@ class LevelGuideViewModel @Inject constructor(
                 useCase.execute()
             }.onSuccess {
                 _message.value = stringProvider.getMyLevelMessage(it.myLevel)
-                notifyActionEvent(LevelActionEntity.UpdateUi(it.levelGuide.getItems(1)))
+                notifyActionEvent(LevelActionEntity.UpdateUi(it.levelGuide.getItems(it.myLevel.id)))
             }.onFailure {
                 L.e(it)
             }

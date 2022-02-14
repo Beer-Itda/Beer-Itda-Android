@@ -151,9 +151,15 @@ fun UserResponse?.toUserInfo(): DomainEntity.User {
         id = this?.id.orZero(),
         email = this?.email.orEmpty(),
         nickName = this?.nickname.orEmpty(),
-        reviewCount = this?.reviewCount.orZero(),
-        levelId = this?.levelId.orZero(),
         profileImage = "",
+        myLevel = DomainEntity.MyLevel(
+            id = this?.reviewLevel?.currentLevelId.orZero(),
+            levelImage = this?.reviewLevel?.currentLevelImage.orEmpty(),
+            currentLevel = this?.reviewLevel?.currentLevel.orEmpty(),
+            nextLevel = this?.reviewLevel?.nextLevel.orEmpty(),
+            needToReviewCount = this?.reviewLevel?.needReviewCount.orZero(),
+            currentReviewCount = this?.reviewLevel?.currentReviewCount.orZero()
+        ),
     )
 }
 
@@ -212,9 +218,12 @@ fun NetworkResponse<LevelGuideResponse>?.toLevelGuide(): DomainEntity.Response<D
         message = this?.message.orEmpty(),
         data = DomainEntity.Level(
             myLevel = DomainEntity.MyLevel(
-                level = this?.data?.user?.level.orEmpty(),
-                count = this?.data?.user?.count.orZero(),
-                nextLevel = this?.data?.user?.nextLevel.orEmpty()
+                id = this?.data?.reviewLevel?.currentLevelId.orZero(),
+                levelImage = this?.data?.reviewLevel?.currentLevelImage.orEmpty(),
+                currentLevel = this?.data?.reviewLevel?.currentLevel.orEmpty(),
+                needToReviewCount = this?.data?.reviewLevel?.needReviewCount.orZero(),
+                nextLevel = this?.data?.reviewLevel?.nextLevel.orEmpty(),
+                currentReviewCount = this?.data?.reviewLevel?.currentReviewCount.orZero()
             ),
             levelGuide = this?.data?.levels?.map {
                 DomainEntity.LevelGuide(

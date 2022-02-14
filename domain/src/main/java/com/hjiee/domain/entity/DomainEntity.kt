@@ -101,9 +101,8 @@ sealed class DomainEntity {
         val id: Int,
         val email: String,
         val nickName: String,
-        val reviewCount: Int,
-        val levelId: Int,
-        val profileImage: String
+        val profileImage: String,
+        val myLevel: MyLevel
     )
 
     class Level(
@@ -112,10 +111,15 @@ sealed class DomainEntity {
     )
 
     class MyLevel(
-        val level: String,
-        val count: Int,
+        val id: Int,
+        val levelImage: String,
+        val needToReviewCount: Int,
+        val currentReviewCount: Int,
+        val currentLevel: String,
         val nextLevel: String
-    )
+    ) {
+        val needToNextLevelReviewCount = currentReviewCount + needToReviewCount
+    }
 
     class LevelGuide(
         val id: Int,

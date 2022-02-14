@@ -3,8 +3,8 @@ package com.hjiee.data.response.v2
 import com.google.gson.annotations.SerializedName
 
 data class LevelGuideResponse(
-    @SerializedName("user")
-    val user: MyLevelResponse,
+    @SerializedName("review_level")
+    val reviewLevel: MyLevelResponse,
     @SerializedName("levels")
     val levels: List<LevelResponse>?
 )
@@ -21,12 +21,16 @@ data class LevelResponse(
 )
 
 data class MyLevelResponse(
-    @SerializedName("level")
-    val level: String,
-    @SerializedName("count")
-    val count: Int,
-    @SerializedName("nextLevel")
+    @SerializedName("current_level_id")
+    val currentLevelId: Int,
+    @SerializedName("current_level_image")
+    val currentLevelImage: String,
+    @SerializedName("current_review_count")
+    val currentReviewCount: Int,
+    @SerializedName("current_level")
+    val currentLevel: String,
+    @SerializedName("need_review_count")
+    val needReviewCount: Int,
+    @SerializedName("next_level")
     val nextLevel: String,
-) {
-
-}
+)
