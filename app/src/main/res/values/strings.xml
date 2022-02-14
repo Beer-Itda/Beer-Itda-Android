@@ -82,6 +82,7 @@
     <string name="page_out">페이지를 나가시겠습니까?</string>
     <string name="do_not_save">변경사항이 저장되지 않습니다</string>
     <string name="reset_filter">적용한 필터 내용이 사라집니다!</string>
+    <string name="setting_theme">테마설정</string>
     <string name="yes">네</string>
     <string name="no">아니요</string>
     <string name="nickname">닉네임을 입력해주세요.</string>
@@ -132,4 +133,7 @@
     <string name="level_guide_message"><![CDATA[회원님의 등급은 <font color="#fdbd39"><b>%s</b></font>입니다.<br>리뷰를 <font color="#fdbd39"><b>%d개</b></font> 더 작성하면 <font color="#fdbd39"><b>%s</b></font>가 될 수 있습니다.]]></string>
     <string name="skip">건너뛰기</string>
     <string name="level_guide_with_write_count"><![CDATA[작성리뷰 <font color="#fdbd39"><b>%d개</b></font> 이상]]></string>
+    <string name="theme_system">시스템</string>
+    <string name="theme_dark">다크</string>
+    <string name="theme_white">화이트</string>
 </resources>

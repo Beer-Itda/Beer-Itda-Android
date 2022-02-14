@@ -1,13 +1,12 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.mypage.setting.view
 
 import android.app.AlertDialog
-import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.ddd4.synesthesia.beer.R
+import com.ddd4.synesthesia.beer.ThemeHelper
 import com.ddd4.synesthesia.beer.data.source.local.InfomationsData
 import com.ddd4.synesthesia.beer.databinding.ActivityMyPageSettingBinding
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
@@ -32,11 +31,13 @@ class SettingActivity :
 
     private val viewModel by viewModels<SettingViewModel>()
     private val settingAdapter by lazy { SettingAdapter() }
+    private val themeList by lazy { resources.getStringArray(R.array.theme_list) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initBind()
         initObserver()
+        viewModel.init()
     }
 
     override fun initBind() {
@@ -127,11 +128,16 @@ class SettingActivity :
             }
             // 테마설정
             InfomationsData.THEME.title -> {
-                val dialog = AlertDialog.Builder(this)
-                dialog.setItems(arrayOf("시스템","다크","화이트")) { _, _ ->
-
-                }
-                dialog.show()
+                MaterialAlertDialogBuilder(this@SettingActivity, R.style.Dialog)
+                    .setTitle(getString(R.string.setting_theme))
+                    .setSingleChoiceItems(themeList, viewModel.getSelectedThemePosition()) { dialog, position ->
+                        viewModel.saveTheme(position)
+                        ThemeHelper.getThemeMode(position).let {
+                            ThemeHelper.applyTheme(it)
+                        }
+                        dialog.dismiss()
+                    }
+                    .show()
             }
         }
     }

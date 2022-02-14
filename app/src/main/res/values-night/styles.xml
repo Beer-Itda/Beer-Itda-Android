@@ -51,14 +51,14 @@
     </style>
 
     <!--삭제확인 다이얼로그 테마-->
-    <style name="Dialog" parent="Theme.MaterialComponents.Dialog.Alert.Bridge">
+    <style name="Dialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert.Bridge">
         <item name="buttonBarPositiveButtonStyle">@style/Alert.Button.Positive</item>
         <item name="buttonBarNegativeButtonStyle">@style/Alert.Button.Negative</item>
     </style>
 
     <style name="Alert.Button.Positive" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="backgroundTint">@android:color/transparent</item>
-        <item name="rippleColor">@color/white</item>
+        <item name="rippleColor">@color/ripple</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">normal</item>
         <item name="fontFamily">@font/notosans_kr_regular</item>
@@ -68,7 +68,7 @@
 
     <style name="Alert.Button.Negative" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="backgroundTint">@android:color/transparent</item>
-        <item name="rippleColor">@color/white</item>
+        <item name="rippleColor">@color/ripple</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">normal</item>
         <item name="fontFamily">@font/notosans_kr_regular</item>
