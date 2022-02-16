@@ -107,8 +107,8 @@ class SearchViewModel @Inject constructor(
                 if (!isLoadMore.get()) {
                     items.clear()
                 }
-                isEmpty.set(result.beers.isEmpty())
-                items.addAll(getItems(result.beers, this@SearchViewModel))
+                isEmpty.set(result.data.isEmpty())
+                items.addAll(getItems(result.data, this@SearchViewModel))
                 items.remove(loadingItem)
                 _page.value = result.page
                 notifyActionEvent(SearchActionEntity.UpdateList(items))

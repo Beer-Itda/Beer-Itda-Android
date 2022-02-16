@@ -7,9 +7,9 @@ import com.hjiee.data.response.common.PageResponse
 import com.hjiee.data.response.v2.*
 import com.hjiee.domain.entity.DomainEntity
 
-fun PageResponse<BeerResponse>?.toBeerListWithPagination(): DomainEntity.Beers {
-    return DomainEntity.Beers(
-        beers = this?.data?.map {
+fun PageResponse<BeerResponse>?.toBeerListWithPagination(): DomainEntity.PageResult<DomainEntity.Beer> {
+    return DomainEntity.PageResult(
+        data = this?.data?.map {
             DomainEntity.Beer(
                 id = it.id.orZero(),
                 abv = it.abv.orZero(),
@@ -23,6 +23,7 @@ fun PageResponse<BeerResponse>?.toBeerListWithPagination(): DomainEntity.Beers {
                 isFavorite = it.heart.orFalse()
             )
         }.orEmpty(),
+        totalCount = this?.totalCount.orZero(),
         page = DomainEntity.Page(
             totalPage = this?.totalPage.orZero(),
             currentPage = this?.currentPage.orZero(),

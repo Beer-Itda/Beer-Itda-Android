@@ -16,7 +16,7 @@ interface BeerRepository {
     suspend fun getReview(beerId: Int, page: Int, size: Int = DEFAULT_PAGE_SIZE): PageResult<Review>
     suspend fun getAromaInfo(): Response<List<Aroma>>
     suspend fun getStyleInfo(): Response<List<StyleLargeCategory>>
-    suspend fun getMyFavorite(page: Int, size: Int = DEFAULT_PAGE_SIZE): Beers
+    suspend fun getMyFavorite(page: Int, size: Int = DEFAULT_PAGE_SIZE): PageResult<Beer>
     suspend fun getLevelGuide(): Response<Level>
 
     suspend fun postReview(beerId: Int, starScore: Float, content: String)
@@ -28,7 +28,7 @@ interface BeerRepository {
     suspend fun updateReview(beerId: Int, starScore: Float, content: String)
 
     suspend fun changeNickName(nickName: String)
-    suspend fun search(word: String, page: Int, size: Int = DEFAULT_PAGE_SIZE): Beers
+    suspend fun search(word: String, page: Int, size: Int = DEFAULT_PAGE_SIZE): PageResult<Beer>
 
 //    suspend fun getAppConfig(): AppConfig
 //    suspend fun getBeerList(

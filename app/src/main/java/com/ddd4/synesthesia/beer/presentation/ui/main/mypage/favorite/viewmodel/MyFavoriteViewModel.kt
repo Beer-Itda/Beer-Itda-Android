@@ -33,7 +33,7 @@ class MyFavoriteViewModel @Inject constructor(
     fun load() {
         viewModelScope.launch(errorHandler) {
             runCatching {
-                useCase.execute().beers.getBeerItemViewModel(this@MyFavoriteViewModel)
+                useCase.execute().data.getBeerItemViewModel(this@MyFavoriteViewModel)
             }.onSuccess {
                 val itemViewModel = it.map { beer -> MyFavoriteItemViewModel(beer) }
                 notifyActionEvent(MyFavoriteActionEntity.UpdateUi(itemViewModel))

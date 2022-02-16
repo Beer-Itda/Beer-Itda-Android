@@ -9,7 +9,7 @@ import javax.inject.Inject
 class MyFavoriteUseCase @Inject constructor(
     private val repository: BeerRepository
 ) {
-    suspend fun execute(next: Int? = DEFAULT_FIRST_PAGE): DomainEntity.Beers {
+    suspend fun execute(next: Int? = DEFAULT_FIRST_PAGE): DomainEntity.PageResult<DomainEntity.Beer> {
         return repository.getMyFavorite(next.orZero())
     }
 

@@ -57,7 +57,7 @@ class BeerRepositoryImpl @Inject constructor(
         return beerApi.getStyleInfo().toStyleLargeCategory()
     }
 
-    override suspend fun getMyFavorite(page: Int, size: Int): Beers {
+    override suspend fun getMyFavorite(page: Int, size: Int): PageResult<Beer> {
         return beerApi.getMyFavorite(page, size).toBeerListWithPagination()
     }
 
@@ -89,7 +89,7 @@ class BeerRepositoryImpl @Inject constructor(
         beerApi.changeNickName(nickName)
     }
 
-    override suspend fun search(word: String, page: Int, size: Int): Beers {
+    override suspend fun search(word: String, page: Int, size: Int): PageResult<Beer> {
         return beerApi.search(
             word = word,
             page = page,
