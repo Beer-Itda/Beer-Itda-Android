@@ -17,10 +17,6 @@ class BeerRepositoryImpl @Inject constructor(
         return beerApi.getUserInfo()?.data.toUserInfo()
     }
 
-    override suspend fun getBeers(): Response<Beers>? {
-        return beerApi.getBeerList()?.toBeerList()
-    }
-
     override suspend fun getBeerDetail(id: Int): Response<BeerDetail>? {
         return beerApi.getBeerDetail(id)?.toBeerDetail()
     }
@@ -61,8 +57,8 @@ class BeerRepositoryImpl @Inject constructor(
         return beerApi.getStyleInfo().toStyleLargeCategory()
     }
 
-    override suspend fun getMyFavorite(): Response<Beers> {
-        return beerApi.getMyFavorite().toBeerListWithPagination()
+    override suspend fun getMyFavorite(page: Int, size: Int): Beers {
+        return beerApi.getMyFavorite(page, size).toBeerListWithPagination()
     }
 
     override suspend fun getLevelGuide(): Response<Level> {

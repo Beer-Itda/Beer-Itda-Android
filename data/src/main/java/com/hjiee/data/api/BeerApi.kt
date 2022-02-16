@@ -30,15 +30,6 @@ interface BeerApi {
     ): LoginResponse?
 
     /**
-     * 맥주 리스트
-     */
-    @GET("api/v1/beer")
-    suspend fun getBeerList(
-        @Query("cursor") nextCursor: Int? = 0
-    ): NetworkResponse<BeersResponse>?
-
-
-    /**
      * 맥주 상세
      */
     @GET("api/v1/beer/detail/{beerId}")
@@ -162,7 +153,10 @@ interface BeerApi {
      * 찜하기
      */
     @GET("api/v1/heart")
-    suspend fun getMyFavorite(): NetworkResponse<BeerListResponse>?
+    suspend fun getMyFavorite(
+        @Query("page") page: Int = DEFAULT_FIRST_PAGE,
+        @Query("size") size: Int = DEFAULT_PAGE_SIZE
+    ): PageResponse<BeerResponse>?
 
     /**
      * 검색

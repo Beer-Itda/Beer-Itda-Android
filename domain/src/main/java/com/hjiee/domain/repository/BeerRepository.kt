@@ -7,7 +7,6 @@ import com.hjiee.domain.repository.ApiServiceConstants.DEFAULT_PAGE_SIZE
 
 interface BeerRepository {
     suspend fun getBeerAward(): Response<Beer>?
-    suspend fun getBeers(): Response<Beers>?
     suspend fun getBeerDetail(id: Int): Response<BeerDetail>?
     suspend fun getStyleBeer(page: Int, size: Int = DEFAULT_PAGE_SIZE): Response<Beers>?
     suspend fun getAromaBeer(page: Int, size: Int = DEFAULT_PAGE_SIZE): Response<Beers>?
@@ -17,7 +16,7 @@ interface BeerRepository {
     suspend fun getReview(beerId: Int): List<Review>
     suspend fun getAromaInfo(): Response<List<Aroma>>
     suspend fun getStyleInfo(): Response<List<StyleLargeCategory>>
-    suspend fun getMyFavorite(): Response<Beers>?
+    suspend fun getMyFavorite(page: Int, size: Int = DEFAULT_PAGE_SIZE): Beers
     suspend fun getLevelGuide(): Response<Level>
 
     suspend fun postReview(beerId: Int, starScore: Float, content: String)

@@ -33,7 +33,7 @@ class MyFavoriteViewModel @Inject constructor(
     fun load() {
         viewModelScope.launch(errorHandler) {
             runCatching {
-                useCase.execute()?.beers.orEmpty().getBeerItemViewModel(this@MyFavoriteViewModel)
+                useCase.execute().beers.getBeerItemViewModel(this@MyFavoriteViewModel)
             }.onSuccess {
                 val itemViewModel = it.map { beer -> MyFavoriteItemViewModel(beer) }
                 notifyActionEvent(MyFavoriteActionEntity.UpdateUi(itemViewModel))
@@ -47,6 +47,10 @@ class MyFavoriteViewModel @Inject constructor(
     fun refresh() {
         setRefresh(true)
         load()
+    }
+
+    fun loadMore() {
+        //TODO 더불러오기
     }
 
     private fun fetchFavorite(id: Int) {

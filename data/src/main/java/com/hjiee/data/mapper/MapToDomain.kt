@@ -100,13 +100,7 @@ fun NetworkResponse<BeerListResponse>?.toBeerListWithPagination(): DomainEntity.
                     style = it.style.orEmpty(),
                     isFavorite = it.heart.orFalse()
                 )
-            }.orEmpty(),
-            page = DomainEntity.Page(
-                totalPage = this?.data?.totalPage.orZero(),
-                currentPage = this?.data?.currentPage.orZero(),
-                previousPage = this?.data?.previousPage.orZero(),
-                nextPage = this?.data?.nextPage.orZero()
-            )
+            }.orEmpty()
         )
     )
 }

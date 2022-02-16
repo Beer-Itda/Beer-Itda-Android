@@ -2,7 +2,7 @@ package com.hjiee.data.response.common
 
 import com.google.gson.annotations.SerializedName
 
-abstract class PageResponse<ELEMENT>(
+class PageResponse<ELEMENT>(
     @SerializedName("total_data")
     val totalCount: Int? = null,
     @SerializedName("data")
