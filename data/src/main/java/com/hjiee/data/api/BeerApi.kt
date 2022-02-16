@@ -82,8 +82,10 @@ interface BeerApi {
      */
     @GET("api/v1/review/{beerId}")
     suspend fun getReviewList(
-        @Path("beerId") beerId: Int
-    ): List<ReviewResponse>?
+        @Path("beerId") beerId: Int,
+        @Query("page") page: Int = DEFAULT_FIRST_PAGE,
+        @Query("size") size: Int = DEFAULT_PAGE_SIZE
+    ): PageResponse<ReviewResponse>?
 
     /**
      * 리뷰 등록

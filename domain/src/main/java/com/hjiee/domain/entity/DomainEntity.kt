@@ -14,6 +14,12 @@ sealed class DomainEntity {
         val data: ELEMENT
     )
 
+    data class PageResult<ELEMENT>(
+        val totalCount: Int,
+        val data: List<ELEMENT>,
+        val page: Page
+    )
+
     data class Page(
         var totalPage: Int = 0,
         var currentPage: Int = 0,

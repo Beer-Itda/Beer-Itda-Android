@@ -13,7 +13,7 @@ interface BeerRepository {
     suspend fun getRandomRecommendBeer(page: Int, size: Int = DEFAULT_PAGE_SIZE): Response<Beers>?
     suspend fun getUserInfo(): User
     suspend fun getMyReview(): List<MyReview>
-    suspend fun getReview(beerId: Int): List<Review>
+    suspend fun getReview(beerId: Int, page: Int, size: Int = DEFAULT_PAGE_SIZE): PageResult<Review>
     suspend fun getAromaInfo(): Response<List<Aroma>>
     suspend fun getStyleInfo(): Response<List<StyleLargeCategory>>
     suspend fun getMyFavorite(page: Int, size: Int = DEFAULT_PAGE_SIZE): Beers

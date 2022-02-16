@@ -38,11 +38,15 @@ class ReviewListViewModel @Inject constructor(
             runCatching {
                 useCase.execute(beerId)
             }.onSuccess {
-                val items = ReviewItemViewModelMapper.getReviewListItemViewModel(it)
+                val items = ReviewItemViewModelMapper.getReviewListItemViewModel(it.data)
                 notifyActionEvent(ReviewListActionEntity.UpdateUi(items))
             }.onFailure {
                 L.e(it)
             }
         }
+    }
+
+    private fun loadMore() {
+        //TODO 더 불러오기
     }
 }

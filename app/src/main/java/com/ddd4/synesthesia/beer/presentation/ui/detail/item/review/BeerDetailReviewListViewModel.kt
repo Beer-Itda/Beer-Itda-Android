@@ -18,7 +18,8 @@ class BeerDetailReviewListViewModel(
 ) : IBeerDetailViewModel {
 
     val isMyReviewExist: Boolean = myReview != null && myReview.review?.reviewId.orZero() != 0
-    val isShowMoreReview = reviewCount > FIRST_SHOW_REVIEW_COUNT
+//    val isShowMoreReview = reviewCount > FIRST_SHOW_REVIEW_COUNT
+    val isShowMoreReview = true
 
     val adapter = ReviewListAdapter()
 

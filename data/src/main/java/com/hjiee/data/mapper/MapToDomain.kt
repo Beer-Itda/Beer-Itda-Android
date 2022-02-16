@@ -32,6 +32,29 @@ fun PageResponse<BeerResponse>?.toBeerListWithPagination(): DomainEntity.Beers {
     )
 }
 
+fun PageResponse<ReviewResponse>?.toReviewListWithPagination(): DomainEntity.PageResult<DomainEntity.Review> {
+    return DomainEntity.PageResult(
+        data = this?.data?.map {
+            DomainEntity.Review(
+                beerId = it.beerId.orZero(),
+                content = it.content.orEmpty(),
+                reviewId = it.reviewId.orZero(),
+                star = it.star.orZero(),
+                userId = it.userId.orEmpty(),
+                createdDate = it.createdAt.orEmpty(),
+                updatedDate = it.updatedAt.orEmpty(),
+            )
+        }.orEmpty(),
+        totalCount = this?.totalCount.orZero(),
+        page = DomainEntity.Page(
+            totalPage = this?.totalPage.orZero(),
+            currentPage = this?.currentPage.orZero(),
+            previousPage = this?.previousPage.orZero(),
+            nextPage = this?.nextPage.orZero()
+        )
+    )
+}
+
 fun NetworkResponse<BeerDetailResponse>?.toBeerDetail(): DomainEntity.Response<DomainEntity.BeerDetail> {
     return DomainEntity.Response(
         data = DomainEntity.BeerDetail(
