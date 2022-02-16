@@ -11,6 +11,7 @@ val Int.dp: Int
     get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
 
 fun Int?.orZero(): Int = this ?: 0
+fun Int?.orDefault(value : Int): Int = this ?: value
 
 
 /**

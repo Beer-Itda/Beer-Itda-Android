@@ -8,20 +8,16 @@ class HomeStringProvider @Inject constructor(
     private val stringProvider: StringProvider
 ) {
 
-    enum class Code {
-        STYLE,
-        AROMA,
-        RANDOM,
-    }
 
-    fun getStringRes(type: Code): String = when (type) {
-        Code.STYLE -> {
+
+    fun getStringRes(type: HomeBeerRecommendType): String = when (type) {
+        HomeBeerRecommendType.STYLE -> {
             stringProvider.getStringRes(R.string.title_like_style)
         }
-        Code.AROMA -> {
+        HomeBeerRecommendType.AROMA -> {
             stringProvider.getStringRes(R.string.title_like_aroma)
         }
-        Code.RANDOM -> {
+        HomeBeerRecommendType.RANDOM -> {
             stringProvider.getStringRes(R.string.title_like_random)
         }
     }

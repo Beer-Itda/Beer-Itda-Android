@@ -7,18 +7,28 @@ import androidx.lifecycle.viewModelScope
 import com.ddd4.synesthesia.beer.presentation.base.BaseViewModel
 import com.ddd4.synesthesia.beer.presentation.commom.entity.BeerClickEntity
 import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModelMapper.getBeerItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.AromaProvider
 import com.ddd4.synesthesia.beer.presentation.ui.common.filter.StyleProvider
+import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.view.HomeBeerRecommendType
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.view.HomeStringProvider
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.entity.MoreListActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.footer.MoreItemLoadingViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.item.IMoreListViewModel
+import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.item.MoreListItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.view.MoreListActivity.Companion.KEY_LIKE_SORT
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.view.MoreListActivity.Companion.KEY_LIKE_TITLE
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.view.MoreListActivity.Companion.KEY_LIKE_TYPE
 import com.ddd4.synesthesia.beer.util.sort.SortType
 import com.hjiee.core.event.entity.ItemClickEntity
+import com.hjiee.core.ext.orFalse
+import com.hjiee.domain.entity.DomainEntity
 import com.hjiee.domain.repository.BeerRepository
+import com.hjiee.domain.usecase.beer.GetRandomRecommendUseCase
+import com.hjiee.domain.usecase.beer.GetSelectedAromaBeerUseCase
+import com.hjiee.domain.usecase.beer.GetSelectedStyleBeerUseCase
+import com.hjiee.domain.usecase.filter.aroma.GetAromaUseCase
+import com.hjiee.domain.usecase.filter.style.GetStyleUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
@@ -27,14 +37,11 @@ import javax.inject.Inject
 @ExperimentalCoroutinesApi
 @HiltViewModel
 class MoreListViewModel @Inject constructor(
-    private val beerRepository: BeerRepository,
-    private val styleProvider: StyleProvider,
-    private val aromaProvider: AromaProvider,
+    private val style: GetSelectedStyleBeerUseCase,
+    private val aroma: GetSelectedAromaBeerUseCase,
+    private val randomRecommend: GetRandomRecommendUseCase,
     private val savedState: SavedStateHandle
 ) : BaseViewModel() {
-
-    private val _data = MutableLiveData<List<IMoreListViewModel>>()
-    val data: LiveData<List<IMoreListViewModel>> get() = _data
 
     private val _title = MutableLiveData<String>()
     val title: LiveData<String> get() = _title
@@ -45,11 +52,14 @@ class MoreListViewModel @Inject constructor(
     private val _isRefresh = MutableLiveData<Boolean>()
     val isRefresh: LiveData<Boolean> get() = _isRefresh
 
-    private val _cursor = MutableLiveData(0)
-    val cursor: LiveData<Int> get() = _cursor
-
     private val sortType: SortType? by lazy { savedState.get(KEY_LIKE_SORT) }
-    private val type: HomeStringProvider.Code? by lazy { savedState.get(KEY_LIKE_TYPE) }
+    private val type: HomeBeerRecommendType? by lazy { savedState.get(KEY_LIKE_TYPE) }
+
+    private val _page = MutableLiveData<DomainEntity.Page?>()
+    val page: LiveData<DomainEntity.Page?> get() = _page
+
+    private val items = mutableListOf<IMoreListViewModel>()
+    private val loadMoreItem = MoreItemLoadingViewModel()
 
     init {
         _title.value = savedState.get(KEY_LIKE_TITLE)
@@ -58,44 +68,52 @@ class MoreListViewModel @Inject constructor(
     fun load() {
         viewModelScope.launch(errorHandler) {
             val response = when (type) {
-                HomeStringProvider.Code.AROMA -> {
-//                    beerRepository.getBeerList(
-//                        sortType = sortType?.value,
-//                        aroma = aromaProvider.getNames(),
-//                        cursor = cursor.value
-//                    )
+                HomeBeerRecommendType.AROMA -> {
+                    aroma.execute(page.value?.nextPage).let { result ->
+                        _page.value = result?.page
+                        result?.beers.getBeerItemViewModel(eventNotifier = this@MoreListViewModel)
+                            .map {
+                                MoreListItemViewModel(
+                                    beer = it,
+                                    eventNotifier = this@MoreListViewModel
+                                )
+                            }
+                    }
                 }
-                HomeStringProvider.Code.STYLE -> {
-//                    beerRepository.getBeerList(
-//                        sortType = sortType?.value,
-//                        style = styleProvider.getNames(),
-//                        cursor = cursor.value
-//                    )
+                HomeBeerRecommendType.STYLE -> {
+                    style.execute(page.value?.nextPage).let { result ->
+                        _page.value = result?.page
+                        result?.beers.getBeerItemViewModel(eventNotifier = this@MoreListViewModel)
+                            .map {
+                                MoreListItemViewModel(
+                                    beer = it,
+                                    eventNotifier = this@MoreListViewModel
+                                )
+                            }
+                    }
+                }
+                HomeBeerRecommendType.RANDOM -> {
+                    randomRecommend.execute(page.value?.nextPage).let { result ->
+                        _page.value = result?.page
+                        result?.beers.getBeerItemViewModel(eventNotifier = this@MoreListViewModel)
+                            .map {
+                                MoreListItemViewModel(
+                                    beer = it,
+                                    eventNotifier = this@MoreListViewModel
+                                )
+                            }
+                    }
                 }
                 else -> {
-//                    beerRepository.getBeerList(
-//                        sortType = null,
-//                        cursor = cursor.value
-//                    )
+                    null
                 }
             }
+            items.addAll(response.orEmpty())
             removeLoadingProgress()
-//            val data =
-//                response.getMapper(eventNotifier = this@MoreListViewModel)
-
-//            if (_isLoadMore.value.orFalse()) {
-//                _data.value = _data.value?.toMutableList()?.run {
-//                    addAll(data)
-//                    this
-//                }
-//            } else {
-//                _data.value = data
-//            }
 
             _isRefresh.value = false
             _isLoadMore.value = false
-//            _cursor.value = response?.nextCursor
-            notifyActionEvent(MoreListActionEntity.UpdateList(_data.value))
+            notifyActionEvent(MoreListActionEntity.UpdateList(items))
         }
     }
 
@@ -113,42 +131,34 @@ class MoreListViewModel @Inject constructor(
     private fun fetchFavorite(beer: BeerItemViewModel) {
         viewModelScope.launch(errorHandler) {
             beer.updateFavorite()
-//            beerRepository.postFavorite(beer.id, beer.isFavorite.get())
         }
     }
 
     fun loadMore() {
-//        if (_isLoadMore.value.orFalse().not()) {
-//            cursor.value?.let {
-//                _isLoadMore.value = true
-//                addLoadingProgress()
-//                load()
-//            }
-//        }
+        if (_isLoadMore.value.orFalse().not()) {
+            if (_page.value?.hasNext().orFalse()) {
+                _isLoadMore.value = true
+                addLoadingProgress()
+                load()
+            }
+        }
     }
 
     fun refresh() {
         _isRefresh.value = true
-        _cursor.value = 0
+        _page.value?.clear()
+        items.clear()
         load()
         notifyActionEvent(MoreListActionEntity.Refresh)
     }
 
     private fun addLoadingProgress() {
-        _data.value = _data.value?.toMutableList()?.run {
-            addAll(arrayListOf(MoreItemLoadingViewModel()))
-            this
-        }
-        notifyActionEvent(MoreListActionEntity.UpdateList(_data.value))
+        items.add(loadMoreItem)
+        notifyActionEvent(MoreListActionEntity.UpdateList(items))
     }
 
     private fun removeLoadingProgress() {
-        _data.value = _data.value?.toMutableList()?.run {
-            if (_data.value.orEmpty().size > 1) {
-                removeAt(_data.value.orEmpty().size - 1)
-            }
-            this
-        }
-        notifyActionEvent(MoreListActionEntity.UpdateList(_data.value))
+        items.remove(loadMoreItem)
+        notifyActionEvent(MoreListActionEntity.UpdateList(items))
     }
 }

@@ -21,3 +21,9 @@ enum class HomeViewType {
     AWARD,
     RECOMMEND
 }
+
+enum class HomeBeerRecommendType {
+    STYLE,
+    AROMA,
+    RANDOM,
+}

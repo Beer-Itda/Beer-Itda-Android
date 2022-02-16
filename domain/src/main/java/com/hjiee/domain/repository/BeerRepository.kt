@@ -3,14 +3,15 @@ package com.hjiee.domain.repository
 import com.hjiee.domain.entity.DomainEntity.*
 import com.hjiee.domain.entity.request.RequestSelectedAroma
 import com.hjiee.domain.entity.request.RequestSelectedStyle
+import com.hjiee.domain.repository.ApiServiceConstants.DEFAULT_PAGE_SIZE
 
 interface BeerRepository {
     suspend fun getBeerAward(): Response<Beer>?
     suspend fun getBeers(): Response<Beers>?
     suspend fun getBeerDetail(id: Int): Response<BeerDetail>?
-    suspend fun getStyleBeer(): Response<Beers>?
-    suspend fun getAromaBeer(page:Int = 1, size:Int = 20): Response<Beers>?
-    suspend fun getRandomRecommendBeer(): Response<Beers>?
+    suspend fun getStyleBeer(page: Int, size: Int = DEFAULT_PAGE_SIZE): Response<Beers>?
+    suspend fun getAromaBeer(page: Int, size: Int = DEFAULT_PAGE_SIZE): Response<Beers>?
+    suspend fun getRandomRecommendBeer(page: Int, size: Int = DEFAULT_PAGE_SIZE): Response<Beers>?
     suspend fun getUserInfo(): User
     suspend fun getMyReview(): List<MyReview>
     suspend fun getReview(beerId: Int): List<Review>
@@ -28,7 +29,7 @@ interface BeerRepository {
     suspend fun updateReview(beerId: Int, starScore: Float, content: String)
 
     suspend fun changeNickName(nickName: String)
-    suspend fun search(word: String, page: Int, size: Int = 20): Beers
+    suspend fun search(word: String, page: Int, size: Int = DEFAULT_PAGE_SIZE): Beers
 
 //    suspend fun getAppConfig(): AppConfig
 //    suspend fun getBeerList(

@@ -3,7 +3,7 @@ package com.hjiee.data.response.v2
 import com.google.gson.annotations.SerializedName
 
 data class StyleListResponse(
-    @SerializedName("styleList")
+    @SerializedName("style_list")
     val styleList: List<StyleLargeCategoryResponse>?
 )
 
@@ -38,6 +38,6 @@ data class StyleSmallCategoryResponse(
     val middleId: Int?,
     @SerializedName("small_name")
     val smallName: String?,
-    @SerializedName("isSelected")
+    @SerializedName("is_selected")
     val isSelected: Boolean?
 )

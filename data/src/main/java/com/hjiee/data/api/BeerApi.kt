@@ -1,9 +1,12 @@
 package com.hjiee.data.api
 
 import com.hjiee.data.response.common.NetworkResponse
+import com.hjiee.data.response.common.PageResponse
 import com.hjiee.data.response.v2.*
 import com.hjiee.domain.entity.request.RequestSelectedAroma
 import com.hjiee.domain.entity.request.RequestSelectedStyle
+import com.hjiee.domain.repository.ApiServiceConstants.DEFAULT_FIRST_PAGE
+import com.hjiee.domain.repository.ApiServiceConstants.DEFAULT_PAGE_SIZE
 import retrofit2.http.*
 
 interface BeerApi {
@@ -48,8 +51,8 @@ interface BeerApi {
      */
     @GET("api/v1/beer/style")
     suspend fun getSelectedStyleBeer(
-        @Query("page") page: Int = 1,
-        @Query("size") size: Int = 20
+        @Query("page") page: Int = DEFAULT_FIRST_PAGE,
+        @Query("size") size: Int = DEFAULT_PAGE_SIZE
     ): NetworkResponse<BeerListResponse>?
 
     /**
@@ -57,8 +60,8 @@ interface BeerApi {
      */
     @GET("api/v1/beer/aroma")
     suspend fun getSelectedAromaBeer(
-        @Query("page") page: Int = 1,
-        @Query("size") size: Int = 20
+        @Query("page") page: Int = DEFAULT_FIRST_PAGE,
+        @Query("size") size: Int = DEFAULT_PAGE_SIZE
     ): NetworkResponse<BeerListResponse>?
 
     /**
@@ -66,7 +69,9 @@ interface BeerApi {
      */
     @GET("api/v1/beer/random")
     suspend fun getRandomRecommendBeer(
-    ): NetworkResponse<BeersResponse>?
+        @Query("page") page: Int = DEFAULT_FIRST_PAGE,
+        @Query("size") size: Int = DEFAULT_PAGE_SIZE
+    ): NetworkResponse<BeerListResponse>?
 
 
     /**
@@ -157,7 +162,7 @@ interface BeerApi {
      * 찜하기
      */
     @GET("api/v1/heart")
-    suspend fun getMyFavorite(): NetworkResponse<BeersResponse>?
+    suspend fun getMyFavorite(): NetworkResponse<BeerListResponse>?
 
     /**
      * 검색
@@ -167,7 +172,7 @@ interface BeerApi {
         @Query("word") word: String,
         @Query("page") page: Int,
         @Query("size") size: Int
-    ): SearchResponse?
+    ): PageResponse<BeerResponse>?
 
     /**
      * 등급가이드 불러오기

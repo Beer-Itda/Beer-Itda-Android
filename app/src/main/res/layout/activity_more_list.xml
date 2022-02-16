@@ -39,6 +39,7 @@
                 android:clipToPadding="true"
                 android:orientation="vertical"
                 android:overScrollMode="never"
+                android:paddingHorizontal="18dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +47,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/iv_filter"
                 app:topBottomSpace="@{@dimen/margin_20}"
                 app:verticalSpace="@{@dimen/margin_16}"
-                tools:listitem="@layout/item_home2" />
+                tools:listitem="@layout/item_beer_card_vertical" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <include

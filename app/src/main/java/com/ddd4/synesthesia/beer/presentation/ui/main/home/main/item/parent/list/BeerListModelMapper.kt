@@ -2,30 +2,27 @@ package com.ddd4.synesthesia.beer.presentation.ui.main.home.main.item.parent.lis
 
 import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewModelMapper.getBeerItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.item.child.HomeBeerChildItemViewModel
-import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.view.HomeStringProvider
+import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.view.HomeBeerRecommendType
 import com.hjiee.core.event.SelectActionEventNotifier
 import com.hjiee.domain.entity.DomainEntity.Beer
 
 object BeerListModelMapper {
 
-    fun List<Beer>.getMapper(
+    fun List<Beer>?.getMapper(
         title: String,
-        type: HomeStringProvider.Code,
+        type: HomeBeerRecommendType,
         eventNotifier: SelectActionEventNotifier
     ): BeerListItemViewModel {
-        val list = this.map {
+        val list = this?.map {
             HomeBeerChildItemViewModel(
                 it.getBeerItemViewModel(eventNotifier)
             )
         }
 
         return BeerListItemViewModel(
-//            sortType = sortType,
             type = type,
             title = title,
-            beers = list,
-//            style = style.orEmpty(),
-//            aroma = aroma.orEmpty(),
+            beers = list.orEmpty(),
             eventNotifier = eventNotifier
         )
     }

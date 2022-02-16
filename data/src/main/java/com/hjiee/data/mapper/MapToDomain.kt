@@ -3,13 +3,37 @@ package com.hjiee.data.mapper
 import com.hjiee.core.ext.orFalse
 import com.hjiee.core.ext.orZero
 import com.hjiee.data.response.common.NetworkResponse
+import com.hjiee.data.response.common.PageResponse
 import com.hjiee.data.response.v2.*
 import com.hjiee.domain.entity.DomainEntity
 
+fun PageResponse<BeerResponse>?.toBeerListWithPagination(): DomainEntity.Beers {
+    return DomainEntity.Beers(
+        beers = this?.data?.map {
+            DomainEntity.Beer(
+                id = it.id.orZero(),
+                abv = it.abv.orZero(),
+                nameForKorean = it.nameForKorean.orEmpty(),
+                nameForEnglish = it.nameForEnglish.orEmpty(),
+                thumbnailImage = it.thumbnailImage.orEmpty(),
+                starAvg = it.starAvg.orZero(),
+                brewery = it.brewery.orEmpty(),
+                country = it.country.orEmpty(),
+                style = it.style.orEmpty(),
+                isFavorite = it.heart.orFalse()
+            )
+        }.orEmpty(),
+        page = DomainEntity.Page(
+            totalPage = this?.totalPage.orZero(),
+            currentPage = this?.currentPage.orZero(),
+            previousPage = this?.previousPage.orZero(),
+            nextPage = this?.nextPage.orZero()
+        )
+    )
+}
+
 fun NetworkResponse<BeerDetailResponse>?.toBeerDetail(): DomainEntity.Response<DomainEntity.BeerDetail> {
     return DomainEntity.Response(
-        isSuccess = this?.isSuccess.orFalse(),
-        message = this?.message.orEmpty(),
         data = DomainEntity.BeerDetail(
             beer = this?.data?.beerDetail.toBeer(),
             reviewCount = this?.data?.review?.reviewCount.orZero(),
@@ -23,8 +47,6 @@ fun NetworkResponse<BeerDetailResponse>?.toBeerDetail(): DomainEntity.Response<D
 
 fun NetworkResponse<BeerResponse>?.toBeer(): DomainEntity.Response<DomainEntity.Beer> {
     return DomainEntity.Response(
-        isSuccess = this?.isSuccess.orFalse(),
-        message = this?.message.orEmpty(),
         data = DomainEntity.Beer(
             id = this?.data?.id.orZero(),
             abv = this?.data?.abv.orZero(),
@@ -43,8 +65,6 @@ fun NetworkResponse<BeerResponse>?.toBeer(): DomainEntity.Response<DomainEntity.
 
 fun NetworkResponse<BeersResponse>?.toBeerList(): DomainEntity.Response<DomainEntity.Beers> {
     return DomainEntity.Response(
-        isSuccess = this?.isSuccess.orFalse(),
-        message = this?.message.orEmpty(),
         data = DomainEntity.Beers(
             beers = this?.data?.beers?.map {
                 DomainEntity.Beer(
@@ -66,8 +86,6 @@ fun NetworkResponse<BeersResponse>?.toBeerList(): DomainEntity.Response<DomainEn
 
 fun NetworkResponse<BeerListResponse>?.toBeerListWithPagination(): DomainEntity.Response<DomainEntity.Beers> {
     return DomainEntity.Response(
-        isSuccess = this?.isSuccess.orFalse(),
-        message = this?.message.orEmpty(),
         data = DomainEntity.Beers(
             beers = this?.data?.beers?.map {
                 DomainEntity.Beer(
@@ -82,15 +100,19 @@ fun NetworkResponse<BeerListResponse>?.toBeerListWithPagination(): DomainEntity.
                     style = it.style.orEmpty(),
                     isFavorite = it.heart.orFalse()
                 )
-            }.orEmpty()
+            }.orEmpty(),
+            page = DomainEntity.Page(
+                totalPage = this?.data?.totalPage.orZero(),
+                currentPage = this?.data?.currentPage.orZero(),
+                previousPage = this?.data?.previousPage.orZero(),
+                nextPage = this?.data?.nextPage.orZero()
+            )
         )
     )
 }
 
 fun NetworkResponse<AwardResponse>?.toAwardBeer(): DomainEntity.Response<DomainEntity.Beer> {
     return DomainEntity.Response(
-        isSuccess = this?.isSuccess.orFalse(),
-        message = this?.message.orEmpty(),
         data = DomainEntity.Beer(
             id = this?.data?.beer?.id.orZero(),
             abv = this?.data?.beer?.abv.orZero(),
@@ -199,23 +221,8 @@ fun MyReviewListResponse?.toMyReviewList(): List<DomainEntity.MyReview> {
     }.orEmpty()
 }
 
-fun SearchResponse?.toBeerList(): DomainEntity.Beers {
-    return DomainEntity.Beers(
-        beers = this?.beers.toBeer(),
-        page = DomainEntity.Page(
-            totalCount = this?.totalCount.orZero(),
-            totalPage = this?.totalPage.orZero(),
-            currentPage = this?.currentPage.orZero(),
-            previousPage = this?.previousPage.orZero(),
-            nextPage = this?.nextPage.orZero()
-        )
-    )
-}
-
 fun NetworkResponse<LevelGuideResponse>?.toLevelGuide(): DomainEntity.Response<DomainEntity.Level> {
     return DomainEntity.Response(
-        isSuccess = this?.isSuccess.orFalse(),
-        message = this?.message.orEmpty(),
         data = DomainEntity.Level(
             myLevel = DomainEntity.MyLevel(
                 id = this?.data?.reviewLevel?.currentLevelId.orZero(),
@@ -239,8 +246,6 @@ fun NetworkResponse<LevelGuideResponse>?.toLevelGuide(): DomainEntity.Response<D
 
 fun NetworkResponse<AromaListResponse>?.toAromaList(): DomainEntity.Response<List<DomainEntity.Aroma>> {
     return DomainEntity.Response(
-        isSuccess = this?.isSuccess.orFalse(),
-        message = this?.message.orEmpty(),
         data = this?.data?.aromaList?.map {
             DomainEntity.Aroma(
                 id = it.id.orZero(),
@@ -253,8 +258,6 @@ fun NetworkResponse<AromaListResponse>?.toAromaList(): DomainEntity.Response<Lis
 
 fun NetworkResponse<StyleListResponse>?.toStyleLargeCategory(): DomainEntity.Response<List<DomainEntity.StyleLargeCategory>> {
     return DomainEntity.Response(
-        isSuccess = this?.isSuccess.orFalse(),
-        message = this?.message.orEmpty(),
         data = this?.data?.styleList?.map {
             DomainEntity.StyleLargeCategory(
                 largeId = it.largeId.orZero(),

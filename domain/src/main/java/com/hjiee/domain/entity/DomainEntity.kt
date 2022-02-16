@@ -1,7 +1,7 @@
 package com.hjiee.domain.entity
 
 import java.text.SimpleDateFormat
-import java.util.Date
+import java.util.*
 
 
 sealed class DomainEntity {
@@ -11,20 +11,16 @@ sealed class DomainEntity {
     )
 
     data class Response<ELEMENT>(
-        val isSuccess: Boolean,
-        val message: String,
         val data: ELEMENT
     )
 
     data class Page(
-        var totalCount: Int = 0,
         var totalPage: Int = 0,
         var currentPage: Int = 0,
         var previousPage: Int = 0,
         var nextPage: Int = 0
     ) {
         fun clear() {
-            totalCount = 0
             totalPage = 0
             currentPage = 0
             previousPage = 0

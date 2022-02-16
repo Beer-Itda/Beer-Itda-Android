@@ -14,6 +14,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.item.IHomeItemVi
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.item.parent.award.BeerAwardItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.item.parent.list.BeerListItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.item.parent.list.BeerListModelMapper.getMapper
+import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.view.HomeBeerRecommendType
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.view.HomeStringProvider
 import com.ddd4.synesthesia.beer.util.ext.EventFlow
 import com.ddd4.synesthesia.beer.util.ext.GlobalEvent
@@ -129,7 +130,9 @@ class HomeViewModel @Inject constructor(
             fetchAroma().let {
                 runCatching {
                     beerItems.removeAt(index)
-                    beerItems.add(index, it)
+                    it?.let { item ->
+                        beerItems.add(index, item)
+                    }
                     notifyActionEvent(HomeActionEntity.UpdateList(beerItems))
                 }.onFailure {
                     notifyActionEvent(entity = HomeActionEntity.UpdateList(emptyList()))
@@ -145,7 +148,9 @@ class HomeViewModel @Inject constructor(
             fetchStyle().let {
                 runCatching {
                     beerItems.removeAt(index)
-                    beerItems.add(index, it)
+                    it?.let { item ->
+                        beerItems.add(index, item)
+                    }
                     notifyActionEvent(entity = HomeActionEntity.UpdateList(beerItems))
                 }.onFailure {
                     notifyActionEvent(entity = HomeActionEntity.UpdateList(emptyList()))
@@ -166,46 +171,46 @@ class HomeViewModel @Inject constructor(
             }
     }
 
-    private suspend fun fetchAroma(): BeerListItemViewModel {
-        return useCase.getSelectedAromaBeerUseCase.execute().getMapper(
-            title = stringProvider.getStringRes(HomeStringProvider.Code.AROMA),
-            type = HomeStringProvider.Code.AROMA,
+    private suspend fun fetchAroma(): BeerListItemViewModel? {
+        return useCase.getSelectedAromaBeerUseCase.execute()?.beers?.getMapper(
+            title = stringProvider.getStringRes(HomeBeerRecommendType.AROMA),
+            type = HomeBeerRecommendType.AROMA,
             eventNotifier = this@HomeViewModel
         ).also {
             aromaBeer = it
         }
     }
 
-    private suspend fun fetchStyle(): BeerListItemViewModel {
-        return useCase.getSelectedStyleBeerUseCase.execute().getMapper(
-            title = stringProvider.getStringRes(HomeStringProvider.Code.STYLE),
-            type = HomeStringProvider.Code.STYLE,
+    private suspend fun fetchStyle(): BeerListItemViewModel? {
+        return useCase.getSelectedStyleBeerUseCase.execute()?.beers?.getMapper(
+            title = stringProvider.getStringRes(HomeBeerRecommendType.STYLE),
+            type = HomeBeerRecommendType.STYLE,
             eventNotifier = this@HomeViewModel
         ).also {
             styleBeer = it
         }
     }
 
-    private suspend fun fetchRandomRecommend(): BeerListItemViewModel {
-        return useCase.getRandomRecommendBeer.execute().getMapper(
-            title = stringProvider.getStringRes(HomeStringProvider.Code.RANDOM),
-            type = HomeStringProvider.Code.RANDOM,
+    private suspend fun fetchRandomRecommend(): BeerListItemViewModel? {
+        return useCase.getRandomRecommendBeer.execute()?.beers?.getMapper(
+            title = stringProvider.getStringRes(HomeBeerRecommendType.RANDOM),
+            type = HomeBeerRecommendType.RANDOM,
             eventNotifier = this@HomeViewModel
         ).also {
             recommendBeer = it
         }
     }
 
-    private fun recommendLoadMore(type: HomeStringProvider.Code) {
+    private fun recommendLoadMore(type: HomeBeerRecommendType) {
         viewModelScope.launch {
             when (type) {
-                HomeStringProvider.Code.AROMA -> {
+                HomeBeerRecommendType.AROMA -> {
 
                 }
-                HomeStringProvider.Code.STYLE -> {
+                HomeBeerRecommendType.STYLE -> {
 
                 }
-                HomeStringProvider.Code.RANDOM -> {
+                HomeBeerRecommendType.RANDOM -> {
 
                 }
             }

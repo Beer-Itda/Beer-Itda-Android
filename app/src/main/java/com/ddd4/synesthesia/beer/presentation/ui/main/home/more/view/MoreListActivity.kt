@@ -9,7 +9,7 @@ import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityMoreListBinding
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
 import com.ddd4.synesthesia.beer.presentation.ui.detail.view.BeerDetailActivity
-import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.view.HomeStringProvider
+import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.view.HomeBeerRecommendType
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.entity.MoreListActionEntity
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.more.viewmodel.MoreListViewModel
 import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
@@ -36,12 +36,14 @@ class MoreListActivity : BaseActivity<ActivityMoreListBinding>(R.layout.activity
         super.onCreate(savedInstanceState)
         initBind()
         initObserver()
+
         viewModel.load()
     }
 
     override fun initBind() {
         binding.apply {
             vm = viewModel
+            includeToolbar.toolbar.setNavigationOnClickListener { finish() }
             with(rvHomeLike) {
                 adapter = this@MoreListActivity.adapter
                 addOnScrollListener(endlessRecyclerViewScrollListener)
@@ -78,7 +80,7 @@ class MoreListActivity : BaseActivity<ActivityMoreListBinding>(R.layout.activity
 
         fun getIntent(
             context: Context,
-            type: HomeStringProvider.Code,
+            type: HomeBeerRecommendType,
             title: String
         ): Intent {
             return Intent(context, MoreListActivity::class.java).apply {

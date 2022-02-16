@@ -3,7 +3,7 @@ package com.hjiee.data.response.v2
 import com.google.gson.annotations.SerializedName
 
 data class AromaListResponse(
-    @SerializedName("aromaList")
+    @SerializedName("aroma_list")
     val aromaList: List<AromaResponse>?
 )
 
@@ -12,6 +12,6 @@ data class AromaResponse(
     val id: Int?,
     @SerializedName("aroma")
     val name: String?,
-    @SerializedName("isSelected")
+    @SerializedName("is_selected")
     val isSelected: Boolean?
 )

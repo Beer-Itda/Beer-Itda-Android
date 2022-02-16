@@ -25,16 +25,16 @@ class BeerRepositoryImpl @Inject constructor(
         return beerApi.getBeerDetail(id)?.toBeerDetail()
     }
 
-    override suspend fun getStyleBeer(): Response<Beers>? {
-        return beerApi.getSelectedStyleBeer()?.toBeerListWithPagination()
+    override suspend fun getStyleBeer(page: Int, size: Int): Response<Beers>? {
+        return beerApi.getSelectedStyleBeer(page, size)?.toBeerListWithPagination()
     }
 
     override suspend fun getAromaBeer(page: Int, size: Int): Response<Beers>? {
         return beerApi.getSelectedAromaBeer(page, size)?.toBeerListWithPagination()
     }
 
-    override suspend fun getRandomRecommendBeer(): Response<Beers> {
-        return beerApi.getRandomRecommendBeer().toBeerList()
+    override suspend fun getRandomRecommendBeer(page: Int, size: Int): Response<Beers> {
+        return beerApi.getRandomRecommendBeer(page, size).toBeerListWithPagination()
     }
 
     override suspend fun getMyReview(): List<MyReview> {
@@ -62,7 +62,7 @@ class BeerRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getMyFavorite(): Response<Beers> {
-        return beerApi.getMyFavorite().toBeerList()
+        return beerApi.getMyFavorite().toBeerListWithPagination()
     }
 
     override suspend fun getLevelGuide(): Response<Level> {
@@ -98,7 +98,7 @@ class BeerRepositoryImpl @Inject constructor(
             word = word,
             page = page,
             size = size
-        ).toBeerList()
+        ).toBeerListWithPagination()
     }
 
     override suspend fun deleteReview(beerId: Int) {

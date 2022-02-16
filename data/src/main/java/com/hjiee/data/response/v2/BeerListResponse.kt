@@ -6,6 +6,6 @@ import com.hjiee.data.response.common.PageResponse
 data class BeerListResponse(
     @SerializedName("total_data")
     val totalData: Int,
-    @SerializedName("beer_data")
+    @SerializedName("data")
     val beers: List<BeerResponse>?
-) : PageResponse()
+) : PageResponse<Any?>()
