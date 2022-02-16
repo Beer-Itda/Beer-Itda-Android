@@ -21,15 +21,15 @@ class BeerRepositoryImpl @Inject constructor(
         return beerApi.getBeerDetail(id)?.toBeerDetail()
     }
 
-    override suspend fun getStyleBeer(page: Int, size: Int): Response<Beers>? {
-        return beerApi.getSelectedStyleBeer(page, size)?.toBeerListWithPagination()
+    override suspend fun getStyleBeer(page: Int, size: Int): PageResult<Beer> {
+        return beerApi.getSelectedStyleBeer(page, size).toBeerListWithPagination()
     }
 
-    override suspend fun getAromaBeer(page: Int, size: Int): Response<Beers>? {
-        return beerApi.getSelectedAromaBeer(page, size)?.toBeerListWithPagination()
+    override suspend fun getAromaBeer(page: Int, size: Int): PageResult<Beer> {
+        return beerApi.getSelectedAromaBeer(page, size).toBeerListWithPagination()
     }
 
-    override suspend fun getRandomRecommendBeer(page: Int, size: Int): Response<Beers> {
+    override suspend fun getRandomRecommendBeer(page: Int, size: Int): PageResult<Beer> {
         return beerApi.getRandomRecommendBeer(page, size).toBeerListWithPagination()
     }
 

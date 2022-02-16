@@ -172,7 +172,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private suspend fun fetchAroma(): BeerListItemViewModel? {
-        return useCase.getSelectedAromaBeerUseCase.execute()?.beers?.getMapper(
+        return useCase.getSelectedAromaBeerUseCase.execute()?.data?.getMapper(
             title = stringProvider.getStringRes(HomeBeerRecommendType.AROMA),
             type = HomeBeerRecommendType.AROMA,
             eventNotifier = this@HomeViewModel
@@ -182,7 +182,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private suspend fun fetchStyle(): BeerListItemViewModel? {
-        return useCase.getSelectedStyleBeerUseCase.execute()?.beers?.getMapper(
+        return useCase.getSelectedStyleBeerUseCase.execute()?.data?.getMapper(
             title = stringProvider.getStringRes(HomeBeerRecommendType.STYLE),
             type = HomeBeerRecommendType.STYLE,
             eventNotifier = this@HomeViewModel
@@ -192,7 +192,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private suspend fun fetchRandomRecommend(): BeerListItemViewModel? {
-        return useCase.getRandomRecommendBeer.execute()?.beers?.getMapper(
+        return useCase.getRandomRecommendBeer.execute()?.data?.getMapper(
             title = stringProvider.getStringRes(HomeBeerRecommendType.RANDOM),
             type = HomeBeerRecommendType.RANDOM,
             eventNotifier = this@HomeViewModel

@@ -44,7 +44,7 @@ interface BeerApi {
     suspend fun getSelectedStyleBeer(
         @Query("page") page: Int = DEFAULT_FIRST_PAGE,
         @Query("size") size: Int = DEFAULT_PAGE_SIZE
-    ): NetworkResponse<BeerListResponse>?
+    ): PageResponse<BeerResponse>
 
     /**
      * 내가 선택한 향의 맥주
@@ -53,7 +53,7 @@ interface BeerApi {
     suspend fun getSelectedAromaBeer(
         @Query("page") page: Int = DEFAULT_FIRST_PAGE,
         @Query("size") size: Int = DEFAULT_PAGE_SIZE
-    ): NetworkResponse<BeerListResponse>?
+    ): PageResponse<BeerResponse>
 
     /**
      * 랜덤 추천 맥주
@@ -62,7 +62,7 @@ interface BeerApi {
     suspend fun getRandomRecommendBeer(
         @Query("page") page: Int = DEFAULT_FIRST_PAGE,
         @Query("size") size: Int = DEFAULT_PAGE_SIZE
-    ): NetworkResponse<BeerListResponse>?
+    ): PageResponse<BeerResponse>
 
 
     /**

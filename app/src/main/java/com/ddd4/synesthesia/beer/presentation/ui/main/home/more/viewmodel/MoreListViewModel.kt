@@ -71,7 +71,7 @@ class MoreListViewModel @Inject constructor(
                 HomeBeerRecommendType.AROMA -> {
                     aroma.execute(page.value?.nextPage).let { result ->
                         _page.value = result?.page
-                        result?.beers.getBeerItemViewModel(eventNotifier = this@MoreListViewModel)
+                        result?.data.getBeerItemViewModel(eventNotifier = this@MoreListViewModel)
                             .map {
                                 MoreListItemViewModel(
                                     beer = it,
@@ -83,7 +83,7 @@ class MoreListViewModel @Inject constructor(
                 HomeBeerRecommendType.STYLE -> {
                     style.execute(page.value?.nextPage).let { result ->
                         _page.value = result?.page
-                        result?.beers.getBeerItemViewModel(eventNotifier = this@MoreListViewModel)
+                        result?.data.getBeerItemViewModel(eventNotifier = this@MoreListViewModel)
                             .map {
                                 MoreListItemViewModel(
                                     beer = it,
@@ -95,7 +95,7 @@ class MoreListViewModel @Inject constructor(
                 HomeBeerRecommendType.RANDOM -> {
                     randomRecommend.execute(page.value?.nextPage).let { result ->
                         _page.value = result?.page
-                        result?.beers.getBeerItemViewModel(eventNotifier = this@MoreListViewModel)
+                        result?.data.getBeerItemViewModel(eventNotifier = this@MoreListViewModel)
                             .map {
                                 MoreListItemViewModel(
                                     beer = it,

@@ -10,9 +10,9 @@ import javax.inject.Inject
 class GetSelectedAromaBeerUseCase @Inject constructor(
     private val repository: BeerRepository
 ) {
-    suspend fun execute(next: Int? = DEFAULT_FIRST_PAGE): DomainEntity.Beers? {
+    suspend fun execute(next: Int? = DEFAULT_FIRST_PAGE): DomainEntity.PageResult<DomainEntity.Beer>? {
         return try {
-            repository.getAromaBeer(next.orZero())?.data
+            repository.getAromaBeer(next.orZero())
         } catch (e: Exception) {
             L.e(e)
             null

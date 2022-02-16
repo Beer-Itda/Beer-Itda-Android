@@ -10,9 +10,9 @@ import javax.inject.Inject
 class GetRandomRecommendUseCase @Inject constructor(
     private val repository: BeerRepository
 ) {
-    suspend fun execute(next: Int? = DEFAULT_FIRST_PAGE): DomainEntity.Beers? {
+    suspend fun execute(next: Int? = DEFAULT_FIRST_PAGE): DomainEntity.PageResult<DomainEntity.Beer>? {
         return try {
-            repository.getRandomRecommendBeer(next.orZero())?.data
+            repository.getRandomRecommendBeer(next.orZero())
         } catch (e: Exception) {
             L.e(e)
             null
