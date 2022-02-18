@@ -56,15 +56,15 @@ fun PageResponse<ReviewResponse>?.toReviewListWithPagination(): DomainEntity.Pag
     )
 }
 
-fun NetworkResponse<BeerDetailResponse>?.toBeerDetail(): DomainEntity.Response<DomainEntity.BeerDetail> {
+fun BeerDetailResponse?.toBeerDetail(): DomainEntity.Response<DomainEntity.BeerDetail> {
     return DomainEntity.Response(
         data = DomainEntity.BeerDetail(
-            beer = this?.data?.beerDetail.toBeer(),
-            reviewCount = this?.data?.review?.reviewCount.orZero(),
-            myReview = this?.data?.review?.myReview.toReview(),
-            review = this?.data?.review?.beerReviewList.toReviewList(),
-            relatedAromaBeer = this?.data?.sameAromaBeers?.toBeer().orEmpty(),
-            relatedStyleBeer = this?.data?.sameStyleBeers?.toBeer().orEmpty()
+            beer = this?.beerDetail.toBeer(),
+            reviewCount = this?.review?.reviewCount.orZero(),
+            myReview = this?.review?.myReview.toReview(),
+            review = this?.review?.beerReviewList.toReviewList(),
+            relatedAromaBeer = this?.sameAromaBeers?.toBeer().orEmpty(),
+            relatedStyleBeer = this?.sameStyleBeers?.toBeer().orEmpty()
         )
     )
 }

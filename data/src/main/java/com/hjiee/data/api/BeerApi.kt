@@ -35,7 +35,7 @@ interface BeerApi {
     @GET("api/v1/beer/detail/{beerId}")
     suspend fun getBeerDetail(
         @Path("beerId") id: Int
-    ): NetworkResponse<BeerDetailResponse>?
+    ): BeerDetailResponse?
 
     /**
      * 내가 선택한 스타일의 맥주
