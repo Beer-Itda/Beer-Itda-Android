@@ -262,28 +262,24 @@ fun LevelGuideResponse?.toLevelGuide(): DomainEntity.Level? {
     }
 }
 
-fun AromaListResponse?.toAromaList(): DomainEntity.Response<List<DomainEntity.Aroma>> {
-    return DomainEntity.Response(
-        data = this?.aromaList?.map {
-            DomainEntity.Aroma(
-                id = it.id.orZero(),
-                name = it.name.orEmpty(),
-                isSelected = it.isSelected.orFalse()
-            )
-        }.orEmpty()
-    )
+fun AromaListResponse?.toAromaList(): List<DomainEntity.Aroma> {
+    return this?.aromaList?.map {
+        DomainEntity.Aroma(
+            id = it.id.orZero(),
+            name = it.name.orEmpty(),
+            isSelected = it.isSelected.orFalse()
+        )
+    }.orEmpty()
 }
 
-fun StyleListResponse?.toStyleLargeCategory(): DomainEntity.Response<List<DomainEntity.StyleLargeCategory>> {
-    return DomainEntity.Response(
-        data = this?.styleList?.map {
-            DomainEntity.StyleLargeCategory(
-                largeId = it.largeId.orZero(),
-                largeName = it.largeName.orEmpty(),
-                middleCategories = it.middleCategories.toStyleMiddleCategory()
-            )
-        }.orEmpty()
-    )
+fun StyleListResponse?.toStyleLargeCategory(): List<DomainEntity.StyleLargeCategory> {
+    return this?.styleList?.map {
+        DomainEntity.StyleLargeCategory(
+            largeId = it.largeId.orZero(),
+            largeName = it.largeName.orEmpty(),
+            middleCategories = it.middleCategories.toStyleMiddleCategory()
+        )
+    }.orEmpty()
 }
 
 fun List<StyleMiddleCategoryResponse>?.toStyleMiddleCategory(): List<DomainEntity.StyleMiddleCategory> {

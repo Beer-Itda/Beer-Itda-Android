@@ -9,6 +9,6 @@ class GetStyleUseCase @Inject constructor(
     private val repository: BeerRepository
 ) {
     suspend fun execute(): List<DomainEntity.StyleLargeCategory> {
-        return repository.getStyleInfo().data
+        return repository.getStyleInfo()
     }
 }

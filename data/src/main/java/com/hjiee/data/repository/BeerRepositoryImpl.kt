@@ -41,7 +41,7 @@ class BeerRepositoryImpl @Inject constructor(
         return beerApi.getReviewList(beerId, page, size).toReviewListWithPagination()
     }
 
-    override suspend fun getAromaInfo(): Response<List<Aroma>> {
+    override suspend fun getAromaInfo(): List<Aroma> {
         return beerApi.getAromaInfo().toAromaList()
     }
 
@@ -53,7 +53,7 @@ class BeerRepositoryImpl @Inject constructor(
         beerApi.postSelectedStyle(styleIdList = styleIdList)
     }
 
-    override suspend fun getStyleInfo(): Response<List<StyleLargeCategory>> {
+    override suspend fun getStyleInfo(): List<StyleLargeCategory> {
         return beerApi.getStyleInfo().toStyleLargeCategory()
     }
 

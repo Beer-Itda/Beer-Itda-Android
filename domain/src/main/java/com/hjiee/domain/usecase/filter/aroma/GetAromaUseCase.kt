@@ -8,6 +8,6 @@ class GetAromaUseCase @Inject constructor(
     private val repository: BeerRepository
 ) {
     suspend fun execute(): List<DomainEntity.Aroma> {
-        return repository.getAromaInfo().data
+        return repository.getAromaInfo()
     }
 }

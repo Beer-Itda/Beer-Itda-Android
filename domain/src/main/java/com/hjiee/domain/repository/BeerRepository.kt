@@ -14,8 +14,8 @@ interface BeerRepository {
     suspend fun getUserInfo(): User
     suspend fun getMyReview(): List<MyReview>
     suspend fun getReview(beerId: Int, page: Int, size: Int = DEFAULT_PAGE_SIZE): PageResult<Review>
-    suspend fun getAromaInfo(): Response<List<Aroma>>
-    suspend fun getStyleInfo(): Response<List<StyleLargeCategory>>
+    suspend fun getAromaInfo(): List<Aroma>
+    suspend fun getStyleInfo(): List<StyleLargeCategory>
     suspend fun getMyFavorite(page: Int, size: Int = DEFAULT_PAGE_SIZE): PageResult<Beer>
     suspend fun getLevelGuide(): Level?
 
