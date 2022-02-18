@@ -9,6 +9,6 @@ class GetBeerDetailUseCase @Inject constructor(
 ) {
 
     suspend fun execute(id: Int): DomainEntity.BeerDetail? {
-        return repository.getBeerDetail(id)?.data
+        return repository.getBeerDetail(id)
     }
 }

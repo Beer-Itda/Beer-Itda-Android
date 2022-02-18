@@ -22,15 +22,15 @@ data class LevelResponse(
 
 data class MyLevelResponse(
     @SerializedName("current_level_id")
-    val currentLevelId: Int,
+    val currentLevelId: Int?,
     @SerializedName("current_level_image")
-    val currentLevelImage: String,
+    val currentLevelImage: String?,
     @SerializedName("current_review_count")
-    val currentReviewCount: Int,
+    val currentReviewCount: Int?,
     @SerializedName("current_level")
-    val currentLevel: String,
+    val currentLevel: String?,
     @SerializedName("need_review_count")
-    val needReviewCount: Int,
+    val needReviewCount: Int?,
     @SerializedName("next_level")
-    val nextLevel: String,
+    val nextLevel: String?,
 )

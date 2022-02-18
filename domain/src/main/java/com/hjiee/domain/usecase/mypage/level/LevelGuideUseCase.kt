@@ -7,7 +7,7 @@ import javax.inject.Inject
 class LevelGuideUseCase @Inject constructor(
     private val repository: BeerRepository
 ) {
-    suspend fun execute(): DomainEntity.Level {
-        return repository.getLevelGuide().data
+    suspend fun execute(): DomainEntity.Level? {
+        return repository.getLevelGuide()
     }
 }

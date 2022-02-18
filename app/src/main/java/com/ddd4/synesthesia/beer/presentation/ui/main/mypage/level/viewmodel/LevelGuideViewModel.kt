@@ -27,8 +27,12 @@ class LevelGuideViewModel @Inject constructor(
             runCatching {
                 useCase.execute()
             }.onSuccess {
-                _message.value = stringProvider.getMyLevelMessage(it.myLevel)
-                notifyActionEvent(LevelActionEntity.UpdateUi(it.levelGuide.getItems(it.myLevel.id)))
+                _message.value = stringProvider.getMyLevelMessage(it?.myLevel)
+                notifyActionEvent(
+                    LevelActionEntity.UpdateUi(
+                        it?.levelGuide?.getItems(it.myLevel.id).orEmpty()
+                    )
+                )
             }.onFailure {
                 L.e(it)
             }

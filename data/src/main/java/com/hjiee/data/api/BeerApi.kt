@@ -174,7 +174,7 @@ interface BeerApi {
      * 등급가이드 불러오기
      */
     @GET("api/v1/level")
-    suspend fun getLevelGuide(): NetworkResponse<LevelGuideResponse>
+    suspend fun getLevelGuide(): LevelGuideResponse
 
 
     /**

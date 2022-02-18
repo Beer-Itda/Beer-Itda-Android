@@ -13,15 +13,15 @@ class LevelStringProvider @Inject constructor(
 ) : IStringResourceProvider {
 
 
-    fun getMyLevelMessage(myLevel: DomainEntity.MyLevel): CharSequence {
+    fun getMyLevelMessage(myLevel: DomainEntity.MyLevel?): CharSequence {
         return buildSpannedString {
             append(
                 HtmlCompat.fromHtml(
                     context.getString(
                         R.string.level_guide_message,
-                        myLevel.currentLevel,
-                        myLevel.needToReviewCount,
-                        myLevel.nextLevel
+                        myLevel?.currentLevel,
+                        myLevel?.needToReviewCount,
+                        myLevel?.nextLevel
                     ),
                     HtmlCompat.FROM_HTML_MODE_LEGACY
                 )

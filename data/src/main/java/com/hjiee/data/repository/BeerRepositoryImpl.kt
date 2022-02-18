@@ -17,7 +17,7 @@ class BeerRepositoryImpl @Inject constructor(
         return beerApi.getUserInfo()?.data.toUserInfo()
     }
 
-    override suspend fun getBeerDetail(id: Int): Response<BeerDetail>? {
+    override suspend fun getBeerDetail(id: Int): BeerDetail? {
         return beerApi.getBeerDetail(id)?.toBeerDetail()
     }
 
@@ -61,7 +61,7 @@ class BeerRepositoryImpl @Inject constructor(
         return beerApi.getMyFavorite(page, size).toBeerListWithPagination()
     }
 
-    override suspend fun getLevelGuide(): Response<Level> {
+    override suspend fun getLevelGuide(): Level? {
         return beerApi.getLevelGuide().toLevelGuide()
     }
 

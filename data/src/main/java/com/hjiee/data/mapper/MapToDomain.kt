@@ -56,17 +56,17 @@ fun PageResponse<ReviewResponse>?.toReviewListWithPagination(): DomainEntity.Pag
     )
 }
 
-fun BeerDetailResponse?.toBeerDetail(): DomainEntity.Response<DomainEntity.BeerDetail> {
-    return DomainEntity.Response(
-        data = DomainEntity.BeerDetail(
-            beer = this?.beerDetail.toBeer(),
-            reviewCount = this?.review?.reviewCount.orZero(),
-            myReview = this?.review?.myReview.toReview(),
-            review = this?.review?.beerReviewList.toReviewList(),
-            relatedAromaBeer = this?.sameAromaBeers?.toBeer().orEmpty(),
-            relatedStyleBeer = this?.sameStyleBeers?.toBeer().orEmpty()
+fun BeerDetailResponse?.toBeerDetail(): DomainEntity.BeerDetail? {
+    return this?.let {
+        DomainEntity.BeerDetail(
+            beer = beerDetail.toBeer(),
+            reviewCount = review?.reviewCount.orZero(),
+            myReview = review?.myReview.toReview(),
+            review = review?.beerReviewList.toReviewList(),
+            relatedAromaBeer = sameAromaBeers?.toBeer().orEmpty(),
+            relatedStyleBeer = sameStyleBeers?.toBeer().orEmpty()
         )
-    )
+    }
 }
 
 fun NetworkResponse<BeerResponse>?.toBeer(): DomainEntity.Response<DomainEntity.Beer> {
@@ -239,18 +239,18 @@ fun MyReviewListResponse?.toMyReviewList(): List<DomainEntity.MyReview> {
     }.orEmpty()
 }
 
-fun NetworkResponse<LevelGuideResponse>?.toLevelGuide(): DomainEntity.Response<DomainEntity.Level> {
-    return DomainEntity.Response(
-        data = DomainEntity.Level(
+fun LevelGuideResponse?.toLevelGuide(): DomainEntity.Level? {
+    return this?.let {
+        DomainEntity.Level(
             myLevel = DomainEntity.MyLevel(
-                id = this?.data?.reviewLevel?.currentLevelId.orZero(),
-                levelImage = this?.data?.reviewLevel?.currentLevelImage.orEmpty(),
-                currentLevel = this?.data?.reviewLevel?.currentLevel.orEmpty(),
-                needToReviewCount = this?.data?.reviewLevel?.needReviewCount.orZero(),
-                nextLevel = this?.data?.reviewLevel?.nextLevel.orEmpty(),
-                currentReviewCount = this?.data?.reviewLevel?.currentReviewCount.orZero()
+                id = this.reviewLevel.currentLevelId.orZero(),
+                levelImage = this.reviewLevel.currentLevelImage.orEmpty(),
+                currentLevel = this.reviewLevel.currentLevel.orEmpty(),
+                needToReviewCount = this.reviewLevel.needReviewCount.orZero(),
+                nextLevel = this.reviewLevel.nextLevel.orEmpty(),
+                currentReviewCount = this.reviewLevel.currentReviewCount.orZero()
             ),
-            levelGuide = this?.data?.levels?.map {
+            levelGuide = this.levels?.map {
                 DomainEntity.LevelGuide(
                     id = it.id.orZero(),
                     level = it.level.orEmpty(),
@@ -259,7 +259,7 @@ fun NetworkResponse<LevelGuideResponse>?.toLevelGuide(): DomainEntity.Response<D
                 )
             }.orEmpty()
         )
-    )
+    }
 }
 
 fun AromaListResponse?.toAromaList(): DomainEntity.Response<List<DomainEntity.Aroma>> {
