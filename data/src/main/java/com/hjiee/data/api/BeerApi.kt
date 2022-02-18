@@ -117,13 +117,13 @@ interface BeerApi {
      * 맥주 향 정보 불러오기
      */
     @GET("api/v1/information/aroma")
-    suspend fun getAromaInfo(): NetworkResponse<AromaListResponse>
+    suspend fun getAromaInfo(): AromaListResponse
 
     /**
      * 맥주 스타일 정보 불러오기
      */
     @GET("api/v1/information/style")
-    suspend fun getStyleInfo(): NetworkResponse<StyleListResponse>
+    suspend fun getStyleInfo(): StyleListResponse
 
     /**
      * 관심있는 향 선택하기

@@ -262,9 +262,9 @@ fun NetworkResponse<LevelGuideResponse>?.toLevelGuide(): DomainEntity.Response<D
     )
 }
 
-fun NetworkResponse<AromaListResponse>?.toAromaList(): DomainEntity.Response<List<DomainEntity.Aroma>> {
+fun AromaListResponse?.toAromaList(): DomainEntity.Response<List<DomainEntity.Aroma>> {
     return DomainEntity.Response(
-        data = this?.data?.aromaList?.map {
+        data = this?.aromaList?.map {
             DomainEntity.Aroma(
                 id = it.id.orZero(),
                 name = it.name.orEmpty(),
@@ -274,9 +274,9 @@ fun NetworkResponse<AromaListResponse>?.toAromaList(): DomainEntity.Response<Lis
     )
 }
 
-fun NetworkResponse<StyleListResponse>?.toStyleLargeCategory(): DomainEntity.Response<List<DomainEntity.StyleLargeCategory>> {
+fun StyleListResponse?.toStyleLargeCategory(): DomainEntity.Response<List<DomainEntity.StyleLargeCategory>> {
     return DomainEntity.Response(
-        data = this?.data?.styleList?.map {
+        data = this?.styleList?.map {
             DomainEntity.StyleLargeCategory(
                 largeId = it.largeId.orZero(),
                 largeName = it.largeName.orEmpty(),
