@@ -10,7 +10,7 @@ class GetAwardBeerUseCase @Inject constructor(
 ) {
     suspend fun execute(): DomainEntity.Beer? {
         return try {
-            repository.getBeerAward()?.data
+            repository.getBeerAward()
         } catch (e: Exception) {
             L.e(e)
             null

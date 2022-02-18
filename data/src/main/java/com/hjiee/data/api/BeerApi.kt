@@ -102,7 +102,7 @@ interface BeerApi {
      * 월간 인기 맥주
      */
     @GET("api/v1/beer/monthly")
-    suspend fun getBeerAward(): NetworkResponse<AwardResponse>?
+    suspend fun getBeerAward(): BeerResponse?
 
     /**
      * 닉네임 변경

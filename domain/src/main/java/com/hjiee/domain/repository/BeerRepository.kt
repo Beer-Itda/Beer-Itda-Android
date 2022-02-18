@@ -6,7 +6,7 @@ import com.hjiee.domain.entity.request.RequestSelectedStyle
 import com.hjiee.domain.repository.ApiServiceConstants.DEFAULT_PAGE_SIZE
 
 interface BeerRepository {
-    suspend fun getBeerAward(): Response<Beer>?
+    suspend fun getBeerAward(): Beer?
     suspend fun getBeerDetail(id: Int): Response<BeerDetail>?
     suspend fun getStyleBeer(page: Int, size: Int = DEFAULT_PAGE_SIZE): PageResult<Beer>
     suspend fun getAromaBeer(page: Int, size: Int = DEFAULT_PAGE_SIZE): PageResult<Beer>

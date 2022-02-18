@@ -81,8 +81,8 @@ class BeerRepositoryImpl @Inject constructor(
         beerApi.postFavorite(beerId = beerId)
     }
 
-    override suspend fun getBeerAward(): Response<Beer>? {
-        return beerApi.getBeerAward()?.toAwardBeer()
+    override suspend fun getBeerAward(): Beer? {
+        return beerApi.getBeerAward()?.toBeer()
     }
 
     override suspend fun changeNickName(nickName: String) {
