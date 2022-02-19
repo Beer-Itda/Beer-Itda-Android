@@ -1,8 +1,10 @@
 package com.ddd4.synesthesia.beer.util.common
 
+import android.animation.LayoutTransition
 import android.app.Activity
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
@@ -194,6 +196,15 @@ fun EditText.setScrollable(scrollable: Boolean?) {
             }
             false
         }
+    }
+}
+
+@BindingAdapter(value = ["enableTransition"], requireAll = false)
+fun ViewGroup.setEnableTransition(isEnable: Boolean?) {
+    if (isEnable == true) {
+        layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
+    } else {
+        layoutTransition.disableTransitionType(LayoutTransition.CHANGING)
     }
 
 }

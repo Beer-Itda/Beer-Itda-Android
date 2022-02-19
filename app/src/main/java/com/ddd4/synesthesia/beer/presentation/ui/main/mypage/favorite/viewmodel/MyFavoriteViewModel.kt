@@ -9,7 +9,9 @@ import com.ddd4.synesthesia.beer.presentation.ui.common.beer.item.BeerItemViewMo
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.favorite.item.MyFavoriteItemViewModel
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.favorite.model.MyFavoriteActionEntity
 import com.hjiee.core.event.entity.ItemClickEntity
+import com.hjiee.core.ext.orFalse
 import com.hjiee.core.util.log.L
+import com.hjiee.domain.entity.DomainEntity
 import com.hjiee.domain.entity.DomainEntity.Beer
 import com.hjiee.domain.usecase.beer.PostFavoriteUseCase
 import com.hjiee.domain.usecase.mypage.MyFavoriteUseCase
@@ -26,6 +28,14 @@ class MyFavoriteViewModel @Inject constructor(
     private val _isRefresh = MutableLiveData<Boolean>(false)
     val isRefresh: LiveData<Boolean> get() = _isRefresh
 
+    private val _isLoadMore = MutableLiveData<Boolean>(false)
+    val isLoadMore: LiveData<Boolean> get() = _isLoadMore
+
+    private val _page = MutableLiveData<DomainEntity.Page?>()
+    val page: LiveData<DomainEntity.Page?> get() = _page
+
+    private val items = mutableListOf<MyFavoriteItemViewModel>()
+
     init {
         load()
     }
@@ -33,24 +43,39 @@ class MyFavoriteViewModel @Inject constructor(
     fun load() {
         viewModelScope.launch(errorHandler) {
             runCatching {
-                useCase.execute().data.getBeerItemViewModel(this@MyFavoriteViewModel)
-            }.onSuccess {
-                val itemViewModel = it.map { beer -> MyFavoriteItemViewModel(beer) }
-                notifyActionEvent(MyFavoriteActionEntity.UpdateUi(itemViewModel))
+                useCase.execute(_page.value?.nextPage)
+            }.onSuccess { response ->
+                _page.value = response.page
+                val beerList = response.data.getBeerItemViewModel(this@MyFavoriteViewModel)
+                val result = beerList.map { beer -> MyFavoriteItemViewModel(beer) }
+
+                if (_isLoadMore.value == true) {
+                    items.addAll(result)
+                } else {
+                    items.clear()
+                    items.addAll(result)
+                }
+
+                notifyActionEvent(MyFavoriteActionEntity.UpdateUi(items))
             }.onFailure {
                 L.e(it)
             }
             setRefresh(false)
+            setLoadMore(false)
         }
     }
 
     fun refresh() {
         setRefresh(true)
         load()
+        notifyActionEvent(MyFavoriteActionEntity.Refresh)
     }
 
     fun loadMore() {
-        //TODO 더불러오기
+        if (_page.value?.hasNext() == true && !_isLoadMore.value.orFalse()) {
+            setLoadMore(true)
+            load()
+        }
     }
 
     private fun fetchFavorite(id: Int) {
@@ -73,6 +98,10 @@ class MyFavoriteViewModel @Inject constructor(
 
     private fun setRefresh(status: Boolean) {
         _isRefresh.value = status
+    }
+
+    private fun setLoadMore(status: Boolean) {
+        _isLoadMore.value = status
     }
 
 }

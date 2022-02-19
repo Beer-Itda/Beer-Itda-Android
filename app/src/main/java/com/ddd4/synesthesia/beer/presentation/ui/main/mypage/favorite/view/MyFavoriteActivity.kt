@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityMyFavoriteBinding
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
@@ -13,6 +14,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.favorite.model.MyFa
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.favorite.viewmodel.MyFavoriteViewModel
 import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.util.ext.start
+import com.ddd4.synesthesia.beer.util.listener.EndlessRecyclerViewScrollListener
 import com.hjiee.core.event.entity.ActionEntity
 import com.hjiee.core.event.entity.ItemClickEntity
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +27,13 @@ class MyFavoriteActivity : BaseActivity<ActivityMyFavoriteBinding>(R.layout.acti
 
     private val viewModel by viewModels<MyFavoriteViewModel>()
     private val adapter by lazy { MyFavoriteAdapter() }
+    private val endlessRecyclerViewScrollListener: EndlessRecyclerViewScrollListener by lazy {
+        object : EndlessRecyclerViewScrollListener(binding.rvMyFavorite.layoutManager) {
+            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
+                viewModel.loadMore()
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +47,7 @@ class MyFavoriteActivity : BaseActivity<ActivityMyFavoriteBinding>(R.layout.acti
             includeToolbar.toolbar.setNavigationOnClickListener { finish() }
             with(rvMyFavorite) {
                 adapter = this@MyFavoriteActivity.adapter
+                addOnScrollListener(endlessRecyclerViewScrollListener)
             }
         }
     }
@@ -56,6 +66,9 @@ class MyFavoriteActivity : BaseActivity<ActivityMyFavoriteBinding>(R.layout.acti
             is MyFavoriteActionEntity.UpdateUi -> {
                 adapter.clear()
                 adapter.addAll(entity.viewModel)
+            }
+            is MyFavoriteActionEntity.Refresh -> {
+                endlessRecyclerViewScrollListener.resetState()
             }
         }
     }

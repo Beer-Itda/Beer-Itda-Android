@@ -75,21 +75,13 @@
             tools:ignore="SmallSp"
             tools:text="(4/5)" />
 
-        <!--        <ImageView-->
-        <!--            android:id="@+id/iv_more_detail"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:src="@drawable/ic_btn_more"-->
-        <!--            app:layout_constraintBottom_toBottomOf="@+id/tv_title"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="@+id/tv_title" />-->
-
         <ProgressBar
-            android:id="@+id/progress"
+            android:id="@+id/progress_bar"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="8dp"
             android:layout_marginTop="12dp"
+            android:animateLayoutChanges="true"
             android:max="@{level.needToNextLevelReviewCount}"
             android:progress="@{level.currentReviewCount}"
             android:progressDrawable="@drawable/progress_bar_horizontal"
@@ -107,8 +99,8 @@
             android:text="@{level.currentLevel}"
             android:textColor="@color/color_8e8d94"
             android:textSize="@dimen/textSize_12"
-            app:layout_constraintStart_toStartOf="@+id/progress"
-            app:layout_constraintTop_toBottomOf="@id/progress"
+            app:layout_constraintStart_toStartOf="@+id/progress_bar"
+            app:layout_constraintTop_toBottomOf="@id/progress_bar"
             tools:text="맥린이" />
 
         <TextView
@@ -120,8 +112,8 @@
             android:text="@{level.nextLevel}"
             android:textColor="@color/butterscotch"
             android:textSize="@dimen/textSize_12"
-            app:layout_constraintEnd_toEndOf="@+id/progress"
-            app:layout_constraintTop_toBottomOf="@id/progress"
+            app:layout_constraintEnd_toEndOf="@+id/progress_bar"
+            app:layout_constraintTop_toBottomOf="@id/progress_bar"
             tools:text="맥덕" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
