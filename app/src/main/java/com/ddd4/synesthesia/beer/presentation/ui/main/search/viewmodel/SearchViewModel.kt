@@ -108,7 +108,13 @@ class SearchViewModel @Inject constructor(
                     items.clear()
                 }
                 isEmpty.set(result.data.isEmpty())
-                items.addAll(getItems(result.data, this@SearchViewModel))
+                items.addAll(
+                    getItems(
+                        searchText = searchText.get().orEmpty(),
+                        items = result.data,
+                        eventNotifier = this@SearchViewModel
+                    )
+                )
                 items.remove(loadingItem)
                 _page.value = result.page
                 notifyActionEvent(SearchActionEntity.UpdateList(items))

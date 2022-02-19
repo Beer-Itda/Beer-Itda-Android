@@ -2,12 +2,16 @@ package com.ddd4.synesthesia.beer.util.common
 
 import android.animation.LayoutTransition
 import android.app.Activity
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.text.buildSpannedString
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ddd4.synesthesia.beer.R
@@ -205,6 +209,25 @@ fun ViewGroup.setEnableTransition(isEnable: Boolean?) {
         layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
     } else {
         layoutTransition.disableTransitionType(LayoutTransition.CHANGING)
+    }
+}
+
+@BindingAdapter(value = ["highlightingText", "highlightingTextColor"], requireAll = false)
+fun TextView.setHighlightingText(searchText: String?, textColor: Int?) {
+    if (!searchText.isNullOrEmpty()) {
+        val startIndex = text.indexOf(searchText)
+        if (startIndex == -1) {
+            return
+        }
+        text = buildSpannedString {
+            append(text)
+            setSpan(
+                ForegroundColorSpan(textColor ?: R.color.butterscotch),
+                startIndex,
+                startIndex + searchText.length,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
     }
 
 }

@@ -7,11 +7,13 @@ import com.hjiee.domain.entity.DomainEntity
 object SearchMapper {
 
     fun getItems(
+        searchText: String,
         items: List<DomainEntity.Beer>,
         eventNotifier: SelectEventNotifier
     ): List<ISearchViewModel> {
         return items.map {
             SearchItemViewModel(
+                searchText = searchText,
                 beer = it,
                 eventNotifier = eventNotifier
             )
