@@ -67,8 +67,9 @@ class MyFavoriteViewModel @Inject constructor(
 
     fun refresh() {
         setRefresh(true)
-        load()
+        _page.value?.clear()
         notifyActionEvent(MyFavoriteActionEntity.Refresh)
+        load()
     }
 
     fun loadMore() {
