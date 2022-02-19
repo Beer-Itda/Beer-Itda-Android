@@ -22,11 +22,11 @@
             android:id="@+id/loading_progress"
             style="@android:style/Widget.Material.ProgressBar.Horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/subBackgroundTint"
+            android:layout_height="2dp"
+            android:background="@android:color/transparent"
             android:max="100"
             android:minHeight="0dp"
-            android:progressTint="@color/backgroundReversalTint"
+            android:progressTint="@color/butterscotch"
             app:layout_constraintTop_toTopOf="parent"
             tools:progress="50" />
 
