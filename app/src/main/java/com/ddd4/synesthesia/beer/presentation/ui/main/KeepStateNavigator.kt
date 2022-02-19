@@ -3,10 +3,16 @@ package com.ddd4.synesthesia.beer.presentation.ui.main
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
 import androidx.navigation.fragment.FragmentNavigator
+import com.ddd4.synesthesia.beer.R
+import com.ddd4.synesthesia.beer.presentation.ui.main.view.MainActivity.Companion.KEY_CURRENT_NAVIGATION_POSITION
+import com.ddd4.synesthesia.beer.presentation.ui.main.view.MainActivity.Companion.KEY_DESTINATION_NAVIGATION_POSITION
+import com.hjiee.core.ext.orZero
+
 
 @Navigator.Name("KeepStateFragment") // `keep_state_fragment` is used in navigation xml
 class KeepStateNavigator(
@@ -22,26 +28,48 @@ class KeepStateNavigator(
         navigatorExtras: Navigator.Extras?
     ): NavDestination {
         val tag = destination.id.toString()
-        val transaction = manager.beginTransaction()
+        var destinationFragment = manager.findFragmentByTag(tag)
+        val transaction = manager.beginTransaction().apply {
+            setAnimateTransition(args, this)
+        }
 
-        val currentFragment = manager.primaryNavigationFragment
-        if (currentFragment != null) {
+        manager.primaryNavigationFragment?.let { currentFragment ->
             transaction.detach(currentFragment)
         }
 
-        var fragment = manager.findFragmentByTag(tag)
-        if (fragment == null) {
+        if (destinationFragment == null) {
             val className = destination.className
-            fragment = manager.fragmentFactory.instantiate(context.classLoader, className)
-            transaction.add(containerId, fragment, tag)
+            destinationFragment = manager.fragmentFactory.instantiate(context.classLoader, className)
+            transaction.add(containerId, destinationFragment, tag)
         } else {
-            transaction.attach(fragment)
+            transaction.attach(destinationFragment)
         }
 
-        transaction.setPrimaryNavigationFragment(fragment)
+        transaction.setPrimaryNavigationFragment(destinationFragment)
         transaction.setReorderingAllowed(true)
         transaction.commitNow()
 
         return destination
+    }
+
+    /** bottom navigation animate transaction */
+    private fun setAnimateTransition(
+        args: Bundle?,
+        transaction: FragmentTransaction
+    ) {
+        val currentPosition = args?.getInt(KEY_CURRENT_NAVIGATION_POSITION).orZero()
+        val destinationPosition = args?.getInt(KEY_DESTINATION_NAVIGATION_POSITION).orZero()
+
+        if (currentPosition < destinationPosition) {
+            transaction.setCustomAnimations(
+                R.anim.slide_in_right,
+                R.anim.slide_out_left
+            )
+        } else {
+            transaction.setCustomAnimations(
+                R.anim.slide_in_left,
+                R.anim.slide_out_right
+            )
+        }
     }
 }

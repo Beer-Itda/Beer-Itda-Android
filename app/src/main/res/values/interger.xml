@@ -13,4 +13,7 @@
     <integer name="space_32">32</integer>
 
     <integer name="max_length">10</integer>
+
+    <integer name="slide_duration">@android:integer/config_mediumAnimTime</integer>
+    <integer name="fade_duration">@android:integer/config_mediumAnimTime</integer>
 </resources>

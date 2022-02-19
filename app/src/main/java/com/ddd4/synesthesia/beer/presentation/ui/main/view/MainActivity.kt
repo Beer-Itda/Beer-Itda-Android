@@ -2,7 +2,7 @@ package com.ddd4.synesthesia.beer.presentation.ui.main.view
 
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.annotation.ColorRes
+import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -65,10 +65,36 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.navBottomView.run {
             setupWithNavController(navController)
 
+            /**
+             * bottom navigation listener
+             */
             setOnItemSelectedListener {
                 setStatusBarColor(it)
-                navController.navigate(it.itemId)
+                navController.navigate(
+                    it.itemId,
+                    bundleOf(
+                        KEY_CURRENT_NAVIGATION_POSITION to navigationPosition(navController.currentDestination?.id),
+                        KEY_DESTINATION_NAVIGATION_POSITION to navigationPosition(it.itemId),
+                    )
+                )
                 navController.currentDestination?.id != it.itemId
+            }
+        }
+    }
+
+    private fun navigationPosition(itemId: Int?): Int {
+        return when (itemId) {
+            R.id.nav_home -> {
+                0
+            }
+            R.id.nav_search -> {
+                1
+            }
+            R.id.nav_mypage -> {
+                2
+            }
+            else -> {
+                -1
             }
         }
     }
@@ -81,5 +107,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         )
         navController.navigatorProvider.addNavigator(keepNavController)
         navController.setGraph(R.navigation.home)
+    }
+
+    companion object {
+        const val KEY_CURRENT_NAVIGATION_POSITION = "current_navigation_position"
+        const val KEY_DESTINATION_NAVIGATION_POSITION = "destination_navigation_position"
     }
 }
