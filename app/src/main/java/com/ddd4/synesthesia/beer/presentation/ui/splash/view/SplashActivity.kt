@@ -88,7 +88,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         }.show()
     }
 
-//    override fun onBackPressed() {
-    // Nothing
-//    }
+    override fun onBackPressed() {
+//     Nothing
+    }
 }
