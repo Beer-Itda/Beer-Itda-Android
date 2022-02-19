@@ -5,13 +5,21 @@ import android.content.Intent
 import android.os.Bundle
 import android.webkit.WebSettings
 import android.webkit.WebViewClient
+import androidx.core.view.isVisible
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityWebviewBinding
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
+import com.ddd4.synesthesia.beer.presentation.ui.webview.CustomWebChromeClient
+import com.ddd4.synesthesia.beer.presentation.ui.webview.CustomWebViewClient
+import com.ddd4.synesthesia.beer.presentation.ui.webview.model.WebViewActionEntity
+import com.hjiee.core.event.ActionEventNotifier
+import com.hjiee.core.event.EventNotifier
+import com.hjiee.core.event.entity.ActionEntity
 import kotlinx.android.synthetic.main.activity_webview.*
 
 
-class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_webview) {
+class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_webview),
+    ActionEventNotifier {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +29,8 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_w
     override fun initBind() {
         binding.apply {
             webview.apply {
-                webViewClient = WebViewClient()
+                webViewClient = CustomWebViewClient(this@WebViewActivity)
+                webChromeClient = CustomWebChromeClient(this@WebViewActivity)
                 settings.javaScriptEnabled = true // 웹페이지 자바스클비트 허용 여부
                 settings.setSupportMultipleWindows(false) // 새창 띄우기 허용 여부
                 settings.javaScriptCanOpenWindowsAutomatically = false // 자바스크립트 새창 띄우기(멀티뷰) 허용 여부
@@ -46,6 +55,17 @@ class WebViewActivity : BaseActivity<ActivityWebviewBinding>(R.layout.activity_w
             }
             false -> {
                 finish()
+            }
+        }
+    }
+
+    override fun notifyActionEvent(entity: ActionEntity) {
+        when (entity) {
+            is WebViewActionEntity.PageLoadFinished -> {
+                binding.loadingProgress.isVisible = false
+            }
+            is WebViewActionEntity.ProgressChanged -> {
+                binding.loadingProgress.progress = entity.progress
             }
         }
     }
