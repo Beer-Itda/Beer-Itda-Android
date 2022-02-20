@@ -38,11 +38,12 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
             tools:text="한 달 동안 리뷰를 가장 많이 받은 맥주에요" />
 
-        <androidx.cardview.widget.CardView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cv_beer"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:background="@drawable/background_round_12"
             android:backgroundTint="@color/butterscotch"
             app:cardCornerRadius="20dp"
             app:cardElevation="@dimen/cardElevation"
@@ -53,24 +54,37 @@
 
 
             <ImageView
-                android:id="@+id/iv_beer"
-                android:layout_width="111dp"
-                android:layout_height="202dp"
-                android:layout_gravity="end"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="30dp"
-                android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:elevation="2dp"
-                android:scaleType="centerCrop"
-                app:errorDrawable="@{@drawable/default_beer}"
-                app:layout_constraintBottom_toBottomOf="@+id/cv_beer"
-                app:layout_constraintEnd_toEndOf="@+id/cv_beer"
-                app:layout_constraintStart_toStartOf="@+id/cv_beer"
-                app:layout_constraintTop_toTopOf="@+id/cv_beer"
-                app:loadUrl="@{beer.thumbnailImage}"
-                tools:src="@drawable/default_beer" />
-        </androidx.cardview.widget.CardView>
+                android:id="@+id/iv_background_award"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/background_award"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <FrameLayout
+                android:layout_width="108dp"
+                android:layout_height="140dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/iv_background_award"
+                app:layout_constraintStart_toStartOf="@+id/iv_background_award">
+
+                <ImageView
+                    android:id="@+id/iv_beer"
+                    android:layout_width="108dp"
+                    android:layout_height="140dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="6dp"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:elevation="2dp"
+                    android:scaleType="centerCrop"
+                    app:errorDrawable="@{@drawable/default_beer}"
+                    app:loadUrl="@{beer.thumbnailImage}"
+                    tools:src="@drawable/default_beer" />
+            </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/tv_monthly"
