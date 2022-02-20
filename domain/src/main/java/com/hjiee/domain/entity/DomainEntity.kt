@@ -77,10 +77,19 @@ sealed class DomainEntity {
         val beerId: Int,
         val userId: String,
         val content: String,
-        val star: Float,
+        _star: Float = DEFAULT_STAR,
         createdDate: String,
         updatedDate: String
     ) {
+        companion object {
+            const val DEFAULT_STAR = 0.5f
+        }
+
+        val star = if (_star == 0f) {
+            DEFAULT_STAR
+        } else {
+            _star
+        }
 
         private val formatDate = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
         private val formatString = SimpleDateFormat("yyyy. MM. dd")

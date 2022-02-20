@@ -28,7 +28,7 @@
             tools:text="qwe123" />
 
         <RatingBar
-            android:id="@+id/rb_beer_star"
+            android:id="@+id/rating_bar"
             style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,9 +55,9 @@
             android:text="@{@string/rate_unit_2(item.review.star)}"
             android:textColor="@color/butterscotch"
             android:textSize="@dimen/textSize_14"
-            app:layout_constraintBottom_toBottomOf="@+id/rb_beer_star"
-            app:layout_constraintStart_toEndOf="@+id/rb_beer_star"
-            app:layout_constraintTop_toTopOf="@+id/rb_beer_star"
+            app:layout_constraintBottom_toBottomOf="@+id/rating_bar"
+            app:layout_constraintStart_toEndOf="@+id/rating_bar"
+            app:layout_constraintTop_toTopOf="@+id/rating_bar"
             tools:text="3.0" />
 
         <TextView
@@ -69,7 +69,7 @@
             android:textSize="@dimen/textSize_12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rb_beer_star"
+            app:layout_constraintTop_toBottomOf="@+id/rating_bar"
             tools:text="아 맥주.. 제 인생 맥주입니다 ㅠㅠ 너무 맛있어요ㅠㅠㅠ 저는 과일향 나는, 가볍게 마실 수 있는 맥주를 선호하는데, 그런저에게 딱인 것 같습니다! 상큼한 향이 너무 좋았어요" />
 
         <TextView

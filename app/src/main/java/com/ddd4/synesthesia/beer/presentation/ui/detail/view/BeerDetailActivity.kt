@@ -23,6 +23,7 @@ import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.core.ext.*
 import com.hjiee.core.observer.observeChangedFavoriteState
 import com.hjiee.core.observer.observeReviewRegistered
+import com.hjiee.domain.entity.DomainEntity.Review.Companion.DEFAULT_STAR
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -109,7 +110,7 @@ class BeerDetailActivity : BaseActivity<ActivityBeerDetailBinding>(R.layout.acti
             arguments = getBundle(
                 beerId = beerId,
                 content = detailViewModel.myReview.value?.content,
-                star = detailViewModel.myReview.value?.star.orDefault(0.5f),
+                star = detailViewModel.myReview.value?.star.orDefault(DEFAULT_STAR),
                 isModify = isModify
             )
             setCallbackListener {

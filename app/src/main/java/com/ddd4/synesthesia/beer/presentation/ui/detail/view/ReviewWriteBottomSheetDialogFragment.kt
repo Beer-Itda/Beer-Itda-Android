@@ -1,12 +1,13 @@
 package com.ddd4.synesthesia.beer.presentation.ui.detail.view
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.LayoutBottomStarRatingBinding
 import com.ddd4.synesthesia.beer.presentation.base.BaseBottomSheetDialogFragment
@@ -23,8 +24,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.hjiee.core.event.entity.ActionEntity
 import com.hjiee.core.event.entity.ItemClickEntity
-import com.hjiee.core.ext.*
+import com.hjiee.core.ext.orDefault
+import com.hjiee.core.ext.orFalse
 import com.hjiee.core.util.listener.setOnDebounceClickListener
+import com.hjiee.domain.entity.DomainEntity.Review.Companion.DEFAULT_STAR
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -36,11 +39,10 @@ class ReviewWriteBottomSheetDialogFragment :
 
     private val beerId by lazy { arguments?.getInt(KEY_BEER_ID) }
     private val reviewContent by lazy { arguments?.getString(KEY_REVIEW_CONTENT).orEmpty() }
-    private val reviewStar by lazy { arguments?.getFloat(KEY_REVIEW_STAR).orDefault(0.5f) }
+    private val reviewStar by lazy { arguments?.getFloat(KEY_REVIEW_STAR).orDefault(DEFAULT_STAR) }
     private val isModify by lazy { arguments?.getBoolean(KEY_IS_MODIFY).orFalse() }
 
     private var callbackListener: (() -> Unit)? = null
-    private val minRating = 0.5f
     private var isSuccess = false
 
 
@@ -79,12 +81,22 @@ class ReviewWriteBottomSheetDialogFragment :
         return R.style.BottomSheetDialogStyle
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun initBind() {
         binding.apply {
             viewModel = this@ReviewWriteBottomSheetDialogFragment.viewModel
             isModify = this@ReviewWriteBottomSheetDialogFragment.isModify
 
             ivClose.setOnDebounceClickListener { notSavedCheck() }
+            ratingBar.setOnTouchListener { view, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN,
+                    MotionEvent.ACTION_MOVE -> {
+                        this@ReviewWriteBottomSheetDialogFragment.viewModel.setScore(ratingBar.rating)
+                    }
+                }
+                false
+            }
         }
     }
 
@@ -100,13 +112,6 @@ class ReviewWriteBottomSheetDialogFragment :
                 context?.showToast(it.first.message.orEmpty())
             }
         }
-        viewModel.starScore.observe(viewLifecycleOwner, Observer {
-            it?.let { rating ->
-                if (rating < minRating) {
-                    viewModel.starScore.value = minRating
-                }
-            } ?: kotlin.run { viewModel.starScore.value = 0.5f }
-        })
     }
 
     override fun handleSelectEvent(entity: ItemClickEntity) {
@@ -157,17 +162,16 @@ class ReviewWriteBottomSheetDialogFragment :
         const val KEY_REVIEW_STAR = "review_star"
         const val KEY_IS_MODIFY = "is_modify"
 
-
         fun getBundle(
             beerId: Int,
             content: String? = null,
-            star: Float? = null,
+            star: Float? = DEFAULT_STAR,
             isModify: Boolean? = null
         ): Bundle {
             return Bundle().apply {
                 putInt(KEY_BEER_ID, beerId)
                 putString(KEY_REVIEW_CONTENT, content)
-                putFloat(KEY_REVIEW_STAR, star.orDefault(0.5f))
+                putFloat(KEY_REVIEW_STAR, star.orDefault(DEFAULT_STAR))
                 putBoolean(KEY_IS_MODIFY, isModify.orFalse())
             }
         }

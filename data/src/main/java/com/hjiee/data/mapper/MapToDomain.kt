@@ -1,11 +1,13 @@
 package com.hjiee.data.mapper
 
+import com.hjiee.core.ext.orDefault
 import com.hjiee.core.ext.orFalse
 import com.hjiee.core.ext.orZero
 import com.hjiee.data.response.common.NetworkResponse
 import com.hjiee.data.response.common.PageResponse
 import com.hjiee.data.response.v2.*
 import com.hjiee.domain.entity.DomainEntity
+import com.hjiee.domain.entity.DomainEntity.Review.Companion.DEFAULT_STAR
 
 fun PageResponse<BeerResponse>?.toBeerListWithPagination(): DomainEntity.PageResult<DomainEntity.Beer> {
     return DomainEntity.PageResult(
@@ -40,7 +42,7 @@ fun PageResponse<ReviewResponse>?.toReviewListWithPagination(): DomainEntity.Pag
                 beerId = it.beerId.orZero(),
                 content = it.content.orEmpty(),
                 reviewId = it.reviewId.orZero(),
-                star = it.star.orZero(),
+                _star = it.star.orDefault(DEFAULT_STAR),
                 userId = it.userId.orEmpty(),
                 createdDate = it.createdAt.orEmpty(),
                 updatedDate = it.updatedAt.orEmpty(),
@@ -209,7 +211,7 @@ fun List<ReviewResponse>?.toReviewList(): List<DomainEntity.Review> {
             beerId = it.beerId.orZero(),
             content = it.content.orEmpty(),
             reviewId = it.reviewId.orZero(),
-            star = it.star.orZero(),
+            _star = it.star.orDefault(DEFAULT_STAR),
             userId = it.userId.orEmpty(),
             createdDate = it.createdAt.orEmpty(),
             updatedDate = it.updatedAt.orEmpty(),
@@ -223,7 +225,7 @@ fun ReviewResponse?.toReview(): DomainEntity.Review {
         beerId = this?.beerId.orZero(),
         content = this?.content.orEmpty(),
         reviewId = this?.reviewId.orZero(),
-        star = this?.star.orZero(),
+        _star = this?.star.orDefault(DEFAULT_STAR),
         userId = this?.userId.orEmpty(),
         createdDate = this?.createdAt.orEmpty(),
         updatedDate = this?.updatedAt.orEmpty(),
