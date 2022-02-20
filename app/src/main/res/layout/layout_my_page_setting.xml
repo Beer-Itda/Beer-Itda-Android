@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:text="@{my.detailInfomation}"
-            android:textColor="@{my.type == InfomationsType.HEADER ? @color/color_7a7a7a : @color/white}"
+            android:textColor="@{my.type == InfomationsType.HEADER ? @color/color_7a7a7a : @color/backgroundReversalTint}"
             android:textSize="@{my.type == InfomationsType.HEADER ? @dimen/textSize_12 : @dimen/textSize_14}"
             android:textStyle="bold"
             android:visibility="@{TextUtils.isEmpty(my.detailInfomation) ? View.GONE : View.VISIBLE}"
