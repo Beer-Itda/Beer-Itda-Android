@@ -8,7 +8,7 @@ class UserInfoUseCase @Inject constructor(
     private val repository: BeerRepository
 ) {
 
-    suspend fun execute(): DomainEntity.User {
+    suspend fun execute(): DomainEntity.User? {
         return repository.getUserInfo()
     }
 }

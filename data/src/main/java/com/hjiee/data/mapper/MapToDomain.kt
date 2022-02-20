@@ -188,21 +188,23 @@ fun LoginResponse?.toTokenInfo(): DomainEntity.TokenInfo {
     )
 }
 
-fun UserResponse?.toUserInfo(): DomainEntity.User {
-    return DomainEntity.User(
-        id = this?.id.orZero(),
-        email = this?.email.orEmpty(),
-        nickName = this?.nickname.orEmpty(),
-        profileImage = "",
-        myLevel = DomainEntity.MyLevel(
-            id = this?.reviewLevel?.currentLevelId.orZero(),
-            levelImage = this?.reviewLevel?.currentLevelImage.orEmpty(),
-            currentLevel = this?.reviewLevel?.currentLevel.orEmpty(),
-            nextLevel = this?.reviewLevel?.nextLevel.orEmpty(),
-            needToReviewCount = this?.reviewLevel?.needReviewCount.orZero(),
-            currentReviewCount = this?.reviewLevel?.currentReviewCount.orZero()
-        ),
-    )
+fun UserResponse?.toUserInfo(): DomainEntity.User? {
+    return this?.let {
+        DomainEntity.User(
+            id = id.orZero(),
+            email = email.orEmpty(),
+            nickName = nickname.orEmpty(),
+            profileImage = "",
+            myLevel = DomainEntity.MyLevel(
+                id = reviewLevel?.currentLevelId.orZero(),
+                levelImage = reviewLevel?.currentLevelImage.orEmpty(),
+                currentLevel = reviewLevel?.currentLevel.orEmpty(),
+                nextLevel = reviewLevel?.nextLevel.orEmpty(),
+                needToReviewCount = reviewLevel?.needReviewCount.orZero(),
+                currentReviewCount = reviewLevel?.currentReviewCount.orZero()
+            ),
+        )
+    }
 }
 
 fun List<ReviewResponse>?.toReviewList(): List<DomainEntity.Review> {

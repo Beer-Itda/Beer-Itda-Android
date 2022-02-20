@@ -18,7 +18,7 @@ interface BeerRepository {
     suspend fun getBeerAward(): Beer?
     suspend fun getBeerDetail(id: Int): BeerDetail?
     suspend fun getLevelGuide(): Level?
-    suspend fun getUserInfo(): User
+    suspend fun getUserInfo(): User?
 
     /** single list */
     suspend fun getMyReview(): List<MyReview>
