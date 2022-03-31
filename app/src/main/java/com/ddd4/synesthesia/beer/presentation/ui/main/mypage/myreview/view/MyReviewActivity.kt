@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.ddd4.synesthesia.beer.R
 import com.ddd4.synesthesia.beer.databinding.ActivityMyReviewBinding
 import com.ddd4.synesthesia.beer.presentation.base.BaseActivity
@@ -13,6 +14,7 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.myreview.model.MyRe
 import com.ddd4.synesthesia.beer.presentation.ui.main.mypage.myreview.viewmodel.MyReviewViewModel
 import com.ddd4.synesthesia.beer.util.ext.observeHandledEvent
 import com.ddd4.synesthesia.beer.util.ext.start
+import com.ddd4.synesthesia.beer.util.listener.EndlessRecyclerViewScrollListener
 import com.hjiee.core.event.entity.ActionEntity
 import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.core.observer.observeReviewRegistered
@@ -23,13 +25,21 @@ class MyReviewActivity : BaseActivity<ActivityMyReviewBinding>(R.layout.activity
 
     private val viewModel by viewModels<MyReviewViewModel>()
     private val adapter by lazy { MyReviewAdapter() }
+    private val endlessRecyclerViewScrollListener: EndlessRecyclerViewScrollListener by lazy {
+        object : EndlessRecyclerViewScrollListener(binding.rvMyReview.layoutManager) {
+            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
+                viewModel.loadMore()
+            }
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.apply {
-            adapter = this@MyReviewActivity.adapter
-            srvReview.setOnRefreshListener {
-                viewModel.load()
+            with(rvMyReview) {
+                adapter = this@MyReviewActivity.adapter
+                addOnScrollListener(endlessRecyclerViewScrollListener)
             }
             includeToolbar.toolbar.setNavigationOnClickListener { finish() }
         }
@@ -64,7 +74,6 @@ class MyReviewActivity : BaseActivity<ActivityMyReviewBinding>(R.layout.activity
             is MyReviewActionEntity.UpdateUi -> {
                 adapter.clear()
                 adapter.addAll(entity.items)
-                binding.srvReview.isRefreshing = false
             }
         }
     }

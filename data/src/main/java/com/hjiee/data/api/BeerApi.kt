@@ -75,7 +75,10 @@ interface BeerApi {
      * 내가 작성한 리뷰
      */
     @GET("api/v1/review")
-    suspend fun getMyReview(): MyReviewListResponse?
+    suspend fun getMyReview(
+        @Query("page") page: Int = DEFAULT_FIRST_PAGE,
+        @Query("size") size: Int = DEFAULT_PAGE_SIZE
+    ): PageResponse<MyReviewItemResponse>?
 
     /**
      * 맥주에 등록된 리뷰 리스트

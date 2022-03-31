@@ -21,11 +21,11 @@ interface BeerRepository {
     suspend fun getUserInfo(): User?
 
     /** single list */
-    suspend fun getMyReview(): List<MyReview>
     suspend fun getStyleInfo(): List<StyleLargeCategory>
     suspend fun getAromaInfo(): List<Aroma>
 
     /** pagination */
+    suspend fun getMyReview(page: Int, size: Int = DEFAULT_PAGE_SIZE): PageResult<MyReview>
     suspend fun getReview(beerId: Int, page: Int, size: Int = DEFAULT_PAGE_SIZE): PageResult<Review>
     suspend fun getMyFavorite(page: Int, size: Int = DEFAULT_PAGE_SIZE): PageResult<Beer>
     suspend fun getStyleBeer(page: Int, size: Int = DEFAULT_PAGE_SIZE): PageResult<Beer>

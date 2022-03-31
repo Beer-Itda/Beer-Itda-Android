@@ -234,13 +234,23 @@ fun ReviewResponse?.toReview(): DomainEntity.Review {
     )
 }
 
-fun MyReviewListResponse?.toMyReviewList(): List<DomainEntity.MyReview> {
-    return this?.myReview?.map {
-        DomainEntity.MyReview(
-            beer = it.beer.toBeer(),
-            review = it.review.toReview()
+fun PageResponse<MyReviewItemResponse>?.toMyReviewList(): DomainEntity.PageResult<DomainEntity.MyReview> {
+    return DomainEntity.PageResult(
+        totalCount = this?.totalCount.orZero(),
+        data = this?.data?.map {
+            DomainEntity.MyReview(
+                beer = it.beer.toBeer(),
+                review = it.review.toReview()
+            )
+        }.orEmpty(),
+        page = DomainEntity.Page(
+            totalPage = this?.totalPage.orZero(),
+            currentPage = this?.currentPage.orZero(),
+            previousPage = this?.previousPage.orZero(),
+            nextPage = this?.nextPage.orZero()
         )
-    }.orEmpty()
+    )
+
 }
 
 fun LevelGuideResponse?.toLevelGuide(): DomainEntity.Level? {

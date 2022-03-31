@@ -5,10 +5,10 @@ import com.hjiee.domain.entity.DomainEntity
 
 object MyReviewItemMapper {
 
-    fun List<DomainEntity.MyReview>.getMapperItem(
+    fun DomainEntity.PageResult<DomainEntity.MyReview>.getMapperItem(
         eventNotifier: SelectEventNotifier
     ): List<MyReviewItemViewModel> {
-        return this.map {
+        return this.data.map {
             MyReviewItemViewModel(
                 beer = it.beer,
                 review = it.review,
