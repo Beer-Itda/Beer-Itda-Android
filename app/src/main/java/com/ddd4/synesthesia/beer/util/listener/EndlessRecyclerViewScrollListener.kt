@@ -9,7 +9,7 @@ abstract class EndlessRecyclerViewScrollListener(private val layoutManager: Recy
     RecyclerView.OnScrollListener() {
     // The minimum amount of items to have below your current scroll position
     // before loading more.
-    private var visibleThreshold = 3
+    private var visibleThreshold = 8
 
     // The current offset index of data you have loaded
     private var currentPage = 0
