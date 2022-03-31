@@ -14,7 +14,7 @@ class BeerRepositoryImpl @Inject constructor(
 ) : BeerRepository {
 
     override suspend fun getUserInfo(): User? {
-        return beerApi.getUserInfo()?.data.toUserInfo()
+        return beerApi.getUserInfo()?.toUserInfo()
     }
 
     override suspend fun getBeerDetail(id: Int): BeerDetail? {

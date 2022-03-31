@@ -69,7 +69,7 @@ interface BeerApi {
      * 유저 정보
      */
     @GET("api/v1/user/info")
-    suspend fun getUserInfo(): NetworkResponse<UserResponse>?
+    suspend fun getUserInfo(): UserResponse?
 
     /**
      * 내가 작성한 리뷰
