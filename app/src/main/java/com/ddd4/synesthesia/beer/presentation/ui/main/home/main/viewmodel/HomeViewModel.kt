@@ -1,5 +1,6 @@
 package com.ddd4.synesthesia.beer.presentation.ui.main.home.main.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -18,16 +19,18 @@ import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.view.HomeBeerRec
 import com.ddd4.synesthesia.beer.presentation.ui.main.home.main.view.HomeStringProvider
 import com.ddd4.synesthesia.beer.util.ext.EventFlow
 import com.ddd4.synesthesia.beer.util.ext.GlobalEvent
+import com.ddd4.synesthesia.beer.util.ext.safeAsync
+import com.ddd4.synesthesia.beer.util.ext.safeLaunch
 import com.ddd4.synesthesia.beer.util.sort.SortType
 import com.hjiee.core.event.entity.ActionEntity
 import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.core.util.log.L
 import com.hjiee.domain.entity.DomainEntity.Beer
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.system.measureTimeMillis
 
 @ExperimentalCoroutinesApi
 @HiltViewModel
@@ -90,11 +93,12 @@ class HomeViewModel @Inject constructor(
             statusLoading()
         }
         viewModelScope.launch {
-            fetchAward()
-            fetchAroma()
-            fetchStyle()
-            fetchRandomRecommend()
+            val award = safeAsync(this@launch) { fetchAward() }
+            val aroma = safeAsync(this@launch) { fetchAroma() }
+            val style = safeAsync(this@launch) { fetchStyle() }
+            val recommend = safeAsync(this@launch) { fetchRandomRecommend() }
 
+            awaitAll(award, aroma, style, recommend)
             setData()
             notifyActionEvent(entity = HomeActionEntity.UpdateList(beerItems))
             statusSuccess()

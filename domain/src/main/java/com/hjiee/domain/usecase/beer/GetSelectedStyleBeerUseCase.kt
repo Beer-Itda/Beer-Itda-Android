@@ -11,11 +11,6 @@ class GetSelectedStyleBeerUseCase @Inject constructor(
     private val repository: BeerRepository
 ) {
     suspend fun execute(next: Int? = DEFAULT_FIRST_PAGE): DomainEntity.PageResult<DomainEntity.Beer>? {
-        return try {
-            repository.getStyleBeer(next.orZero())
-        } catch (e: Exception) {
-            L.e(e)
-            null
-        }
+        return repository.getStyleBeer(next.orZero())
     }
 }
