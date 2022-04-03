@@ -93,12 +93,13 @@ class HomeViewModel @Inject constructor(
             statusLoading()
         }
         viewModelScope.launch {
-            val award = safeAsync(this@launch) { fetchAward() }
-            val aroma = safeAsync(this@launch) { fetchAroma() }
-            val style = safeAsync(this@launch) { fetchStyle() }
-            val recommend = safeAsync(this@launch) { fetchRandomRecommend() }
+            val award = safeAsync { fetchAward() }
+            val aroma = safeAsync { fetchAroma() }
+            val style = safeAsync { fetchStyle() }
+            val recommend = safeAsync { fetchRandomRecommend() }
 
             awaitAll(award, aroma, style, recommend)
+
             setData()
             notifyActionEvent(entity = HomeActionEntity.UpdateList(beerItems))
             statusSuccess()

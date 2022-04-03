@@ -2,34 +2,30 @@ package com.ddd4.synesthesia.beer.util.ext
 
 import com.hjiee.core.util.log.L
 import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.EmptyCoroutineContext
 
-suspend inline fun <reified T> safeAsync(
-    coroutineScope: CoroutineScope,
-    coroutineContext: CoroutineContext = EmptyCoroutineContext,
-    crossinline block: suspend () -> T
-): Deferred<T?> {
-    return coroutineScope.async(coroutineContext) {
-        try {
-            block.invoke()
-        } catch (e: Exception) {
-            L.e(e)
-            null
-        }
+suspend fun <T> safeBlock(
+    block: suspend () -> T
+): T? {
+    return try {
+        block.invoke()
+    } catch (e: Exception) {
+        L.e(e)
+        null
     }
 }
 
-suspend inline fun <reified T> safeLaunch(
-    coroutineScope: CoroutineScope,
-    coroutineContext: CoroutineContext = EmptyCoroutineContext,
-    crossinline block: suspend () -> T
+fun <T> CoroutineScope.safeAsync(
+    block: suspend () -> T
+): Deferred<T?> {
+    return async {
+        safeBlock(block)
+    }
+}
+
+fun <T> CoroutineScope.safeLaunch(
+    block: suspend () -> T
 ): Job {
-    return coroutineScope.launch(coroutineContext) {
-        try {
-            block.invoke()
-        } catch (e: Exception) {
-            L.e(e)
-        }
+    return launch {
+        safeBlock(block)
     }
 }
