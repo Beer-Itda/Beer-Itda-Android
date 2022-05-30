@@ -33,17 +33,29 @@ class SplashViewModel @Inject constructor(
     }
 
     private val _updateRequiredStatus = MutableLiveData<UpdateRequiredStatus>()
-    val updateRequiredStatus : LiveData<UpdateRequiredStatus> get() = _updateRequiredStatus
+    val updateRequiredStatus: LiveData<UpdateRequiredStatus> get() = _updateRequiredStatus
 
     fun checkForUpdate() {
         when (versionManager.updateInfo()) {
             UpdateRequiredStatus.Force -> {
                 _updateRequiredStatus.value = UpdateRequiredStatus.Force
-                notifyActionEvent(SplashActionEntity.ForceUpdate(stringProvider.getString(UpdateRequiredStatus.Force)))
+                notifyActionEvent(
+                    SplashActionEntity.ForceUpdate(
+                        stringProvider.getString(
+                            UpdateRequiredStatus.Force
+                        )
+                    )
+                )
             }
             UpdateRequiredStatus.Recommend -> {
                 _updateRequiredStatus.value = UpdateRequiredStatus.Recommend
-                notifyActionEvent(SplashActionEntity.RecommendUpdate(stringProvider.getString(UpdateRequiredStatus.Recommend)))
+                notifyActionEvent(
+                    SplashActionEntity.RecommendUpdate(
+                        stringProvider.getString(
+                            UpdateRequiredStatus.Recommend
+                        )
+                    )
+                )
             }
             UpdateRequiredStatus.None -> {
                 _updateRequiredStatus.value = UpdateRequiredStatus.None

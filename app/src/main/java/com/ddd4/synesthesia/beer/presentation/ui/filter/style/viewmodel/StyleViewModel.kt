@@ -43,7 +43,7 @@ class StyleViewModel @Inject constructor(
 
     fun load() {
         statusLoading()
-        viewModelScope.launch(errorHandler) {
+        viewModelScope.launch {
             runCatching {
                 styleUseCase.execute()
             }.onSuccess {
