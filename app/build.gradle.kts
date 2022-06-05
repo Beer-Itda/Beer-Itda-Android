@@ -105,6 +105,7 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":domain"))
     implementation(project(":data"))
+    implementation(project(":presentation"))
 
     // Kotlin
     implementation(Libs.KOTLIN)

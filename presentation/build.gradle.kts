@@ -1,0 +1,85 @@
+plugins {
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
+    id("dagger.hilt.android.plugin")
+    kotlin("android.extensions")
+    kotlin("kapt")
+    id("androidx.navigation.safeargs.kotlin")
+//    id("com.google.android.gms.oss-licenses-plugin")
+
+}
+
+android {
+    setCompileSdkVersion(AndroidConfig.COMPILE_SDK_VERSION)
+
+    defaultConfig {
+        minSdk = AndroidConfig.MIN_SDK_VERSION
+        targetSdk = AndroidConfig.TARGET_SDK_VERSION
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+    compileOptions {
+        sourceCompatibility = AndroidConfig.JAVA_VERSION
+        targetCompatibility = AndroidConfig.JAVA_VERSION
+    }
+    kotlinOptions {
+        jvmTarget = AndroidConfig.JAVA_VERSION.toString()
+    }
+}
+
+dependencies {
+
+    // Kotlin
+    implementation(Libs.KOTLIN)
+    implementation(Libs.COROUTINES_CORE)
+    implementation(Libs.COROUTINES_ANDROID)
+
+    // Android
+    implementation(Libs.CORE_KTX)
+    implementation(Libs.APP_COMPAT)
+    implementation(Libs.CONSTRAINT_LAYOUT)
+    implementation(Libs.COORDINATOR_LAYOUT)
+    implementation(Libs.RECYCLER_VIEW)
+    implementation(Libs.MATERIAL)
+    implementation(Libs.ACTIVITY_KTX)
+    implementation(Libs.FRAGMENT_KTX)
+    implementation(Libs.LIFECYCLE_VIEW_MODEL_KTX)
+    implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
+    implementation(Libs.LIFECYCLE_COMMON)
+    implementation(Libs.NAVIGATION_FRAGMENT)
+    implementation(Libs.NAVIGATION_UI_KTX)
+    implementation(Libs.BILLING)
+
+    // Libraries
+    implementation(Libs.RETROFIT)
+    implementation(Libs.RETROFIT_GSON_CONVERTER)
+    implementation(Libs.OK_HTTP)
+    implementation(Libs.LOGGING_INTERCEPTOR)
+    implementation(Libs.GSON)
+    implementation(Libs.GLIDE)
+    implementation(Libs.TIMBER)
+    implementation(Libs.HILT)
+    kapt(Libs.HILT_ANNOTATION)
+    implementation(Libs.HILT_VIEWMODEL)
+    kapt(Libs.HILT_COMPILER)
+    implementation(Libs.KAKAO)
+    implementation(Libs.RANGE_SEEK_BAR)
+
+    implementation(Libs.LICENSES)
+
+    //
+    implementation(Libs.SNAP_RECYCLERVIEW)
+    implementation(Libs.LOTTIE)
+
+}
