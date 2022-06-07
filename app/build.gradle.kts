@@ -17,6 +17,7 @@ plugins {
     kotlin("android.extensions")
     kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.android.gms.oss-licenses-plugin")
 }
 
 android {
@@ -113,4 +114,8 @@ dependencies {
     kapt(Libs.HILT_COMPILER)
 
     implementation(Libs.KAKAO)
+
+    testImplementation(TestLibs.JUNIT)
+    androidTestImplementation(TestLibs.ANDROID_X_JUNIT)
+    androidTestImplementation(TestLibs.ESPRESSO_CORE)
 }

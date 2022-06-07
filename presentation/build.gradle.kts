@@ -8,8 +8,6 @@ plugins {
     kotlin("android.extensions")
     kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
-//    id("com.google.android.gms.oss-licenses-plugin")
-
 }
 
 android {
@@ -106,4 +104,8 @@ dependencies {
 
     implementation(Libs.SNAP_RECYCLERVIEW)
     implementation(Libs.LOTTIE)
+
+    testImplementation(TestLibs.JUNIT)
+    androidTestImplementation(TestLibs.ANDROID_X_JUNIT)
+    androidTestImplementation(TestLibs.ESPRESSO_CORE)
 }
