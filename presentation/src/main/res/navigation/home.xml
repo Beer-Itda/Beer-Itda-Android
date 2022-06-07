@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_navigation"
+    app:startDestination="@id/nav_home">
+
+    <KeepStateFragment
+        android:id="@+id/nav_home"
+        android:name="com.hjiee.presentation.ui.main.home.main.view.HomeFragment"
+        tools:layout="@layout/fragment_home" />
+
+
+    <KeepStateFragment
+        android:id="@+id/nav_mypage"
+        android:name="com.hjiee.presentation.ui.main.mypage.main.view.MyPageFragment"
+        tools:layout="@layout/fragment_my_page" />
+
+    <KeepStateFragment
+        android:id="@+id/nav_search"
+        android:name="com.hjiee.presentation.ui.main.search.view.SearchFragment"
+        tools:layout="@layout/fragment_search" />
+
+    <!-- Global Action -->
+    <action
+        android:id="@+id/action_to_mypage"
+        app:destination="@id/nav_mypage"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out" />
+
+    <action
+        android:id="@+id/action_to_search"
+        app:destination="@id/nav_search"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out" />
+
+</navigation>

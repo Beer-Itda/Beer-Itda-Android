@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="androidx.core.text.HtmlCompat" />
+
+        <variable
+            name="viewModel"
+            type="com.hjiee.presentation.ui.main.mypage.level.item.LevelItemViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@{viewModel.isMyLevel() ? @drawable/level_guide_background_round_12_stroke : @drawable/level_guide_background_round_12}"
+        android:elevation="@dimen/cardElevation"
+        android:paddingVertical="10dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="40dp"
+        tools:background="@drawable/level_guide_background_round_12_stroke">
+
+        <ImageView
+            android:id="@+id/iv_level"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            app:errorDrawable="@{@drawable/ic_empty}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:loadUrl="@{viewModel.levelImage}"
+            tools:src="@drawable/ic_empty" />
+
+        <TextView
+            android:id="@+id/tv_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{viewModel.level}"
+            android:textColor="@color/backgroundReversalTint"
+            android:textSize="@dimen/textSize_17"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_level"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="보리" />
+
+        <TextView
+            android:id="@+id/tv_level_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{HtmlCompat.fromHtml(@string/level_guide_with_write_count(viewModel.levelCount), HtmlCompat.FROM_HTML_MODE_LEGACY)}"
+            android:textColor="@color/backgroundReversalTint"
+            android:textSize="@dimen/textSize_13"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="작성리뷰 25개 이상" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

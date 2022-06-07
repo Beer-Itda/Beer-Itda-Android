@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="com.hjiee.data.source.local.InfomationsType" />
+
+        <variable
+            name="my"
+            type="com.hjiee.presentation.ui.main.mypage.setting.item.SettingItemViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?attr/selectableItemBackground"
+        android:paddingHorizontal="28dp"
+        app:onDebouncedClick="@{() -> my.clickItem()}">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/notosans_kr_regular"
+            android:paddingVertical="20dp"
+            android:text="@{my.title}"
+            android:textColor="@{my.type == InfomationsType.HEADER || my.type == InfomationsType.LOGOUT || my.type == InfomationsType.UNLINK ? @color/color_7a7a7a : @color/backgroundReversalTint}"
+            android:textSize="@{my.type == InfomationsType.HEADER ? @dimen/textSize_12 : @dimen/textSize_14}"
+            app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="내 활동" />
+
+        <ImageView
+            android:id="@+id/iv_arrow"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_btn_more"
+            android:visibility="@{my.type == InfomationsType.ITEM ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/tv_title"
+            app:layout_constraintTop_toTopOf="@+id/tv_title"
+            app:tint="@color/backgroundReversalTint" />
+
+        <TextView
+            android:id="@+id/tv_detail_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="@{my.detailInfomation}"
+            android:textColor="@{my.type == InfomationsType.HEADER ? @color/color_7a7a7a : @color/backgroundReversalTint}"
+            android:textSize="@{my.type == InfomationsType.HEADER ? @dimen/textSize_12 : @dimen/textSize_14}"
+            android:textStyle="bold"
+            android:visibility="@{TextUtils.isEmpty(my.detailInfomation) ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/tv_title"
+            app:layout_constraintTop_toTopOf="@+id/tv_title"
+            tools:text="2.0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

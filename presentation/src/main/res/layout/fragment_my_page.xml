@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="com.hjiee.presentation.util.ext.ImageTransformType" />
+
+        <variable
+            name="viewModel"
+            type="com.hjiee.presentation.ui.main.mypage.main.viewmodel.MyPageViewModel" />
+
+    </data>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:onRefreshListener="@{viewModel.refresh}"
+        app:refreshing="@{viewModel.viewState.isRefresh()}">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!--정보-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/motion_base"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/subBackgroundTint"
+                    android:paddingBottom="18dp">
+
+
+                    <ImageView
+                        android:id="@+id/iv_setting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_ripple"
+                        android:padding="20dp"
+                        android:src="@drawable/ic_img_setting"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/backgroundReversalTint" />
+
+
+                    <ImageView
+                        android:id="@+id/iv_profile"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_marginStart="20dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/app_name"
+                        app:errorDrawable="@{@drawable/ic_img_profile_blank}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_setting"
+                        app:loadUrl="@{viewModel.userInfo.profileImage}"
+                        app:onDebouncedClick="@{viewModel.clickProfile}"
+                        app:tranformType="@{ImageTransformType.CIRCLE}"
+                        tools:background="@drawable/ic_img_profile_blank" />
+
+                    <ImageView
+                        android:id="@+id/iv_camera"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="30dp"
+                        android:background="@drawable/circle_24"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_photo_camera"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
+                        app:layout_constraintEnd_toEndOf="@+id/iv_profile"
+                        app:onDebouncedClick="@{viewModel.clickProfile}"
+                        tools:src="@drawable/ic_photo_camera" />
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="16dp"
+                        android:background="@android:color/transparent"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/notosans_kr_bold"
+                        android:gravity="center"
+                        android:maxLength="@integer/max_length"
+                        android:singleLine="true"
+                        android:text="@{viewModel.userInfo.nickName}"
+                        android:textSize="@dimen/textSize_17"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_email"
+                        app:layout_constraintStart_toEndOf="@+id/iv_profile"
+                        app:layout_constraintTop_toTopOf="@+id/iv_profile"
+                        app:layout_constraintVertical_chainStyle="packed"
+                        app:onDebouncedClick="@{viewModel.clickModify}"
+                        tools:text="비어있다" />
+
+                    <ImageView
+                        android:id="@+id/iv_modify"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="16dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_btn_name_edit"
+                        android:visibility="@{TextUtils.isEmpty(viewModel.userInfo.nickName) ? View.GONE : View.VISIBLE}"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_name"
+                        app:layout_constraintStart_toEndOf="@+id/tv_name"
+                        app:layout_constraintTop_toTopOf="@+id/tv_name"
+                        app:onDebouncedClick="@{viewModel.clickModify}" />
+
+
+                    <TextView
+                        android:id="@+id/tv_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@android:color/transparent"
+                        android:text="@{viewModel.userInfo.email}"
+                        android:textColor="@color/color_8e8d94"
+                        android:textSize="@dimen/textSize_12"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
+                        app:layout_constraintStart_toEndOf="@+id/iv_profile"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                        tools:text="android@beeritda.com" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--별점과 리뷰-->
+                <include
+                    android:id="@+id/include_my_page_review"
+                    layout="@layout/layout_mypage_review"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginTop="28dp"
+                    app:level="@{viewModel.userInfo.myLevel}" />
+
+                <!--등급 가이드-->
+                <include
+                    android:id="@+id/include_my_page_level_guide"
+                    layout="@layout/layout_mypage_level_guide"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginTop="12dp" />
+
+                <!--찜한 맥주-->
+                <include
+                    android:id="@+id/include_my_page_favorite"
+                    layout="@layout/layout_mypage_favorite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginTop="12dp" />
+            </LinearLayout>
+        </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</layout>

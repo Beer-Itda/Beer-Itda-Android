@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.hjiee.presentation.ui.common.related.RelatedItemViewModel" />
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_beer"
+        android:layout_width="120dp"
+        android:layout_height="210dp"
+        android:backgroundTint="@color/color_1c1b21"
+        android:elevation="50dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="@dimen/cardElevation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_marginHorizontal="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_beer"
+                android:layout_width="62dp"
+                android:layout_height="112dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="12dp"
+                android:background="@android:color/transparent"
+                android:scaleType="centerCrop"
+                app:errorDrawable="@{@drawable/default_beer}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:loadUrl="@{viewModel.beer.thumbnailImage}"
+                tools:src="@drawable/default_beer" />
+
+            <ImageView
+                android:id="@+id/iv_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_btn_like" />
+
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@{viewModel.beer.nameForKorean}"
+                app:layout_constraintBottom_toTopOf="@+id/tv_beer_rate"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_beer"
+                tools:text="한강맥주"
+                tools:textColor="@color/black" />
+
+
+            <TextView
+                android:id="@+id/tv_beer_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="4dp"
+                android:fontFamily="@font/notosans_kr_bold"
+                android:textColor="@color/butterscotch"
+                android:textSize="@dimen/textSize_14"
+                app:drawableStartCompat="@drawable/ic_rating_star"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/iv_beer"
+                app:layout_constraintStart_toStartOf="@+id/iv_beer"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                tools:text="3.5" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</layout>

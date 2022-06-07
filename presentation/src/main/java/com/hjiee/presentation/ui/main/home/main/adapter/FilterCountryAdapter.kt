@@ -1,0 +1,60 @@
+package com.hjiee.presentation.ui.main.home.main.adapter
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.hjiee.presentation.databinding.ItemFilterCountryBinding
+import com.hjiee.core.util.listener.setOnDebounceClickListener
+import com.hjiee.presentation.util.MutableLiveDataList
+
+class FilterCountryAdapter(
+    private val checkedList: MutableLiveDataList<String>
+) : RecyclerView.Adapter<FilterCountryAdapter.CountryViewHolder>() {
+
+    var items: List<String> = mutableListOf()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {
+        val binding =
+            ItemFilterCountryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return CountryViewHolder(binding, checkedList)
+    }
+
+
+    override fun getItemCount(): Int = items.size
+
+    override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
+        holder.bind(items[position])
+    }
+
+    override fun getItemId(position: Int): Long {
+        return items[position].hashCode().toLong()
+    }
+
+    class CountryViewHolder(
+        private val binding: ItemFilterCountryBinding,
+        private val checkedList: MutableLiveDataList<String>
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: String) {
+            binding.apply {
+                country = item
+                checkbox.isChecked = checkedList.isNotEmpty() && checkedList.contains(item)
+
+                checkbox.setOnDebounceClickListener {
+                    if (checkbox.isChecked) {
+                        checkedList.add(item)
+                    } else {
+                        if (checkedList.isNotEmpty() && checkedList.contains(item)) checkedList.remove(
+                            item
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+}

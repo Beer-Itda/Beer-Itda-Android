@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.hjiee.presentation.util.NetworkStatus" />
+
+        <variable
+            name="viewModel"
+            type="com.hjiee.presentation.ui.detail.viewmodel.BeerDetailViewModel" />
+
+        <variable
+            name="detailAdapter"
+            type="com.hjiee.presentation.ui.detail.adapter.DetailAdapter" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:throwable="@{viewModel.throwable}"
+        app:visibility="@{viewModel.networkStatus == NetworkStatus.SUCCESS}">
+
+        <include
+            android:id="@+id/include_toolbar"
+            layout="@layout/layout_global_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:src="@{viewModel.isFavorite() ? @drawable/ic_btn_like : @drawable/ic_btn_like_unactive}"
+            app:layout_constraintBottom_toBottomOf="@+id/include_toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/include_toolbar"
+            app:onDebouncedClick="@{viewModel.clickFavorite}"
+            tools:src="@drawable/ic_btn_like_unactive" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:overScrollMode="never"
+            app:adapter="@{detailAdapter}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_toolbar"
+            tools:itemCount="1"
+            tools:listitem="@layout/item_detail_information" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

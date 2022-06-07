@@ -1,3 +1,6 @@
+import PropertiesExt.KAKAO
+import PropertiesExt.getKakaoKey
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -16,6 +19,8 @@ android {
         minSdk = AndroidConfig.MIN_SDK_VERSION
         targetSdk = AndroidConfig.TARGET_SDK_VERSION
 
+        manifestPlaceholders[KAKAO] = getKakaoKey()
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -29,6 +34,24 @@ android {
             )
         }
     }
+
+    lint {
+        abortOnError = false
+    }
+
+    buildFeatures {
+        dataBinding = true
+    }
+
+    flavorDimensions += listOf("mode")
+    productFlavors {
+        create("playStore") {
+            dimension = "mode"
+        }
+        create("dev") {
+            dimension = "mode"
+        }
+    }
     compileOptions {
         sourceCompatibility = AndroidConfig.JAVA_VERSION
         targetCompatibility = AndroidConfig.JAVA_VERSION
@@ -39,6 +62,9 @@ android {
 }
 
 dependencies {
+    implementation(project(":core"))
+    implementation(project(":domain"))
+    implementation(project(":data"))
 
     // Kotlin
     implementation(Libs.KOTLIN)
@@ -78,8 +104,6 @@ dependencies {
 
     implementation(Libs.LICENSES)
 
-    //
     implementation(Libs.SNAP_RECYCLERVIEW)
     implementation(Libs.LOTTIE)
-
 }

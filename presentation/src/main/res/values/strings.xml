@@ -1,0 +1,140 @@
+<resources>
+    <string name="developer_email_subject">[비어있다] 앱 문의사항</string>
+    <string name="play_store_market">market://details?id=com.ddd4.synesthesia.beer</string>
+    <string name="beer_itda_inquiry_url">https://docs.google.com/forms/d/e/1FAIpQLScKyQ-7bW4DPBN19QqnJDDpUuf2tkxk8A6vIapOkh2Kz_LdEQ/viewform?usp=sf_link</string>
+    <string name="nav_title_home">홈</string>
+    <string name="nav_title_search">검색</string>
+    <string name="nav_title_mypage">마이페이지</string>
+
+    <string name="key_id">id</string>
+    <string name="key_beer">beer</string>
+    <string name="key_token">token</string>
+    <string name="key_last_visit">last_visit</string>
+    <string name="key_recently_visit">visit</string>
+    <string name="key_user">user</string>
+    <string name="key_sort_type">sort_type</string>
+    <string name="key_filter">filter</string>
+    <string name="key_data">data_of</string>
+    <string name="key_callback">calback</string>
+    <string name="key_review">review</string>
+    <string name="update">업데이트</string>
+    <string name="no_update">계속사용</string>
+    <string name="ok">확인</string>
+    <string name="cancel">취소</string>
+    <string name="complete">완료</string>
+    <string name="register">등록하기</string>
+    <string name="modify">수정하기</string>
+    <string name="modify2">수정</string>
+    <string name="delete">삭제</string>
+    <string name="save">저장하기</string>
+
+    <string name="error">오류가 발생했습니다</string>
+    <string name="please_wait_for_a_little_while">조금만 기다려 주세요. 준비중이에요!😃</string>
+    <string name="success_logout">로그아웃에 성공하였습니다</string>
+    <string name="fail_login">로그인에 실패하였습니다</string>
+    <string name="login_kakao">카카오톡으로 로그인</string>
+    <string name="connect_kakao">카카오톡 계정 연결</string>
+    <string name="not_installed_play_store">구글 플레이 스토어가 설치되어있지 않습니다.</string>
+
+    <string name="review_fail_message">리뷰등록에 실패하였습니다.</string>
+    <string name="not_modified">변경사항이 없습니다.</string>
+    <string name="logout_message">로그아웃 하시겠습니까?</string>
+    <string name="unlink_message">탈퇴 시 회원님의 계정에 저장된 모든 정보가 삭제됩니다.</string>
+    <string name="delete_account">회원탈퇴</string>
+    <string name="rate_unit">%,.1f점</string>
+    <string name="rate_unit_2">%,.1f</string>
+    <string name="abv">%,.1f%%</string>
+    <string name="back_press">\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다</string>
+    <string name="profile_name"><b>%s</b>님</string>
+
+    <string name="sort_default">기본 정렬</string>
+    <string name="sort_rating">별점 정렬</string>
+    <string name="sort_review">리뷰 정렬</string>
+    <string name="my_review">내가 쓴 리뷰</string>
+    <string name="my_favorite">찜한 맥주</string>
+    <string name="review">리뷰</string>
+    <string name="review_with_count">리뷰 (%,.0f)</string>
+    <string name="star_rating">별점</string>
+    <string name="message_review">맥주에 대한 자세한 리뷰를 작성하고 등급을 높여보세요!\n최대 300자 까지 작성 가능합니다.</string>
+    <string name="message_star_rating">맥주이름에 대한 별점을 남겨주세요</string>
+    <string name="title_aroma">비슷한 향이 나는 맥주입니다 🍒</string>
+    <string name="title_style">같은 스타일의 맥주입니다 🍹</string>
+    <string name="title_random">추천하는 맥주입니다 🏆</string>
+    <string name="title_like_style">회원님이 좋아하는 스타일 🍹</string>
+    <string name="title_like_aroma">회원님이 좋아하는 향 🍒</string>
+    <string name="title_like_random">이런 맥주는 어떠세요? 🍺</string>
+    <string name="show_all">전체보기</string>
+    <string name="write_review">맥주 리뷰쓰기</string>
+    <string name="modify_review">별점과 리뷰 수정하기</string>
+    <string name="manufacturer">제조사</string>
+    <string name="style">스타일</string>
+    <string name="aroma">향</string>
+    <string name="alcohol">도수</string>
+    <string name="minAbv">최소 도수</string>
+    <string name="maxAbv">최대 도수</string>
+    <string name="country">국가</string>
+    <string name="show_products">상품 보러가기</string>
+    <string name="max_text_length">%d/%d</string>
+    <string name="min_text_length">최소 %d자 이상 입력해주세요.</string>
+    <string name="reset">초기화</string>
+    <string name="update_count_text_prefix">%s 외</string>
+    <string name="update_count_text_suffix">%d개</string>
+    <string name="page_out">페이지를 나가시겠습니까?</string>
+    <string name="do_not_save">변경사항이 저장되지 않습니다</string>
+    <string name="reset_filter">적용한 필터 내용이 사라집니다!</string>
+    <string name="setting_theme">테마설정</string>
+    <string name="yes">네</string>
+    <string name="no">아니요</string>
+    <string name="nickname">닉네임을 입력해주세요.</string>
+    <string name="please_nickname_setting">닉네임을 설정해주세요!</string>
+    <string name="available_nickname_format">2~10자 이내로 한글, 영문, 숫자만 입력 가능합니다.</string>
+    <string name="beer_empty">검색 된 맥주가 없습니다.\n비어있다에 문의해주세요</string>
+    <string name="home_title">오늘 당신의\n 비어있는 잔을 채워줄</string>
+    <string name="home_filter">맥주 찾아보기</string>
+    <string name="search_hint">검색어를 입력해주세요.</string>
+
+    <string name="max_choice_count_style">최대 %d가지의 스타일을 선택할 수 있어요!</string>
+    <string name="max_choice_count_aroma">최대 %d가지의 향을 선택할 수 있어요!</string>
+    <string name="choice_complete">선택 완료</string>
+    <string name="login_with_kakaotalk">카카오톡 로그인하기</string>
+    <string name="login_notice"><![CDATA[카카오톡 로그인하기를 통해 로그인 하시면
+    <br>
+    <a href=\%s><font color="#fdbd39"><b>서비스 이용약관</b></font></a>과
+    <a href=\%s><font color="#fdbd39"><b>개인정보처리방침</b></font></a>에 동의한 것으로 간주됩니다.]]></string>
+    <string name="review_level_guide">등급 가이드 확인하기</string>
+    <string name="review_notice">무성의하게 작성된 리뷰는\n이용약관에 기반하여 삭제될 수 있음을 알려드립니다.</string>
+    <string name="setting">설정</string>
+    <string name="my_write_review">내가 쓴 리뷰</string>
+    <string name="user_level">(%d/%d)</string>
+    <string name="liked_beer">찜한 맥주</string>
+    <string name="level_guide">등급 가이드</string>
+    <string name="beeritda_inquire">비어있다에 문의하기</string>
+    <string name="beeritda_award">Beer Award</string>
+    <string name="beeritda_award_description">한 달 동안 리뷰를 가장 많이 받은 맥주예요</string>
+    <string name="monthly_favorite_beer">월간 인기 맥주</string>
+    <string name="delete_warning_title">탈퇴 시 주의사항</string>
+    <string name="delete_warning_description">회원탈퇴 시 현재 회원님의 계정에 저장된 모든 정보는 여구적으로 삭제되며, 다시는 복구할 수 없습니다.</string>
+    <string name="delete_warning_description_agree">위 내용을 숙지하였으며, 동의합니다.</string>
+    <string name="user_delete_success">회원탈퇴 되었습니다.</string>
+    <string name="delete_fail">회원탈퇴에 실패하였습니다. 잠시후 다시 시도해 주세요</string>
+    <string name="force_update_title">필수 업데이트</string>
+    <string name="force_update">새로운 버전이 있습니다.\n업데이트 후 이용해 주세요.</string>
+    <string name="recommend_update_title">권장 업데이트</string>
+    <string name="recommend_update">새로운 버전이 있습니다.\n업데이트 하시겠습니까?</string>
+    <string name="current_version">현재버전</string>
+    <string name="recommend_update_version">권장 업데이트 버전</string>
+    <string name="force_update_version">필수 업데이트 버전</string>
+    <string name="empty_review">아직 작성된 리뷰가 없어요 첫 리뷰를 남겨보세요!</string>
+    <string name="success_registered_review">리뷰가 등록되었습니다</string>
+    <string name="success_modified_review">리뷰가 수정되었습니다</string>
+    <string name="success_deleted_review">리뷰가 삭제되었습니다</string>
+    <string name="changed_nickname">닉네임이 변경되었어요</string>
+    <string name="level_guide_warning">무성의하게 작성된 리뷰는 이용약관에 기반하여 삭제될 수 있으며, 그에 따라 등급 또한 하향 조정될 수 있습니다.</string>
+    <string name="level_guide_message"><![CDATA[회원님의 등급은 <font color="#fdbd39"><b>%s</b></font>입니다.<br>리뷰를 <font color="#fdbd39"><b>%d개</b></font> 더 작성하면 <font color="#fdbd39"><b>%s</b></font>가 될 수 있습니다.]]></string>
+    <string name="skip">건너뛰기</string>
+    <string name="level_guide_with_write_count"><![CDATA[작성리뷰 <font color="#fdbd39"><b>%d개</b></font> 이상]]></string>
+    <string name="theme_system">시스템</string>
+    <string name="theme_dark">다크</string>
+    <string name="theme_white">화이트</string>
+    <string name="content_with_bracket">(%s)</string>
+</resources>

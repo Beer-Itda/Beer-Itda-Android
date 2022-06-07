@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.hjiee.presentation.ui.main.mypage.myreview.item.MyReviewItemViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:foreground="?attr/selectableItemBackground"
+        android:paddingHorizontal="18dp"
+        android:paddingVertical="15dp"
+        app:onDebouncedClick="@{() -> item.clickItem()}">
+
+        <include
+            android:id="@+id/include_my_review"
+            layout="@layout/item_my_review_beer_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:beer="@{item.beer}" />
+
+        <TextView
+            android:id="@+id/tv_created_at"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@{item.review.createdAt}"
+            android:textSize="@dimen/textSize_10"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_my_review"
+            tools:text="2021.12.31" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@{item.review.content}"
+            android:textColor="@color/backgroundReversalTint"
+            android:textSize="@dimen/textSize_12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_created_at"
+            app:layout_goneMarginTop="12dp"
+            tools:text="아 맥주.. 제 인생 맥주입니다 ㅠㅠ 너무 맛있어요ㅠㅠㅠ 저는 과일향 나는, 가볍게 마실 수 있는 맥주를 선호하는데, 그런저에게 딱인 것 같습니다! 상큼한 향이 너무 좋았어요" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

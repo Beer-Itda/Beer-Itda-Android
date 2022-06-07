@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.hjiee.presentation.ui.main.mypage.level.viewmodel.LevelGuideViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/include_toolbar"
+            layout="@layout/layout_global_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@{@string/level_guide}" />
+
+
+        <TextView
+            android:id="@+id/tv_level_guide_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="18dp"
+            android:layout_marginTop="32dp"
+            android:text="@{viewModel.message}"
+            android:textColor="@color/backgroundReversalTint"
+            android:textSize="@dimen/textSize_14"
+            tools:text="현재 회원님의 등급은 보리입니다.\n리뷰를 4개더 작성하면 보리차가 될 수 있습니다."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_toolbar"
+            tools:textColor="@color/black" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_level_guide"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="18dp"
+            android:layout_marginVertical="4dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingVertical="20dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/tv_level_guide_warning"
+            app:layout_constraintTop_toBottomOf="@+id/tv_level_guide_message"
+            app:verticalSpace="@{@dimen/margin_12}"
+            tools:listitem="@layout/item_level_guide" />
+
+        <TextView
+            android:id="@+id/tv_level_guide_warning"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="18dp"
+            android:layout_marginBottom="40dp"
+            android:text="@string/level_guide_warning"
+            android:textColor="@color/color_ed6a5e"
+            android:textSize="@dimen/textSize_11"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

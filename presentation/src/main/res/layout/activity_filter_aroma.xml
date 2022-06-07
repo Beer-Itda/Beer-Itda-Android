@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.hjiee.presentation.ui.filter.aroma.viewmodel.AromaViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/subBackgroundTint"
+        android:fillViewport="true">
+
+        <include
+            android:id="@+id/include_toolbar"
+            layout="@layout/layout_global_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="18dp"
+            android:text="@string/aroma"
+            android:textSize="@dimen/textSize_26"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_toolbar"
+            tools:text="@string/aroma" />
+
+        <TextView
+            android:id="@+id/tv_skip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="18dp"
+            android:background="@drawable/background_round_30_ripple"
+            android:backgroundTint="@color/circleChipBackgroundColor"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="7dp"
+            android:text="@string/skip"
+            android:textColor="@color/skipTextColor"
+            android:textSize="@dimen/textSize_12"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_title"
+            app:onDebouncedClick="@{viewModel.clickSkip}"
+            tools:text="@string/skip" />
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingHorizontal="18dp"
+            android:paddingBottom="@{!viewModel.viewState.isSelectedEmpty() ? @dimen/margin_12 : @dimen/margin_20}"
+            android:text="@{@string/max_choice_count_aroma(viewModel.MAX_AROMA_COUNT)}"
+            android:textColor="@color/color_8e8d94"
+            app:layout_constraintEnd_toEndOf="@+id/tv_title"
+            app:layout_constraintStart_toStartOf="@+id/tv_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            tools:text="최대 3가지의 스타일을 선택할 수 있어요!" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_selected_aroma"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="20dp"
+            app:headTailSpace="@{@dimen/margin_18}"
+            app:horizontalSpace="@{@dimen/margin_8}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_description"
+            app:spanCount="1"
+            app:visibility="@{!viewModel.viewState.isSelectedEmpty()}"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_filter_selected_aroma" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_filter_aroma"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/backgroundTint"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            android:paddingHorizontal="12dp"
+            android:paddingTop="18dp"
+            android:paddingBottom="60dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            app:layout_constraintBottom_toTopOf="@+id/tv_choice"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_selected_aroma"
+            app:spanCount="2"
+            tools:listitem="@layout/item_filter_aroma" />
+
+
+        <TextView
+            android:id="@+id/tv_choice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@{viewModel.viewState.isMaxSelected() ? @color/butterscotch : @color/buttonBackgroundColor}"
+            android:enabled="@{viewModel.viewState.isMaxSelected()}"
+            android:gravity="center"
+            android:paddingVertical="24dp"
+            android:text="@string/choice_complete"
+            android:textColor="@{viewModel.viewState.isMaxSelected() ? @color/white : @color/buttonTextColor}"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:onDebouncedClick="@{viewModel.clickDone}"
+            tools:background="@color/buttonBackgroundColor"
+            tools:text="선택 완료"
+            tools:textColor="@color/buttonTextColor" />
+
+        <include
+            android:id="@+id/include_progress"
+            layout="@layout/layout_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:networkStatus="@{viewModel.networkStatus}"
+            tools:visibility="gone" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

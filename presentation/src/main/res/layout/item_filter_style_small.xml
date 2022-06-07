@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="style"
+            type="com.hjiee.presentation.ui.filter.style.item.small.StyleSmallItemViewModel" />
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_margin="6dp"
+        android:background="@{style.isSelected() ? @drawable/background_transparent_stroke_fdbd39_24 : @drawable/background_filter_outline_24}"
+        android:paddingHorizontal="10dp"
+        app:onDebouncedClick="@{style.clickAddItem}"
+        tools:background="@drawable/background_transparent_stroke_fdbd39_24">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="@{style.smallName}"
+            android:textColor="@{style.isSelected() ? @color/butterscotch : @color/filterColor}"
+            android:textSize="@dimen/textSize_11"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Ale"
+            tools:textColor="@color/butterscotch" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
