@@ -1,9 +1,9 @@
 package com.hjiee.presentation.ui.filter.style.item.small
 
-import com.hjiee.presentation.ui.filter.style.item.large.StyleLargeItemViewModel
 import com.hjiee.core.event.SelectActionEventNotifier
 import com.hjiee.domain.entity.DomainEntity
 import com.hjiee.domain.entity.request.RequestSelectedStyle
+import com.hjiee.presentation.ui.filter.style.item.large.StyleLargeItemViewModel
 
 object StyleSmallItemMapper {
 
@@ -14,28 +14,13 @@ object StyleSmallItemMapper {
         middlePosition: Int,
         eventNotifier: SelectActionEventNotifier
     ): List<StyleSmallItemViewModel> {
-        val items = mutableListOf<StyleSmallItemViewModel>()
-        items.add(
-            getAllSelectCategory(
-                smallId = -1,
-                middleId = middleId,
-                largePosition = largePosition,
-                middlePosition = middlePosition,
-                middleName = middleName,
-                isAllSelected = all { it.isSelected },
-                eventNotifier = eventNotifier
-            )
+        return getSmallCategory(
+            middleId = middleId,
+            largePosition = largePosition,
+            middlePosition = middlePosition,
+            middleName = middleName,
+            eventNotifier = eventNotifier
         )
-        items.addAll(
-            getSmallCategory(
-                middleId = middleId,
-                largePosition = largePosition,
-                middlePosition = middlePosition,
-                middleName = middleName,
-                eventNotifier = eventNotifier
-            )
-        )
-        return items
     }
 
     /**
@@ -50,9 +35,6 @@ object StyleSmallItemMapper {
     ): List<StyleSmallItemViewModel> {
         return mapIndexed { smallPosition, small ->
             StyleSmallItemViewModel(
-//                id = "%03d".format(largePosition) + "%03d".format(middlePosition) + "%03d".format(
-//                    smallPosition + 1
-//                ),
                 smallId = small.smallId,
                 parentId = middleId,
                 middleName = middleName,
@@ -60,42 +42,13 @@ object StyleSmallItemMapper {
                 largePosition = largePosition,
                 middlePosition = middlePosition,
                 smallPosition = smallPosition + 1,
-                isAll = false,
+                isAll = smallPosition == 0,
                 eventNotifier = eventNotifier
             ).apply {
                 isSelected.set(small.isSelected)
             }
         }
     }
-
-    /**
-     * 전체 선택하였을때
-     */
-    private fun getAllSelectCategory(
-        smallId: Int,
-        middleId: Int,
-        largePosition: Int,
-        middlePosition: Int,
-        middleName: String,
-        isAllSelected: Boolean,
-        eventNotifier: SelectActionEventNotifier
-    ): StyleSmallItemViewModel {
-        return StyleSmallItemViewModel(
-//            id = "%03d".format(largePosition) + "%03d".format(middlePosition) + "%03d".format(0),
-            smallId = smallId,
-            parentId = middleId,
-            middleName = middleName,
-            smallName = "전체선택",
-            largePosition = largePosition,
-            middlePosition = middlePosition,
-            smallPosition = 0,
-            isAll = true,
-            eventNotifier = eventNotifier
-        ).apply {
-            isSelected.set(isAllSelected)
-        }
-    }
-
 
     /**
      * 선택된 스타일 데이터를 String으로 변환
@@ -130,7 +83,7 @@ object StyleSmallItemMapper {
                 }
             }.sorted()
                 .toString()
-                .replace(",,",",")
+                .replace(",,", ",")
                 .removePrefix("[")
                 .removeSuffix("]")
         )
