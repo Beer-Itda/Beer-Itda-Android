@@ -7,14 +7,14 @@ import com.hjiee.core.manager.DataChangeManager
 import com.hjiee.core.util.log.L
 import javax.inject.Inject
 
-class StyleChangeObserver @Inject constructor(
+class SelectedConfigurationChangeObserver @Inject constructor(
     lifecycleOwner: LifecycleOwner,
     private val callback: () -> Unit
 ) : DefaultLifecycleObserver {
 
     private var initStatus = toggleStatus
     private val toggleStatus
-        get() = DataChangeManager.getStatus(Change.STYLE)
+        get() = DataChangeManager.getStatus(Change.RECOMMEND_CONFIGURATION)
 
     init {
         lifecycleOwner.lifecycle.addObserver(this)
@@ -24,7 +24,7 @@ class StyleChangeObserver @Inject constructor(
         super.onResume(owner)
         // pause 될때의 값과 resume 될때의 값이 다르면 정보가 변경되었다고 판단
         if (initStatus != toggleStatus) {
-            L.d(owner.javaClass.simpleName, STYLE_MESSAGE)
+            L.d(owner.javaClass.simpleName, MESSAGE)
             callback()
         }
     }
@@ -35,12 +35,12 @@ class StyleChangeObserver @Inject constructor(
     }
 
     companion object {
-        private const val STYLE_MESSAGE = "스타일 정보 변경"
+        private const val MESSAGE = ""
     }
 }
 
-fun LifecycleOwner.observeChangeTheSelectedStyle(callback: () -> Unit) {
-    StyleChangeObserver(
+fun LifecycleOwner.observeChangeSelectedConfiguration(callback: () -> Unit) {
+    SelectedConfigurationChangeObserver(
         lifecycleOwner = this,
         callback = callback
     )

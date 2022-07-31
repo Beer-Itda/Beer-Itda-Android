@@ -3,6 +3,10 @@ package com.hjiee.presentation.ui.main.home.main.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.hjiee.core.event.entity.ActionEntity
+import com.hjiee.core.event.entity.ItemClickEntity
+import com.hjiee.core.util.log.L
+import com.hjiee.domain.entity.DomainEntity.Beer
 import com.hjiee.presentation.base.BaseViewModel
 import com.hjiee.presentation.commom.entity.BeerClickEntity
 import com.hjiee.presentation.ui.common.beer.item.BeerItemViewModelMapper.getBeerItemViewModel
@@ -16,14 +20,11 @@ import com.hjiee.presentation.ui.main.home.main.item.parent.list.BeerListItemVie
 import com.hjiee.presentation.ui.main.home.main.item.parent.list.BeerListModelMapper.getMapper
 import com.hjiee.presentation.ui.main.home.main.view.HomeBeerRecommendType
 import com.hjiee.presentation.ui.main.home.main.view.HomeStringProvider
+import com.hjiee.presentation.ui.main.home.main.view.HomeViewType
 import com.hjiee.presentation.util.ext.EventFlow
 import com.hjiee.presentation.util.ext.GlobalEvent
 import com.hjiee.presentation.util.ext.safeAsync
 import com.hjiee.presentation.util.sort.SortType
-import com.hjiee.core.event.entity.ActionEntity
-import com.hjiee.core.event.entity.ItemClickEntity
-import com.hjiee.core.util.log.L
-import com.hjiee.domain.entity.DomainEntity.Beer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
@@ -122,42 +123,6 @@ class HomeViewModel @Inject constructor(
         recommendBeer?.run {
             if (beers.isNotEmpty()) {
                 beerItems.add(this)
-            }
-        }
-    }
-
-    fun loadSelectedAromaWithBeer() {
-        viewModelScope.launch {
-            val index = beerItems.indexOf(aromaBeer)
-            fetchAroma().let {
-                runCatching {
-                    beerItems.removeAt(index)
-                    it?.let { item ->
-                        beerItems.add(index, item)
-                    }
-                    notifyActionEvent(HomeActionEntity.UpdateList(beerItems))
-                }.onFailure {
-                    notifyActionEvent(entity = HomeActionEntity.UpdateList(emptyList()))
-                    L.e(it)
-                }
-            }
-        }
-    }
-
-    fun loadSelectedStyleWithBeer() {
-        viewModelScope.launch {
-            val index = beerItems.indexOf(styleBeer)
-            fetchStyle().let {
-                runCatching {
-                    beerItems.removeAt(index)
-                    it?.let { item ->
-                        beerItems.add(index, item)
-                    }
-                    notifyActionEvent(entity = HomeActionEntity.UpdateList(beerItems))
-                }.onFailure {
-                    notifyActionEvent(entity = HomeActionEntity.UpdateList(emptyList()))
-                    L.e(it)
-                }
             }
         }
     }

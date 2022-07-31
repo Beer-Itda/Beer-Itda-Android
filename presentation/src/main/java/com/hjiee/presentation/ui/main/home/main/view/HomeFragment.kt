@@ -4,10 +4,15 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.hjiee.core.event.entity.ActionEntity
+import com.hjiee.core.event.entity.ItemClickEntity
+import com.hjiee.core.observer.observeChangeSelectedConfiguration
+import com.hjiee.core.observer.observeChangedFavoriteState
+import com.hjiee.core.util.log.L
 import com.hjiee.presentation.R
-import com.hjiee.presentation.databinding.FragmentHomeBinding
 import com.hjiee.presentation.base.BaseFragment
 import com.hjiee.presentation.commom.entity.BeerClickEntity
+import com.hjiee.presentation.databinding.FragmentHomeBinding
 import com.hjiee.presentation.ui.common.sort.view.SortDialog
 import com.hjiee.presentation.ui.detail.view.BeerDetailActivity
 import com.hjiee.presentation.ui.filter.aroma.view.AromaActivity
@@ -18,14 +23,7 @@ import com.hjiee.presentation.ui.main.home.more.view.MoreListActivity
 import com.hjiee.presentation.util.ext.observeHandledEvent
 import com.hjiee.presentation.util.ext.start
 import com.hjiee.presentation.util.listener.EndlessRecyclerViewScrollListener
-import com.hjiee.core.event.entity.ActionEntity
-import com.hjiee.core.event.entity.ItemClickEntity
-import com.hjiee.core.observer.observeChangeTheSelectedAroma
-import com.hjiee.core.observer.observeChangeTheSelectedStyle
-import com.hjiee.core.observer.observeChangedFavoriteState
-import com.hjiee.core.util.log.L
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
@@ -54,14 +52,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         observeHandledEvent(homeViewModel.event.action) {
             handleActionEvent(it)
         }
-        observeChangeTheSelectedAroma {
-            homeViewModel.loadSelectedAromaWithBeer()
-        }
-        observeChangeTheSelectedStyle {
-            homeViewModel.loadSelectedStyleWithBeer()
+        observeChangeSelectedConfiguration {
+            homeViewModel.refresh()
         }
         observeChangedFavoriteState {
-            homeViewModel.load()
+            homeViewModel.refresh()
         }
     }
 

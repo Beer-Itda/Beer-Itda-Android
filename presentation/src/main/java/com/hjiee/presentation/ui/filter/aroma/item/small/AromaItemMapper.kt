@@ -12,7 +12,7 @@ object AromaItemMapper {
     ): List<AromaItemViewModel> {
         val list = mutableListOf<AromaItemViewModel>()
 
-        list.add(getAllSelectItem(this?.all { it.isSelected }.orFalse(), eventNotifier))
+//        list.add(getAllSelectItem(this?.all { it.isSelected }.orFalse(), eventNotifier))
         list.addAll(getItems(this.orEmpty(), eventNotifier))
 
         return list

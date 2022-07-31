@@ -213,7 +213,7 @@ class StyleViewModel @Inject constructor(
             runCatching {
                 selectUseCase.execute(selectedCategoryIds)
             }.onSuccess {
-                DataChangeManager.changed(Change.STYLE)
+                DataChangeManager.changed(Change.RECOMMEND_CONFIGURATION)
                 notifySelectEvent(StyleClickEntity.SelectDone)
             }.onFailure {
                 throwMessage(stringProvider.getErrorMessage())

@@ -1,13 +1,6 @@
 package com.hjiee.presentation.ui.filter.aroma.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import com.hjiee.presentation.base.BaseViewModel
-import com.hjiee.presentation.ui.common.filter.FilterStringProvider
-import com.hjiee.presentation.ui.filter.aroma.entity.AromaActionEntity
-import com.hjiee.presentation.ui.filter.aroma.entity.AromaClickEntity
-import com.hjiee.presentation.ui.filter.aroma.item.small.AromaItemMapper
-import com.hjiee.presentation.ui.filter.aroma.item.small.AromaItemMapper.getItem
-import com.hjiee.presentation.ui.filter.aroma.item.small.AromaItemViewModel
 import com.hjiee.core.event.entity.ItemClickEntity
 import com.hjiee.core.ext.orFalse
 import com.hjiee.core.manager.Change
@@ -15,6 +8,13 @@ import com.hjiee.core.manager.DataChangeManager
 import com.hjiee.core.util.log.L
 import com.hjiee.domain.usecase.filter.aroma.GetAromaUseCase
 import com.hjiee.domain.usecase.filter.aroma.PostAromaUseCase
+import com.hjiee.presentation.base.BaseViewModel
+import com.hjiee.presentation.ui.common.filter.FilterStringProvider
+import com.hjiee.presentation.ui.filter.aroma.entity.AromaActionEntity
+import com.hjiee.presentation.ui.filter.aroma.entity.AromaClickEntity
+import com.hjiee.presentation.ui.filter.aroma.item.small.AromaItemMapper
+import com.hjiee.presentation.ui.filter.aroma.item.small.AromaItemMapper.getItem
+import com.hjiee.presentation.ui.filter.aroma.item.small.AromaItemViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,15 +27,15 @@ class AromaViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     companion object {
-        const val MAX_AROMA_COUNT = 5
+        const val MAX_AROMA_COUNT = 1
     }
 
     val viewState = AromaViewState()
     private val selectedList = mutableListOf<AromaItemViewModel>()
     private val selectedIdList
-        get() = AromaItemMapper.getSelectedAromaString(items, selectedList)
+        get() = AromaItemMapper.getSelectedAromaString(aromaList, selectedList)
 
-    private val items = mutableListOf<AromaItemViewModel>()
+    private val aromaList = mutableListOf<AromaItemViewModel>()
 
     fun load() {
         statusLoading()
@@ -43,10 +43,10 @@ class AromaViewModel @Inject constructor(
             runCatching {
                 aromaUseCase.execute().getItem(eventNotifier = this@AromaViewModel)
             }.onSuccess {
-                items.clear()
-                items.addAll(it)
+                aromaList.clear()
+                aromaList.addAll(it)
                 initSelectedAroma()
-                notifyActionEvent(AromaActionEntity.UpdateList(items))
+                notifyActionEvent(AromaActionEntity.UpdateList(aromaList))
                 statusSuccess()
             }.onFailure {
                 statusFailure()
@@ -97,9 +97,9 @@ class AromaViewModel @Inject constructor(
      * 선택된 아이템 제거와 아이템 선택상태 변경
      */
     private fun resetCurrentSelectedItem() {
-        if (items[0].isSelected.get()) {
-            selectedList.removeAll(items)
-            items.forEachIndexed { index, aroma ->
+        if (aromaList[0].isSelected.get()) {
+            selectedList.removeAll(aromaList)
+            aromaList.forEachIndexed { index, aroma ->
                 aroma.isSelected.set(false)
             }
         }
@@ -109,7 +109,7 @@ class AromaViewModel @Inject constructor(
      * 선택된 아이템이 max값일때 현재 아이템에 전체선택 or 아이템선택 여부에 따라 상태 변경
      */
     private fun oneOfTheFullSmallSelections(item: AromaItemViewModel) {
-        if (items.firstOrNull()?.isSelected?.get().orFalse()) {
+        if (aromaList.firstOrNull()?.isSelected?.get().orFalse()) {
             addSelectedItem(item)
         } else if (item.isAll && isContainsSelectedItem(item).not()) {
             addSelectedItem(item)
@@ -139,7 +139,7 @@ class AromaViewModel @Inject constructor(
      */
     private fun setSelectedStatusChange(item: AromaItemViewModel, isSelected: Boolean) {
         if (item.isAll) {
-            items.forEachIndexed { index, aroam ->
+            aromaList.forEachIndexed { index, aroam ->
                 if (index != 0) {
                     removeSelectedItem(aroam)
                 }
@@ -169,7 +169,7 @@ class AromaViewModel @Inject constructor(
             runCatching {
                 selectUseCase.execute(selectedIdList)
             }.onSuccess {
-                DataChangeManager.changed(Change.AROMA)
+                DataChangeManager.changed(Change.RECOMMEND_CONFIGURATION)
                 notifySelectEvent(AromaClickEntity.SelectDone)
             }.onFailure {
                 throwMessage(stringProvider.getErrorMessage())
@@ -185,10 +185,10 @@ class AromaViewModel @Inject constructor(
 
     private fun initSelectedAroma() {
         selectedList.clear()
-        if (items.all { it.isSelected.get() }) {
-            selectedList.add(items.first())
+        if (aromaList.all { it.isSelected.get() }) {
+            selectedList.add(aromaList.first())
         } else {
-            items.filter { it.isSelected.get() }.map {
+            aromaList.filter { it.isSelected.get() }.map {
                 selectedList.add(it)
             }
         }
@@ -199,7 +199,7 @@ class AromaViewModel @Inject constructor(
     private fun setMaxSelectedCount() {
         viewState.setIsMaxSelected(
             isEmpty = selectedList.isEmpty(),
-            size = if (items[0].isSelected.get()) MAX_AROMA_COUNT else selectedList.size,
+            size = if (aromaList[0].isSelected.get()) MAX_AROMA_COUNT else selectedList.size,
             maxCount = MAX_AROMA_COUNT,
         )
     }
