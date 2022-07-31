@@ -10,27 +10,7 @@ object AromaItemMapper {
     fun List<DomainEntity.Aroma>?.getItem(
         eventNotifier: SelectActionEventNotifier
     ): List<AromaItemViewModel> {
-        val list = mutableListOf<AromaItemViewModel>()
-
-//        list.add(getAllSelectItem(this?.all { it.isSelected }.orFalse(), eventNotifier))
-        list.addAll(getItems(this.orEmpty(), eventNotifier))
-
-        return list
-    }
-
-    private fun getAllSelectItem(
-        isSelectedAll: Boolean,
-        eventNotifier: SelectActionEventNotifier
-    ): AromaItemViewModel {
-        return AromaItemViewModel(
-            id = -1,
-            name = "전체선택",
-            isAll = true,
-            position = 0,
-            eventNotifier = eventNotifier
-        ).apply {
-            isSelected.set(isSelectedAll)
-        }
+        return getItems(this.orEmpty(), eventNotifier)
     }
 
     private fun getItems(
@@ -41,7 +21,7 @@ object AromaItemMapper {
             AromaItemViewModel(
                 id = item.id,
                 name = item.name,
-                isAll = false,
+                isAll = index == 0,
                 position = index + 1,
                 eventNotifier = eventNotifier
             ).apply {
