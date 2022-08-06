@@ -1,6 +1,13 @@
 package com.hjiee.presentation.ui.filter.style.viewmodel
 
 import androidx.lifecycle.viewModelScope
+import com.hjiee.core.event.entity.ItemClickEntity
+import com.hjiee.core.ext.orFalse
+import com.hjiee.core.manager.Change
+import com.hjiee.core.manager.DataChangeManager
+import com.hjiee.core.util.log.L
+import com.hjiee.domain.usecase.filter.style.GetStyleUseCase
+import com.hjiee.domain.usecase.filter.style.PostStyleUseCase
 import com.hjiee.presentation.base.BaseViewModel
 import com.hjiee.presentation.ui.common.filter.FilterStringProvider
 import com.hjiee.presentation.ui.filter.style.entity.StyleActionEntity
@@ -8,15 +15,9 @@ import com.hjiee.presentation.ui.filter.style.entity.StyleClickEntity
 import com.hjiee.presentation.ui.filter.style.item.large.StyleLargeItemMapper.getLarge
 import com.hjiee.presentation.ui.filter.style.item.large.StyleLargeItemViewModel
 import com.hjiee.presentation.ui.filter.style.item.middle.StyleMiddleItemViewModel
-import com.hjiee.presentation.ui.filter.style.item.small.StyleSmallItemMapper
+import com.hjiee.presentation.ui.filter.style.item.small.StyleSmallItemMapper.idList
 import com.hjiee.presentation.ui.filter.style.item.small.StyleSmallItemViewModel
 import com.hjiee.presentation.ui.filter.style.view.StyleViewState
-import com.hjiee.core.event.entity.ItemClickEntity
-import com.hjiee.core.manager.Change
-import com.hjiee.core.manager.DataChangeManager
-import com.hjiee.core.util.log.L
-import com.hjiee.domain.usecase.filter.style.GetStyleUseCase
-import com.hjiee.domain.usecase.filter.style.PostStyleUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -35,8 +36,9 @@ class StyleViewModel @Inject constructor(
     val viewState = StyleViewState()
 
     private val allCategories = mutableListOf<StyleLargeItemViewModel>()
-    private val selectedCategory = mutableListOf<StyleSmallItemViewModel>()
-    private val selectedCategoryIds get() = StyleSmallItemMapper.getSelectedStyleString(allCategories, selectedCategory)
+    private val selectedChildCategory = mutableListOf<StyleSmallItemViewModel>()
+    private val selectedParentCategory = mutableListOf<StyleSmallItemViewModel>()
+    private val selectedCategoryIds get() = selectedParentCategory.idList()
     private val currentMiddleCategory = mutableListOf<StyleMiddleItemViewModel>()
     private val currentSmallCategory = mutableListOf<StyleSmallItemViewModel>()
 
@@ -52,6 +54,7 @@ class StyleViewModel @Inject constructor(
 
                 allCategories.addAll(large)
                 currentMiddleCategory.addAll(middle)
+                selectMiddleCategory(0)
                 initSelectedStyle()
                 notifyActionEvent(StyleActionEntity.UpdateLarge(large))
                 notifyActionEvent(StyleActionEntity.UpdateMiddle(middle))
@@ -89,7 +92,7 @@ class StyleViewModel @Inject constructor(
             is StyleClickEntity.AddStyle -> {
                 when {
                     //
-                    viewState.isMaxSelected.get().not() &&
+                    viewState.isMaxParentCount.get().not() &&
                             isContainsSelectedItem(entity.style).not() -> {
                         addSelectedStyle(entity.style)
                     }
@@ -99,8 +102,9 @@ class StyleViewModel @Inject constructor(
                         removeSelectedStyle(entity.style)
                     }
 
+
                     //
-                    viewState.isMaxSelected.get() -> {
+                    viewState.isMaxParentCount.get() -> {
                         oneOfTheFullSmallSelections(entity.style)
                     }
                     else -> {
@@ -120,9 +124,16 @@ class StyleViewModel @Inject constructor(
      */
     private fun addSelectedStyle(item: StyleSmallItemViewModel) {
         resetCurrentSelectedStyle()
-        selectedCategory.add(0, item)
+
+        if (item.isAll) {
+            selectedParentCategory.removeAll(currentSmallCategory)
+            selectedChildCategory.addAll(currentSmallCategory)
+        } else {
+            selectedChildCategory.add(item)
+        }
+        selectedParentCategory.add(0, item)
         setSelectedStatusChange(item, true)
-        notifyActionEvent(StyleActionEntity.UpdateSelectedStyleList(selectedCategory))
+        notifyActionEvent(StyleActionEntity.UpdateSelectedStyleList(selectedParentCategory))
         setMaxSelectedCount()
     }
 
@@ -130,9 +141,12 @@ class StyleViewModel @Inject constructor(
      * 선택된 스타일 삭제
      */
     private fun removeSelectedStyle(item: StyleSmallItemViewModel) {
-        selectedCategory.remove(item)
+        selectedParentCategory.remove(item)
+        if (item.isAll) {
+            selectedChildCategory.removeAll(currentSmallCategory)
+        }
         setSelectedStatusChange(item, false)
-        notifyActionEvent(StyleActionEntity.UpdateSelectedStyleList(selectedCategory))
+        notifyActionEvent(StyleActionEntity.UpdateSelectedStyleList(selectedParentCategory))
         setMaxSelectedCount()
     }
 
@@ -140,15 +154,16 @@ class StyleViewModel @Inject constructor(
      * 선택된 스타일 모두 삭제
      */
     private fun removeAllCurrentStyleList() {
-        selectedCategory.removeAll(currentSmallCategory)
-        notifyActionEvent(StyleActionEntity.UpdateSelectedStyleList(selectedCategory))
+        selectedParentCategory.removeAll(currentSmallCategory)
+        selectedChildCategory.removeAll(currentSmallCategory)
+        notifyActionEvent(StyleActionEntity.UpdateSelectedStyleList(selectedParentCategory))
     }
 
     /**
      * 선택된 스타일 제거와 소분류에 선택상태 변경
      */
     private fun resetCurrentSelectedStyle() {
-        if (currentSmallCategory[0].isSelected.get()) {
+        if (currentSmallCategory.getOrNull(0)?.isSelected?.get().orFalse()) {
             removeAllCurrentStyleList()
             currentSmallCategory.forEachIndexed { index, style ->
                 style.isSelected.set(false)
@@ -160,9 +175,13 @@ class StyleViewModel @Inject constructor(
      * 선택된 스타일이 max값일때 현재 소분류 스타일에 전체선택 or 아이템선택 여부에 따라 상태 변경
      */
     private fun oneOfTheFullSmallSelections(item: StyleSmallItemViewModel) {
-        if (currentSmallCategory[0].isSelected.get()) {
+        if (selectedChildCategory.contains(item)
+            && selectedParentCategory.any { it.parentId == item.parentId }
+        ) {
             addSelectedStyle(item)
-        } else if (item.isAll && isContainsSelectedItem(item).not()) {
+        } else if (item.isAll && isContainsSelectedItem(item).not()
+            && selectedChildCategory.any { it.parentId == item.parentId }
+        ) {
             addSelectedStyle(item)
         } else {
             notifyActionEvent(
@@ -184,9 +203,9 @@ class StyleViewModel @Inject constructor(
                 .middleCategories[item.middlePosition]
                 .smallCategories
                 .forEachIndexed { index, small ->
-                    if (index != 0) {
-                        removeSelectedStyle(small)
-                    }
+//                    if (index != 0) {
+//                        removeSelectedStyle(small)
+//                    }
                     small.isSelected.set(isSelected)
                 }
         } else {
@@ -200,12 +219,7 @@ class StyleViewModel @Inject constructor(
     private fun isContainsSelectedItem(
         item: StyleSmallItemViewModel
     ): Boolean {
-        return selectedCategory.find {
-            it == item
-        }.let {
-            it != null
-        }
-
+        return selectedParentCategory.contains(item)
     }
 
     fun clickDone() {
@@ -227,15 +241,17 @@ class StyleViewModel @Inject constructor(
     }
 
     private fun initSelectedStyle() {
-        selectedCategory.clear()
+        selectedParentCategory.clear()
         allCategories.map { large ->
             large.middleCategories.map { middle ->
                 if (middle.smallCategories.all { it.isSelected.get() }) {
-                    selectedCategory.add(middle.smallCategories.first())
+                    currentSmallCategory.clear()
+                    currentSmallCategory.addAll(middle.smallCategories)
+                    addSelectedStyle(middle.smallCategories.first())
                 } else {
                     middle.smallCategories.map { small ->
                         if (small.isSelected.get()) {
-                            selectedCategory.add(small)
+                            addSelectedStyle(small)
                         }
                     }
                 }
@@ -243,15 +259,13 @@ class StyleViewModel @Inject constructor(
             }
         }
         setMaxSelectedCount()
-        notifyActionEvent(StyleActionEntity.UpdateSelectedStyleList(selectedCategory))
+        notifyActionEvent(StyleActionEntity.UpdateSelectedStyleList(selectedParentCategory))
     }
 
 
     private fun setMaxSelectedCount() {
-        viewState.setIsMaxSelected(
-            isEmpty = selectedCategory.isEmpty(),
-            size = selectedCategory.size,
-            maxCount = MAX_STYLE_COUNT,
-        )
+        viewState.isMaxParentCount.set(selectedParentCategory.size >= MAX_STYLE_COUNT)
+        viewState.isMaxChildCount.set(selectedChildCategory.size >= MAX_STYLE_COUNT)
+        viewState.isSelectedEmpty.set(selectedParentCategory.isEmpty())
     }
 }

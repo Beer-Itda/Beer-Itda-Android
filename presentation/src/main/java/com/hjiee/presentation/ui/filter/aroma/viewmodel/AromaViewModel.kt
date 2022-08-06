@@ -12,8 +12,8 @@ import com.hjiee.presentation.base.BaseViewModel
 import com.hjiee.presentation.ui.common.filter.FilterStringProvider
 import com.hjiee.presentation.ui.filter.aroma.entity.AromaActionEntity
 import com.hjiee.presentation.ui.filter.aroma.entity.AromaClickEntity
-import com.hjiee.presentation.ui.filter.aroma.item.small.AromaItemMapper
 import com.hjiee.presentation.ui.filter.aroma.item.small.AromaItemMapper.getItem
+import com.hjiee.presentation.ui.filter.aroma.item.small.AromaItemMapper.idList
 import com.hjiee.presentation.ui.filter.aroma.item.small.AromaItemViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -33,7 +33,7 @@ class AromaViewModel @Inject constructor(
     val viewState = AromaViewState()
     private val selectedList = mutableListOf<AromaItemViewModel>()
     private val selectedIdList
-        get() = AromaItemMapper.getSelectedAromaString(aromaList, selectedList)
+        get() = selectedList.idList()
 
     private val aromaList = mutableListOf<AromaItemViewModel>()
 

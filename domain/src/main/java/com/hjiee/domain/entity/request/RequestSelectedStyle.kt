@@ -4,6 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 class RequestSelectedStyle(
     @SerializedName("style_ids")
-    val styleIds: String
+    val styleIds: IntArray
 ) {
 }

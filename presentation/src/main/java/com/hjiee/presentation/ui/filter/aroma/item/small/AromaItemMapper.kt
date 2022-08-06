@@ -1,7 +1,6 @@
 package com.hjiee.presentation.ui.filter.aroma.item.small
 
 import com.hjiee.core.event.SelectActionEventNotifier
-import com.hjiee.core.ext.orFalse
 import com.hjiee.domain.entity.DomainEntity
 import com.hjiee.domain.entity.request.RequestSelectedAroma
 
@@ -30,32 +29,9 @@ object AromaItemMapper {
         }
     }
 
-    /**
-     * 선택된 향 데이터를 String으로 변환
-     */
-    fun getSelectedAromaString(
-        allItems: List<AromaItemViewModel>,
-        selectedItems: List<AromaItemViewModel>
-    ): RequestSelectedAroma {
-        return if (selectedItems.firstOrNull()?.id == -1) {
-            // 전체 선택
-            RequestSelectedAroma(
-                allItems.filter { it.id != -1 }
-                    .map { it.id }
-                    .sorted()
-                    .toString()
-                    .removePrefix("[")
-                    .removeSuffix("]")
-            )
-        } else {
-            // 향 일부 선택
-            RequestSelectedAroma(
-                selectedItems.map { it.id }
-                    .sorted()
-                    .toString()
-                    .removePrefix("[")
-                    .removeSuffix("]")
-            )
-        }
+    fun List<AromaItemViewModel>.idList() : RequestSelectedAroma {
+        return RequestSelectedAroma(
+            aromaIds = map { it.id }.toIntArray()
+        )
     }
 }

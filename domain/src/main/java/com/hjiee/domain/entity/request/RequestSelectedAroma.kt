@@ -4,6 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 class RequestSelectedAroma(
     @SerializedName("aroma_ids")
-    val aromaIds: String
+    val aromaIds: IntArray
 ) {
 }
