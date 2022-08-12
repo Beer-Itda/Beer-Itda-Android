@@ -7,6 +7,7 @@ import com.hjiee.domain.entity.request.RequestSelectedAroma
 import com.hjiee.domain.entity.request.RequestSelectedStyle
 import com.hjiee.domain.repository.ApiServiceConstants.DEFAULT_FIRST_PAGE
 import com.hjiee.domain.repository.ApiServiceConstants.DEFAULT_PAGE_SIZE
+import retrofit2.Response
 import retrofit2.http.*
 
 interface BeerApi {
@@ -19,6 +20,10 @@ interface BeerApi {
     suspend fun kakaoLogin(
         @Field("kakao_token") token: String
     ): LoginResponse?
+
+
+    @POST("api/v1/user/withdraw")
+    suspend fun accountWithdraw(): Response<Unit>
 
     /**
      * refresh token 갱신

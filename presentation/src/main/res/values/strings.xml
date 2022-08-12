@@ -116,7 +116,7 @@
     <string name="delete_warning_description">회원탈퇴 시 현재 회원님의 계정에 저장된 모든 정보는 여구적으로 삭제되며, 다시는 복구할 수 없습니다.</string>
     <string name="delete_warning_description_agree">위 내용을 숙지하였으며, 동의합니다.</string>
     <string name="user_delete_success">회원탈퇴 되었습니다.</string>
-    <string name="delete_fail">회원탈퇴에 실패하였습니다. 잠시후 다시 시도해 주세요</string>
+    <string name="delete_fail">회원탈퇴에 실패하였습니다.\n잠시후 다시 시도해 주세요</string>
     <string name="force_update_title">필수 업데이트</string>
     <string name="force_update">새로운 버전이 있습니다.\n업데이트 후 이용해 주세요.</string>
     <string name="recommend_update_title">권장 업데이트</string>

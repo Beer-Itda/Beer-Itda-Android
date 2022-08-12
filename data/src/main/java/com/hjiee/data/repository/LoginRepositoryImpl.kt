@@ -38,60 +38,17 @@ class LoginRepositoryImpl(
     }
 
     override suspend fun deleteAccount(isSuccess: (Boolean) -> Unit) {
-        UserApiClient.instance.unlink { error ->
-            if (error != null) {
-                isSuccess.invoke(false)
-            } else {
-                isSuccess.invoke(true)
+        val result = beerApi.accountWithdraw()
+        if (result.isSuccessful) {
+            UserApiClient.instance.unlink { error ->
+                if (error != null) {
+                    isSuccess(false)
+                } else {
+                    isSuccess(true)
+                }
             }
+        } else {
+            isSuccess(false)
         }
     }
-
-    //
-//    override fun login(userInfo: (User?, Throwable?) -> Unit) {
-//        UserApiClient.instance.me { user, error ->
-//            if (error != null) {
-//                userInfo.invoke(null, error)
-//            } else if (user != null) {
-//                userInfo.invoke(user, null)
-//            }
-//        }
-//    }
-//
-//
-//    override fun logout(isSuccess: (Boolean) -> Unit) {
-//        UserApiClient.instance.logout { error ->
-//            if (error != null) {
-//                isSuccess.invoke(false)
-//            } else {
-//                isSuccess.invoke(true)
-//            }
-//        }
-//    }
-//
-//    override fun unlink(isSuccess: (Boolean) -> Unit) {
-//        UserApiClient.instance.unlink { error ->
-//            if (error != null) {
-//                isSuccess.invoke(false)
-//            } else {
-//                isSuccess.invoke(true)
-//            }
-//        }
-//    }
-//
-//    override fun me(userInfo: (User?) -> Unit) {
-//        UserApiClient.instance.me { user, error ->
-//            userInfo.invoke(user)
-//        }
-//
-//    }
-//
-//    override suspend fun accessToken(
-//        code: String?,
-//        accessToken: ((TokenResponse?) -> Unit)?
-//    ): TokenResponse {
-//        val token = kakaoAuthApi.accessToken(code = code)
-//        accessToken?.invoke(token)
-//        return token
-//    }
 }
