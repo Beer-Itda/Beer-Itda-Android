@@ -21,7 +21,9 @@ class AuthenticationInterceptor @Inject constructor(
                 request().newBuilder().apply {
                     addHeader(InterceptorModule.EXTRA_HEADER_NAME_PLATFORM, Consts.PLATFORM)
                     addHeader(InterceptorModule.EXTRA_HEADER_NAME_APP_VERSION, versionManager.version)
-                    addHeader(InterceptorModule.EXTRA_HEADER_NAME_AUTHORIZATION, "${InterceptorModule.EXTRA_HEADER_NAME_BEARER} $accessToken")
+                    if(accessToken.isNullOrEmpty().not()) {
+                        addHeader(InterceptorModule.EXTRA_HEADER_NAME_AUTHORIZATION, "${InterceptorModule.EXTRA_HEADER_NAME_BEARER} $accessToken")
+                    }
                 }.build()
             )
         }

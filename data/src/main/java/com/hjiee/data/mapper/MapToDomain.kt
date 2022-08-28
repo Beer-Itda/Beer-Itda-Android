@@ -181,10 +181,11 @@ fun List<BeerResponse>?.toBeer(): List<DomainEntity.Beer> {
     }.orEmpty()
 }
 
-fun LoginResponse?.toTokenInfo(): DomainEntity.TokenInfo {
-    return DomainEntity.TokenInfo(
+fun LoginResponse?.toTokenInfo(): DomainEntity.LoginInfo {
+    return DomainEntity.LoginInfo(
         accessToken = this?.accessToken.orEmpty(),
-        refreshToken = this?.refreshToken.orEmpty()
+        refreshToken = this?.refreshToken.orEmpty(),
+        isFirstSignupUser = this?.isFirstSignupUser.orFalse()
     )
 }
 

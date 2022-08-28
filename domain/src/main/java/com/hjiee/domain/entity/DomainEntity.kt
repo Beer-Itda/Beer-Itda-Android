@@ -5,9 +5,10 @@ import java.util.*
 
 
 sealed class DomainEntity {
-    data class TokenInfo(
+    data class LoginInfo(
         val accessToken: String,
-        val refreshToken: String
+        val refreshToken: String,
+        val isFirstSignupUser: Boolean
     )
 
     data class Response<ELEMENT>(

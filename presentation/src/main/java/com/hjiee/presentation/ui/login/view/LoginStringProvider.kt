@@ -3,9 +3,9 @@ package com.hjiee.presentation.ui.login.view
 import android.content.Context
 import androidx.core.text.HtmlCompat
 import androidx.core.text.buildSpannedString
-import com.hjiee.presentation.R
 import com.hjiee.core.provider.IStringResourceProvider
 import com.hjiee.core.provider.SharedPreferenceProvider
+import com.hjiee.presentation.R
 import javax.inject.Inject
 
 class LoginStringProvider @Inject constructor(
@@ -26,6 +26,10 @@ class LoginStringProvider @Inject constructor(
                 )
             )
         }
+    }
+
+    fun loginFail(): String {
+        return getStringRes(R.string.fail_login)
     }
 
     override fun getStringRes(resId: Int): String {

@@ -7,7 +7,7 @@ import javax.inject.Inject
 class RefreshTokenUseCase @Inject constructor(
     private val repository: LoginRepository
 ) {
-    suspend fun execute(refreshToken: String): DomainEntity.TokenInfo {
+    suspend fun execute(refreshToken: String): DomainEntity.LoginInfo {
         return repository.refreshToken(refreshToken)
     }
 }

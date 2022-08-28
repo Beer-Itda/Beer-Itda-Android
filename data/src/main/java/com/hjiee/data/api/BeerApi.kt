@@ -1,14 +1,29 @@
 package com.hjiee.data.api
 
-import com.hjiee.data.response.common.NetworkResponse
 import com.hjiee.data.response.common.PageResponse
-import com.hjiee.data.response.v2.*
+import com.hjiee.data.response.v2.AromaListResponse
+import com.hjiee.data.response.v2.BeerDetailResponse
+import com.hjiee.data.response.v2.BeerResponse
+import com.hjiee.data.response.v2.LevelGuideResponse
+import com.hjiee.data.response.v2.LoginResponse
+import com.hjiee.data.response.v2.MyReviewItemResponse
+import com.hjiee.data.response.v2.ReviewResponse
+import com.hjiee.data.response.v2.StyleListResponse
+import com.hjiee.data.response.v2.UserResponse
 import com.hjiee.domain.entity.request.RequestSelectedAroma
 import com.hjiee.domain.entity.request.RequestSelectedStyle
 import com.hjiee.domain.repository.ApiServiceConstants.DEFAULT_FIRST_PAGE
 import com.hjiee.domain.repository.ApiServiceConstants.DEFAULT_PAGE_SIZE
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
+import retrofit2.http.PATCH
+import retrofit2.http.POST
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface BeerApi {
 
@@ -22,6 +37,9 @@ interface BeerApi {
     ): LoginResponse?
 
 
+    /**
+     * 회원 탈퇴
+     */
     @POST("api/v1/user/withdraw")
     suspend fun accountWithdraw(): Response<Unit>
 

@@ -3,20 +3,20 @@ package com.hjiee.presentation.ui.splash.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.hjiee.presentation.base.BaseViewModel
-import com.hjiee.presentation.ui.login.model.LoginActionEntity
-import com.hjiee.presentation.ui.splash.model.SplashActionEntity
-import com.hjiee.presentation.ui.splash.view.SplashStringProvider
 import com.hjiee.core.manager.FirebaseConfigManager
 import com.hjiee.core.manager.UpdateRequiredStatus
 import com.hjiee.core.manager.VersionManager
 import com.hjiee.core.provider.SharedPreferenceProvider
 import com.hjiee.domain.usecase.login.GetTokenUseCase
 import com.hjiee.domain.usecase.login.LoginUseCase
+import com.hjiee.presentation.base.BaseViewModel
+import com.hjiee.presentation.ui.login.model.LoginActionEntity
+import com.hjiee.presentation.ui.splash.model.SplashActionEntity
+import com.hjiee.presentation.ui.splash.view.SplashStringProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
@@ -76,7 +76,11 @@ class SplashViewModel @Inject constructor(
                     runCatching {
                         loginUseCase.execute(accessToken)
                     }.onSuccess {
-                        notifyActionEvent(LoginActionEntity.SuccessLogin)
+                        if (it.accessToken.isNotEmpty()) {
+                            notifyActionEvent(LoginActionEntity.SuccessLogin)
+                        } else {
+                            notifyActionEvent(LoginActionEntity.FailLogin)
+                        }
                     }.onFailure {
                         notifyActionEvent(LoginActionEntity.FailLogin)
                     }

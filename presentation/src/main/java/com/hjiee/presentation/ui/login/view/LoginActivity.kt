@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import com.hjiee.core.Consts
 import com.hjiee.presentation.R
 import com.hjiee.presentation.databinding.ActivityLoginBinding
 import com.hjiee.presentation.base.BaseActivity

@@ -1,6 +1,6 @@
 package com.hjiee.domain.repository
 
-import com.hjiee.domain.entity.DomainEntity.TokenInfo
+import com.hjiee.domain.entity.DomainEntity.LoginInfo
 
 interface LoginRepository {
     /**
@@ -11,7 +11,7 @@ interface LoginRepository {
     /**
      * 로그인
      */
-    suspend fun login(accessToken: String): TokenInfo
+    suspend fun login(accessToken: String): LoginInfo
 
     /**
      * 로그아웃
@@ -21,7 +21,7 @@ interface LoginRepository {
     /**
      * refresh
      */
-    suspend fun refreshToken(refreshToken: String): TokenInfo
+    suspend fun refreshToken(refreshToken: String): LoginInfo
 
     /**
      * 회원 탈퇴

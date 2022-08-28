@@ -3,7 +3,7 @@ package com.hjiee.data.repository
 import com.hjiee.data.api.BeerApi
 import com.hjiee.data.api.KakaoApi
 import com.hjiee.data.mapper.toTokenInfo
-import com.hjiee.domain.entity.DomainEntity.TokenInfo
+import com.hjiee.domain.entity.DomainEntity.LoginInfo
 import com.hjiee.domain.repository.LoginRepository
 import com.kakao.sdk.auth.TokenManagerProvider
 import com.kakao.sdk.user.UserApiClient
@@ -13,7 +13,7 @@ class LoginRepositoryImpl(
     private val beerApi: BeerApi
 ) : LoginRepository {
 
-    override suspend fun login(token: String): TokenInfo {
+    override suspend fun login(token: String): LoginInfo {
         return beerApi.kakaoLogin(token = token).toTokenInfo()
     }
 
@@ -23,7 +23,7 @@ class LoginRepositoryImpl(
         }
     }
 
-    override suspend fun refreshToken(refreshToken: String): TokenInfo {
+    override suspend fun refreshToken(refreshToken: String): LoginInfo {
         return beerApi.refreshToken(refreshToken).toTokenInfo()
     }
 

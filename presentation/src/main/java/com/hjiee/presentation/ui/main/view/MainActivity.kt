@@ -6,10 +6,14 @@ import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.hjiee.core.Consts
+import com.hjiee.core.ext.orFalse
 import com.hjiee.presentation.R
 import com.hjiee.presentation.base.BaseActivity
 import com.hjiee.presentation.databinding.ActivityMainBinding
+import com.hjiee.presentation.ui.filter.aroma.view.AromaActivity
 import com.hjiee.presentation.ui.main.KeepStateNavigator
+import com.hjiee.presentation.util.ext.start
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,6 +25,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        showRecentlyVisitTime()
+        processStyleChoice()
         initBottomNavigationController()
         initBottomNavigationListener()
     }
@@ -43,6 +48,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
         }
     }
+
+    private fun processStyleChoice() {
+        val isFirstSignupUser =
+            preference.getPreferenceBoolean(Consts.IS_FIRST_SIGNUP_USER).orFalse()
+        if (isFirstSignupUser) {
+            start<AromaActivity>()
+        }
+    }
+
 
     /**
      * bottom navigation에 따라 status bar color를 변경한다.
