@@ -61,6 +61,9 @@ object Libs {
 
 object TestLibs {
     const val JUNIT = "junit:junit:4.12"
+    const val MOCKITO = "org.mockito:mockito-core:2.28.2"
+    const val TEST_CORE = "android.arch.core:core-testing:1.1.1"
+    const val COROUTINE_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.2"
     const val ANDROID_X_JUNIT = "androidx.test.ext:junit:1.1.1"
     const val ESPRESSO_CORE = "androidx.test.espresso:espresso-core:3.2.0"
 }

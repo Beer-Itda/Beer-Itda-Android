@@ -16,9 +16,9 @@ sealed class DomainEntity {
     )
 
     data class PageResult<ELEMENT>(
-        val totalCount: Int,
-        val data: List<ELEMENT>,
-        val page: Page
+        val totalCount: Int = 0,
+        val data: List<ELEMENT> = emptyList(),
+        val page: Page = Page()
     )
 
     data class Page(

@@ -124,7 +124,7 @@
             android:elevation="31dp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="@{beer.nameForEnglish}"
+            android:text="@{beer.nameForKorean}"
             android:textColor="@color/white"
             android:textSize="@dimen/textSize_20"
             android:textStyle="bold"

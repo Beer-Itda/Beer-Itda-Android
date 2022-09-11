@@ -16,8 +16,8 @@ import com.hjiee.presentation.ui.filter.aroma.item.small.AromaItemMapper.getItem
 import com.hjiee.presentation.ui.filter.aroma.item.small.AromaItemMapper.idList
 import com.hjiee.presentation.ui.filter.aroma.item.small.AromaItemViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class AromaViewModel @Inject constructor(
@@ -81,6 +81,8 @@ class AromaViewModel @Inject constructor(
             }
         }
     }
+
+    private fun isAddable(): Boolean = selectedList.size <= MAX_AROMA_COUNT
 
     /**
      * 선택된 아이템 추가

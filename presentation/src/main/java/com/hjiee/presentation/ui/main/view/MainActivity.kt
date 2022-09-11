@@ -54,6 +54,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             preference.getPreferenceBoolean(Consts.IS_FIRST_SIGNUP_USER).orFalse()
         if (isFirstSignupUser) {
             start<AromaActivity>()
+            preference.setValue(Consts.IS_FIRST_SIGNUP_USER, false)
         }
     }
 

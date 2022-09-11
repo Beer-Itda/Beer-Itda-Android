@@ -22,7 +22,7 @@ object BeerItemViewModelMapper {
                 starAvg = starAvg,
                 reviews = emptyList(),
                 thumbnailImage = thumbnailImage,
-                _isFavorite = isFavorite,
+                isFavorite = isFavorite,
                 eventNotifier = eventNotifier
             )
         }
@@ -43,31 +43,11 @@ object BeerItemViewModelMapper {
                 starAvg = it.starAvg,
                 reviews = emptyList(),
                 thumbnailImage = it.thumbnailImage,
-                _isFavorite = it.isFavorite,
+                isFavorite = it.isFavorite,
                 eventNotifier = eventNotifier
             )
         }.orEmpty()
     }
-
-//    fun Related?.getBeerItemViewModel(eventNotifier: SelectActionEventNotifier): BeerItemViewModel {
-//        return if (this == null) {
-//            getNullBeerItem(eventNotifier)
-//        } else {
-//            BeerItemViewModel(
-//                alcoholByVolume = abv.orZero(),
-//                aromas = aroma.orEmpty(),
-//                beerStyle = beerStyle.orEmpty(),
-//                brewery = brewery.orEmpty(),
-//                country = country.orEmpty(),
-//                id = id.orZero(),
-//                name = name.orEmpty(),
-//                rateAvg = rateAvg.orZero(),
-//                thumbnailImage = thumbnailImage.orEmpty(),
-//                initFavorite = false,
-//                eventNotifier = eventNotifier
-//            )
-//        }
-//    }
 
     private fun getNullBeerItem(): BeerItemViewModel =
         BeerItemViewModel(
@@ -83,7 +63,7 @@ object BeerItemViewModelMapper {
             starAvg = 0f,
             reviews = emptyList(),
             thumbnailImage = "",
-            _isFavorite = false,
+            isFavorite = false,
             eventNotifier = null
         )
 }

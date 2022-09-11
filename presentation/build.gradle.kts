@@ -106,6 +106,9 @@ dependencies {
     implementation(Libs.LOTTIE)
 
     testImplementation(TestLibs.JUNIT)
+    testImplementation(TestLibs.MOCKITO)
+    testImplementation(TestLibs.TEST_CORE)
+    testImplementation(TestLibs.COROUTINE_TEST)
     androidTestImplementation(TestLibs.ANDROID_X_JUNIT)
     androidTestImplementation(TestLibs.ESPRESSO_CORE)
 }
