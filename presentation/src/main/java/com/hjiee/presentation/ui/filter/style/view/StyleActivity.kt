@@ -98,15 +98,18 @@ class StyleActivity : BaseActivity<ActivityFilterStyleBinding>(R.layout.activity
                 }
             }
             is StyleActionEntity.UpdateMiddle -> {
+                middleCategoryListAdapter.clear()
                 middleCategoryListAdapter.addAll(entity.style, true)
                 binding.rvFilterMiddleCategory.run {
                     post { scrollToPosition(0) }
                 }
             }
             is StyleActionEntity.UpdateSmall -> {
+                smallCategoryListAdapter.clear()
                 smallCategoryListAdapter.addAll(entity.style, true)
             }
             is StyleActionEntity.UpdateSelectedStyleList -> {
+                selectedStyleAdapter.clear()
                 selectedStyleAdapter.addAll(entity.style, true)
                 binding.rvSelectedStyle.run {
                     post { scrollToPosition(0) }

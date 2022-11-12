@@ -13,10 +13,11 @@ class StyleSmallItemViewModel(
     val largePosition: Int,
     val middlePosition: Int,
     val smallPosition: Int,
+    isSelected: Boolean,
     val eventNotifier: SelectActionEventNotifier
 ) {
 
-    val isSelected = ObservableBoolean(false)
+    val isSelected = ObservableBoolean(isSelected)
 
     fun getStyleName(): String {
         return if (isAll) {

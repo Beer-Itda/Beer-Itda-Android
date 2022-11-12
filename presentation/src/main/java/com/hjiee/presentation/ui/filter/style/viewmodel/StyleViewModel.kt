@@ -19,8 +19,8 @@ import com.hjiee.presentation.ui.filter.style.item.small.StyleSmallItemMapper.id
 import com.hjiee.presentation.ui.filter.style.item.small.StyleSmallItemViewModel
 import com.hjiee.presentation.ui.filter.style.view.StyleViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class StyleViewModel @Inject constructor(
@@ -52,9 +52,13 @@ class StyleViewModel @Inject constructor(
                 val middle = large.firstOrNull()?.middleCategories.orEmpty()
                 val small = middle.firstOrNull()?.smallCategories.orEmpty()
 
+                allCategories.clear()
                 allCategories.addAll(large)
+
+                currentMiddleCategory.clear()
                 currentMiddleCategory.addAll(middle)
-                selectMiddleCategory(0)
+
+//                selectMiddleCategory(0)
                 initSelectedStyle()
                 notifyActionEvent(StyleActionEntity.UpdateLarge(large))
                 notifyActionEvent(StyleActionEntity.UpdateMiddle(middle))
@@ -75,10 +79,10 @@ class StyleViewModel @Inject constructor(
 
     fun selectMiddleCategory(position: Int) {
         currentMiddleCategory.filterIndexed { index, item ->
-            item.isSelected.set(false)
+//            item.isSelected.set(false)
             index == position
         }.map { item ->
-            item.isSelected.set(true)
+//            item.isSelected.set(true)
         }
         viewState.description.set(currentMiddleCategory[position].description)
         currentSmallCategory.clear()
@@ -203,9 +207,9 @@ class StyleViewModel @Inject constructor(
                 .middleCategories[item.middlePosition]
                 .smallCategories
                 .forEachIndexed { index, small ->
-//                    if (index != 0) {
-//                        removeSelectedStyle(small)
-//                    }
+                    if (index != 0) {
+                        removeSelectedStyle(small)
+                    }
                     small.isSelected.set(isSelected)
                 }
         } else {
@@ -242,20 +246,23 @@ class StyleViewModel @Inject constructor(
 
     private fun initSelectedStyle() {
         selectedParentCategory.clear()
-        allCategories.map { large ->
-            large.middleCategories.map { middle ->
-                if (middle.smallCategories.all { it.isSelected.get() }) {
-                    currentSmallCategory.clear()
-                    currentSmallCategory.addAll(middle.smallCategories)
-                    addSelectedStyle(middle.smallCategories.first())
-                } else {
-                    middle.smallCategories.map { small ->
-                        if (small.isSelected.get()) {
-                            addSelectedStyle(small)
-                        }
+        selectedChildCategory.clear()
+
+        allCategories.forEach { large ->
+            large.middleCategories.forEach { middle ->
+                val firstSmallCategory = middle.smallCategories.firstOrNull()
+                firstSmallCategory?.let { small ->
+                    if (small.isSelected.get().orFalse()) {
+                        selectedParentCategory.add(small)
+                        return@forEach
                     }
                 }
-
+                middle.smallCategories.forEach { small ->
+                    if (small.isSelected.get()) {
+                        selectedChildCategory.add(small)
+                        selectedParentCategory.add(small)
+                    }
+                }
             }
         }
         setMaxSelectedCount()

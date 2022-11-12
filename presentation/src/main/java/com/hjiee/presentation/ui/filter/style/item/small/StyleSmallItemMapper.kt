@@ -40,12 +40,11 @@ object StyleSmallItemMapper {
                 smallName = small.smallName,
                 largePosition = largePosition,
                 middlePosition = middlePosition,
-                smallPosition = smallPosition + 1,
+                smallPosition = smallPosition,
                 isAll = smallPosition == 0,
+                isSelected = small.isSelected,
                 eventNotifier = eventNotifier
-            ).apply {
-                isSelected.set(small.isSelected)
-            }
+            )
         }
     }
 
