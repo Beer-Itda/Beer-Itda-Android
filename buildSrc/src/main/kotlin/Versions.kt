@@ -10,7 +10,7 @@ object Versions {
     const val COORDINATOR_LAYOUT = "1.1.0"
     const val RECYCLER_VIEW = "1.1.0"
     const val MATERIAL = "1.2.0"
-    const val BILLING = "3.0.0"
+    const val BILLING = "5.0.0"
 
     const val CORE_KTX = "1.3.0"
     const val ACTIVITY_KTX = "1.1.0"
